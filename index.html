@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Winscp by dotps1</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Winscp</h1>
+        <p>WinSCP PowerShell Wrapper</p>
+
+        <p class="view"><a href="https://github.com/dotps1/WinSCP">View the Project on GitHub <small>dotps1/WinSCP</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/dotps1/WinSCP/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/dotps1/WinSCP/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/dotps1/WinSCP">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="winscp-powershell-wrapper" class="anchor" href="#winscp-powershell-wrapper"><span class="octicon octicon-link"></span></a>WinSCP PowerShell Wrapper</h1>
+
+<p>This is still a very very beta version, with limited functionality, i will be developing this extensively.  </p>
+
+<p>currently there are only two functions</p>
+
+<div class="highlight highlight-PowerShell"><pre><span class="nb">New-WinSCPSession</span>
+<span class="nb">Get-WinSCPFiles</span>
+</pre></div>
+
+<p>Example:</p>
+
+<div class="highlight highlight-PowerShell"><pre><span class="nb">New-WinSCPSession</span> <span class="n">-HostName</span> <span class="s2">"myhost.org"</span> <span class="n">-UserName</span> <span class="s2">"username"</span> <span class="n">-Password</span> <span class="s2">"123456789"</span> <span class="n">-SshHostKeyFingerprint</span> <span class="s2">"ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx"</span> <span class="p">|</span> <span class="nb">Get-WinSCPFiles</span> <span class="n">-RemoteFile</span> <span class="s2">"./MyRemoteDir/MyFile.txt"</span> <span class="n">-LocalFile</span> <span class="s2">"C:\MyLocalDir\MyFile.txt"</span>
+</pre></div>
+
+<p>I have included the WinSCPnet.dll in the <em>NeededAssemblies</em> folder.</p>
+
+<p>Check back for updates.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/dotps1">dotps1</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
