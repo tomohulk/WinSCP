@@ -4,7 +4,7 @@
 .DESCRIPTION
     Creates a new WINSCP.Session Object with specified Parameters.  Assign this Object to a Variable to easily manipulate actions later.
 .EXAMPLE
-    $session = New-WinSCPSession -HostName "myhost.org" -UserName "username" -Password "123456789" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" -Protocol Ftp
+    $session = New-WinSCPSession -HostName "myhost.org" -UserName "username" -Password "123456789" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx"
 .EXAMPLE
     $session = New-WinSCPSession -HostName "myinsecurehost.org"
 .NOTES
@@ -75,9 +75,9 @@ function New-WinSCPSession
 .DESCRIPTION
     After creating a valid WinSCP Session, this function can be used to download file(s) and remove the remote files if desired.
 .EXAMPLE
-    $session = New-WinSCPSession -HostName "myinsecurehost.org";  Get-WinSCPFiles -WinSCPSession $session -RemoteFiles "home/dir/myfile.txt"
+    $session = New-WinSCPSession -HostName "myinsecurehost.org";  Get-WinSCPFiles -WinSCPSession $session -RemoteFile "home/dir/myfile.txt" -LocalFile "C:\Dir\myfile.txt" -RemoveFromSource
 .EXAMPLE
-    New-WinSCPSession -HostName "myhost.org" -UserName "username" -Password "123456789" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Get-WinSCPFiles -RemoteFiles "home/dir/myfile.txt"
+    New-WinSCPSession -HostName "myhost.org" -UserName "username" -Password "123456789" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Get-WinSCPFiles -RemoteFile "home/dir/myfile.txt" -LocalFile "C:\Dir\myfile.txt"
 .NOTES
     if the WinSCPSession is piped into this command, the connection will be disposed upon completion of file download.
 .LINK
@@ -95,7 +95,7 @@ function Get-WinSCPFiles
         $WinSCPSession,
 
         [Bool]
-        $RemoveRemoteFile = $false,
+        $RemoveFromSource = $false,
 
         [ValidateSet("Binary","Ascii","Automatic")]
         [String]
@@ -142,7 +142,7 @@ function Get-WinSCPFiles
 
     Process
     {
-        $transferResult = $WinSCPSession.GetFiles($RemoteFile, $LocalFile, $false, $transferOptions).IsSuccess
+        $transferResult = $WinSCPSession.GetFiles($RemoteFile, $LocalFile, $RemoveFromSource, $transferOptions).IsSuccess
         Write-Output $transferResult
     }
 
