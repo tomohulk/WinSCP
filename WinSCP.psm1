@@ -19,53 +19,84 @@ function New-WinSCPSession
 
     param
     (
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true,
+                   Position = 0)]
         [String]
         $HostName,
 
+        [Parameter(Position = 1)]
         [String]
         $UserName,
         
+        [Parameter(Position = 2)]
         [String]
         $Password,
 
-        [String]
-        $SshHostKeyFingerprint,
+        [Parameter(Position = 3)]
+        [Int]
+        $PortNumber = 0,
 
+        [Parameter(Position = 4)]
         [ValidateSet("Sftp","Scp","Ftp")]
         [String]
         $Protocol = 'Sftp',
 
-        [Int]
-        $PortNumber = 0,
+        [Parameter(Position = 5)]
+        [String]
+        $SshHostKeyFingerprint,
 
-        [int]
+        [Parameter(Position = 6)]
+        [Int]
         $Timeout = 15
     )
 
-    $sessionOptions = @{
-        'HostName' = $HostName
-        'UserName' = $UserName
-        'Password' = $Password
-        'Protocol' = [WinSCP.Protocol]::$Protocol
-        'SshHostKeyFingerprint' = $SshHostKeyFingerprint
-        'PortNumber' = $PortNumber
-        'Timeout' = [TimeSpan]::FromSeconds($Timeout)
-    }
-    if ([String]::IsNullOrEmpty($SshHostKeyFingerprint))
+    Begin
     {
-        $sessionOptions.Remove('SshHostKeyFingerprint')
+        $sessionOptionsValues = @{
+            'HostName' = $HostName
+            'UserName' = $UserName
+            'Password' = $Password
+            'Protocol' = [WinSCP.Protocol]::$Protocol
+            'PortNumber' = $PortNumber
+            'Timeout' = [TimeSpan]::FromSeconds($Timeout)
+        }
+        if ($Protocol -eq 'Sftp' -or $Protocol -eq 'Scp' )
+        {
+            if ([String]::IsNullOrEmpty($SshHostKeyFingerprint))
+            {
+                Write-Host "cmdlet New-WinSCPSession at command pipeline position 5"
+                Write-Host "Supply values for the following parameter:"
+                $SshHostKeyFingerprint = Read-Host -Prompt "SshHostKeyFingerprint"
+            }
+            $sessionOptionsValues.Add('SshHostKeyFingerprint',$SshHostKeyFingerprint)
+        }
+        $sessionOptions = New-Object -TypeName WinSCP.SessionOptions -Property $sessionOptionsValues
     }
 
-    try
+    Process
     {
-        $session = New-Object -TypeName WinSCP.Session
-        $session.Open($(New-Object -TypeName WinSCP.SessionOptions -Property $sessionOptions))
-        return $session
+        try
+        {
+            $session = New-Object -TypeName WinSCP.Session
+            $session.Open($sessionOptions)
+        }
+        catch
+        {
+            throw $Error[0].Exception.Message
+        }
     }
-    catch
+
+    End
     {
-        throw "Unable to open session to $HostName."
+        if ($session.Opened -eq $true)
+        {
+            return $session
+        }
+        else
+        {
+            Write-Error "Unable to open session to $HostName."
+            return $null
+        }
     }
 }
 
@@ -94,15 +125,15 @@ function Get-WinSCPFiles
         [WinSCP.Session]
         $WinSCPSession,
 
-        [Bool]
-        $RemoveFromSource = $false,
+        [Switch]
+        $RemoveFromSource,
 
         [ValidateSet("Binary","Ascii","Automatic")]
         [String]
         $TransferMode = "Automatic",
 
-        [Bool]
-        $PreserveTimeStamp = $true,
+        [Switch]
+        $PreserveTimeStamp,
 
         [Parameter(ParameterSetName = "Directories")]
         [String]
@@ -136,14 +167,39 @@ function Get-WinSCPFiles
 
         $transferOptions = @{
             TransferMode = [WinSCP.TransferMode]::$TransferMode
-            PreserveTimestamp = $PreserveTimeStamp
+            PreserveTimestamp = $PreserveTimeStamp.IsPresent
         }
     }
 
     Process
     {
-        $transferResult = $WinSCPSession.GetFiles($RemoteFile, $LocalFile, $RemoveFromSource, $transferOptions).IsSuccess
-        Write-Output $transferResult
+        if ($PSCmdlet.ParameterSetName -eq "Directories")
+        {
+            if (-not($RemoteDirectory.EndsWith("/*")))
+            {
+                $RemoteDirectory += "/*"
+            }
+            elseif (-not($RemoteDirectory.EndsWith("*")))
+            {
+                $RemoteDirectory += "*"
+            }
+
+            $transferResult = $WinSCPSession.GetFiles($RemoteDirectory, $LocalDirectory, $RemoveFromSource.IsPresent, $transferOptions).IsSuccess
+        }
+
+        if ($PSCmdlet.ParameterSetName -eq "Files")
+        {
+            if ($WinSCPSession.FileExists($RemoteFile))
+            {
+                $transferResult = $WinSCPSession.GetFiles($RemoteFile, $LocalFile, $RemoveFromSource.IsPresent, $transferOptions).IsSuccess
+            }
+            else
+            {
+                Write-Error -Message "FileNotFound: $RemoteFile" -Category ObjectNotFound -RecommendedAction "Verfiy the RemoteFile Parameter Value." -ErrorAction Stop
+            }
+        }
+
+        Write-Output "Transfer Result: $transferResult"
     }
 
     End
