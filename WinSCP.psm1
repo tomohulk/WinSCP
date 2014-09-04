@@ -106,15 +106,15 @@ function New-WinSCPSession
 .DESCRIPTION
     After creating a valid WinSCP Session, this function can be used to download file(s) and remove the remote files if desired.
 .EXAMPLE
-    $session = New-WinSCPSession -HostName "myinsecurehost.org";  Get-WinSCPFiles -WinSCPSession $session -RemoteFile "home/dir/myfile.txt" -LocalFile "C:\Dir\myfile.txt" -RemoveFromSource
+    $session = New-WinSCPSession -HostName "myinsecurehost.org";  Get-WinSCPItems -WinSCPSession $session -RemoteFile "home/dir/myfile.txt" -LocalFile "C:\Dir\myfile.txt" -RemoveFromSource
 .EXAMPLE
-    New-WinSCPSession -HostName "myhost.org" -UserName "username" -Password "123456789" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Get-WinSCPFiles -RemoteFile "home/dir/myfile.txt" -LocalFile "C:\Dir\myfile.txt"
+    New-WinSCPSession -HostName "myhost.org" -UserName "username" -Password "123456789" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Get-WinSCPItems -RemoteFile "home/dir/myfile.txt" -LocalFile "C:\Dir\myfile.txt"
 .NOTES
     if the WinSCPSession is piped into this command, the connection will be disposed upon completion of file download.
 .LINK
     http://dotps1.github.io
 #>
-function Get-WinSCPFiles
+function Get-WinSCPItems
 {
     [CmdletBinding()]
 
