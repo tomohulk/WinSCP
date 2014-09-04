@@ -1,3 +1,6 @@
+# Local Repository Files To Ignore:
+winscp.ini
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
