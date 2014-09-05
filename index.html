@@ -42,7 +42,7 @@
 
 <p>Example:</p>
 
-<div class="highlight highlight-PowerShell"><pre><span class="nb">New-WinSCPSession</span> <span class="n">-HostName</span> <span class="s2">"myhost.org"</span> <span class="n">-UserName</span> <span class="s2">"username"</span> <span class="n">-Password</span> <span class="s2">"123456789"</span> <span class="n">-SshHostKeyFingerprint</span> <span class="s2">"ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx"</span> <span class="p">|</span> <span class="nb">Get-WinSCPItems</span> <span class="n">-RemoteItem</span> <span class="s2">"./MyRemoteDir/MyFile.txt"</span> <span class="n">-LocalItem</span> <span class="s2">"C:\MyLocalDir\MyFile.txt"</span>
+<div class="highlight highlight-PowerShell"><pre><span class="nb">New-WinSCPSession</span> <span class="n">-HostName</span> <span class="s2">"myhost.org"</span> <span class="n">-UserName</span> <span class="s2">"username"</span> <span class="n">-Password</span> <span class="s2">"123456789"</span> <span class="n">-SshHostKeyFingerprint</span> <span class="s2">"ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx"</span> <span class="p">|</span> <span class="nb">Receive-WinSCPItems</span> <span class="n">-RemoteItem</span> <span class="s2">"./MyRemoteDir/MyFile.txt"</span> <span class="n">-LocalItem</span> <span class="s2">"C:\MyLocalDir\MyFile.txt"</span>
 </pre></div>
 
 <p>I have included the WinSCPnet.dll in the <em>NeededAssemblies</em> folder.</p>
