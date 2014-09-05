@@ -2,7 +2,7 @@
 
 This is still a very very beta version, with limited functionality, I intend on developing this extensively.  
 
-currently there are only two functions
+currently there are only a few functions:
 ```PowerShell
 New-WinSCPSession
 Receive-WinSCPItems
