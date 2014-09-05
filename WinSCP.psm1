@@ -490,9 +490,11 @@ function Move-WinSCPItem
         [WinSCP.Session]
         $WinSCPSession,
 
+        # SourceItem, Type String Array, The remote source path of the item to be moved.
         [String[]]
         $SourceItem,
 
+        # DestinationItem, Type String, the remote destination for moving the items to.
         [String]
         $DestinationItem
     )
