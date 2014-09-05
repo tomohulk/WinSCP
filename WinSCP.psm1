@@ -6,7 +6,7 @@
 .EXAMPLE
     $session = New-WinSCPSession -HostName "myhost.org" -UserName "username" -Password "123456789" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx"
 .EXAMPLE
-    $session = New-WinSCPSession -HostName "myinsecurehost.org"
+    $session = New-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp
 .NOTES
     Make sure to assign this as a variable so the session can be closed later with $session.Dispose()
 .LINK
@@ -118,9 +118,9 @@ function New-WinSCPSession
 .DESCRIPTION
     After creating a valid WinSCP Session, this function can be used to receive file(s) and remove the remote files if desired.
 .EXAMPLE
-    $session = New-WinSCPSession -HostName "myinsecurehost.org";  Receive-WinSCPItems -WinSCPSession $session -RemoteItem "home/dir/myfile.txt" -LocalItem "C:\Dir\myfile.txt" -RemoveFromSource
+    $session = New-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp; Receive-WinSCPItems -WinSCPSession $session -RemoteItem "home/dir/myfile.txt" -LocalItem "C:\Dir\myfile.txt" -RemoveFromSource
 .EXAMPLE
-    New-WinSCPSession -HostName "myhost.org" -UserName "username" -Password "123456789" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Get-WinSCPItems -RemoteItem "home/dir/myfile.txt" -LocalItem "C:\Dir\myfile.txt"
+    New-WinSCPSession -HostName "myhost.org" -UserName "username" -Password "123456789" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Receive-WinSCPItems -RemoteItem "home/dir/myfile.txt" -LocalItem "C:\Dir\myfile.txt"
 .NOTES
     if the WinSCPSession is piped into this command, the connection will be disposed upon completion of file download.
 .LINK
@@ -210,7 +210,9 @@ function Receive-WinSCPItems
 .DESCRIPTION
     After creating a alid WinSCP Session, this function can be used to send file(s).
 .EXAMPLE
-    $session = New-WinSCPSession -HostName "myinsecurehost.org"; | Send-WinSCPItems -LocalItem "C:\Dir\myfile.txt" -Remote-Item "home/dir/myfile.txt"
+    $session = New-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp; Send-WinSCPItems -LocalItem "C:\Dir\myfile.txt" -Remote-Item "home/dir/myfile.txt"
+.EXAMPLE
+    New-WinSCPSession -HostName "myhost.org" -UserName "username" -Password "123456789" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Send-WinSCPItems -LocalItem "C:\Dir\myfile.txt" -RemoteItem "home/dir/myfile.txt" 
 .NOTES
     if the WinSCPSession is piped into this command, the connection will be disposed upon completion of file download.
 .LINK
