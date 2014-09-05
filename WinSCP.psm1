@@ -140,10 +140,10 @@ function Receive-WinSCPItems
         [WinSCP.Session]
         $WinSCPSession,
 
-        # RemoteItem, Type String, The item to be transfered.
+        # RemoteItem, Type String Array, The item to be transfered.
         [Parameter(Mandatory = $true,
                    Position = 1)]
-        [String]
+        [String[]]
         $RemoteItem,
 
         # LocalItem, Type String, The local location for the transfered item.
@@ -189,7 +189,10 @@ function Receive-WinSCPItems
 
     Process
     {
-        return $WinSCPSession.GetFiles($RemoteItem.Replace("\","/"), $LocalItem, $RemoveRemoteItem.IsPresent, $transferOptions)
+        foreach ($item in $RemoteItem)
+        {
+            $WinSCPSession.GetFiles($item.Replace("\","/"), $LocalItem, $RemoveRemoteItem.IsPresent, $transferOptions)
+        }
     }
 
     End
@@ -227,10 +230,10 @@ function Send-WinSCPItems
         [WinSCP.Session]
         $WinSCPSession,
 
-        # LocalItem, Type String, The local location for the transfered item.
+        # LocalItem, Type String Array, The local location for the transfered item.
         [Parameter(Mandatory = $true,
                    Position = 1)]
-        [String]
+        [String[]]
         $LocalItem,
 
         # RemoteItem, Type String, The item to be transfered.
@@ -276,7 +279,10 @@ function Send-WinSCPItems
 
     Process
     {
-        return $WinSCPSession.PutFiles($LocalItem, $RemoteItem.Replace("\","/"), $RemoveRemoteItem.IsPresent, $transferOptions)
+        foreach ($item in $LocalItem)
+        {
+            $WinSCPSession.PutFiles($item, $RemoteItem.Replace("\","/"), $RemoveRemoteItem.IsPresent, $transferOptions)
+        }
     }
 
     End
