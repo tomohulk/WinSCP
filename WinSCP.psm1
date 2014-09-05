@@ -118,15 +118,15 @@ function New-WinSCPSession
 .DESCRIPTION
     After creating a valid WinSCP Session, this function can be used to receive file(s) and remove the remote files if desired.
 .EXAMPLE
-    $session = New-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp; Receive-WinSCPItems -WinSCPSession $session -RemoteItem "home/dir/myfile.txt" -LocalItem "C:\Dir\myfile.txt" -RemoveFromSource
+    $session = New-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp; Receive-WinSCPItem -WinSCPSession $session -RemoteItem "home/dir/myfile.txt" -LocalItem "C:\Dir\myfile.txt" -RemoveFromSource
 .EXAMPLE
-    New-WinSCPSession -HostName "myhost.org" -UserName "username" -Password "123456789" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Receive-WinSCPItems -RemoteItem "home/dir/myfile.txt" -LocalItem "C:\Dir\myfile.txt"
+    New-WinSCPSession -HostName "myhost.org" -UserName "username" -Password "123456789" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Receive-WinSCPItem -RemoteItem "home/dir/myfile.txt" -LocalItem "C:\Dir\myfile.txt"
 .NOTES
-    if the WinSCPSession is piped into this command, the connection will be disposed upon completion of file download.
+    If the WinSCPSession is piped into this command, the connection will be disposed upon completion of file download.
 .LINK
     http://dotps1.github.io
 #>
-function Receive-WinSCPItems
+function Receive-WinSCPItem
 {
     [CmdletBinding()]
     [OutputType([WinSCP.TransferOperationResult])]
@@ -147,10 +147,10 @@ function Receive-WinSCPItems
         $RemoteItem,
 
         # LocalItem, Type String, The local location for the transfered item.
-        [Parameter(Mandatory = $true,
-                   Position = 2)]
+        # Default location is the current working directory.
+        [Parameter(Position = 2)]
         [String]
-        $LocalItem,
+        $LocalItem = "$(Get-Location)\",
 
         # TransferMode, Type String, The transfer method to be used when transfering files.
         [Parameter(Position = 3)]
@@ -208,17 +208,17 @@ function Receive-WinSCPItems
 .SYNOPSIS
     Send file(s) to an active WinSCP Session.
 .DESCRIPTION
-    After creating a alid WinSCP Session, this function can be used to send file(s).
+    After creating a valid WinSCP Session, this function can be used to send file(s).
 .EXAMPLE
-    $session = New-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp; Send-WinSCPItems -LocalItem "C:\Dir\myfile.txt" -Remote-Item "home/dir/myfile.txt"
+    $session = New-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp; Send-WinSCPItem -LocalItem "C:\Dir\myfile.txt" -Remote-Item "home/dir/myfile.txt"
 .EXAMPLE
-    New-WinSCPSession -HostName "myhost.org" -UserName "username" -Password "123456789" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Send-WinSCPItems -LocalItem "C:\Dir\myfile.txt" -RemoteItem "home/dir/myfile.txt" 
+    New-WinSCPSession -HostName "myhost.org" -UserName "username" -Password "123456789" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Send-WinSCPItem -LocalItem "C:\Dir\myfile.txt" -RemoteItem "home/dir/myfile.txt" 
 .NOTES
-    if the WinSCPSession is piped into this command, the connection will be disposed upon completion of file download.
+    If the WinSCPSession is piped into this command, the connection will be disposed upon completion of file upload.
 .LINK
     http://dotps1.github.io
 #>
-function Send-WinSCPItems
+function Send-WinSCPItem
 {
     [CmdletBinding()]
     [OutputType([WinSCP.TransferOperationResult])]
@@ -284,6 +284,255 @@ function Send-WinSCPItems
         foreach ($item in $LocalItem)
         {
             $WinSCPSession.PutFiles($item, $RemoteItem.Replace("\","/"), $RemoveRemoteItem.IsPresent, $transferOptions)
+        }
+    }
+
+    End
+    {
+        if ($valueFromPipeLine -eq $true)
+        {
+            $WinSCPSession.Dispose()
+        }
+    }
+}
+
+<#
+.SYNOPSIS
+    Creates a directory on an active WinSCP Session.
+.DESCRIPTION
+    After creating a valid WinSCP Session, this function can be used to create new directory or nested directories.
+.EXAMPLE
+    $session = New-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp; New-WinSCPDirectory -WinSCPSession $session -DirectoryName "home/MyDir/MyNewDir"
+.EXAMPLE
+    New-WinSCPSession -HostName "myhost.org" -UserName "username" -Password "123456789" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | New-WinSCPDirectory -DirectoryName "MyDir/MyNewDir/MyNewSubDir"
+.NOTES
+   If the WinSCPSession is piped into this command, the connection will be disposed upon completion of file upload. 
+.LINK
+    http://dotps1.github.io
+#>
+function New-WinSCPDirectory
+{
+    [CmdletBinding()]
+    [OutputType([Void])]
+    
+    param
+    (
+        # WinSCPSession, Type WinSCP.Session, A valid open WinSCP.Session, returned from New-WinSCPSession.
+        [Parameter(ValueFromPipeLine = $true,
+                   Position = 0)]
+        [ValidateScript({ if($_.Opened -eq $true){ return $true }else{ throw "No active WinSCP Session." } })]
+        [WinSCP.Session]
+        $WinSCPSession,
+
+        # DirectoryName, Type String Array, The path and name the new directory.
+        # The working directory is set as the homepath on the FTP Host, all new directories will be made from that starting point.
+        [Parameter(Mandatory = $true,
+                   Position = 1)]
+        [String[]]
+        $DirectoryName
+    )
+
+    Begin
+    {
+        if ($PSBoundParameters.ContainsKey('WinSCPSession'))
+        {
+            $valueFromPipeLine = $false
+        }
+        else
+        {
+            $valueFromPipeLine = $true
+        }
+    }
+
+    Process
+    {
+        foreach($directory in $DirectoryName)
+        {
+            try
+            {
+                $WinSCPSession.CreateDirectory($directory.Replace("\","/"))
+                Write-Output -InputObject "$DirectoryName created sucsesfully."
+            }
+            catch [WinSCP.SessionRemoteException]
+            {
+                Write-Error -Message $_ -Category InvalidArgument
+                return
+            }
+            catch [WinSCP.SessionLocalException]
+            {
+                Write-Error -Message $_ -Category ConnectionError
+                return
+            }
+            catch
+            {
+                Write-Error -Message "UnknownException"
+                return
+            }
+        }
+    }
+
+    End
+    {
+        if ($valueFromPipeLine -eq $true)
+        {
+            $WinSCPSession.Dispose()
+        }
+    }
+}
+
+<#
+.SYNOPSIS
+    Retrives information about a File or Directory from an active WinSCP Session.
+.DESCRIPTION
+    Retrives Name,FileType,Length,LastWriteTime,FilePermissions,IsDirectory Properties on an Item from an Active WinSCP Session.
+.EXAMPLE
+    $session = New-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp; Get-WinSCPItemInformation -WinSCPSession $session -RemoteItem "home/MyDir/MyNewDir"
+.EXAMPLE
+    New-WinSCPSession -HostName "myhost.org" -UserName "username" -Password "123456789" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Get-WinSCPItemInformation -RemoteItem "MyDir/MyNewDir/MyNewSubDir"
+.NOTES
+    If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
+.LINK
+    http://dotps1.github.io
+#>
+function Get-WinSCPItemInformation
+{
+    [CmdletBinding()]
+    [OutputType([WinSCP.RemoteFileInfo])]
+    
+    param
+    (
+        # WinSCPSession, Type WinSCP.Session, A valid open WinSCP.Session, returned from New-WinSCPSession.
+        [Parameter(ValueFromPipeLine = $true,
+                   Position = 0)]
+        [ValidateScript({ if($_.Opened -eq $true){ return $true }else{ throw "No active WinSCP Session." } })]
+        [WinSCP.Session]
+        $WinSCPSession,
+
+        # RemoteItem, Type String Array, The path of the item to get information.
+        [Parameter(Mandatory = $true,
+                   Position = 1)]
+        [String[]]
+        $RemoteItem
+    )
+
+    Begin
+    {
+        if ($PSBoundParameters.ContainsKey('WinSCPSession'))
+        {
+            $valueFromPipeLine = $false
+        }
+        else
+        {
+            $valueFromPipeLine = $true
+        }
+    }
+
+    Process
+    {
+        foreach ($item in $RemoteItem)
+        {
+            try
+            {
+                $WinSCPSession.GetFileInfo($item.Replace("\","/"))
+            }
+            catch [WinSCP.SessionRemoteException]
+            {
+                Write-Error -Message $_ -Category InvalidArgument
+                break
+            }
+            catch [WinSCP.SessionLocalException]
+            {
+                Write-Error -Message $_ -Category ConnectionError
+                break
+            }
+            catch
+            {
+                Write-Error -Message "UnknownException"
+                break
+            }
+        }
+    }
+
+    End
+    {
+        if ($valueFromPipeLine -eq $true)
+        {
+            $WinSCPSession.Dispose()
+        }
+    }
+}
+
+<#
+.SYNOPSIS
+    Moves an item from one location to another from an active WinSCP Session.
+.DESCRIPTION
+    Once connected to an active WinSCP Session, one or many files can be moved to another location within the same WinSCP Session.
+.EXAMPLE
+    $session = New-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp; Move-WinSCPItem -WinSCPSession $session -SourceItem "home/MyDir/MyFile.txt" -DestinationItem "home/MyDir/MyNewDir/MyFile.txt"
+.EXAMPLE
+    New-WinSCPSession -HostName "myhost.org" -UserName "username" -Password "123456789" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Move-WinSCPItem -SourceItem "MyDir/MyFile.txt" -DestinationItem "MyDir/MySubDir/MyFile.txt"
+.NOTES
+    If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
+.LINK
+    http://dotps1.github.io
+#>
+function Move-WinSCPItem
+{
+    [CmdletBinding()]
+    [OutputType([Void])]
+    
+    param
+    (
+        # WinSCPSession, Type WinSCP.Session, A valid open WinSCP.Session, returned from New-WinSCPSession.
+        [Parameter(ValueFromPipeLine = $true,
+                   Position = 0)]
+        [ValidateScript({ if($_.Opened -eq $true){ return $true }else{ throw "No active WinSCP Session." } })]
+        [WinSCP.Session]
+        $WinSCPSession,
+
+        [String[]]
+        $SourceItem,
+
+        [String]
+        $DestinationItem
+    )
+
+    Begin
+    {
+        if ($PSBoundParameters.ContainsKey('WinSCPSession'))
+        {
+            $valueFromPipeLine = $false
+        }
+        else
+        {
+            $valueFromPipeLine = $true
+        }
+    }
+
+    Process
+    {
+        foreach ($item in $SourceItem)
+        {
+            try
+            {
+                $WinSCPSession.MoveFile($item.Replace("\","/"), $DestinationItem)
+                Write-Output -InputObject "$item moved sucssesfully."
+            }
+            catch [WinSCP.SessionRemoteException]
+            {
+                Write-Error -Message $_ -Category InvalidArgument
+                break
+            }
+            catch [WinSCP.SessionLocalException]
+            {
+                Write-Error -Message $_ -Category ConnectionError
+                break
+            }
+            catch
+            {
+                Write-Error -Message "UnknownException"
+                break
+            }
         }
     }
 

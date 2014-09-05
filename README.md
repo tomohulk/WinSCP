@@ -5,8 +5,11 @@ This is still a very very beta version, with limited functionality, I intend on 
 currently there are only a few functions:
 ```PowerShell
 New-WinSCPSession
-Receive-WinSCPItems
-Send-WinSCPItems
+Receive-WinSCPItem
+Send-WinSCPItem
+New-WinSCPDirectory
+Get-WinSCPItemInformation
+Move-WinSCPItem
 ```
 
 Example:
