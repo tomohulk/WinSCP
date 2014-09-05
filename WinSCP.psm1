@@ -114,19 +114,19 @@ function New-WinSCPSession
 
 <#
 .SYNOPSIS
-    Downloads file(s) from active WinSCP Session.
+    Revices file(s) from an active WinSCP Session.
 .DESCRIPTION
-    After creating a valid WinSCP Session, this function can be used to download file(s) and remove the remote files if desired.
+    After creating a valid WinSCP Session, this function can be used to receive file(s) and remove the remote files if desired.
 .EXAMPLE
-    $session = New-WinSCPSession -HostName "myinsecurehost.org";  Get-WinSCPItems -WinSCPSession $session -RemoteFile "home/dir/myfile.txt" -LocalFile "C:\Dir\myfile.txt" -RemoveFromSource
+    $session = New-WinSCPSession -HostName "myinsecurehost.org";  Receive-WinSCPItems -WinSCPSession $session -RemoteItem "home/dir/myfile.txt" -LocalItem "C:\Dir\myfile.txt" -RemoveFromSource
 .EXAMPLE
-    New-WinSCPSession -HostName "myhost.org" -UserName "username" -Password "123456789" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Get-WinSCPItems -RemoteFile "home/dir/myfile.txt" -LocalFile "C:\Dir\myfile.txt"
+    New-WinSCPSession -HostName "myhost.org" -UserName "username" -Password "123456789" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Get-WinSCPItems -RemoteItem "home/dir/myfile.txt" -LocalItem "C:\Dir\myfile.txt"
 .NOTES
     if the WinSCPSession is piped into this command, the connection will be disposed upon completion of file download.
 .LINK
     http://dotps1.github.io
 #>
-function Get-WinSCPItems
+function Receive-WinSCPItems
 {
     [CmdletBinding()]
     [OutputType([WinSCP.TransferOperationResult])]
@@ -140,23 +140,23 @@ function Get-WinSCPItems
         [WinSCP.Session]
         $WinSCPSession,
 
-        # TransferMode, Type String, The transfer method to be used when transfering files.
-        [Parameter(Position = 1)]
-        [ValidateSet("Binary","Ascii","Automatic")]
-        [String]
-        $TransferMode = "Automatic",
-
         # RemoteItem, Type String, The item to be transfered.
         [Parameter(Mandatory = $true,
-                   Position = 2)]
+                   Position = 1)]
         [String]
         $RemoteItem,
 
         # LocalItem, Type String, The local location for the transfered item.
         [Parameter(Mandatory = $true,
-                   Position = 3)]
+                   Position = 2)]
         [String]
         $LocalItem,
+
+        # TransferMode, Type String, The transfer method to be used when transfering files.
+        [Parameter(Position = 3)]
+        [ValidateSet("Binary","Ascii","Automatic")]
+        [String]
+        $TransferMode = "Automatic",
 
         # PreserveTimeStamp, Type Bool, Set the file created time as the time from the FTP Host, or set the created time to the current time.
         # Default Value is True.
@@ -189,7 +189,94 @@ function Get-WinSCPItems
 
     Process
     {
-        return $WinSCPSession.GetFiles($RemoteItem, $LocalItem, $RemoveRemoteItem.IsPresent, $transferOptions)
+        return $WinSCPSession.GetFiles($RemoteItem.Replace("\","/"), $LocalItem, $RemoveRemoteItem.IsPresent, $transferOptions)
+    }
+
+    End
+    {
+        if ($valueFromPipeLine -eq $true)
+        {
+            $WinSCPSession.Dispose()
+        }
+    }
+}
+
+<#
+.SYNOPSIS
+    Send file(s) to an active WinSCP Session.
+.DESCRIPTION
+    After creating a alid WinSCP Session, this function can be used to send file(s).
+.EXAMPLE
+    $session = New-WinSCPSession -HostName "myinsecurehost.org"; | Send-WinSCPItems -LocalItem "C:\Dir\myfile.txt" -Remote-Item "home/dir/myfile.txt"
+.NOTES
+    if the WinSCPSession is piped into this command, the connection will be disposed upon completion of file download.
+.LINK
+    http://dotps1.github.io
+#>
+function Send-WinSCPItems
+{
+    [CmdletBinding()]
+    [OutputType([WinSCP.TransferOperationResult])]
+
+    param
+    (
+        # WinSCPSession, Type WinSCP.Session, A valid open WinSCP.Session, returned from New-WinSCPSession.
+        [Parameter(ValueFromPipeLine = $true,
+                   Position = 0)]
+        [ValidateScript({ if($_.Opened -eq $true){ return $true }else{ throw "No active WinSCP Session." } })]
+        [WinSCP.Session]
+        $WinSCPSession,
+
+        # LocalItem, Type String, The local location for the transfered item.
+        [Parameter(Mandatory = $true,
+                   Position = 1)]
+        [String]
+        $LocalItem,
+
+        # RemoteItem, Type String, The item to be transfered.
+        [Parameter(Mandatory = $true,
+                   Position = 2)]
+        [String]
+        $RemoteItem,
+        
+        # TransferMode, Type String, The transfer method to be used when transfering files.
+        [Parameter(Position = 3)]
+        [ValidateSet("Binary","Ascii","Automatic")]
+        [String]
+        $TransferMode = "Automatic",
+
+        # PreserveTimeStamp, Type Bool, Set the file created time as the time from the FTP Host, or set the created time to the current time.
+        # Default Value is True.
+        [Parameter(Position = 4)]
+        [Bool]
+        $PreserveTimeStamp = $true,
+
+        # RemoveLocalItem, Type Switch, Remove the transfered files from the Local Host upon completion.
+        [Parameter(Position = 5)]
+        [Switch]
+        $RemoveLocalItem
+    )
+
+    Begin
+    {
+        if ($PSBoundParameters.ContainsKey('WinSCPSession'))
+        {
+            $valueFromPipeLine = $false
+        }
+        else
+        {
+            $valueFromPipeLine = $true
+        }
+
+        $transferOptions = @{
+            TransferMode = [WinSCP.TransferMode]::$TransferMode
+            PreserveTimestamp = $PreserveTimeStamp
+        }
+    }
+
+    Process
+    {
+        return $WinSCPSession.PutFiles($LocalItem, $RemoteItem.Replace("\","/"), $RemoveRemoteItem.IsPresent, $transferOptions)
     }
 
     End
