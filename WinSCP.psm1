@@ -19,32 +19,42 @@ function New-WinSCPSession
 
     param
     (
+        # HostName, Type String, The FTP Host to connect to.
         [Parameter(Mandatory = $true,
                    Position = 0)]
         [String]
         $HostName,
 
+        # UserName, Type String, The Username to authenticate with when connecting to the FTP Host.
         [Parameter(Position = 1)]
         [String]
         $UserName,
         
+        # Password, Type String, The Password to authenticate with when connecting to the FTP Host.
         [Parameter(Position = 2)]
         [String]
         $Password,
 
+        # PortNumber, Type Int, The Port Number to connect to the FTP Host.
+        # A value of 0 will use the Default Port based on the Protocol Used.
         [Parameter(Position = 3)]
         [Int]
         $PortNumber = 0,
 
+        # Protocol, Type String, The Protocol to use when connecting to the FTP Host.
         [Parameter(Position = 4)]
         [ValidateSet("Sftp","Scp","Ftp")]
         [String]
         $Protocol = 'Sftp',
 
+        # SshHostKeyFingerprint, Type String, The Certificate Fingerprint to use when connecting to the FTP Host.
+        # This parameter is requried when using Sftp or Scp Protocols.
         [Parameter(Position = 5)]
         [String]
         $SshHostKeyFingerprint,
 
+        # Timeout, Type Int, The amount of time, in seconds to wait for the FTP Host to respond.
+        # Default Value is 15 Seconds.
         [Parameter(Position = 6)]
         [Int]
         $Timeout = 15
@@ -60,7 +70,8 @@ function New-WinSCPSession
             'PortNumber' = $PortNumber
             'Timeout' = [TimeSpan]::FromSeconds($Timeout)
         }
-        if ($Protocol -eq 'Sftp' -or $Protocol -eq 'Scp' )
+
+        if ($Protocol -eq 'Sftp' -or $Protocol -eq 'Scp')
         {
             if ([String]::IsNullOrEmpty($SshHostKeyFingerprint))
             {
@@ -70,6 +81,7 @@ function New-WinSCPSession
             }
             $sessionOptionsValues.Add('SshHostKeyFingerprint',$SshHostKeyFingerprint)
         }
+
         $sessionOptions = New-Object -TypeName WinSCP.SessionOptions -Property $sessionOptionsValues
     }
 
@@ -117,41 +129,45 @@ function New-WinSCPSession
 function Get-WinSCPItems
 {
     [CmdletBinding()]
+    [OutputType([WinSCP.TransferOperationResult])]
 
     param
     (
-        [Parameter(ValueFromPipeLine = $true)]
+        # WinSCPSession, Type WinSCP.Session, A valid open WinSCP.Session, returned from New-WinSCPSession.
+        [Parameter(ValueFromPipeLine = $true,
+                   Position = 0)]
         [ValidateScript({ if($_.Opened -eq $true){ return $true }else{ throw "No active WinSCP Session." } })]
         [WinSCP.Session]
         $WinSCPSession,
 
-        [Switch]
-        $RemoveFromSource,
-
+        # TransferMode, Type String, The transfer method to be used when transfering files.
+        [Parameter(Position = 1)]
         [ValidateSet("Binary","Ascii","Automatic")]
         [String]
         $TransferMode = "Automatic",
 
+        # RemoteItem, Type String, The item to be transfered.
+        [Parameter(Mandatory = $true,
+                   Position = 2)]
+        [String]
+        $RemoteItem,
+
+        # LocalItem, Type String, The local location for the transfered item.
+        [Parameter(Mandatory = $true,
+                   Position = 3)]
+        [String]
+        $LocalItem,
+
+        # PreserveTimeStamp, Type Bool, Set the file created time as the time from the FTP Host, or set the created time to the current time.
+        # Default Value is True.
+        [Parameter(Position = 4)]
+        [Bool]
+        $PreserveTimeStamp = $true,
+
+        # RemoveRemoteItem, Type Switch, Remove the transfered files from the FTP Host upon completion.
+        [Parameter(Position = 5)]
         [Switch]
-        $PreserveTimeStamp,
-
-        [Parameter(ParameterSetName = "Directories")]
-        [String]
-        $RemoteDirectory,
-
-        [Parameter(ParameterSetName = "Directories",
-                   Mandatory = $true)]
-        [String]
-        $LocalDirectory,
-
-        [Parameter(ParameterSetName = "Files")]
-        [String]
-        $RemoteFile,
-
-        [Parameter(ParameterSetName = "Files",
-                   Mandatory = $true)]
-        [String]
-        $LocalFile
+        $RemoveRemoteItem
     )
 
     Begin
@@ -167,39 +183,13 @@ function Get-WinSCPItems
 
         $transferOptions = @{
             TransferMode = [WinSCP.TransferMode]::$TransferMode
-            PreserveTimestamp = $PreserveTimeStamp.IsPresent
+            PreserveTimestamp = $PreserveTimeStamp
         }
     }
 
     Process
     {
-        if ($PSCmdlet.ParameterSetName -eq "Directories")
-        {
-            if (-not($RemoteDirectory.EndsWith("/*")))
-            {
-                $RemoteDirectory += "/*"
-            }
-            elseif (-not($RemoteDirectory.EndsWith("*")))
-            {
-                $RemoteDirectory += "*"
-            }
-
-            $transferResult = $WinSCPSession.GetFiles($RemoteDirectory, $LocalDirectory, $RemoveFromSource.IsPresent, $transferOptions).IsSuccess
-        }
-
-        if ($PSCmdlet.ParameterSetName -eq "Files")
-        {
-            if ($WinSCPSession.FileExists($RemoteFile))
-            {
-                $transferResult = $WinSCPSession.GetFiles($RemoteFile, $LocalFile, $RemoveFromSource.IsPresent, $transferOptions).IsSuccess
-            }
-            else
-            {
-                Write-Error -Message "FileNotFound: $RemoteFile" -Category ObjectNotFound -RecommendedAction "Verfiy the RemoteFile Parameter Value." -ErrorAction Stop
-            }
-        }
-
-        Write-Output "Transfer Result: $transferResult"
+        return $WinSCPSession.GetFiles($RemoteItem, $LocalItem, $RemoveRemoteItem.IsPresent, $transferOptions)
     }
 
     End
