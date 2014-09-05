@@ -491,10 +491,14 @@ function Move-WinSCPItem
         $WinSCPSession,
 
         # SourceItem, Type String Array, The remote source path of the item to be moved.
+        [Parameter(Mandatory = $true,
+                   Position = 1)]
         [String[]]
         $SourceItem,
 
         # DestinationItem, Type String, the remote destination for moving the items to.
+        [Parameter(Mandatory = $true,
+                   Position = 2)]
         [String]
         $DestinationItem
     )
