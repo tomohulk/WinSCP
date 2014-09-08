@@ -384,7 +384,7 @@ function New-WinSCPDirectory
 .SYNOPSIS
     Retrives information about a File or Directory from an active WinSCP Session.
 .DESCRIPTION
-    Retrives Name,FileType,Length,LastWriteTime,FilePermissions,IsDirectory Properties on an Item from an Active WinSCP Session.
+    Retreives Name,FileType,Length,LastWriteTime,FilePermissions,IsDirectory Properties on an Item from an Active WinSCP Session.
 .EXAMPLE
     $session = New-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp; Get-WinSCPItemInformation -WinSCPSession $session -RemoteItem "home/MyDir/MyNewDir/MyFile.txt"
 .EXAMPLE
@@ -565,7 +565,7 @@ function Move-WinSCPItem
 .LINK
     http://dotps1.github.io
 #>
-function Show-WinSCPDirectoryContents
+function Get-WinSCPDirectoryContents
 {
     [CmdletBinding()]
     [OutputType([WinSCP.RemoteDirectoryInfo])]
