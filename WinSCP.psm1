@@ -611,11 +611,11 @@ function Show-WinSCPDirectoryContents
             {
                 if ($ShowFiles.IsPresent)
                 {
-                    $WinSCPSession.ListDirectory($directory.Replace("\","/"), $DestinationItem).Files
+                    $WinSCPSession.ListDirectory($directory.Replace("\","/")).Files
                 }
                 else
                 {
-                    $WinSCPSession.ListDirectory($directory.Replace("\","/"), $DestinationItem)
+                    $WinSCPSession.ListDirectory($directory.Replace("\","/"))
                 }
             }
             catch [WinSCP.SessionRemoteException]
