@@ -464,95 +464,6 @@ function Get-WinSCPItemInformation
 
 <#
 .SYNOPSIS
-    Moves an item from one location to another from an active WinSCP Session.
-.DESCRIPTION
-    Once connected to an active WinSCP Session, one or many files can be moved to another location within the same WinSCP Session.
-.EXAMPLE
-    $session = New-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp; Move-WinSCPItem -WinSCPSession $session -SourceItem "home/MyDir/MyFile.txt" -DestinationItem "home/MyDir/MyNewDir/MyFile.txt"
-.EXAMPLE
-    New-WinSCPSession -HostName "myhost.org" -UserName "username" -Password "123456789" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Move-WinSCPItem -SourceItem "MyDir/MyFile.txt" -DestinationItem "MyDir/MySubDir/MyFile.txt"
-.NOTES
-    If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
-.LINK
-    http://dotps1.github.io
-#>
-function Move-WinSCPItem
-{
-    [CmdletBinding()]
-    [OutputType([Void])]
-    
-    param
-    (
-        # WinSCPSession, Type WinSCP.Session, A valid open WinSCP.Session, returned from New-WinSCPSession.
-        [Parameter(ValueFromPipeLine = $true,
-                   Position = 0)]
-        [ValidateScript({ if($_.Opened -eq $true){ return $true }else{ throw "No active WinSCP Session." } })]
-        [WinSCP.Session]
-        $WinSCPSession,
-
-        # RemoteSourceItem, Type String Array, The remote source path of the item to be moved.
-        [Parameter(Mandatory = $true,
-                   Position = 1)]
-        [String[]]
-        $RemoteSourceItem,
-
-        # RemoteDestinationItem, Type String, the remote destination for moving the items to.
-        [Parameter(Mandatory = $true,
-                   Position = 2)]
-        [String]
-        $RemoteDestinationItem
-    )
-
-    Begin
-    {
-        if ($PSBoundParameters.ContainsKey('WinSCPSession'))
-        {
-            $valueFromPipeLine = $false
-        }
-        else
-        {
-            $valueFromPipeLine = $true
-        }
-    }
-
-    Process
-    {
-        foreach ($item in $RemoteSourceItem)
-        {
-            try
-            {
-                $WinSCPSession.MoveFile($item.Replace("\","/"), $RemoteDestinationItem)
-                Write-Output -InputObject "$item moved sucssesfully."
-            }
-            catch [WinSCP.SessionRemoteException]
-            {
-                Write-Error -Message $_ -Category InvalidArgument
-                break
-            }
-            catch [WinSCP.SessionLocalException]
-            {
-                Write-Error -Message $_ -Category ConnectionError
-                break
-            }
-            catch
-            {
-                Write-Error -Message "UnknownException"
-                break
-            }
-        }
-    }
-
-    End
-    {
-        if ($valueFromPipeLine -eq $true)
-        {
-            $WinSCPSession.Dispose()
-        }
-    }
-}
-
-<#
-.SYNOPSIS
     Shows the contents of a remote directory.
 .DESCRIPTION
     Displays the contents within a remote directory, including other directories and files.
@@ -617,6 +528,95 @@ function Get-WinSCPDirectoryContents
                 {
                     $WinSCPSession.ListDirectory($directory.Replace("\","/"))
                 }
+            }
+            catch [WinSCP.SessionRemoteException]
+            {
+                Write-Error -Message $_ -Category InvalidArgument
+                break
+            }
+            catch [WinSCP.SessionLocalException]
+            {
+                Write-Error -Message $_ -Category ConnectionError
+                break
+            }
+            catch
+            {
+                Write-Error -Message "UnknownException"
+                break
+            }
+        }
+    }
+
+    End
+    {
+        if ($valueFromPipeLine -eq $true)
+        {
+            $WinSCPSession.Dispose()
+        }
+    }
+}
+
+<#
+.SYNOPSIS
+    Moves an item from one location to another from an active WinSCP Session.
+.DESCRIPTION
+    Once connected to an active WinSCP Session, one or many files can be moved to another location within the same WinSCP Session.
+.EXAMPLE
+    $session = New-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp; Move-WinSCPItem -WinSCPSession $session -SourceItem "home/MyDir/MyFile.txt" -DestinationItem "home/MyDir/MyNewDir/MyFile.txt"
+.EXAMPLE
+    New-WinSCPSession -HostName "myhost.org" -UserName "username" -Password "123456789" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Move-WinSCPItem -SourceItem "MyDir/MyFile.txt" -DestinationItem "MyDir/MySubDir/MyFile.txt"
+.NOTES
+    If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
+.LINK
+    http://dotps1.github.io
+#>
+function Move-WinSCPItem
+{
+    [CmdletBinding()]
+    [OutputType([Void])]
+    
+    param
+    (
+        # WinSCPSession, Type WinSCP.Session, A valid open WinSCP.Session, returned from New-WinSCPSession.
+        [Parameter(ValueFromPipeLine = $true,
+                   Position = 0)]
+        [ValidateScript({ if($_.Opened -eq $true){ return $true }else{ throw "No active WinSCP Session." } })]
+        [WinSCP.Session]
+        $WinSCPSession,
+
+        # RemoteSourceItem, Type String Array, The remote source path of the item to be moved.
+        [Parameter(Mandatory = $true,
+                   Position = 1)]
+        [String[]]
+        $RemoteSourceItem,
+
+        # RemoteDestinationItem, Type String, the remote destination for moving the items to.
+        [Parameter(Mandatory = $true,
+                   Position = 2)]
+        [String]
+        $RemoteDestinationItem
+    )
+
+    Begin
+    {
+        if ($PSBoundParameters.ContainsKey('WinSCPSession'))
+        {
+            $valueFromPipeLine = $false
+        }
+        else
+        {
+            $valueFromPipeLine = $true
+        }
+    }
+
+    Process
+    {
+        foreach ($item in $RemoteSourceItem)
+        {
+            try
+            {
+                $WinSCPSession.MoveFile($item.Replace("\","/"), $RemoteDestinationItem)
+                Write-Output -InputObject "$item moved sucssesfully."
             }
             catch [WinSCP.SessionRemoteException]
             {
