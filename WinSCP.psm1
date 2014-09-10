@@ -238,7 +238,7 @@ function Send-WinSCPItem
         [String[]]
         $LocalItem,
 
-        # RemoteItem, Type String, The item to be transfered.
+        # RemoteItem, Type String, The item to be transfered to.
         [Parameter(Mandatory = $true,
                    Position = 2)]
         [String]
@@ -354,6 +354,88 @@ function New-WinSCPDirectory
                 Write-Output -InputObject "$DirectoryName created sucsesfully."
             }
             catch [WinSCP.SessionRemoteException]
+            {
+                Write-Error -Message $_ -Category InvalidArgument
+                return
+            }
+            catch [WinSCP.SessionLocalException]
+            {
+                Write-Error -Message $_ -Category ConnectionError
+                return
+            }
+            catch
+            {
+                Write-Error -Message "UnknownException"
+                return
+            }
+        }
+    }
+
+    End
+    {
+        if ($valueFromPipeLine -eq $true)
+        {
+            $WinSCPSession.Dispose()
+        }
+    }
+}
+
+<#
+.SYNOPSIS
+    Test if a remote item exists.
+.DESCRIPTION
+    After creating a valid WinSCP Session, this function can be used to test if a directory or file exists on the remote source.
+.EXAMPLE
+    $session = New-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp; Test-WinSCPItemExists -WinSCPSession $session -RemoteItem "home/MyDir/MyNewDir"
+.EXAMPLE
+    New-WinSCPSession -HostName "myhost.org" -UserName "username" -Password "123456789" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Test-WinSCPItemExists -RemoteItem "MyDir/MyNewDir/MyNewSubDir/MyFile.txt"
+.NOTES
+   If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
+.LINK
+    http://dotps1.github.io
+#>
+function Test-WinSCPItemExists
+{
+    [CmdletBinding()]
+    [OutputType([Bool])]
+    
+    param
+    (
+        # WinSCPSession, Type WinSCP.Session, A valid open WinSCP.Session, returned from New-WinSCPSession.
+        [Parameter(ValueFromPipeLine = $true,
+                   Position = 0)]
+        [ValidateScript({ if($_.Opened -eq $true){ return $true }else{ throw "No active WinSCP Session." } })]
+        [WinSCP.Session]
+        $WinSCPSession,
+
+        # RemoteItem, Type String Array, The full path to the item to be tested.
+        [Parameter(Mandatory = $true,
+                   Position = 1)]
+        [String[]]
+        $RemoteItem
+    )
+
+    Begin
+    {
+        if ($PSBoundParameters.ContainsKey('WinSCPSession'))
+        {
+            $valueFromPipeLine = $false
+        }
+        else
+        {
+            $valueFromPipeLine = $true
+        }
+    }
+
+    Process
+    {
+        foreach($item in $RemoteItem)
+        {
+            try
+            {
+                $WinSCPSession.FileExists($item.Replace("\","/"))
+            }
+            catch [WinSCP.InvalidOperationException]
             {
                 Write-Error -Message $_ -Category InvalidArgument
                 return
