@@ -31,7 +31,7 @@
         <h1>
 <a name="winscp-powershell-wrapper" class="anchor" href="#winscp-powershell-wrapper"><span class="octicon octicon-link"></span></a>WinSCP PowerShell Wrapper</h1>
 
-<p>This is still a very very beta version, with limited functionality, I intend on developing this extensively.  </p>
+<p>This is still a very beta version, with some base functionality, I intend on developing this extensively.  </p>
 
 <p>currently there are only a few functions:</p>
 
@@ -39,9 +39,10 @@
 <span class="nb">Receive-WinSCPItem</span>
 <span class="nb">Send-WinSCPItem</span>
 <span class="nb">New-WinSCPDirectory</span>
+<span class="nb">Test-WinSCPItemExsits</span>
 <span class="nb">Get-WinSCPItemInformation</span>
-<span class="nb">Move-WinSCPItem</span>
 <span class="nb">Get-WinSCPDirectoryContents</span>
+<span class="nb">Move-WinSCPItem</span>
 <span class="nb">Remove-WinSCPItem</span>
 </pre></div>
 
@@ -54,6 +55,11 @@
 
 <div class="highlight highlight-PowerShell"><pre><span class="nv">$session</span> <span class="p">=</span> <span class="nb">New-WinSCPSession</span> <span class="n">-HostName</span> <span class="s2">"myinsecurehost.org"</span> <span class="n">-Protocol</span> <span class="n">Ftp</span>
 <span class="nb">Send-WinSCPItem</span> <span class="n">-WinSCPSession</span> <span class="nv">$session</span> <span class="n">-LocalItem</span> <span class="s2">"C:\Dir\myfile.txt"</span> <span class="n">-Remote-Item</span> <span class="s2">"home/dir/myfile.txt"</span>
+</pre></div>
+
+<p>Example 3:</p>
+
+<div class="highlight highlight-PowerShell"><pre><span class="nv">$session</span> <span class="p">=</span> <span class="nb">New-WinSCPSession</span> <span class="n">-HostName</span> <span class="s2">"myinsecurehost.org"</span> <span class="n">-Protocol</span> <span class="n">Ftp</span><span class="p">;</span> <span class="nb">Test-WinSCPItemExists</span> <span class="n">-WinSCPSession</span> <span class="nv">$session</span> <span class="n">-RemoteItem</span> <span class="s2">"home/MyDir/MyNewDir"</span>
 </pre></div>
 
 <p>I have included the WinSCPnet.dll in the <em>NeededAssemblies</em> folder.</p>
