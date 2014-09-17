@@ -5,6 +5,8 @@ This is still a very beta version, with some base functionality, I intend on dev
 currently there are only a few functions:
 ```PowerShell
 New-WinSCPSession
+Test-WinSCPSession
+Close-WinSCPSession
 Receive-WinSCPItem
 Send-WinSCPItem
 New-WinSCPDirectory

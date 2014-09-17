@@ -1,18 +1,18 @@
 <#
 .SYNOPSIS
-    Creates a new WinSCP Session
+    Creates a new WinSCP Session.
 .DESCRIPTION
     Creates a new WINSCP.Session Object with specified Parameters.  Assign this Object to a Variable to easily manipulate actions later.
 .EXAMPLE
-    $session = New-WinSCPSession -HostName "myhost.org" -UserName "username" -Password "123456789" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx"
+    $session = Open-WinSCPSession -HostName "myhost.org" -UserName "username" -Password "123456789" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx"
 .EXAMPLE
-    $session = New-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp
+    $session = Open-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp
 .NOTES
-    Make sure to assign this as a variable so the session can be closed later with $session.Dispose()
+    If the WinSCPSession is piped into another WinSCP command, the connection will be disposed upon completion of that command.
 .LINK
     http://dotps1.github.io
 #>
-function New-WinSCPSession
+function Open-WinSCPSession
 {
     [CmdletBinding()]
     [OutputType([WinSCP.Session])]
@@ -114,6 +114,74 @@ function New-WinSCPSession
 
 <#
 .SYNOPSIS
+    Test if a WinSCP Session is in an Open State.
+.DESCRIPTION
+    Verifys that the WinSCP Session is in an open state so commands can be sent to a remote server.
+.EXAMPLE
+    $session = New-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp; Test-WinSCPSession -WinSCPSession $session
+.NOTES
+    This function is used in the Begin Statement of subsequent functions to verify the connection to the remote server is open.
+.LINK
+    http://dotps1.github.io
+#>
+function Test-WinSCPSession
+{
+    [CmdletBinding()]
+    [OutputType([Bool])]
+
+    param
+    (
+        #WinSCPSession, Type WinSCP.Session, The active WinSCP Session to close.
+        [Parameter(Mandatory = $true,
+                   Position = 0)]
+        [WinSCP.Session]
+        $WinSCPSession
+    )
+
+    if ($WinSCPSession.Opened)
+    {
+        return $true
+    }
+    else
+    {
+        return $false
+    }
+}
+
+<#
+.SYNOPSIS
+    Closes an active WinSCP Session.
+.DISCRIPTION
+    After a WinSCP Session is no longer needed this function will dispose the COM object.
+.EXAMPLE
+    $session = New-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp; Close-WinSCPSession -WinSCPSession $session
+.NOTES
+    If the WinSCPSession is piped into another WinSCP command, this function will be called to auto dispose th connection upon complete of the command.
+.LINK
+    http://dotps1.github.io
+#>
+function Close-WinSCPSession
+{
+    [CmdletBinding()]
+    [OutputType([Void])]
+    
+    param
+    (
+        #WinSCPSession, Type WinSCP.Session, The active WinSCP Session to close.
+        [Parameter(Mandatory = $true,
+                   Position = 0)]
+        [WinSCP.Session]
+        $WinSCPSession
+    )
+
+    if (Test-WinSCPSession -WinSCPSession $WinSCPSession)
+    {
+        $WinSCPSession.Dispose()
+    }
+}
+
+<#
+.SYNOPSIS
     Revices file(s) from an active WinSCP Session.
 .DESCRIPTION
     After creating a valid WinSCP Session, this function can be used to receive file(s) and remove the remote files if desired.
@@ -136,7 +204,7 @@ function Receive-WinSCPItem
         # WinSCPSession, Type WinSCP.Session, A valid open WinSCP.Session, returned from New-WinSCPSession.
         [Parameter(ValueFromPipeLine = $true,
                    Position = 0)]
-        [ValidateScript({ if($_.Opened -eq $true){ return $true }else{ throw "No active WinSCP Session." } })]
+        [ValidateScript({ if(Test-WinSCPSession -WinSCPSession $_){ return $true }else{ throw "The WinSCP Session is not in an Open state." } })]
         [WinSCP.Session]
         $WinSCPSession,
 
@@ -199,7 +267,7 @@ function Receive-WinSCPItem
     {
         if ($valueFromPipeLine -eq $true)
         {
-            $WinSCPSession.Dispose()
+            Close-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }
@@ -228,7 +296,7 @@ function Send-WinSCPItem
         # WinSCPSession, Type WinSCP.Session, A valid open WinSCP.Session, returned from New-WinSCPSession.
         [Parameter(ValueFromPipeLine = $true,
                    Position = 0)]
-        [ValidateScript({ if($_.Opened -eq $true){ return $true }else{ throw "No active WinSCP Session." } })]
+        [ValidateScript({ if(Test-WinSCPSession -WinSCPSession $_){ return $true }else{ throw "The WinSCP Session is not in an Open state." } })]
         [WinSCP.Session]
         $WinSCPSession,
 
@@ -291,7 +359,7 @@ function Send-WinSCPItem
     {
         if ($valueFromPipeLine -eq $true)
         {
-            $WinSCPSession.Dispose()
+            Close-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }
@@ -320,7 +388,7 @@ function New-WinSCPDirectory
         # WinSCPSession, Type WinSCP.Session, A valid open WinSCP.Session, returned from New-WinSCPSession.
         [Parameter(ValueFromPipeLine = $true,
                    Position = 0)]
-        [ValidateScript({ if($_.Opened -eq $true){ return $true }else{ throw "No active WinSCP Session." } })]
+        [ValidateScript({ if(Test-WinSCPSession -WinSCPSession $_){ return $true }else{ throw "The WinSCP Session is not in an Open state." } })]
         [WinSCP.Session]
         $WinSCPSession,
 
@@ -375,7 +443,7 @@ function New-WinSCPDirectory
     {
         if ($valueFromPipeLine -eq $true)
         {
-            $WinSCPSession.Dispose()
+            Close-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }
@@ -404,7 +472,7 @@ function Test-WinSCPItemExists
         # WinSCPSession, Type WinSCP.Session, A valid open WinSCP.Session, returned from New-WinSCPSession.
         [Parameter(ValueFromPipeLine = $true,
                    Position = 0)]
-        [ValidateScript({ if($_.Opened -eq $true){ return $true }else{ throw "No active WinSCP Session." } })]
+        [ValidateScript({ if(Test-WinSCPSession -WinSCPSession $_){ return $true }else{ throw "The WinSCP Session is not in an Open state." } })]
         [WinSCP.Session]
         $WinSCPSession,
 
@@ -457,7 +525,7 @@ function Test-WinSCPItemExists
     {
         if ($valueFromPipeLine -eq $true)
         {
-            $WinSCPSession.Dispose()
+            Close-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }
@@ -486,7 +554,7 @@ function Get-WinSCPItemInformation
         # WinSCPSession, Type WinSCP.Session, A valid open WinSCP.Session, returned from New-WinSCPSession.
         [Parameter(ValueFromPipeLine = $true,
                    Position = 0)]
-        [ValidateScript({ if($_.Opened -eq $true){ return $true }else{ throw "No active WinSCP Session." } })]
+        [ValidateScript({ if(Test-WinSCPSession -WinSCPSession $_){ return $true }else{ throw "The WinSCP Session is not in an Open state." } })]
         [WinSCP.Session]
         $WinSCPSession,
 
@@ -539,7 +607,7 @@ function Get-WinSCPItemInformation
     {
         if ($valueFromPipeLine -eq $true)
         {
-            $WinSCPSession.Dispose()
+            Close-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }
@@ -568,7 +636,7 @@ function Get-WinSCPDirectoryContents
         # WinSCPSession, Type WinSCP.Session, A valid open WinSCP.Session, returned from New-WinSCPSession.
         [Parameter(ValueFromPipeLine = $true,
                    Position = 0)]
-        [ValidateScript({ if($_.Opened -eq $true){ return $true }else{ throw "No active WinSCP Session." } })]
+        [ValidateScript({ if(Test-WinSCPSession -WinSCPSession $_){ return $true }else{ throw "The WinSCP Session is not in an Open state." } })]
         [WinSCP.Session]
         $WinSCPSession,
 
@@ -633,7 +701,7 @@ function Get-WinSCPDirectoryContents
     {
         if ($valueFromPipeLine -eq $true)
         {
-            $WinSCPSession.Dispose()
+            Close-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }
@@ -662,7 +730,7 @@ function Move-WinSCPItem
         # WinSCPSession, Type WinSCP.Session, A valid open WinSCP.Session, returned from New-WinSCPSession.
         [Parameter(ValueFromPipeLine = $true,
                    Position = 0)]
-        [ValidateScript({ if($_.Opened -eq $true){ return $true }else{ throw "No active WinSCP Session." } })]
+        [ValidateScript({ if(Test-WinSCPSession -WinSCPSession $_){ return $true }else{ throw "The WinSCP Session is not in an Open state." } })]
         [WinSCP.Session]
         $WinSCPSession,
 
@@ -722,7 +790,7 @@ function Move-WinSCPItem
     {
         if ($valueFromPipeLine -eq $true)
         {
-            $WinSCPSession.Dispose()
+            Close-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }
@@ -751,7 +819,7 @@ function Remove-WinSCPItem
         # WinSCPSession, Type WinSCP.Session, A valid open WinSCP.Session, returned from New-WinSCPSession.
         [Parameter(ValueFromPipeLine = $true,
                    Position = 0)]
-        [ValidateScript({ if($_.Opened -eq $true){ return $true }else{ throw "No active WinSCP Session." } })]
+        [ValidateScript({ if(Test-WinSCPSession -WinSCPSession $_){ return $true }else{ throw "The WinSCP Session is not in an Open state." } })]
         [WinSCP.Session]
         $WinSCPSession,
 
@@ -786,7 +854,7 @@ function Remove-WinSCPItem
     {
         if ($valueFromPipeLine -eq $true)
         {
-            $WinSCPSession.Dispose()
+            Close-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }
