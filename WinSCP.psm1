@@ -25,10 +25,10 @@ function Open-WinSCPSession
         [String]
         $HostName,
 
-        # UserName, Type String, The Username to authenticate with when connecting to the FTP Host.
+        # Username, Type String, The Username to authenticate with when connecting to the FTP Host.
         [Parameter(Position = 1)]
         [String]
-        $UserName,
+        $Username,
         
         # Password, Type String, The Password to authenticate with when connecting to the FTP Host.
         [Parameter(Position = 2)]
@@ -62,9 +62,9 @@ function Open-WinSCPSession
 
     Begin
     {
-        $sessionOptionsValues = @{
+        $sessionOptions = @{
             'HostName' = $HostName
-            'UserName' = $UserName
+            'Username' = $Username
             'Password' = $Password
             'Protocol' = [WinSCP.Protocol]::$Protocol
             'PortNumber' = $PortNumber
@@ -81,8 +81,6 @@ function Open-WinSCPSession
             }
             $sessionOptionsValues.Add('SshHostKeyFingerprint',$SshHostKeyFingerprint)
         }
-
-        $sessionOptions = New-Object -TypeName WinSCP.SessionOptions -Property $sessionOptionsValues
     }
 
     Process
@@ -91,23 +89,12 @@ function Open-WinSCPSession
         {
             $session = New-Object -TypeName WinSCP.Session
             $session.Open($sessionOptions)
+            return $session
         }
         catch
         {
-            throw $Error[0].Exception.Message
-        }
-    }
-
-    End
-    {
-        if ($session.Opened -eq $true)
-        {
-            return $session
-        }
-        else
-        {
-            Write-Error "Unable to open session to $HostName."
-            return $null
+            Write-Error -Message $Error[0].Exception.Message -Category ConnectionError
+            return
         }
     }
 }
@@ -259,7 +246,25 @@ function Receive-WinSCPItem
     {
         foreach ($item in $RemoteItem)
         {
-            $WinSCPSession.GetFiles($item.Replace("\","/"), $LocalItem, $RemoveRemoteItem.IsPresent, $transferOptions)
+            try
+            {
+                $WinSCPSession.GetFiles($item.Replace("\","/"), $LocalItem, $RemoveRemoteItem.IsPresent, $transferOptions)
+            }
+            catch [WinSCP.SessionRemoteException]
+            {
+                Write-Error -Message $_ -Category InvalidArgument
+                return
+            }
+            catch [WinSCP.SessionLocalException]
+            {
+                Write-Error -Message $_ -Category ConnectionError
+                return
+            }
+            catch
+            {
+                Write-Error -Message "UnknownException"
+                return
+            }
         }
     }
 
@@ -300,7 +305,7 @@ function Send-WinSCPItem
         [WinSCP.Session]
         $WinSCPSession,
 
-        # LocalItem, Type String Array, The local location for the transfered item.
+        # LocalItem, Type String Array, The local location for the item to be transfered.
         [Parameter(Mandatory = $true,
                    Position = 1)]
         [String[]]
@@ -351,7 +356,25 @@ function Send-WinSCPItem
     {
         foreach ($item in $LocalItem)
         {
-            $WinSCPSession.PutFiles($item, $RemoteItem.Replace("\","/"), $RemoveRemoteItem.IsPresent, $transferOptions)
+            try
+            {
+                $WinSCPSession.PutFiles($item, $RemoteItem.Replace("\","/"), $RemoveRemoteItem.IsPresent, $transferOptions)
+            }
+            catch [WinSCP.SessionRemoteException]
+            {
+                Write-Error -Message $_ -Category InvalidArgument
+                return
+            }
+            catch [WinSCP.SessionLocalException]
+            {
+                Write-Error -Message $_ -Category ConnectionError
+                return
+            }
+            catch
+            {
+                Write-Error -Message "UnknownException"
+                return
+            }
         }
     }
 
@@ -652,7 +675,7 @@ function Get-WinSCPDirectoryContents
         $ShowFiles
     )
 
-        Begin
+    Begin
     {
         if ($PSBoundParameters.ContainsKey('WinSCPSession'))
         {
@@ -682,17 +705,17 @@ function Get-WinSCPDirectoryContents
             catch [WinSCP.SessionRemoteException]
             {
                 Write-Error -Message $_ -Category InvalidArgument
-                break
+                return
             }
             catch [WinSCP.SessionLocalException]
             {
                 Write-Error -Message $_ -Category ConnectionError
-                break
+                return
             }
             catch
             {
                 Write-Error -Message "UnknownException"
-                break
+                return
             }
         }
     }
@@ -765,23 +788,23 @@ function Move-WinSCPItem
         {
             try
             {
-                $WinSCPSession.MoveFile($item.Replace("\","/"), $RemoteDestinationItem)
+                $WinSCPSession.MoveFile($item.Replace("\","/"), $RemoteDestinationItem.Replace("\","/"))
                 Write-Output -InputObject "$item moved sucssesfully."
             }
             catch [WinSCP.SessionRemoteException]
             {
                 Write-Error -Message $_ -Category InvalidArgument
-                break
+                return
             }
             catch [WinSCP.SessionLocalException]
             {
                 Write-Error -Message $_ -Category ConnectionError
-                break
+                return
             }
             catch
             {
                 Write-Error -Message "UnknownException"
-                break
+                return
             }
         }
     }
@@ -801,7 +824,7 @@ function Move-WinSCPItem
 .DESCRIPTION
     Removes and item, File or Directory from a remote sources.  This action will recurse if a the $RemotePath value is a directory.
 .EXAMPLE
-    $session = New-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp; Remove-WinSCPItem -WinSCPSession $session -RemoteItem "home/MyDir/MyFile.txt"
+    $session = New-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp; Remove-WinSCPItem -WinSCPSession $session -RemoteItem "home/MyDir/MyFile.txt" -LocalDirectory "C:\Dir\" -SyncMode
 .EXAMPLE
     New-WinSCPSession -HostName "myhost.org" -UserName "username" -Password "123456789" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Remove-WinSCPItem -RemoteItem "MyDir/MySubDir"
 .NOTES
@@ -846,7 +869,159 @@ function Remove-WinSCPItem
     {
         foreach ($item in $RemoteItem)
         {
-            $WinSCPSession.RemoveFiles($item.Replace("\","/"))
+            try
+            {
+                $WinSCPSession.RemoveFiles($item.Replace("\","/"))
+            }
+            catch [WinSCP.SessionRemoteException]
+            {
+                Write-Error -Message $_ -Category InvalidArgument
+                return
+            }
+            catch [WinSCP.SessionLocalException]
+            {
+                Write-Error -Message $_ -Category ConnectionError
+                return
+            }
+            catch
+            {
+                Write-Error -Message "UnknownException"
+                return
+            }
+        }
+    }
+
+    End
+    {
+        if ($valueFromPipeLine -eq $true)
+        {
+            Close-WinSCPSession -WinSCPSession $WinSCPSession
+        }
+    }
+}
+
+<#
+.SYNOPSIS
+    Syncronizes directories with an active WinSCP Session.
+.DESCRIPTION
+    Syncronizes a local directory with a remote directory, or vise versa.
+.EXAMPLE
+    $session = New-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp; SyncWinSCPDirectory -WinSCPSession $session -RemoteDirectory "home/MyDir/" -LocalDirectory "C:\MyDir" -SyncMode Local
+.EXAMPLE
+    New-WinSCPSession -HostName "myhost.org" -UserName "username" -Password "123456789" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Sync-WinSCPDirectory -RemoteDirectory "MyDir/MySubDir" -LocalDirectory "C:\Mydir\MySubDir" -SyncMode Both
+.NOTES
+    If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
+.LINK
+    http://dotps1.github.io
+#>
+function Sync-WinSCPDirectory
+{
+    [CmdletBinding()]
+    [OutputType([WinSCP.SynchronizationResult])]
+
+    param
+    (
+        # WinSCPSession, Type WinSCP.Session, A valid open WinSCP.Session, returned from New-WinSCPSession.
+        [Parameter(ValueFromPipeLine = $true,
+                   Position = 0)]
+        [ValidateScript({ if(Test-WinSCPSession -WinSCPSession $_){ return $true }else{ throw "The WinSCP Session is not in an Open state." } })]
+        [WinSCP.Session]
+        $WinSCPSession,
+
+        # RemoteDirectory, Type String, The remote source path to syncronize.
+        [Parameter(Mandatory = $true,
+                   Position = 1)]
+        [String]
+        $RemoteDirectory,
+
+        # LocalDirectory, Type String, The local source path to syncronize.
+        # Default location is the current local working directory.
+        [Parameter(Position = 2)]
+        [String]
+        $LocalDirectory = "$(Get-Location)\",
+
+        # SyncMode, Type String, The operation type to execute.
+        [Parameter(Mandatory = $true,
+                   Position = 3)]
+        [ValidateSet("Local","Remote","Both")]
+        [String]
+        $SyncMode,
+
+        # SyncCriteria, Type String, The critera to base the sync on.
+        # Default Value is Time.
+        [Parameter(Position = 4)]
+        [ValidateSet("None","Time","Size","Either")]
+        [String]
+        $SyncCriteria = "Time",
+
+        # Mirror, Type Switch, uses mirror mode.
+        # Cannot be used with SyncMode.Both.
+        [Parameter(Position = 5)]
+        [Switch]
+        $Mirror,
+
+        # TransferMode, Type String, The transfer method to be used when transfering files.
+        # Default Value is Automatic.
+        [Parameter(Position = 6)]
+        [ValidateSet("Binary","Ascii","Automatic")]
+        [String]
+        $TransferMode = "Automatic",
+
+        # PreserveTimeStamp, Type Bool, Set the file created time as the time from source, or set the created time to the current time.
+        # Default Value is True.
+        [Parameter(Position = 7)]
+        [Bool]
+        $PreserveTimeStamp = $true,
+
+        # RemoveFiles, Type Switch, removes obsolete files.
+        # Cannot be used with SyncMode.Both.
+        [Parameter(Position = 8)]
+        [Switch]
+        $RemoveFiles
+    )
+
+    Begin
+    {
+        if ($PSBoundParameters.ContainsKey('WinSCPSession'))
+        {
+            $valueFromPipeLine = $false
+        }
+        else
+        {
+            $valueFromPipeLine = $true
+        }
+
+        $transferOptions = @{
+            TransferMode = [WinSCP.TransferMode]::$TransferMode
+            PreserveTimestamp = $PreserveTimeStamp
+        }
+    }
+
+    Process
+    {
+        try
+        {
+            $WinSCPSession.SynchronizeDirectories([WinSCP.SynchronizationMode]::$SyncMode, $LocalDirectory.Replace("/","\"), $RemoteDirectory.Replace("\","/"), $RemoveFiles.IsPresent, $Mirror.IsPresent, [WinSCP.SynchronizationCriteria]::$SyncCriteria, $transferOptions)
+        }
+        catch [WinSCP.SessionLocalException]
+        {
+            Write-Error -Message $_ -Category ConnectionError
+            return
+        }
+        catch [WinSCP.SessionRemoteException]
+        {
+            Write-Error -Message $_ -Category ObjectNotFound
+            return
+        }
+        catch [ArgumentException]
+        {
+            Write-Error -Message $_ -Category InvalidArgument
+            return
+        }
+        catch
+        {
+            Write-Error -Exception "UnknownException"
+            return
         }
     }
 
