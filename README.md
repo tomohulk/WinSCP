@@ -15,6 +15,7 @@ Get-WinSCPItemInformation
 Get-WinSCPDirectoryContents
 Move-WinSCPItem
 Remove-WinSCPItem
+Sync-WinSCPDirectory
 ```
 
 Example 1:
