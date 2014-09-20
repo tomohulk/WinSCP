@@ -47,22 +47,36 @@
 <span class="nb">Move-WinSCPItem</span>
 <span class="nb">Remove-WinSCPItem</span>
 <span class="n">Sync-WinSCPDirectory</span>
+<span class="nb">Invoke-WinSCPCommands</span>
 </pre></div>
 
 <p>Example 1:</p>
 
-<div class="highlight highlight-PowerShell"><pre><span class="nb">New-WinSCPSession</span> <span class="n">-HostName</span> <span class="s2">"myhost.org"</span> <span class="n">-UserName</span> <span class="s2">"username"</span> <span class="n">-Password</span> <span class="s2">"123456789"</span> <span class="n">-SshHostKeyFingerprint</span> <span class="s2">"ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx"</span> <span class="p">|</span> <span class="nb">Receive-WinSCPItems</span> <span class="n">-RemoteItem</span> <span class="s2">"./MyRemoteDir/MyFile.txt"</span> <span class="n">-LocalItem</span> <span class="s2">"C:\MyLocalDir\MyFile.txt"</span>
+<div class="highlight highlight-PowerShell"><pre><span class="c"># Connect to host and download MyFile.txt to the local machine.</span>
+<span class="c"># AutoCloses the session upon completion.</span>
+<span class="n">Open-WinSCPSession</span> <span class="n">-HostName</span> <span class="s2">"myhost.org"</span> <span class="n">-Username</span> <span class="s2">"username"</span> <span class="n">-Password</span> <span class="s2">"123456789"</span> <span class="n">-SshHostKeyFingerprint</span> <span class="s2">"ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx"</span> <span class="p">|</span> 
+     <span class="nb">Receive-WinSCPItems</span> <span class="n">-RemoteItem</span> <span class="s2">"./MyRemoteDir/MyFile.txt"</span> <span class="n">-LocalItem</span> <span class="s2">"C:\MyLocalDir\MyFile.txt"</span>
 </pre></div>
 
 <p>Example 2:</p>
 
-<div class="highlight highlight-PowerShell"><pre><span class="nv">$session</span> <span class="p">=</span> <span class="nb">New-WinSCPSession</span> <span class="n">-HostName</span> <span class="s2">"myinsecurehost.org"</span> <span class="n">-Protocol</span> <span class="n">Ftp</span>
+<div class="highlight highlight-PowerShell"><pre><span class="c"># Connect to the host and upload myfile.txt.</span>
+<span class="nv">$session</span> <span class="p">=</span> <span class="n">Open-WinSCPSession</span> <span class="n">-HostName</span> <span class="s2">"myinsecurehost.org"</span> <span class="n">-Protocol</span> <span class="n">Ftp</span>
 <span class="nb">Send-WinSCPItem</span> <span class="n">-WinSCPSession</span> <span class="nv">$session</span> <span class="n">-LocalItem</span> <span class="s2">"C:\Dir\myfile.txt"</span> <span class="n">-Remote-Item</span> <span class="s2">"home/dir/myfile.txt"</span>
 </pre></div>
 
 <p>Example 3:</p>
 
-<div class="highlight highlight-PowerShell"><pre><span class="nv">$session</span> <span class="p">=</span> <span class="nb">New-WinSCPSession</span> <span class="n">-HostName</span> <span class="s2">"myinsecurehost.org"</span> <span class="n">-Protocol</span> <span class="n">Ftp</span><span class="p">;</span> <span class="nb">Test-WinSCPItemExists</span> <span class="n">-WinSCPSession</span> <span class="nv">$session</span> <span class="n">-RemoteItem</span> <span class="s2">"home/MyDir/MyNewDir"</span>
+<div class="highlight highlight-PowerShell"><pre><span class="c">#Connect to the host and verify the item MyNewDir exists.</span>
+<span class="nv">$session</span> <span class="p">=</span> <span class="n">Open-WinSCPSession</span> <span class="n">-HostName</span> <span class="s2">"myinsecurehost.org"</span> <span class="n">-Protocol</span> <span class="n">Ftp</span>
+<span class="nb">Test-WinSCPItemExists</span> <span class="n">-WinSCPSession</span> <span class="nv">$session</span> <span class="n">-RemoteItem</span> <span class="s2">"home/MyDir/MyNewDir"</span>
+</pre></div>
+
+<p>Example 4:</p>
+
+<div class="highlight highlight-PowerShell"><pre><span class="c"># Connect to the host and syncronize subdir with SubDir based on file DateTime.</span>
+<span class="c"># AutoCloses the session upon completion.</span>
+<span class="n">Open-WinSCPSession</span> <span class="n">-HostName</span> <span class="s2">"ftp.org"</span> <span class="n">-Protocol</span> <span class="n">Ftp</span> <span class="p">|</span> <span class="n">Sync-WinSCPDirectorys</span> <span class="n">-RemoteDirectory</span> <span class="s2">"mydir/subdir"</span> <span class="n">-LocalDirectory</span> <span class="s2">"C:\SubDir"</span> <span class="n">-Local</span> <span class="n">-Time</span>
 </pre></div>
 
 <p>I have included the WinSCPnet.dll in the <em>NeededAssemblies</em> folder.</p>
