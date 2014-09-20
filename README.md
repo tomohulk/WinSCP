@@ -16,7 +16,7 @@ Get-WinSCPDirectoryContents
 Move-WinSCPItem
 Remove-WinSCPItem
 Sync-WinSCPDirectory
-Invoke-WinSCPCommands
+Invoke-WinSCPCommand
 ConvertTo-WinSCPEscapedString
 ```
 
