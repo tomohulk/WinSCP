@@ -59,3 +59,6 @@ Open-WinSCPSession -HostName "ftp.org" -Protocol Ftp | Sync-WinSCPDirectorys -Re
 I have included the WinSCPnet.dll in the _NeededAssemblies_ folder.
 
 Check back regularly for updates.
+
+
+this project is licensed with GNU GENERAL PUBLIC LICENSE.
