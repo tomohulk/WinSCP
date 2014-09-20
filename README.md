@@ -4,7 +4,7 @@ This is still a very beta version, with most base functionality available with W
 
 Current avaialbe functions:
 ```PowerShell
-New-WinSCPSession
+Open-WinSCPSession
 Test-WinSCPSession
 Close-WinSCPSession
 Receive-WinSCPItem
