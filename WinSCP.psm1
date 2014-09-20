@@ -11,6 +11,7 @@
     If the WinSCPSession is piped into another WinSCP command, the connection will be disposed upon completion of that command.
 .LINK
     http://dotps1.github.io
+    http://winscp.net
 #>
 function Open-WinSCPSession
 {
@@ -91,9 +92,9 @@ function Open-WinSCPSession
             $session.Open($sessionOptions)
             return $session
         }
-        catch
+        catch [System.Exception]
         {
-            Write-Error -Message $Error[0].Exception.Message -Category ConnectionError
+            Write-Error $_
             return
         }
     }
@@ -110,6 +111,7 @@ function Open-WinSCPSession
     This function is used in the Begin Statement of subsequent functions to verify the connection to the remote server is open.
 .LINK
     http://dotps1.github.io
+    http://winscp.net
 #>
 function Test-WinSCPSession
 {
@@ -146,6 +148,7 @@ function Test-WinSCPSession
     If the WinSCPSession is piped into another WinSCP command, this function will be called to auto dispose th connection upon complete of the command.
 .LINK
     http://dotps1.github.io
+    http://winscp.net
 #>
 function Close-WinSCPSession
 {
@@ -180,6 +183,7 @@ function Close-WinSCPSession
     If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
 .LINK
     http://dotps1.github.io
+    http://winscp.net
 #>
 function Receive-WinSCPItem
 {
@@ -250,19 +254,9 @@ function Receive-WinSCPItem
             {
                 $WinSCPSession.GetFiles($item.Replace("\","/"), $LocalItem, $RemoveRemoteItem.IsPresent, $transferOptions)
             }
-            catch [WinSCP.SessionRemoteException]
+            catch [System.Exception]
             {
-                Write-Error -Message $_ -Category InvalidArgument
-                return
-            }
-            catch [WinSCP.SessionLocalException]
-            {
-                Write-Error -Message $_ -Category ConnectionError
-                return
-            }
-            catch
-            {
-                Write-Error -Message "UnknownException"
+                Write-Error $_
                 return
             }
         }
@@ -290,6 +284,7 @@ function Receive-WinSCPItem
     If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
 .LINK
     http://dotps1.github.io
+    http://winscp.net
 #>
 function Send-WinSCPItem
 {
@@ -360,19 +355,9 @@ function Send-WinSCPItem
             {
                 $WinSCPSession.PutFiles($item, $RemoteItem.Replace("\","/"), $RemoveRemoteItem.IsPresent, $transferOptions)
             }
-            catch [WinSCP.SessionRemoteException]
+            catch [System.Exception]
             {
-                Write-Error -Message $_ -Category InvalidArgument
-                return
-            }
-            catch [WinSCP.SessionLocalException]
-            {
-                Write-Error -Message $_ -Category ConnectionError
-                return
-            }
-            catch
-            {
-                Write-Error -Message "UnknownException"
+                Write-Error $_
                 return
             }
         }
@@ -400,11 +385,12 @@ function Send-WinSCPItem
    If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
 .LINK
     http://dotps1.github.io
+    http://winscp.net
 #>
 function New-WinSCPDirectory
 {
     [CmdletBinding()]
-    [OutputType([Void])]
+    [OutputType([WinSCP.RemoteFileInfo])]
     
     param
     (
@@ -442,21 +428,11 @@ function New-WinSCPDirectory
             try
             {
                 $WinSCPSession.CreateDirectory($directory.Replace("\","/"))
-                Write-Output -InputObject "$DirectoryName created sucsesfully."
+                return ($WinSCPSession.GetFileInfo($directory.Replace("\","/")))
             }
-            catch [WinSCP.SessionRemoteException]
+            catch [System.Exception]
             {
-                Write-Error -Message $_ -Category InvalidArgument
-                return
-            }
-            catch [WinSCP.SessionLocalException]
-            {
-                Write-Error -Message $_ -Category ConnectionError
-                return
-            }
-            catch
-            {
-                Write-Error -Message "UnknownException"
+                Write-Error $_
                 return
             }
         }
@@ -484,6 +460,7 @@ function New-WinSCPDirectory
    If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
 .LINK
     http://dotps1.github.io
+    http://winscp.net
 #>
 function Test-WinSCPItemExists
 {
@@ -526,19 +503,9 @@ function Test-WinSCPItemExists
             {
                 $WinSCPSession.FileExists($item.Replace("\","/"))
             }
-            catch [WinSCP.InvalidOperationException]
+            catch [System.Exception]
             {
-                Write-Error -Message $_ -Category InvalidArgument
-                return
-            }
-            catch [WinSCP.SessionLocalException]
-            {
-                Write-Error -Message $_ -Category ConnectionError
-                return
-            }
-            catch
-            {
-                Write-Error -Message "UnknownException"
+                Write-Error $_
                 return
             }
         }
@@ -566,6 +533,7 @@ function Test-WinSCPItemExists
     If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
 .LINK
     http://dotps1.github.io
+    http://winscp.net
 #>
 function Get-WinSCPItemInformation
 {
@@ -608,20 +576,10 @@ function Get-WinSCPItemInformation
             {
                 $WinSCPSession.GetFileInfo($item.Replace("\","/"))
             }
-            catch [WinSCP.SessionRemoteException]
+            catch [System.Exception]
             {
-                Write-Error -Message $_ -Category InvalidArgument
-                break
-            }
-            catch [WinSCP.SessionLocalException]
-            {
-                Write-Error -Message $_ -Category ConnectionError
-                break
-            }
-            catch
-            {
-                Write-Error -Message "UnknownException"
-                break
+                Write-Error $_
+                return
             }
         }
     }
@@ -643,11 +601,12 @@ function Get-WinSCPItemInformation
 .EXAMPLE
     $session = New-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp; Get-WinSCPDirectoryContents -WinSCPSession $session -RemoteDirectory "home/MyDir/"
 .EXAMPLE
-    New-WinSCPSession -HostName "myhost.org" -UserName "username" -Password "123456789" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Get-WinSCPDirectoryContents -RemoteDirectory "home/MyDir/" -ShowFiles
+    New-WinSCPSession -HostName "myhost.org" -UserName "username" -Password "123456789" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Get-WinSCPDirectoryContents -RemoteDirectory "home/MyDir/" -ShowDetails
 .NOTES
     If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
 .LINK
     http://dotps1.github.io
+    http://winscp.net
 #>
 function Get-WinSCPDirectoryContents
 {
@@ -669,10 +628,10 @@ function Get-WinSCPDirectoryContents
         [String[]]
         $RemoteDirectory,
 
-        # ShowFiles, Type Switch, Show the files within the contents of the directory.
+        # ShowDetails, Type Switch, Show details about each item.
         [Parameter(Position = 3)]
         [Switch]
-        $ShowFiles
+        $ShowDetails
     )
 
     Begin
@@ -693,7 +652,7 @@ function Get-WinSCPDirectoryContents
         {
             try
             {
-                if ($ShowFiles.IsPresent)
+                if ($ShowDetails.IsPresent)
                 {
                     $WinSCPSession.ListDirectory($directory.Replace("\","/")).Files
                 }
@@ -702,19 +661,9 @@ function Get-WinSCPDirectoryContents
                     $WinSCPSession.ListDirectory($directory.Replace("\","/"))
                 }
             }
-            catch [WinSCP.SessionRemoteException]
+            catch [System.Exception]
             {
-                Write-Error -Message $_ -Category InvalidArgument
-                return
-            }
-            catch [WinSCP.SessionLocalException]
-            {
-                Write-Error -Message $_ -Category ConnectionError
-                return
-            }
-            catch
-            {
-                Write-Error -Message "UnknownException"
+                Write-Error $_
                 return
             }
         }
@@ -742,11 +691,12 @@ function Get-WinSCPDirectoryContents
     If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
 .LINK
     http://dotps1.github.io
+    http://winscp.net
 #>
 function Move-WinSCPItem
 {
     [CmdletBinding()]
-    [OutputType([Void])]
+    [OutputType([WinSCP.RemoteFileInfo])]
     
     param
     (
@@ -789,21 +739,11 @@ function Move-WinSCPItem
             try
             {
                 $WinSCPSession.MoveFile($item.Replace("\","/"), $RemoteDestinationItem.Replace("\","/"))
-                Write-Output -InputObject "$item moved sucssesfully."
+                return ($WinSCPSession.GetFileInfo($RemoteDestinationItem.Replace("\","/")))
             }
-            catch [WinSCP.SessionRemoteException]
+            catch [System.Exception]
             {
-                Write-Error -Message $_ -Category InvalidArgument
-                return
-            }
-            catch [WinSCP.SessionLocalException]
-            {
-                Write-Error -Message $_ -Category ConnectionError
-                return
-            }
-            catch
-            {
-                Write-Error -Message "UnknownException"
+                Write-Error $_
                 return
             }
         }
@@ -831,6 +771,7 @@ function Move-WinSCPItem
     If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
 .LINK
     http://dotps1.github.io
+    http://winscp.net
 #>
 function Remove-WinSCPItem
 {
@@ -873,19 +814,9 @@ function Remove-WinSCPItem
             {
                 $WinSCPSession.RemoveFiles($item.Replace("\","/"))
             }
-            catch [WinSCP.SessionRemoteException]
+            catch [System.Exception]
             {
-                Write-Error -Message $_ -Category InvalidArgument
-                return
-            }
-            catch [WinSCP.SessionLocalException]
-            {
-                Write-Error -Message $_ -Category ConnectionError
-                return
-            }
-            catch
-            {
-                Write-Error -Message "UnknownException"
+                Write-Error $_
                 return
             }
         }
@@ -906,13 +837,14 @@ function Remove-WinSCPItem
 .DESCRIPTION
     Syncronizes a local directory with a remote directory, or vise versa.
 .EXAMPLE
-    $session = New-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp; SyncWinSCPDirectory -WinSCPSession $session -RemoteDirectory "home/MyDir/" -LocalDirectory "C:\MyDir" -SyncMode Local
+    $session = New-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp; Sync-WinSCPDirectory -WinSCPSession $session -RemoteDirectory "home/MyDir/" -LocalDirectory "C:\MyDir" -SyncMode Local
 .EXAMPLE
     New-WinSCPSession -HostName "myhost.org" -UserName "username" -Password "123456789" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Sync-WinSCPDirectory -RemoteDirectory "MyDir/MySubDir" -LocalDirectory "C:\Mydir\MySubDir" -SyncMode Both
 .NOTES
     If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
 .LINK
     http://dotps1.github.io
+    http://winscp.net
 #>
 function Sync-WinSCPDirectory
 {
@@ -1003,25 +935,80 @@ function Sync-WinSCPDirectory
         {
             $WinSCPSession.SynchronizeDirectories([WinSCP.SynchronizationMode]::$SyncMode, $LocalDirectory.Replace("/","\"), $RemoteDirectory.Replace("\","/"), $RemoveFiles.IsPresent, $Mirror.IsPresent, [WinSCP.SynchronizationCriteria]::$SyncCriteria, $transferOptions)
         }
-        catch [WinSCP.SessionLocalException]
+        catch [System.Exception]
         {
-            Write-Error -Message $_ -Category ConnectionError
+            Write-Error $_
             return
         }
-        catch [WinSCP.SessionRemoteException]
+    }
+
+    End
+    {
+        if ($valueFromPipeLine -eq $true)
         {
-            Write-Error -Message $_ -Category ObjectNotFound
-            return
+            Close-WinSCPSession -WinSCPSession $WinSCPSession
         }
-        catch [ArgumentException]
+    }
+}
+
+<#
+.SYNOPSIS
+    Invokes a command on an Active WinSCP Session.
+.DESCRIPTION
+    Invokes a command on the sytem hosting the FTP/SFTP Service.
+.EXAMPLE
+    $session = New-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp; Invoke-WinSCPCommands -WinSCPSession $session -Commands ("mysqldump --opt -u {0} --password={1} --all-databases | gzip > {2}" -f $dbUsername, $dbPassword, $tempFilePath)
+.NOTES
+    If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
+.LINK
+    http://dotps1.github.io
+    http://winscp.net
+#>
+function Invoke-WinSCPCommands
+{
+    [CmdletBinding()]
+    [OutputType([WinSCP.CommandExecutionResult])]
+
+    param
+    (
+        # WinSCPSession, Type WinSCP.Session, A valid open WinSCP.Session, returned from New-WinSCPSession.
+        [Parameter(ValueFromPipeLine = $true,
+                   Position = 0)]
+        [ValidateScript({ if(Test-WinSCPSession -WinSCPSession $_){ return $true }else{ throw "The WinSCP Session is not in an Open state." } })]
+        [WinSCP.Session]
+        $WinSCPSession,
+
+        # Commands, Type String Array, List of commands to send to the remote server.
+        [Parameter(Mandatory = $true,
+                   Position = 1)]
+        [String[]]
+        $Commands
+    )
+
+    Begin
+    {
+        if ($PSBoundParameters.ContainsKey('WinSCPSession'))
         {
-            Write-Error -Message $_ -Category InvalidArgument
-            return
+            $valueFromPipeLine = $false
         }
-        catch
+        else
         {
-            Write-Error -Exception "UnknownException"
-            return
+            $valueFromPipeLine = $true
+        }
+    }
+
+    Process
+    {
+        foreach ($command in $Commands)
+        {
+            try
+            {
+                $WinSCPSession.ExecuteCommand($command)
+            }
+            catch [Exception]
+            {
+                Write-Error -Message $_
+            }
         }
     }
 
