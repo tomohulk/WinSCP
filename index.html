@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Winscp by dotps1</title>
+    <title>WinSCP by dotps1</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -15,7 +15,7 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>Winscp</h1>
+        <h1>WinSCP</h1>
         <p>WinSCP PowerShell Wrapper</p>
 
         <p class="view"><a href="https://github.com/dotps1/WinSCP">View the Project on GitHub <small>dotps1/WinSCP</small></a></p>
@@ -31,11 +31,11 @@
         <h1>
 <a name="winscp-powershell-wrapper" class="anchor" href="#winscp-powershell-wrapper"><span class="octicon octicon-link"></span></a>WinSCP PowerShell Wrapper</h1>
 
-<p>This is still a very beta version, with some base functionality, I intend on developing this extensively.  </p>
+<p>This is still a very beta version, with most base functionality available with WinSCP, I intend on developing this extensively.  </p>
 
-<p>currently there are only a few functions:</p>
+<p>Current avaialbe functions:</p>
 
-<div class="highlight highlight-PowerShell"><pre><span class="nb">New-WinSCPSession</span>
+<div class="highlight highlight-PowerShell"><pre><span class="n">Open-WinSCPSession</span>
 <span class="nb">Test-WinSCPSession</span>
 <span class="n">Close-WinSCPSession</span>
 <span class="nb">Receive-WinSCPItem</span>
@@ -48,6 +48,7 @@
 <span class="nb">Remove-WinSCPItem</span>
 <span class="n">Sync-WinSCPDirectory</span>
 <span class="nb">Invoke-WinSCPCommands</span>
+<span class="nb">ConvertTo-WinSCPEscapedString</span>
 </pre></div>
 
 <p>Example 1:</p>
@@ -63,6 +64,7 @@
 <div class="highlight highlight-PowerShell"><pre><span class="c"># Connect to the host and upload myfile.txt.</span>
 <span class="nv">$session</span> <span class="p">=</span> <span class="n">Open-WinSCPSession</span> <span class="n">-HostName</span> <span class="s2">"myinsecurehost.org"</span> <span class="n">-Protocol</span> <span class="n">Ftp</span>
 <span class="nb">Send-WinSCPItem</span> <span class="n">-WinSCPSession</span> <span class="nv">$session</span> <span class="n">-LocalItem</span> <span class="s2">"C:\Dir\myfile.txt"</span> <span class="n">-Remote-Item</span> <span class="s2">"home/dir/myfile.txt"</span>
+<span class="n">Close-WinSCPSession</span> <span class="n">-WinSCPSession</span> <span class="nv">$session</span>
 </pre></div>
 
 <p>Example 3:</p>
@@ -70,6 +72,7 @@
 <div class="highlight highlight-PowerShell"><pre><span class="c">#Connect to the host and verify the item MyNewDir exists.</span>
 <span class="nv">$session</span> <span class="p">=</span> <span class="n">Open-WinSCPSession</span> <span class="n">-HostName</span> <span class="s2">"myinsecurehost.org"</span> <span class="n">-Protocol</span> <span class="n">Ftp</span>
 <span class="nb">Test-WinSCPItemExists</span> <span class="n">-WinSCPSession</span> <span class="nv">$session</span> <span class="n">-RemoteItem</span> <span class="s2">"home/MyDir/MyNewDir"</span>
+<span class="n">Close-WinSCPSession</span> <span class="n">-WinSCPSession</span> <span class="nv">$session</span>
 </pre></div>
 
 <p>Example 4:</p>
@@ -82,6 +85,8 @@
 <p>I have included the WinSCPnet.dll in the <em>NeededAssemblies</em> folder.</p>
 
 <p>Check back regularly for updates.</p>
+
+<p>this project is licensed with GNU GENERAL PUBLIC LICENSE.</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/dotps1">dotps1</a></p>
