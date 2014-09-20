@@ -23,6 +23,7 @@ function Open-WinSCPSession
         # HostName, Type String, The FTP Host to connect to.
         [Parameter(Mandatory = $true,
                    Position = 0)]
+        [Alias("Host","Server")]
         [String]
         $HostName,
 
@@ -39,6 +40,7 @@ function Open-WinSCPSession
         # PortNumber, Type Int, The Port Number to connect to the FTP Host.
         # A value of 0 will use the Default Port based on the Protocol Used.
         [Parameter(Position = 3)]
+        [Alias("Port")]
         [Int]
         $PortNumber = 0,
 
@@ -51,6 +53,7 @@ function Open-WinSCPSession
         # SshHostKeyFingerprint, Type String, The Certificate Fingerprint to use when connecting to the FTP Host.
         # This parameter is requried when using Sftp or Scp Protocols.
         [Parameter(Position = 5)]
+        [Alias("Key")]
         [String]
         $SshHostKeyFingerprint,
 
@@ -80,7 +83,8 @@ function Open-WinSCPSession
                 Write-Host "Supply values for the following parameter:"
                 $SshHostKeyFingerprint = Read-Host -Prompt "SshHostKeyFingerprint"
             }
-            $sessionOptionsValues.Add('SshHostKeyFingerprint',$SshHostKeyFingerprint)
+
+            $sessionOptions.Add('SshHostKeyFingerprint',$SshHostKeyFingerprint)
         }
     }
 
@@ -123,6 +127,7 @@ function Test-WinSCPSession
         #WinSCPSession, Type WinSCP.Session, The active WinSCP Session to close.
         [Parameter(Mandatory = $true,
                    Position = 0)]
+        [Alias("Session")]
         [WinSCP.Session]
         $WinSCPSession
     )
@@ -160,6 +165,8 @@ function Close-WinSCPSession
         #WinSCPSession, Type WinSCP.Session, The active WinSCP Session to close.
         [Parameter(Mandatory = $true,
                    Position = 0)]
+        [ValidateScript({ if(Test-WinSCPSession -WinSCPSession $_){ return $true }else{ throw "The WinSCP Session is not in an Open state." } })]
+        [Alias("Session")]
         [WinSCP.Session]
         $WinSCPSession
     )
@@ -196,6 +203,7 @@ function Receive-WinSCPItem
         [Parameter(ValueFromPipeLine = $true,
                    Position = 0)]
         [ValidateScript({ if(Test-WinSCPSession -WinSCPSession $_){ return $true }else{ throw "The WinSCP Session is not in an Open state." } })]
+        [Alias("Session")]
         [WinSCP.Session]
         $WinSCPSession,
 
@@ -297,6 +305,7 @@ function Send-WinSCPItem
         [Parameter(ValueFromPipeLine = $true,
                    Position = 0)]
         [ValidateScript({ if(Test-WinSCPSession -WinSCPSession $_){ return $true }else{ throw "The WinSCP Session is not in an Open state." } })]
+        [Alias("Session")]
         [WinSCP.Session]
         $WinSCPSession,
 
@@ -398,6 +407,7 @@ function New-WinSCPDirectory
         [Parameter(ValueFromPipeLine = $true,
                    Position = 0)]
         [ValidateScript({ if(Test-WinSCPSession -WinSCPSession $_){ return $true }else{ throw "The WinSCP Session is not in an Open state." } })]
+        [Alias("Session")]
         [WinSCP.Session]
         $WinSCPSession,
 
@@ -405,6 +415,7 @@ function New-WinSCPDirectory
         # The working directory is set as the homepath on the FTP Host, all new directories will be made from that starting point.
         [Parameter(Mandatory = $true,
                    Position = 1)]
+        [Alias("Dir")]
         [String[]]
         $DirectoryName
     )
@@ -473,6 +484,7 @@ function Test-WinSCPItemExists
         [Parameter(ValueFromPipeLine = $true,
                    Position = 0)]
         [ValidateScript({ if(Test-WinSCPSession -WinSCPSession $_){ return $true }else{ throw "The WinSCP Session is not in an Open state." } })]
+        [Alias("Session")]
         [WinSCP.Session]
         $WinSCPSession,
 
@@ -546,6 +558,7 @@ function Get-WinSCPItemInformation
         [Parameter(ValueFromPipeLine = $true,
                    Position = 0)]
         [ValidateScript({ if(Test-WinSCPSession -WinSCPSession $_){ return $true }else{ throw "The WinSCP Session is not in an Open state." } })]
+        [Alias("Session")]
         [WinSCP.Session]
         $WinSCPSession,
 
@@ -619,12 +632,14 @@ function Get-WinSCPDirectoryContents
         [Parameter(ValueFromPipeLine = $true,
                    Position = 0)]
         [ValidateScript({ if(Test-WinSCPSession -WinSCPSession $_){ return $true }else{ throw "The WinSCP Session is not in an Open state." } })]
+        [Alias("Session")]
         [WinSCP.Session]
         $WinSCPSession,
 
         # RemoteDirectory, Type String Array, The remote source path to show contents of.
         [Parameter(Mandatory = $true,
                    Position = 1)]
+        [Alias("Dir")]
         [String[]]
         $RemoteDirectory,
 
@@ -704,18 +719,21 @@ function Move-WinSCPItem
         [Parameter(ValueFromPipeLine = $true,
                    Position = 0)]
         [ValidateScript({ if(Test-WinSCPSession -WinSCPSession $_){ return $true }else{ throw "The WinSCP Session is not in an Open state." } })]
+        [Alias("Session")]
         [WinSCP.Session]
         $WinSCPSession,
 
         # RemoteSourceItem, Type String Array, The remote source path of the item to be moved.
         [Parameter(Mandatory = $true,
                    Position = 1)]
+        [Alias("Source")]
         [String[]]
         $RemoteSourceItem,
 
         # RemoteDestinationItem, Type String, the remote destination for moving the items to.
         [Parameter(Mandatory = $true,
                    Position = 2)]
+        [Alias("Destination")]
         [String]
         $RemoteDestinationItem
     )
@@ -784,6 +802,7 @@ function Remove-WinSCPItem
         [Parameter(ValueFromPipeLine = $true,
                    Position = 0)]
         [ValidateScript({ if(Test-WinSCPSession -WinSCPSession $_){ return $true }else{ throw "The WinSCP Session is not in an Open state." } })]
+        [Alias("Session")]
         [WinSCP.Session]
         $WinSCPSession,
 
@@ -857,6 +876,7 @@ function Sync-WinSCPDirectory
         [Parameter(ValueFromPipeLine = $true,
                    Position = 0)]
         [ValidateScript({ if(Test-WinSCPSession -WinSCPSession $_){ return $true }else{ throw "The WinSCP Session is not in an Open state." } })]
+        [Alias("Session")]
         [WinSCP.Session]
         $WinSCPSession,
 
@@ -957,14 +977,14 @@ function Sync-WinSCPDirectory
 .DESCRIPTION
     Invokes a command on the sytem hosting the FTP/SFTP Service.
 .EXAMPLE
-    $session = New-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp; Invoke-WinSCPCommands -WinSCPSession $session -Commands ("mysqldump --opt -u {0} --password={1} --all-databases | gzip > {2}" -f $dbUsername, $dbPassword, $tempFilePath)
+    $session = New-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp; Invoke-WinSCPCommand -WinSCPSession $session -Command ("mysqldump --opt -u {0} --password={1} --all-databases | gzip > {2}" -f $dbUsername, $dbPassword, $tempFilePath)
 .NOTES
     If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
 .LINK
     http://dotps1.github.io
     http://winscp.net
 #>
-function Invoke-WinSCPCommands
+function Invoke-WinSCPCommand
 {
     [CmdletBinding()]
     [OutputType([WinSCP.CommandExecutionResult])]
@@ -975,14 +995,15 @@ function Invoke-WinSCPCommands
         [Parameter(ValueFromPipeLine = $true,
                    Position = 0)]
         [ValidateScript({ if(Test-WinSCPSession -WinSCPSession $_){ return $true }else{ throw "The WinSCP Session is not in an Open state." } })]
+        [Alias("Session")]
         [WinSCP.Session]
         $WinSCPSession,
 
-        # Commands, Type String Array, List of commands to send to the remote server.
+        # Command, Type String Array, List of commands to send to the remote server.
         [Parameter(Mandatory = $true,
                    Position = 1)]
         [String[]]
-        $Commands
+        $Command
     )
 
     Begin
@@ -999,11 +1020,11 @@ function Invoke-WinSCPCommands
 
     Process
     {
-        foreach ($command in $Commands)
+        foreach ($commandment in $Command)
         {
             try
             {
-                $WinSCPSession.ExecuteCommand($command)
+                $WinSCPSession.ExecuteCommand($commandment)
             }
             catch [Exception]
             {
@@ -1018,5 +1039,51 @@ function Invoke-WinSCPCommands
         {
             Close-WinSCPSession -WinSCPSession $WinSCPSession
         }
+    }
+}
+
+<#
+.SYNOPSIS
+    Escapes special charcters in string.
+.DESCRIPTION
+    Escapes special charcters so they are not misinterpreted as wildcards or other special charcters.
+.EXAMPLE
+    $session = New-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp; Receive-WinSCPItem -WinSCPSession $session -RemoteItem (ConvertTo-WinSCPEscapedString -WinSCPSession $session -String "dir/filewithstar*.txt") -LocalItem "C:\Dir\"
+.NOTES
+    Useful with Send-WinSCPItem, Receive-WinSCPItem, Remove-WinSCPItem cmdlets.
+.LINK
+    http://dotps1.github.io
+    http://winscp.net
+#>
+function ConvertTo-WinSCPEscapedString
+{
+    [CmdletBinding()]
+    [OutputType([String])]
+
+    param
+    (
+        # WinSCPSession, Type WinSCP.Session, A valid open WinSCP.Session, returned from New-WinSCPSession.
+        [Parameter(Mandatory = $true,
+                   Position = 0)]
+        [ValidateScript({ if(Test-WinSCPSession -WinSCPSession $_){ return $true }else{ throw "The WinSCP Session is not in an Open state." } })]
+        [Alias("Session")]
+        [WinSCP.Session]
+        $WinSCPSession,
+
+        #String, Type String , String to convert with special charcter escaping.
+        [Parameter(Mandatory = $true,
+                   Position = 1)]
+        [String]
+        $String
+    )
+
+    try
+    {
+        return ($WinSCPSession.EscapeFileMask($String))
+    }
+    catch [System.Exception]
+    {
+        Write-Error $_
+        return
     }
 }

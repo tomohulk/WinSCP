@@ -1,8 +1,8 @@
 # WinSCP PowerShell Wrapper
 
-This is still a very beta version, with some base functionality, I intend on developing this extensively.  
+This is still a very beta version, with most base functionality available with WinSCP, I intend on developing this extensively.  
 
-currently there are only a few functions:
+Current avaialbe functions:
 ```PowerShell
 New-WinSCPSession
 Test-WinSCPSession
@@ -17,6 +17,7 @@ Move-WinSCPItem
 Remove-WinSCPItem
 Sync-WinSCPDirectory
 Invoke-WinSCPCommands
+ConvertTo-WinSCPEscapedString
 ```
 
 Example 1:
@@ -34,6 +35,7 @@ Example 2:
 # Connect to the host and upload myfile.txt.
 $session = Open-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp
 Send-WinSCPItem -WinSCPSession $session -LocalItem "C:\Dir\myfile.txt" -Remote-Item "home/dir/myfile.txt"
+Close-WinSCPSession -WinSCPSession $session
 ```
 
 Example 3:
@@ -42,6 +44,7 @@ Example 3:
 #Connect to the host and verify the item MyNewDir exists.
 $session = Open-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp
 Test-WinSCPItemExists -WinSCPSession $session -RemoteItem "home/MyDir/MyNewDir"
+Close-WinSCPSession -WinSCPSession $session
 ```
 
 Example 4:
@@ -51,6 +54,7 @@ Example 4:
 # AutoCloses the session upon completion.
 Open-WinSCPSession -HostName "ftp.org" -Protocol Ftp | Sync-WinSCPDirectorys -RemoteDirectory "mydir/subdir" -LocalDirectory "C:\SubDir" -Local -Time
 ```
+
 
 I have included the WinSCPnet.dll in the _NeededAssemblies_ folder.
 
