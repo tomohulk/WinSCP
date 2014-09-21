@@ -44,42 +44,64 @@ function Open-WinSCPSession
         [Int]
         $PortNumber = 0,
 
-        # Protocol, Type String, The Protocol to use when connecting to the FTP Host.
+        # Protocol, Type String, The Protocol to use when connecting to the remot host.
         [Parameter(Position = 4)]
         [ValidateSet("Sftp","Scp","Ftp")]
         [String]
-        $Protocol = 'Sftp',
+        $Protocol = "Sftp",
+
+        # FtpMode, Type String, The Mode type to use when connecting to a remote host.
+        # Default Value is Passive.
+        [Parameter(Position = 5)]
+        [ValidateSet("Passive","Active")]
+        [String]
+        $FtpMode = "Passive",
+
+        # FtpSecurity, Type String, The Protocal Security to use with secure transfers.
+        # Default value is None.
+        [Parameter(Position = 6)]
+        [ValidateSet("None","Implicit","ExplicitTls","ExplicitSsl")]
+        [String]
+        $FtpSecurity = "None",
 
         # SshHostKeyFingerprint, Type String, The Certificate Fingerprint to use when connecting to the FTP Host.
         # This parameter is requried when using Sftp or Scp Protocols.
-        [Parameter(Position = 5)]
+        [Parameter(Position = 7)]
         [Alias("Key")]
         [String]
         $SshHostKeyFingerprint,
 
-        # Timeout, Type Int, The amount of time, in seconds to wait for the FTP Host to respond.
+        # Timeout, Type Int, The amount of time, in seconds to wait for the Remote Host to respond.
         # Default Value is 15 Seconds.
-        [Parameter(Position = 6)]
+        [Parameter(Position = 8)]
         [Int]
-        $Timeout = 15
+        $Timeout = 15,
+
+        # SessionLogPath, Type String, Full path to create a session log.
+        # Default Value is $null or no log.
+        [Parameter(Position = 9)]
+        $SessionLogPath = $null
     )
 
     Begin
     {
         $sessionOptions = @{
-            'HostName' = $HostName
-            'Username' = $Username
-            'Password' = $Password
-            'Protocol' = [WinSCP.Protocol]::$Protocol
+            'HostName'   = $HostName
+            'Username'   = $Username
+            'Password'   = $Password
+            'Protocol'   = [WinSCP.Protocol]::$Protocol
+            'FtpMode'    = [WinSCP.FtpMode]::$FtpMode
+            'FtpSecure'  = [WinSCP.FtpSecure]::$FtpSecurity
             'PortNumber' = $PortNumber
-            'Timeout' = [TimeSpan]::FromSeconds($Timeout)
+            'Timeout'    = [TimeSpan]::FromSeconds($Timeout)
+
         }
 
         if ($Protocol -eq 'Sftp' -or $Protocol -eq 'Scp')
         {
             if ([String]::IsNullOrEmpty($SshHostKeyFingerprint))
             {
-                Write-Host "cmdlet Open-WinSCPSession at command pipeline position 5"
+                Write-Host "cmdlet Open-WinSCPSession at command pipeline position 7"
                 Write-Host "Supply values for the following parameter:"
                 $SshHostKeyFingerprint = Read-Host -Prompt "SshHostKeyFingerprint"
             }
@@ -93,6 +115,7 @@ function Open-WinSCPSession
         try
         {
             $session = New-Object -TypeName WinSCP.Session
+            $session.SessionLogPath = $SessionLogPath
             $session.Open($sessionOptions)
             return $session
         }
