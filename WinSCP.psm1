@@ -1071,7 +1071,9 @@ function Invoke-WinSCPCommand
 .DESCRIPTION
     Escapes special charcters so they are not misinterpreted as wildcards or other special charcters.
 .EXAMPLE
-    $session = Open-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp; Receive-WinSCPItem -WinSCPSession $session -RemoteItem (ConvertTo-WinSCPEscapedString -WinSCPSession $session -String "dir/filewithstar*.txt") -LocalItem "C:\Dir\"
+    $session = Open-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp; Receive-WinSCPItem -WinSCPSession $session -RemoteItem (ConvertTo-WinSCPEscapedString -String "dir/filewithstar*.txt") -LocalItem "C:\Dir\"
+.EXAMPLE
+    $searchString = ConvertTo-WinSCPEscapedString -String "*.txt"; Open-WinSCPSession -HostName "myinsecurehost.org" -Protocol Ftp | Get-WinSCPItemInformation -RemoteItem "Dir/SubDir/$searchString
 .NOTES
     Useful with Send-WinSCPItem, Receive-WinSCPItem, Remove-WinSCPItem cmdlets.
 .LINK
@@ -1085,15 +1087,7 @@ function ConvertTo-WinSCPEscapedString
 
     param
     (
-        # WinSCPSession, Type WinSCP.Session, A valid open WinSCP.Session, returned from Open-WinSCPSession.
-        [Parameter(Mandatory = $true,
-                   Position = 0)]
-        [ValidateScript({ if(Test-WinSCPSession -WinSCPSession $_){ return $true }else{ throw "The WinSCP Session is not in an Open state." } })]
-        [Alias("Session")]
-        [WinSCP.Session]
-        $WinSCPSession,
-
-        #String, Type String , String to convert with special charcter escaping.
+        # String, Type String , String to convert with special charcter escaping.
         [Parameter(Mandatory = $true,
                    Position = 1)]
         [String]
@@ -1102,7 +1096,9 @@ function ConvertTo-WinSCPEscapedString
 
     try
     {
-        return ($WinSCPSession.EscapeFileMask($String))
+        $sessionObject = New-Object WinSCP.Session
+        return ($sessionObject.EscapeFileMask($String))
+        $sessionObject.Dispose()
     }
     catch [System.Exception]
     {
