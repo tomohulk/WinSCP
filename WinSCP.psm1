@@ -200,7 +200,7 @@ function Open-WinSCPSession
 <#
 .SYNOPSIS
     Closes/Disposes an active WinSCP Session Object.
-.DISCRIPTION
+.DESCRIPTION
     After a WinSCP Session is no longer needed this function will dispose the COM object.
 .EXAMPLE
     PS C:\> Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions -Hostname myftphost.org -Username ftpuser -password "FtpUserPword" -Protocol Ftp) | Close-WinSCPSession
