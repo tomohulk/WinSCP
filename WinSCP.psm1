@@ -4,7 +4,7 @@
 .DESCRIPTION
     This object with valid settings is requried when opening a connection to a remote server.
 .EXAMPLE
-    PS C:\> New-WinSCPSessionOptions -Hostname myftphost.org -Username ftpuser -password "FtpUserPword" -Protocol Ftp
+    PS C:\> $sessionOptions = New-WinSCPSessionOptions -Hostname myftphost.org -Username ftpuser -password "FtpUserPword" -Protocol Ftp
 .EXAMPLE
     PS C:\> $session = New-WinSCPSessionOptions -Hostname myftphost.org -Username ftpuser -password "FtpUserPword" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Open-WinSCPSession
 .INPUTS
@@ -12,7 +12,7 @@
 .OUTPUTS
     WinSCP.SessionOptions.
 .NOTES
-    If the Sftp/Scp protocols are used, a SshHostKeyFingerprint value is needed or the connection will fail.
+    If the Sftp/Scp protocols are used, a SshHostKeyFingerprint will become a mandatory parameter.
 .LINK
     http://dotps1.github.io
 .LINK
@@ -40,7 +40,7 @@ function New-WinSCPSessionOptions
         [String]
         $Password,
 
-        # FtpMode, WinSCP.FtpMode, The mode of ftp to use.
+        # FtpMode, Type WinSCP.FtpMode, The mode of ftp to use.
         [Parameter()]
         [ValidateSet("Passive","Active")]
         [WinSCP.FtpMode]
@@ -58,16 +58,6 @@ function New-WinSCPSessionOptions
         [WinSCP.Protocol]
         $Protocol = "Sftp",
 
-        # PortNumber, Type Int, The port to use, 0 will use the port default with protocol used.
-        [Parameter()]
-        [Int]
-        $PortNumber = 0,
-
-        # SshHostKeyFingerPrint, Type String, the Fingerprint of the SshHost to used, this property is mandatory when using Sftp or Scp protocols.
-        [Parameter()]
-        [String[]]
-        $SshHostKeyFingerprint,
-        
         # SshPrivateKeyPath, Type String, The full path to the private key.
         [Parameter()]
         [ValidateScript({ if (Test-Path -Path $_){ return $true } })]
@@ -79,68 +69,110 @@ function New-WinSCPSessionOptions
         [String]
         $TlsHostCertificateFingerprint,
 
+        # PortNumber, Type Int, The port to use, 0 will use the port default with protocol used.
+        [Parameter()]
+        [Int]
+        $PortNumber = 0,
+
         # Timeout, Type Int, The timeout in seconds for server response.  Default value is 15 seconds.
         [Parameter()]
         [Int]
-        $Timeout = 15
+        $Timeout = 15,
+
+        # GiveUpSecurityAndAcceptAnySshHostKey, Type Bool, Give up security and accept any SSH host key. To be used in exceptional situations only, when security is not required.
+        [Parameter()]
+        [Bool]
+        $GiveUpSecurityAndAcceptAnySshHostKey = $false,
+
+        # GiveUpSecurityAndAcceptAnyTlsHostCertificate, Type Bool, Give up security and accept any FTPS/WebDAVS server TLS/SSL certificate. To be used in exceptional situations only, when security is not required.
+        [Parameter()]
+        [Bool]
+        $GiveUpSecurityAndAcceptAnyTlsHostCertificate = $false
     )
 
-    $sessionOptions = New-Object -TypeName WinSCP.SessionOptions -Property @{
+    DynamicParam {
+        $SshHostKeyFingerprintParameterAttributes = New-Object -TypeName Management.Automation.ParameterAttribute -Property @{
+            ParameterSetName = "__AllParameterSets"
+        }
+
+        if ($Protocol -eq "Sftp" -or $Protocol -eq "Scp") 
+        {
+            $SshHostKeyFingerprintParameterAttributes.Mandatory = $true
+        }
+
+        $SshHostKeyFingerprintParameterAttributeCollection = New-Object -TypeName Collections.ObjectModel.Collection[$SshHostKeyFingerprintParameterAttributes]
+        $SshHostKeyFingerprintParameterAttributeCollection.Add($SshHostKeyFingerprintParameterAttributes)
+
+        $SshHostKeyFingerprintParameter = @{
+            TypeName = 'Management.Automation.RuntimeDefinedParameter'
+            ArgumentList = @(
+                'SshHostKeyFingerprint'
+                [String[]]
+                $SshHostKeyFingerprintParameterAttributeCollection
+            )
+        }
+
+        $ParamDictionary = New-Object -TypeName Management.Automation.RuntimeDefinedParameterDictionary
+        $ParamDictionary.Add("SshHostKeyFingerprint", (New-Object @SshHostKeyFingerprintParameter))
+        return $ParamDictionary
+    }
+
+    Begin
+    {
+        $sessionOptions = New-Object -TypeName WinSCP.SessionOptions -Property @{
             FtpMode = $FtpMode
             FtpSecure = $FtpSecure
             HostName = $HostName
             Password = $Password
             PortNumber = $PortNumber
             Protocol = $Protocol
-            Timeout = [TimeSpan]::FromSeconds($Timeout)
             UserName = $UserName
+            GiveUpSecurityAndAcceptAnySshHostKey = $GiveUpSecurityAndAcceptAnySshHostKey
+            GiveUpSecurityAndAcceptAnyTlsHostCertificate = $GiveUpSecurityAndAcceptAnyTlsHostCertificate
+
         }
 
-    if ($Protocol -eq "Sftp" -or $Protocol -eq "Scp")
-    {
-        if ([String]::IsNullOrEmpty($SshHostKeyFingerprint))
+        if ($PSBoundParameters.ContainsKey('SshHostKeyFingerprint'))
         {
-            Read-Host -Prompt "SshHostkeyFingerprint"
+            try
+            {
+                $sessionOptions.SshHostKeyFingerprint = $PSBoundParameters.SshHostKeyFingerprint
+            }
+            catch [System.Exception]
+            {
+                Write-Error $_
+            }
+        }
+        
+        if ($PSBoundParameters.ContainsKey('SshPrivateKeyPath'))
+        {
+            try
+            {
+                $sessionOptions.SshPrivateKeyPath = $PSBoundParameters.SshPrivateKeyPath
+            }
+            catch [System.Exception]
+            {
+                Write-Error $_
+            }
+        }
+
+        if ($PSBoundParameters.ContainsKey('TlsHostCertificateFingerprint'))
+        {
+            try
+            {
+                $sessionOptions.TlsHostCertificateFingerprint = $PSBoundParameters.TlsHostCertificateFingerprint
+            }
+            catch [System.Exception]
+            {
+                Write-Error $_
+            }
         }
     }
-
-    if (-not([String]::IsNullOrEmpty($SshHostKeyFingerprint)))
+    
+    End
     {
-        try
-        {
-            $sessionOptions.SshHostKeyFingerprint = $SshHostKeyFingerprint
-        }
-        catch [System.Exception]
-        {
-            Write-Error $_
-        }
+        return $sessionOptions
     }
-
-    if (-not([String]::IsNullOrEmpty($SshPrivateKeyPath)))
-    {
-        try 
-        {
-            $sessionOptions.SshPrivateKeyPath = $SshPrivateKeyPath
-        }
-        catch [System.Exception]
-        {
-            Write-Error $_
-        }
-    }
-
-    if (-not([String]::IsNullOrEmpty($TlsHostCertificateFingerprint)))
-    {
-        try 
-        {
-            $sessionOptions.TlsHostCertificateFingerprint = $TlsHostCertificateFingerprint
-        }
-        catch [System.Exception]
-        {
-            Write-Error $_
-        }
-    }
-
-    return $sessionOptions
 }
 
 <#
