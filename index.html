@@ -29,51 +29,47 @@
       </header>
       <section>
         <h1>
-<a name="winscp-powershell-wrapper" class="anchor" href="#winscp-powershell-wrapper"><span class="octicon octicon-link"></span></a>WinSCP PowerShell Wrapper</h1>
+<a id="winscp-powershell-wrapper" class="anchor" href="#winscp-powershell-wrapper" aria-hidden="true"><span class="octicon octicon-link"></span></a>WinSCP PowerShell Wrapper</h1>
 
 <p>This is still a very beta version, with most of the functionality available with WinSCP, I intend on developing this extensively.  </p>
 
 <p>Current avaialbe functions:</p>
 
-<div class="highlight highlight-PowerShell"><pre><span class="nb">New-WinSCPSessionOptions</span>
-<span class="n">Open-WinSCPSession</span>
-<span class="n">Close-WinSCPSession</span>
-<span class="nb">New-WinSCPTransferOptions</span>
-<span class="nb">Receive-WinSCPItem</span>
-<span class="nb">Send-WinSCPItem</span>
-<span class="nb">New-WinSCPDirectory</span>
-<span class="nb">Test-WinSCPItemExsits</span>
-<span class="nb">Get-WinSCPItemInformation</span>
-<span class="nb">Get-WinSCPDirectoryContents</span>
-<span class="nb">Move-WinSCPItem</span>
-<span class="nb">Remove-WinSCPItem</span>
-<span class="n">Sync-WinSCPDirectory</span>
-<span class="nb">Invoke-WinSCPCommand</span>
-<span class="nb">ConvertTo-WinSCPEscapedString</span>
-</pre></div>
+<div class="highlight highlight-PowerShell"><pre><span class="pl-k"><span class="pl-k">New-WinSCPSessionOptions</span></span>
+<span class="pl-k"><span class="pl-k">Open-WinSCPSession</span></span>
+<span class="pl-k"><span class="pl-k">Close-WinSCPSession</span></span>
+<span class="pl-k"><span class="pl-k">Receive-WinSCPItem</span></span>
+<span class="pl-k"><span class="pl-k">Send-WinSCPItem</span></span>
+<span class="pl-k"><span class="pl-k">New-WinSCPDirectory</span></span>
+<span class="pl-k"><span class="pl-k">Test-WinSCPItemExsits</span></span>
+<span class="pl-k"><span class="pl-k">Get-WinSCPItemInformation</span></span>
+<span class="pl-k"><span class="pl-k">Get-WinSCPDirectoryContents</span></span>
+<span class="pl-k"><span class="pl-k">Move-WinSCPItem</span></span>
+<span class="pl-k"><span class="pl-k">Remove-WinSCPItem</span></span>
+<span class="pl-k"><span class="pl-k">Sync-WinSCPDirectory</span></span>
+<span class="pl-k"><span class="pl-k">ConvertTo-WinSCPEscapedString</span></span>
+<span class="pl-k"><span class="pl-k">New-WinSCPTransferOptions</span></span>
+<span class="pl-k"><span class="pl-k">New-WinSCPFilePermmissions</span></span>
+<span class="pl-k"><span class="pl-k">Invoke-WinSCPCommand</span></span></pre></div>
 
 <p>Example 1:</p>
 
-<div class="highlight highlight-PowerShell"><pre><span class="nv">$session</span> <span class="p">=</span> <span class="nb">New-WinSCPSessionOptions</span> <span class="n">-Hostname</span> <span class="n">myftphost</span><span class="p">.</span><span class="n">org</span> <span class="n">-Username</span> <span class="n">ftpuser</span> <span class="n">-password</span> <span class="s2">"FtpUserPword"</span> <span class="n">-SshHostKeyFingerprint</span> <span class="s2">"ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx"</span> <span class="p">|</span> <span class="n">Open-WinSCPSession</span>
-<span class="nb">Send-WinSCPItem</span> <span class="n">-WinSCPSession</span> <span class="nv">$session</span> <span class="n">-LocalItem</span> <span class="s2">"C:\lDir\lFile.txt"</span> <span class="n">-RemoteItem</span> <span class="s2">"rDir/rFile.txt"</span> <span class="n">-RemoveLocalItem</span>
-</pre></div>
+<div class="highlight highlight-PowerShell"><pre>PS C:\&gt; <span class="pl-vo">$session</span> <span class="pl-k">=</span> <span class="pl-k"><span class="pl-k">New-WinSCPSessionOptions</span></span> <span class="pl-k">-</span>Hostname <span class="pl-s1"><span class="pl-pds">"</span>myftphost.org<span class="pl-pds">"</span></span> <span class="pl-k">-</span>Username ftpuser <span class="pl-k">-</span>password <span class="pl-s1"><span class="pl-pds">"</span>FtpUserPword<span class="pl-pds">"</span></span> <span class="pl-k">-</span>SshHostKeyFingerprint <span class="pl-s1"><span class="pl-pds">"</span>ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx<span class="pl-pds">"</span></span> <span class="pl-k">|</span> <span class="pl-k"><span class="pl-k">Open-WinSCPSession</span></span>
+PS C:\&gt; <span class="pl-k"><span class="pl-k">Send-WinSCPItem</span></span> <span class="pl-k">-</span>WinSCPSession <span class="pl-vo">$session</span> <span class="pl-k">-</span>LocalPath <span class="pl-s1"><span class="pl-pds">"</span>C:\lDir\lFile.txt<span class="pl-pds">"</span></span> <span class="pl-k">-</span>RemotePath <span class="pl-s1"><span class="pl-pds">"</span>rDir/rFile.txt<span class="pl-pds">"</span></span> <span class="pl-k">-</span>RemoveLocalItem</pre></div>
 
 <p>Example 2:</p>
 
-<div class="highlight highlight-PowerShell"><pre><span class="n">PS</span> <span class="n">C</span><span class="err">:</span><span class="p">\&gt;</span> <span class="n">Open-WinSCPSession</span> <span class="n">-SessionOptions</span> <span class="p">(</span><span class="nb">New-WinSCPSessionOptions</span> <span class="n">-Hostname</span> <span class="n">myftphost</span><span class="p">.</span><span class="n">org</span> <span class="n">-Username</span> <span class="n">ftpuser</span> <span class="n">-password</span> <span class="s2">"FtpUserPword"</span> <span class="n">-Protocol</span> <span class="n">Ftp</span><span class="p">)</span> <span class="p">|</span> <span class="nb">Send-WinSCPItem</span> <span class="n">-LocalItem</span> <span class="s2">"C:\lDir\lFile.txt"</span> <span class="n">-RemoteItem</span> <span class="s2">"rDir/rFile.txt"</span> 
-</pre></div>
+<div class="highlight highlight-PowerShell"><pre>PS C:\&gt; <span class="pl-k"><span class="pl-k">Open-WinSCPSession</span></span> <span class="pl-k">-</span>SessionOptions (<span class="pl-k"><span class="pl-k">New-WinSCPSessionOptions</span></span> <span class="pl-k">-</span>Hostname <span class="pl-s1"><span class="pl-pds">"</span>myftphost.org<span class="pl-pds">"</span></span> <span class="pl-k">-</span>Username ftpuser <span class="pl-k">-</span>password <span class="pl-s1"><span class="pl-pds">"</span>FtpUserPword<span class="pl-pds">"</span></span> <span class="pl-k">-</span>Protocol Ftp) <span class="pl-k">|</span> <span class="pl-k"><span class="pl-k">Send-WinSCPItem</span></span> <span class="pl-k">-</span>LocalPath <span class="pl-s1"><span class="pl-pds">"</span>C:\lDir\lFile.txt<span class="pl-pds">"</span></span> <span class="pl-k">-</span>RemotePath <span class="pl-s1"><span class="pl-pds">"</span>rDir/rFile.txt<span class="pl-pds">"</span></span> </pre></div>
 
 <p>Example 3:</p>
 
-<div class="highlight highlight-PowerShell"><pre><span class="nv">$session</span> <span class="p">=</span> <span class="nb">New-WinSCPSessionOptions</span> <span class="n">-Hostname</span> <span class="n">myftphost</span><span class="p">.</span><span class="n">org</span> <span class="n">-Username</span> <span class="n">ftpuser</span> <span class="n">-password</span> <span class="s2">"FtpUserPword"</span> <span class="n">-SshHostKeyFingerprint</span> <span class="s2">"ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx"</span> <span class="p">|</span> <span class="n">Open-WinSCPSession</span>
-<span class="nb">Receive-WinSCPItem</span> <span class="n">-WinSCPSession</span> <span class="nv">$session</span> <span class="n">-RemoteItem</span> <span class="s2">"rDir/rFile.txt"</span> <span class="n">-LocalItem</span> <span class="s2">"C:\lDir\lFile.txt"</span> <span class="n">-RemoveRemoteItem</span>
-</pre></div>
+<div class="highlight highlight-PowerShell"><pre><span class="pl-vo">$session</span> <span class="pl-k">=</span> <span class="pl-k"><span class="pl-k">New-WinSCPSessionOptions</span></span> <span class="pl-k">-</span>Hostname <span class="pl-s1"><span class="pl-pds">"</span>myftphost.org<span class="pl-pds">"</span></span> <span class="pl-k">-</span>Username ftpuser <span class="pl-k">-</span>password <span class="pl-s1"><span class="pl-pds">"</span>FtpUserPword<span class="pl-pds">"</span></span> <span class="pl-k">-</span>SshHostKeyFingerprint <span class="pl-s1"><span class="pl-pds">"</span>ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx<span class="pl-pds">"</span></span> <span class="pl-k">|</span> <span class="pl-k"><span class="pl-k">Open-WinSCPSession</span></span>
+<span class="pl-k"><span class="pl-k">Receive-WinSCPItem</span></span> <span class="pl-k">-</span>WinSCPSession <span class="pl-vo">$session</span> <span class="pl-k">-</span>RemotePath <span class="pl-s1"><span class="pl-pds">"</span>rDir/rFile.txt<span class="pl-pds">"</span></span> <span class="pl-k">-</span>LocalPath <span class="pl-s1"><span class="pl-pds">"</span>C:\lDir\lFile.txt<span class="pl-pds">"</span></span> <span class="pl-k">-</span>RemoveRemoteItem</pre></div>
 
 <p>Example 4:</p>
 
-<div class="highlight highlight-PowerShell"><pre><span class="nv">$session</span> <span class="p">=</span> <span class="nb">New-WinSCPSessionOptions</span> <span class="n">-Hostname</span> <span class="n">myftphost</span><span class="p">.</span><span class="n">org</span> <span class="n">-Username</span> <span class="n">ftpuser</span> <span class="n">-password</span> <span class="s2">"FtpUserPword"</span> <span class="n">-SshHostKeyFingerprint</span> <span class="s2">"ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx"</span> <span class="p">|</span> <span class="n">Open-WinSCPSession</span>
-<span class="n">Sync-WinSCPDirectory</span> <span class="n">-WinSCPSession</span> <span class="nv">$session</span> <span class="n">-RemoteDirectory</span> <span class="s2">"rDir/"</span> <span class="n">-LocalDirectory</span> <span class="s2">"C:\lDir"</span> <span class="n">-SyncMode</span> <span class="n">Remote</span>
-</pre></div>
+<div class="highlight highlight-PowerShell"><pre><span class="pl-vo">$session</span> <span class="pl-k">=</span> <span class="pl-k"><span class="pl-k">New-WinSCPSessionOptions</span></span> <span class="pl-k">-</span>Hostname <span class="pl-s1"><span class="pl-pds">"</span>myftphost.org<span class="pl-pds">"</span></span> <span class="pl-k">-</span>Username ftpuser <span class="pl-k">-</span>password <span class="pl-s1"><span class="pl-pds">"</span>FtpUserPword<span class="pl-pds">"</span></span> <span class="pl-k">-</span>SshHostKeyFingerprint <span class="pl-s1"><span class="pl-pds">"</span>ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx<span class="pl-pds">"</span></span> <span class="pl-k">|</span> <span class="pl-k"><span class="pl-k">Open-WinSCPSession</span></span>
+<span class="pl-k"><span class="pl-k">Sync-WinSCPDirectory</span></span> <span class="pl-k">-</span>WinSCPSession <span class="pl-vo">$session</span> <span class="pl-k">-</span>RemotePath <span class="pl-s1"><span class="pl-pds">"</span>rDir/<span class="pl-pds">"</span></span> <span class="pl-k">-</span>LocalPath <span class="pl-s1"><span class="pl-pds">"</span>C:\lDir<span class="pl-pds">"</span></span> <span class="pl-k">-</span>SyncMode Remote</pre></div>
 
 <p>I have included the WinSCPnet.dll in the <em>NeededAssemblies</em> folder.</p>
 
