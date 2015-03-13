@@ -10,7 +10,7 @@
 .PARAMETER FtpMode
     Possible values are FtpMode.Passive (default) and FtpMode.Active.
 .PRAMETER FtpSecure
-     Possible values are FtpSecure.None (default), FtpSecure.Implicit and FtpSecure.Explicit.
+    FTPS mode. Possible values are FtpSecure.None (default), FtpSecure.Implicit and FtpSecure.Explicit (FtpSecure.ExplicitTls in older versions).
 .PARAMETER GiveUpSecurityAndAcceptAnySshHostKey
     Give up security and accept any SSH host key. To be used in exceptional situations only, when security is not required. When set, log files will include warning about insecure connection. To maintain security, use SshHostKeyFingerprint.
 .PAREMETER GiveUpSecurityAndAcceptAnyTlsHostCertificate
@@ -21,38 +21,66 @@
     Password for authentication.
 .PARAMETER Protocol
     Protocol to use for the session. Possible values are Protocol.Sftp (default), Protocol.Scp, Protocol.Ftp and Protocol.Webdav.
+.PARAMETER SecurePassword
+    Encrypted password for authentication. Use instead of Password to reduce a number of unencrypted copies of the password in memory.
 .PARAMETER SshHostKeyFingerprint
     Fingerprint of SSH server host key (or several alternative fingerprints separated by semicolon). It makes WinSCP automatically accept host key with the fingerprint. Mandatory for SFTP/SCP protocol.
 .PARAMETER SshPrivateKeyPath 
     Full path to private key file.
+.PARAMETER SshPrivateKeyPassphrase
+    Passphrase for encrypted private keys.
 .PARAMETER TlsHostCertificateFingerprint
     Fingerprint of FTPS/WebDAVS server TLS/SSL certificate to be automatically accepted (useful for certificates signed by untrusted authority).
 .PARAMETER Timeout
     Server response timeout. Defaults to 15 seconds.
 .PARAMETER UserName
     Username for authentication. Mandatory property.
+.PARAMETER WebdavSecure
+    Use WebDAVS (WebDAV over TLS/SSL), instead of WebDAV.
+.PARAMETER WebdaveRoot
+    WebDAV root path.
 .EXAMPLE
-    PS C:\> $sessionOptions = New-WinSCPSessionOptions -Hostname myftphost.org -Username ftpuser -password "FtpUserPword" -Protocol Ftp
-    PS C:\> $sessionOptions
+    PS C:\> New-WinSCPSessionOptions -Hostname "myftphost.org" -Username ftpuser -password "FtpUserPword" -Protocol Ftp
 
     Protocol                                     : Ftp
     HostName                                     : myftphost.org
     PortNumber                                   : 0
     UserName                                     : ftpuser
     Password                                     : FtpUserPword
+    SecurePassword                               : System.Security.SecureString
     Timeout                                      : 00:00:15
     TimeoutInMilliseconds                        : 15000
     SshHostKeyFingerprint                        : 
     GiveUpSecurityAndAcceptAnySshHostKey         : False
     SshPrivateKeyPath                            : 
+    SshPrivateKeyPassphrase                      : 
     FtpMode                                      : Passive
     FtpSecure                                    : None
+    WebdavSecure                                 : False
+    WebdavRoot                                   : 
     TlsHostCertificateFingerprint                : 
-    SslHostCertificateFingerprint                : 
     GiveUpSecurityAndAcceptAnyTlsHostCertificate : False
-    GiveUpSecurityAndAcceptAnySslHostCertificate : False
 .EXAMPLE
-    PS C:\> $session = New-WinSCPSessionOptions -Hostname myftphost.org -Username ftpuser -password "FtpUserPword" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Open-WinSCPSession
+    PS C:\> New-WinSCPSessionOptions -Hostname "myftphost.org" -Username ftpuser -SecurePassword (ConvertTo-SecureString -String "FtpUserPword" -AsPlainText -Force) -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx"
+
+    Protocol                                     : Sftp
+    HostName                                     : myftphost.org
+    PortNumber                                   : 0
+    UserName                                     : ftpuser
+    Password                                     : FtpUserPword
+    SecurePassword                               : System.Security.SecureString
+    Timeout                                      : 00:00:15
+    TimeoutInMilliseconds                        : 15000
+    SshHostKeyFingerprint                        : ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx
+    GiveUpSecurityAndAcceptAnySshHostKey         : False
+    SshPrivateKeyPath                            : 
+    SshPrivateKeyPassphrase                      : 
+    FtpMode                                      : Passive
+    FtpSecure                                    : None
+    WebdavSecure                                 : False
+    WebdavRoot                                   : 
+    TlsHostCertificateFingerprint                : 
+    GiveUpSecurityAndAcceptAnyTlsHostCertificate : False
 .NOTES
     If the Sftp/Scp protocols are used, a SshHostKeyFingerprint will become a mandatory parameter.
     Be sure to assign the SessionOptions to a variable, else it will be auto disposed.
@@ -69,13 +97,11 @@ Function New-WinSCPSessionOptions
     Param
     (
         [Parameter()]
-        [ValidateSet('Passive','Active')]
-        [String]
+        [WinSCP.FtpMode]
         $FtpMode,
 
         [Parameter()]
-        [ValidateSet('None', 'Implicit', 'Explicit')]
-        [String]
+        [WinSCP.FtpSecure]
         $FtpSecure,
         
         [Parameter()]
@@ -99,14 +125,21 @@ Function New-WinSCPSessionOptions
         $PortNumber = 0,
 
         [Parameter()]
-        [ValidateSet('Sftp', 'Scp', 'Ftp')]
-        [String]
+        [WinSCP.Protocol]
         $Protocol,
+
+        [Parameter()]
+        [System.Security.SecureString]
+        $SecurePassword,
 
         [Parameter()]
         [ValidateScript({ if (Test-Path -Path $_){ return $true } else { throw "$_ not found." } })]
         [String]
         $SshHostKeyPath,
+
+        [Parameter()]
+        [String]
+        $SshPrivateKeyPassphrase,
 
         [Parameter()]
         [String]
@@ -118,7 +151,15 @@ Function New-WinSCPSessionOptions
 
         [Parameter(Mandatory = $true)]
         [String]
-        $UserName
+        $UserName,
+
+        [Parameter()]
+        [Switch]
+        $WebdavSecure,
+
+        [Parameter()]
+        [String]
+        $WebdavRoot
     )
 
     DynamicParam {
@@ -201,6 +242,21 @@ Function New-WinSCPSessionOptions
     UnderlyingSystemType          : WinSCP.Session
 .EXAMPLE
     PS C:\> $session = New-WinSCPSessionOptions -Hostname myftphost.org -Username ftpuser -password "FtpUserPword" -Protocol Ftp | Open-WinSCPSession
+    PS C:\> $session
+
+    ExecutablePath                : 
+    AdditionalExecutableArguments : 
+    DefaultConfiguration          : True
+    DisableVersionCheck           : False
+    IniFilePath                   : 
+    ReconnectTime                 : 10675199.02:48:05.4775807
+    DebugLogPath                  : 
+    SessionLogPath                : 
+    XmlLogPath                    : C:\Users\user\AppData\Local\Temp\wscp0708.03114C7C.tmp
+    Timeout                       : 00:01:00
+    Output                        : {winscp> option batch on, batch           on        , winscp> option confirm off, confirm         off       ...}
+    Opened                        : True
+    UnderlyingSystemType          : WinSCP.Session
 .NOTES
     If the WinSCPSession is piped into another WinSCP command, the connection will be disposed upon completion of that command.
     Be sure to store the WinSCPSession into a vairable, else there will be no handle to use with it.
@@ -242,6 +298,10 @@ Function Open-WinSCPSession
     catch [System.Exception]
     {
         Write-Error $_
+    }
+    finally
+    {
+        $session.Dispose()
     }
 }
 
