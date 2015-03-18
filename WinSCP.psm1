@@ -299,10 +299,6 @@ Function Open-WinSCPSession
     {
         Write-Error $_
     }
-    finally
-    {
-        $session.Dispose()
-    }
 }
 
 <#
