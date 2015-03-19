@@ -135,7 +135,7 @@ Function New-WinSCPSessionOptions
         [Parameter()]
         [ValidateScript({ if (Test-Path -Path $_){ return $true } else { throw "$_ not found." } })]
         [String]
-        $SshHostKeyPath,
+        $SshPrivateKeyPath,
 
         [Parameter()]
         [String]
