@@ -223,6 +223,8 @@ Function New-WinSCPSessionOptions
     Defines information to allow an automatic connection and authentication of the session.
 .PARAMETER SessionLogPath
     Path to store session log file to. Default null means, no session log file is created.
+.PARAMETER DebugLogPath
+    Path to store assembly debug log to. Default null means, no debug log file is created. See also SessionLogPath. The property has to be set before calling Open.
 .EXAMPLE
     PS C:\> $session = Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions -Hostname myftphost.org -Username ftpuser -password "FtpUserPword" -Protocol Ftp)
     PS C:\> $session
@@ -283,11 +285,16 @@ Function Open-WinSCPSession
 
         [Parameter()]
         [String]
-        $SessionLogPath = $null
+        $SessionLogPath = $null,
+
+        [Parameter()]
+        [String]
+        $DebugLogPath = $null
     )
 
     $session = New-Object -TypeName WinSCP.Session -Property @{
         SessionLogPath = $SessionLogPath
+        DebugLogPath = $DebugLogPath
     }
     
     try
