@@ -434,7 +434,7 @@ Function Receive-WinSCPItem
         {
             try
             {
-                $WinSCPSession.GetFiles($item, $LocalPath, $RemoveRemoteItem.IsPresent, $TransferOptions)
+                $WinSCPSession.GetFiles($item, $LocalPath, $Remove.IsPresent, $TransferOptions)
             }
             catch [System.Exception]
             {
