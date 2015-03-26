@@ -14,7 +14,7 @@ Describe "Open-WinSCPSession" {
         }
 
         $session = Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions @params)
-
+        `
         It "Session should Opened and be of Type WinSCP.Session." {
             $session.Opened | Should Not Be $false
             $session.GetType() | Should Be WinSCP.Session
@@ -23,7 +23,7 @@ Describe "Open-WinSCPSession" {
         Close-WinSCPSession -WinSCPSession $session
     }
 
-    Context "Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions -HostName $env:COOMPUTERNAME -UserName 'MyUser' -Password 'MyPassword' -Protocol Ftp) -SessionLogPath '.\Session.log'" {
+    Context "Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions -HostName $env:COOMPUTERNAME -UserName 'MyUser' -Password 'MyPassword' -Protocol Ftp) -SessionLogPath `"$(Get-Location)\Session.log`"" {
         $params = @{
             HostName = $env:COMPUTERNAME
             UserName = 'MyUser'
@@ -31,21 +31,23 @@ Describe "Open-WinSCPSession" {
             Protocol = 'Ftp'
         }
 
-        $session = Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions @params) -SessionLogPath '.\Session.log'
+        $session = Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions @params) -SessionLogPath "$(Get-Location)\Session.log"
 
         It "Session should Opened and be of Type WinSCP.Session." {
             $session.Opened | Should Not Be $false
             $session.GetType() | Should Be WinSCP.Session
         }
 
-        It "SessionLogPath should be used." {
-            $session.SessionLogPath.EndsWith("Session.log") | Should Be $true
+        It "SessionLogPath should be exist." {
+            Test-Path -Path "$(Get-Location)\Session.log" | Should Be $true 
         }
 
         Close-WinSCPSession -WinSCPSession $session
+
+        Remove-Item -Path "$(Get-Location)\Session.log" -Confirm:$false -Force
     }
 
-    Context "Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions -HostName $env:COOMPUTERNAME -UserName 'MyUser' -Password 'MyPassword' -Protocol Ftp) -DebugLogPath '.\Debug.log'" {
+    Context "Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions -HostName $env:COOMPUTERNAME -UserName 'MyUser' -Password 'MyPassword' -Protocol Ftp) -DebugLogPath `"$(Get-Location)\Debug.log`"" {
         $params = @{
             HostName = $env:COMPUTERNAME
             UserName = 'MyUser'
@@ -53,7 +55,7 @@ Describe "Open-WinSCPSession" {
             Protocol = 'Ftp'
         }
 
-        $session = Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions @params) -DebugLogPath '.\Debug.log'
+        $session = Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions @params) -DebugLogPath "$(Get-Location)\Debug.log"
 
         It "Session should Opened and be of Type WinSCP.Session." {
             $session.Opened | Should Not Be $false
@@ -61,9 +63,11 @@ Describe "Open-WinSCPSession" {
         }
 
         It "DebugLogPath should be used." {
-            $session.DebugLogPath.EndsWith("Debug.log") | Should Be $true
+            Test-Path -Path "$(Get-Location)\Debug.log" | Should Be $true
         }
 
         Close-WinSCPSession -WinSCPSession $session
+
+        Remove-Item -Path "$(Get-Location)\Debug.log" -Confirm:$false -Force
     }
 }
