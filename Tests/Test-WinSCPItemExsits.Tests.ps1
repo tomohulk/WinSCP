@@ -1,10 +1,10 @@
 Import-Module -Name "$((Get-Item -Path (Split-Path -Parent $MyInvocation.MyCommand.Path)).Parent)\WinSCP.psd1"
 
-Describe "New-WinSCPDirectory" {
+Describe "Receive-WinSCPItem" {
     It "WinSCP Module should be loaded." {
         Get-Module -Name WinSCP | Should be $true
     }
-
+    
     $params = @{
         HostName = $env:COMPUTERNAME
         UserName = "MyUser"
@@ -12,27 +12,23 @@ Describe "New-WinSCPDirectory" {
         Protocol = "Ftp"
     }
 
-    Context "New-WinSCPDirectory -WinSCPSession `$session -Path `"./Folder`"" {
+    Context "Test-WinSCPItemExists -WinSCPSession `$session -Path `"./Folder`"" {
         $ftp = New-Item -Path "$(Get-Location)\Ftp" -ItemType Directory
+        $folder = New-Item -Path "$ftp\Folder" -ItemType Directory
 
-        It "Ftp directory should exist." {
-            Test-Path -Path $ftp | Should Be $true
+        It "Ftp and Sub directories should exist." {
+            Test-Path $ftp.FullName | Should Not Be $false
+            Test-Path $folder.FullName | Should Not Be $false
         }
-        
+
         $session = Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions @params)
 
-        It "Session should be open." {
+        It "Session should be opened." {
             $session.Opened | Should Be $true
         }
 
-        $result = New-WinSCPDirectory -WinSCPSession $session -Path "./Folder"
-
-        It "Result should be of type WinSCP.RemoteFileInfo" {
-            $result.GetType() | Should Be WinSCP.RemoteFileInfo
-        }
-
-        It "$($ftp.FullName)\Folder should exsit." {
-            Test-Path -Path "$($ftp.FullName)\Folder" | Should Not Be $false
+        It "Folder object should exist." {
+            Test-WinSCPItemExists -WinSCPSession $session -Path "./Folder" | Should Not Be $false
         }
 
         It "Session should be closed." {
@@ -43,27 +39,27 @@ Describe "New-WinSCPDirectory" {
         Remove-Item -Path $ftp -Confirm:$false -Force -Recurse
     }
 
-    Context "New-WinSCPDirectory -WinSCPSession `$session -Path `"./Folder/SubFolder`"" {
+    Context "Test-WinSCPItemExists -WinSCPSession `$session -Path `"./Folder/File.txt`"" {
         $ftp = New-Item -Path "$(Get-Location)\Ftp" -ItemType Directory
+        $folder = New-Item -Path "$ftp\Folder" -ItemType Directory
 
-        It "Ftp directory should exist." {
-            Test-Path -Path $ftp | Should Be $true
+        It "Ftp and Sub directories should exist." {
+            Test-Path $ftp.FullName | Should Not Be $false
+            Test-Path $folder.FullName | Should Not Be $false
         }
-        
+
         $session = Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions @params)
 
-        It "Session should be open." {
+        It "Session should be opened." {
             $session.Opened | Should Be $true
         }
 
-        $result = New-WinSCPDirectory -WinSCPSession $session -Path "./Folder/SubFolder"
-
-        It "Result should be of type WinSCP.RemoteFileInfo" {
-            $result.GetType() | Should Be WinSCP.RemoteFileInfo
+        It "Folder object should exist." {
+            Test-WinSCPItemExists -WinSCPSession $session -Path "./Folder" | Should Not Be $false
         }
 
-        It "$($ftp.FullName)\Folder\SubFolder should exsit." {
-            Test-Path -Path "$($ftp.FullName)\Folder\SubFolder" | Should Not Be $false
+        It "File object should not exist." {
+            Test-WinSCPItemExists -WinSCPSession $session -Path "./Folder/File.txt" | Should Not Be $true
         }
 
         It "Session should be closed." {
