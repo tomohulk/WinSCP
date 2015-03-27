@@ -5,12 +5,12 @@ Describe "New-WinSCPSessionOptions" {
         Get-Module -Name WinSCP | Should be $true
     }
 
-    Context "New-WinSCPSessionOptions -HostName $env:COMPUTERNAME -UserName 'MyUser' -Password 'MyPassword' -Protocal Ftp" {
+    Context "New-WinSCPSessionOptions -HostName $env:COMPUTERNAME -UserName `"MyUser`" -Password `"MyPassword`" -Protocal Ftp" {
         $params = @{
             HostName = $env:COMPUTERNAME
-            UserName = 'MyUser'
-            Password = 'MyPassword'
-            Protocol = 'Ftp'
+            UserName = "MyUser"
+            Password = "MyPassword"
+            Protocol = "Ftp"
         }
         
         $sessionOptions = New-WinSCPSessionOptions @params
@@ -19,12 +19,12 @@ Describe "New-WinSCPSessionOptions" {
             $sessionOptions.GetType() | Should Be WinSCP.SessionOptions
         }
 
-        It "Protocal should be 'Ftp' and of Type WinSCP.Protocol." {
-            $sessionOptions.Protocol | Should Be 'Ftp'
+        It "Protocal should be Ftp and of Type WinSCP.Protocol." {
+            $sessionOptions.Protocol | Should Be Ftp
             $sessionOptions.Protocol.GetType() | Should Be WinSCP.Protocol
         }
 
-        It "HostName should be '$env:COMPUTERNAME' and of Type String." {
+        It "HostName should be $env:COMPUTERNAME and of Type String." {
             $sessionOptions.HostName | Should Be $env:COMPUTERNAME
             $sessionOptions.HostName.GetType() | Should Be String
         }
@@ -34,13 +34,13 @@ Describe "New-WinSCPSessionOptions" {
             $sessionOptions.PortNumber.GetType() | Should Be Int
         }
 
-        It "UserName should be 'MyUser' and of Type String." {
-            $sessionOptions.UserName | Should Be 'MyUser'
+        It "UserName should be MyUser and of Type String." {
+            $sessionOptions.UserName | Should Be "MyUser"
             $sessionOptions.UserName.GetType() | Should Be String
         }
 
-        It "Password should be 'MyPassword' and of Type String." {
-            $sessionOptions.Password | Should Be 'MyPassword'
+        It "Password should be MyPassword and of Type String." {
+            $sessionOptions.Password | Should Be "MyPassword"
             $sessionOptions.Password.GetType() | Should Be String
         }
 
@@ -69,12 +69,12 @@ Describe "New-WinSCPSessionOptions" {
             $sessionOptions.SshPriaveKeyPassphrase | Should Be $null
         }
 
-        It "FtpMode should be 'Passive' and of type WinSCP.FtpMode." {
+        It "FtpMode should be Passive and of type WinSCP.FtpMode." {
             $sessionOptions.FtpMode | Should Be Passive
             $sessionOptions.FtpMode.GetType() | Should Be WinSCP.FtpMode
         }
 
-        It "FtpSecure should be 'None' and of type WinSCP.FtpSecure." {
+        It "FtpSecure should be None and of type WinSCP.FtpSecure." {
             $sessionOptions.FtpSecure | Should Be None
             $sessionOptions.FtpSecure.GetType() | Should be WinSCP.FtpSecure
         }
@@ -96,13 +96,13 @@ Describe "New-WinSCPSessionOptions" {
         }
     }
 
-    Context "New-WinSCPSessionOptions -HostName $env:COMPUTERNAME -UserName 'MyUser' -Password 'MyPassword' -Protocal Sftp -SshHostKeyFingerprint 'ssh-rsa 1024 aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa'" {
+    Context "New-WinSCPSessionOptions -HostName $env:COMPUTERNAME -UserName `"MyUser`" -Password `"MyPassword`" -Protocal Sftp -SshHostKeyFingerprint `"ssh-rsa 1024 aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa`"" {
         $params = @{
             HostName = $env:COMPUTERNAME
-            UserName = 'MyUser'
-            Password = 'MyPassword'
-            Protocol = 'Sftp'
-            SshHostKeyFingerprint = 'ssh-rsa 1024 aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa'
+            UserName = "MyUser"
+            Password = "MyPassword"
+            Protocol = "Sftp"
+            SshHostKeyFingerprint = "ssh-rsa 1024 aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa"
         }
         
         $sessionOptions = New-WinSCPSessionOptions @params
@@ -111,12 +111,12 @@ Describe "New-WinSCPSessionOptions" {
             $sessionOptions.GetType() | Should Be WinSCP.SessionOptions
         }
 
-        It "Protocal should be 'Sftp' and of Type WinSCP.Protocol." {
-            $sessionOptions.Protocol | Should Be 'Sftp'
+        It "Protocal should be Sftp and of Type WinSCP.Protocol." {
+            $sessionOptions.Protocol | Should Be Sftp
             $sessionOptions.Protocol.GetType() | Should Be WinSCP.Protocol
         }
 
-        It "HostName should be '$env:COMPUTERNAME' and of Type String." {
+        It "HostName should be $env:COMPUTERNAME and of Type String." {
             $sessionOptions.HostName | Should Be $env:COMPUTERNAME
             $sessionOptions.HostName.GetType() | Should Be String
         }
@@ -126,13 +126,13 @@ Describe "New-WinSCPSessionOptions" {
             $sessionOptions.PortNumber.GetType() | Should Be Int
         }
 
-        It "UserName should be 'MyUser' and of Type String." {
-            $sessionOptions.UserName | Should Be 'MyUser'
+        It "UserName should be MyUser and of Type String." {
+            $sessionOptions.UserName | Should Be "MyUser"
             $sessionOptions.UserName.GetType() | Should Be String
         }
 
-        It "Password should be 'MyPassword' and of Type String." {
-            $sessionOptions.Password | Should Be 'MyPassword'
+        It "Password should be MyPassword and of Type String." {
+            $sessionOptions.Password | Should Be "MyPassword"
             $sessionOptions.Password.GetType() | Should Be String
         }
 
@@ -145,8 +145,8 @@ Describe "New-WinSCPSessionOptions" {
             $sessionOptions.Timeout.GetType() | Should Be TimeSpan
         }
 
-        It "SshHostKeyFingerprint should be 'ssh-rsa 1024 aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa' and of Type String." {
-            $sessionOptions.SshHostKeyFingerprint | Should Be 'ssh-rsa 1024 aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa'
+        It "SshHostKeyFingerprint should be ssh-rsa 1024 aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa and of Type String." {
+            $sessionOptions.SshHostKeyFingerprint | Should Be "ssh-rsa 1024 aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa:aa"
             $sessionOptions.SshHostKeyFingerprint.GetType() | Should Be String
         }
 
@@ -162,12 +162,12 @@ Describe "New-WinSCPSessionOptions" {
             $sessionOptions.SshPriaveKeyPassphrase | Should Be $null
         }
 
-        It "FtpMode should be 'Passive' and of type WinSCP.FtpMode." {
+        It "FtpMode should be Passive and of type WinSCP.FtpMode." {
             $sessionOptions.FtpMode | Should Be Passive
             $sessionOptions.FtpMode.GetType() | Should Be WinSCP.FtpMode
         }
 
-        It "FtpSecure should be 'None' and of type WinSCP.FtpSecure." {
+        It "FtpSecure should be None and of type WinSCP.FtpSecure." {
             $sessionOptions.FtpSecure | Should Be None
             $sessionOptions.FtpSecure.GetType() | Should be WinSCP.FtpSecure
         }
