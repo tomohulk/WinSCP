@@ -1,5 +1,16 @@
 # WinSCP PowerShell Wrapper
 
+You can install this module with *[PsGet](http://psget.net/), if you don't have PsGet, I highly recommend you get it!
+```PowerShell
+# Install PsGet
+(New-Object -TypeName Net.WebClient).DownloadString("http://psget.net/GetPsGet.ps1") | Invoke-Expression
+```
+
+```PowerShell
+# Install WinSCP module with PsGet
+Install-Module -ModuleUrl "https://github.com/dotps1/WinSCP/zipball/master/" -ModuleName WinSCP -Type zip
+```
+
 ## WinSCP Cmdlets
 
 * [New-WinSCPSessionOptions](https://github.com/dotps1/WinSCP/wiki/New-WinSCPSessionOptions)
