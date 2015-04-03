@@ -1,6 +1,6 @@
 # Local Repository Files To Ignore:
 winscp.ini
-Tests\Pester-WinSCP.ps1
+Pester-WinSCP.ps1
 
 # Windows image file caches
 Thumbs.db
