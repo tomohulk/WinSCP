@@ -1,6 +1,6 @@
 # WinSCP PowerShell Wrapper
 
-You can install this module with *[PsGet](http://psget.net/), if you don't have PsGet, I highly recommend you get it!
+You can install this module with [PsGet](http://psget.net/), if you don't have PsGet, I highly recommend you get it!
 ```PowerShell
 # Install PsGet
 (New-Object -TypeName Net.WebClient).DownloadString("http://psget.net/GetPsGet.ps1") | Invoke-Expression
