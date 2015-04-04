@@ -8,7 +8,7 @@ You can install this module with [PsGet](http://psget.net/), if you don't have P
 
 ```PowerShell
 # Install WinSCP module with PsGet
-Install-Module -ModuleUrl "https://github.com/dotps1/WinSCP/zipball/master/" -ModuleName WinSCP -Type zip
+Install-Module -ModuleUrl "https://github.com/dotps1/WinSCP/raw/master/WinSCP.zip" -ModuleName WinSCP -Type ZIP
 ```
 
 ## WinSCP Cmdlets
