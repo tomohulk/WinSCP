@@ -1,35 +1,34 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en-us">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta charset="UTF-8">
     <title>WinSCP by dotps1</title>
-
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
   <body>
-    <div class="wrapper">
-      <header>
-        <h1>WinSCP</h1>
-        <p>Use PowerShell for WinSCP Tasks!</p>
+    <section class="page-header">
+      <h1 class="project-name">WinSCP</h1>
+      <h2 class="project-tagline">Use PowerShell for WinSCP Tasks!</h2>
+      <a href="https://github.com/dotps1/WinSCP" class="btn">View on GitHub</a>
+      <a href="https://github.com/dotps1/WinSCP/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/dotps1/WinSCP/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
 
-        <p class="view"><a href="https://github.com/dotps1/WinSCP">View the Project on GitHub <small>dotps1/WinSCP</small></a></p>
-
-
-        <ul>
-          <li><a href="https://github.com/dotps1/WinSCP/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/dotps1/WinSCP/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/dotps1/WinSCP">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h1>
+    <section class="main-content">
+      <h1>
 <a id="winscp-powershell-wrapper" class="anchor" href="#winscp-powershell-wrapper" aria-hidden="true"><span class="octicon octicon-link"></span></a>WinSCP PowerShell Wrapper</h1>
+
+<p>You can install this module with <a href="http://psget.net/">PsGet</a>, if you don't have PsGet, I highly recommend you get it!</p>
+
+<div class="highlight highlight-PowerShell"><pre><span class="pl-c"># Install PsGet</span>
+<span class="pl-k">(</span><span class="pl-c1">New-Object</span> <span class="pl-k">-</span>TypeName Net.WebClient<span class="pl-k">)</span>.DownloadString<span class="pl-k">(</span><span class="pl-s">"http://psget.net/GetPsGet.ps1"</span><span class="pl-k">)</span> <span class="pl-k">|</span> <span class="pl-c1">Invoke-Expression</span></pre></div>
+
+<div class="highlight highlight-PowerShell"><pre><span class="pl-c"># Install WinSCP module with PsGet</span>
+<span class="pl-c1">Install-Module</span> <span class="pl-k">-</span>ModuleUrl <span class="pl-s">"https://github.com/dotps1/WinSCP/raw/master/WinSCP.zip"</span> <span class="pl-k">-</span>ModuleName WinSCP <span class="pl-k">-</span>Type ZIP</pre></div>
 
 <h2>
 <a id="winscp-cmdlets" class="anchor" href="#winscp-cmdlets" aria-hidden="true"><span class="octicon octicon-link"></span></a>WinSCP Cmdlets</h2>
@@ -59,28 +58,28 @@
 <p>Example 1:</p>
 
 <div class="highlight highlight-PowerShell"><pre><span class="pl-c"># Splat New-WinSCPSessionOptions.</span>
-<span class="pl-vo">$sessionOptions</span> <span class="pl-k">=</span> @{
-    HostName <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">"</span>myftphost.org<span class="pl-pds">"</span></span>
-    UserName <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">"</span>ftpuser<span class="pl-pds">"</span></span>
-    Password <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">"</span>FtpUserPword<span class="pl-pds">"</span></span>
-    SshHostKeyFingerprint <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">"</span>ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx<span class="pl-pds">"</span></span>
+<span class="pl-k">$</span><span class="pl-smi">sessionOptions</span> <span class="pl-k">=</span> @{
+    HostName <span class="pl-k">=</span> <span class="pl-s">"myftphost.org"</span>
+    UserName <span class="pl-k">=</span> <span class="pl-s">"ftpuser"</span>
+    Password <span class="pl-k">=</span> <span class="pl-s">"FtpUserPword"</span>
+    SshHostKeyFingerprint <span class="pl-k">=</span> <span class="pl-s">"ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx"</span>
     }
 
 <span class="pl-c"># Open a new WinSCPSession using the splatted parameters.</span>
-<span class="pl-vo">$session</span> <span class="pl-k">=</span> <span class="pl-k"><span class="pl-k">Open-WinSCPSession</span></span> <span class="pl-k">-</span>SessionOptions (<span class="pl-k"><span class="pl-k">New-WinSCPSessionOptions</span></span> @sessionOptions)
+<span class="pl-k">$</span><span class="pl-smi">session</span> <span class="pl-k">=</span> <span class="pl-c1">Open-WinSCPSession</span> <span class="pl-k">-</span>SessionOptions <span class="pl-k">(</span><span class="pl-c1">New-WinSCPSessionOptions</span> @sessionOptions<span class="pl-k">)</span>
 
 <span class="pl-c"># Use that session to create a new Directory and then upload a file to it.</span>
-<span class="pl-k"><span class="pl-k">New-WinSCPDirectory</span></span> <span class="pl-k">-</span>WinSCPSession <span class="pl-vo">$session</span> <span class="pl-k">-</span>Path <span class="pl-s1"><span class="pl-pds">"</span>./remoteDirectory<span class="pl-pds">"</span></span>
-<span class="pl-k"><span class="pl-k">Send-WinSCPItem</span></span> <span class="pl-k">-</span>WinSCPSession <span class="pl-vo">$session</span> <span class="pl-k">-</span>LocalPath <span class="pl-s1"><span class="pl-pds">"</span>C:\localDirectory\localFile.txt<span class="pl-pds">"</span></span> <span class="pl-k">-</span>RemotePath <span class="pl-s1"><span class="pl-pds">"</span>./remoteDirectory/<span class="pl-pds">"</span></span>
+<span class="pl-c1">New-WinSCPDirectory</span> <span class="pl-k">-</span>WinSCPSession <span class="pl-k">$</span><span class="pl-smi">session</span> <span class="pl-k">-</span>Path <span class="pl-s">"./remoteDirectory"</span>
+<span class="pl-c1">Send-WinSCPItem</span> <span class="pl-k">-</span>WinSCPSession <span class="pl-k">$</span><span class="pl-smi">session</span> <span class="pl-k">-</span>LocalPath <span class="pl-s">"C:\localDirectory\localFile.txt"</span> <span class="pl-k">-</span>RemotePath <span class="pl-s">"./remoteDirectory/"</span>
 
 <span class="pl-c"># Close the session.</span>
-<span class="pl-k"><span class="pl-k">Close-WinSCPSession</span></span> <span class="pl-k">-</span>WinSCPSession <span class="pl-vo">$session</span></pre></div>
+<span class="pl-c1">Close-WinSCPSession</span> <span class="pl-k">-</span>WinSCPSession <span class="pl-k">$</span><span class="pl-smi">session</span></pre></div>
 
 <p>Example 2:</p>
 
 <div class="highlight highlight-PowerShell"><pre><span class="pl-c"># Create session and download file in one line.</span>
 <span class="pl-c"># If the WinSCPSession object is piped into the another command, it will auto close the session after the command completes.</span>
-<span class="pl-k"><span class="pl-k">Open-WinSCPSession</span></span> <span class="pl-k">-</span>SessionOptions (<span class="pl-k"><span class="pl-k">New-WinSCPSessionOptions</span></span> <span class="pl-k">-</span>HostName <span class="pl-s1"><span class="pl-pds">"</span>myftphost.org<span class="pl-pds">"</span></span> <span class="pl-k">-</span>UserName <span class="pl-s1"><span class="pl-pds">"</span>ftpUser<span class="pl-pds">"</span></span> <span class="pl-k">-</span>Password <span class="pl-s1"><span class="pl-pds">"</span>MyPassword<span class="pl-pds">"</span></span> <span class="pl-k">-</span>Protocol Ftp) <span class="pl-k">|</span> <span class="pl-k"><span class="pl-k">Receive-WinSCPItem</span></span> <span class="pl-k">-</span>RemotePath <span class="pl-s1"><span class="pl-pds">"</span>./file.txt<span class="pl-pds">"</span></span> <span class="pl-k">-</span>LocalPath <span class="pl-s1"><span class="pl-pds">"</span>C:\folder\<span class="pl-pds">"</span></span></pre></div>
+<span class="pl-c1">Open-WinSCPSession</span> <span class="pl-k">-</span>SessionOptions <span class="pl-k">(</span><span class="pl-c1">New-WinSCPSessionOptions</span> <span class="pl-k">-</span>HostName <span class="pl-s">"myftphost.org"</span> <span class="pl-k">-</span>UserName <span class="pl-s">"ftpUser"</span> <span class="pl-k">-</span>Password <span class="pl-s">"MyPassword"</span> <span class="pl-k">-</span>Protocol Ftp<span class="pl-k">)</span> <span class="pl-k">|</span> <span class="pl-c1">Receive-WinSCPItem</span> <span class="pl-k">-</span>RemotePath <span class="pl-s">"./file.txt"</span> <span class="pl-k">-</span>LocalPath <span class="pl-s">"C:\folder\"</span></pre></div>
 
 <p>This is still a very beta version, with most of the functionality available with WinSCP, I intend on developing this extensively.<br>
 I have included the WinSCPnet.dll in the <em>NeededAssemblies</em> folder.</p>
@@ -88,13 +87,16 @@ I have included the WinSCPnet.dll in the <em>NeededAssemblies</em> folder.</p>
 <p>Check back regularly for updates.</p>
 
 <p>this project is licensed with GNU GENERAL PUBLIC LICENSE.</p>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/dotps1">dotps1</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/dotps1/WinSCP">WinSCP</a> is maintained by <a href="https://github.com/dotps1">dotps1</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
       </footer>
-    </div>
-    <script src="javascripts/scale.fix.js"></script>
-    
+
+    </section>
+
+  
   </body>
 </html>
+
