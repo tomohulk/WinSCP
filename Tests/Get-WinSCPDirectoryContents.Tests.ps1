@@ -1,10 +1,10 @@
 Param ($server,$username,$password)
 
-Import-Module -Name "$((Get-Item -Path (Split-Path -Parent $MyInvocation.MyCommand.Path)).Parent)\WinSCP.psd1"
 
 Describe 'Get-WinSCPDirectoryContents' {
     It 'WinSCP Module should be loaded.' {
-        Get-Module -Name WinSCP | Should be $true
+        Get-Module -Name WinSCP | Should Be $true
+        (Get-Module -Name WinSCP).Path | Should Be "$($env:USERPROFILE)\Documents\GitHub\WinSCP\WinSCP.psm1"
     }
 
     $params = @{
