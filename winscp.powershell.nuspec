@@ -18,11 +18,6 @@
     <releaseNotes></releaseNotes>
   </metadata>
   <files>
-    <file src="WinSCP.psm1" target="Tools" />
-	<file src="WinSCP.psd1" target="Tools" />
-	<file src="README.md" target="Tools" />
-	<file src="LICENSE.md" target="Tools" />
-	<file src="NeededAssemblies\*.*" target="Tools\NeededAssemblies" />
 	<file src="chocolateyinstall.ps1" />
   </files>
 </package>
