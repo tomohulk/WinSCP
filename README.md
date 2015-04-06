@@ -1,11 +1,11 @@
 # WinSCP PowerShell Module Wrapper
 
-You can install this module with [chocolatey](https://chocolatey.org/packages/winscp.powershell/5.7.1.0)
+This module can be installed with [chocolatey](https://chocolatey.org/packages/winscp.powershell/5.7.1.0):
 ```
 choco install winscp.powershell -version 5.7.1.0
 ```
 
-You can install this module with [PsGet](http://psget.net/),
+This module can be installed with [PsGet](http://psget.net/):
 ```PowerShell
 # Install WinSCP module with PsGet
 Install-Module -ModuleUrl "https://github.com/dotps1/WinSCP/raw/master/WinSCPv5.7.1.0.zip" -ModuleName WinSCP -Type ZIP
