@@ -1,2 +1,2 @@
 ﻿$p = Join-Path $env:ProgramFiles WindowsPowerShell\Modules; $e = Get-EnvironmentVariable PSModulePath Process; if (($e -split ";") -notcontains $p) { Set-EnvironmentVariable PSModulePath ($e += ";$p") Process }
-Install-ChocolateyZipPackage 'winscp.powershell' 'https://github.com/dotps1/WinSCP/raw/master/WinSCP.zip' "$($env:PSModulePath -split ';' | ?{ $_ -eq $p })\WinSCP"
+Install-ChocolateyZipPackage 'winscp.powershell' 'https://github.com/dotps1/WinSCP/raw/master/WinSCP.zip' "$p\WinSCP"
