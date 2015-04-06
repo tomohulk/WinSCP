@@ -1,34 +1,34 @@
-# WinSCP PowerShell Wrapper
+# WinSCP PowerShell Module Wrapper
 
-You can install this module with [PsGet](http://psget.net/), if you don't have PsGet, I highly recommend you get it!
-```PowerShell
-# Install PsGet
-(New-Object -TypeName Net.WebClient).DownloadString("http://psget.net/GetPsGet.ps1") | Invoke-Expression
+You can install this module with [chocolatey](https://chocolatey.org/packages/winscp.powershell/5.7.1.0)
+```
+choco install winscp.powershell -version 5.7.1.0
 ```
 
+You can install this module with [PsGet](http://psget.net/),
 ```PowerShell
 # Install WinSCP module with PsGet
-Install-Module -ModuleUrl "https://github.com/dotps1/WinSCP/raw/master/WinSCP.zip" -ModuleName WinSCP -Type ZIP
+Install-Module -ModuleUrl "https://github.com/dotps1/WinSCP/raw/master/WinSCPv5.7.1.0.zip" -ModuleName WinSCP -Type ZIP
 ```
 
 ## WinSCP Cmdlets
 
-* [New-WinSCPSessionOptions](https://github.com/dotps1/WinSCP/wiki/New-WinSCPSessionOptions)
-* [Open-WinSCPSession](https://github.com/dotps1/WinSCP/wiki/Open-WinSCPSession)
 * [Close-WinSCPSession](https://github.com/dotps1/WinSCP/wiki/Close-WinSCPSession)
-* [Receive-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Receive-WinSCPItem)
-* [Send-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Send-WinSCPItem)
-* [New-WinSCPDirectory](https://github.com/dotps1/WinSCP/wiki/New-WinSCPDirectory)
-* [Test-WinSCPItemExists](https://github.com/dotps1/WinSCP/wiki/Test-WinSCPItemExists)
-* [Get-WinSCPItemInformation](https://github.com/dotps1/WinSCP/wiki/Get-WinSCPItemInformation)
-* [Get-WinSCPDirectoryContents](https://github.com/dotps1/WinSCP/wiki/Get-WinSCPDirectoryContents)
-* [Move-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Move-WinSCPItem)
-* [Remove-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPItem)
-* [Sync-WinSCPDirectory](https://github.com/dotps1/WinSCP/wiki/Sync-WinSCPDirectory)
 * [ConvertTo-WinSCPEscapedString](https://github.com/dotps1/WinSCP/wiki/ConvertTo-WinSCPEscapedString)
-* [New-WinSCPTransferOptions](https://github.com/dotps1/WinSCP/wiki/New-WinSCPTransferOptions)
-* [New-WinSCPFilePermissions](https://github.com/dotps1/WinSCP/wiki/New-WinSCPFilePermissions)
+* [Get-WinSCPDirectoryContents](https://github.com/dotps1/WinSCP/wiki/Get-WinSCPDirectoryContents)
+* [Get-WinSCPItemInformation](https://github.com/dotps1/WinSCP/wiki/Get-WinSCPItemInformation)
 * [Invoke-WinSCPCommand](https://github.com/dotps1/WinSCP/wiki/Invoke-WinSCPCommand)
+* [Move-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Move-WinSCPItem)
+* [New-WinSCPDirectory](https://github.com/dotps1/WinSCP/wiki/New-WinSCPDirectory)
+* [New-WinSCPFilePermissions](https://github.com/dotps1/WinSCP/wiki/New-WinSCPFilePermissions)
+* [New-WinSCPSessionOptions](https://github.com/dotps1/WinSCP/wiki/New-WinSCPSessionOptions)
+* [New-WinSCPTransferOptions](https://github.com/dotps1/WinSCP/wiki/New-WinSCPTransferOptions)
+* [Open-WinSCPSession](https://github.com/dotps1/WinSCP/wiki/Open-WinSCPSession)
+* [Receive-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Receive-WinSCPItem)
+* [Remove-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPItem)
+* [Send-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Send-WinSCPItem)
+* [Sync-WinSCPDirectory](https://github.com/dotps1/WinSCP/wiki/Sync-WinSCPDirectory)
+* [Test-WinSCPItemExists](https://github.com/dotps1/WinSCP/wiki/Test-WinSCPItemExists)
 
 
 ## Examples
@@ -42,7 +42,7 @@ $sessionOptions = @{
 	UserName = "ftpuser"
 	Password = "FtpUserPword"
 	SshHostKeyFingerprint = "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx"
-	}
+}
 
 # Open a new WinSCPSession using the splatted parameters.
 $session = Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions @sessionOptions)
