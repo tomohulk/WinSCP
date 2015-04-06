@@ -20,36 +20,38 @@
 
     <section class="main-content">
       <h1>
-<a id="winscp-powershell-wrapper" class="anchor" href="#winscp-powershell-wrapper" aria-hidden="true"><span class="octicon octicon-link"></span></a>WinSCP PowerShell Wrapper</h1>
+<a id="winscp-powershell-module-wrapper" class="anchor" href="#winscp-powershell-module-wrapper" aria-hidden="true"><span class="octicon octicon-link"></span></a>WinSCP PowerShell Module Wrapper</h1>
 
-<p>You can install this module with <a href="http://psget.net/">PsGet</a>, if you don't have PsGet, I highly recommend you get it!</p>
+<p>You can install this module with <a href="https://chocolatey.org/packages/winscp.powershell/5.7.1.0">chocolatey</a></p>
 
-<div class="highlight highlight-PowerShell"><pre><span class="pl-c"># Install PsGet</span>
-<span class="pl-k">(</span><span class="pl-c1">New-Object</span> <span class="pl-k">-</span>TypeName Net.WebClient<span class="pl-k">)</span>.DownloadString<span class="pl-k">(</span><span class="pl-s">"http://psget.net/GetPsGet.ps1"</span><span class="pl-k">)</span> <span class="pl-k">|</span> <span class="pl-c1">Invoke-Expression</span></pre></div>
+<pre><code>choco install winscp.powershell -version 5.7.1.0
+</code></pre>
+
+<p>You can install this module with <a href="http://psget.net/">PsGet</a>,</p>
 
 <div class="highlight highlight-PowerShell"><pre><span class="pl-c"># Install WinSCP module with PsGet</span>
-<span class="pl-c1">Install-Module</span> <span class="pl-k">-</span>ModuleUrl <span class="pl-s">"https://github.com/dotps1/WinSCP/raw/master/WinSCP.zip"</span> <span class="pl-k">-</span>ModuleName WinSCP <span class="pl-k">-</span>Type ZIP</pre></div>
+<span class="pl-c1">Install-Module</span> <span class="pl-k">-</span>ModuleUrl <span class="pl-s">"https://github.com/dotps1/WinSCP/raw/master/WinSCPv5.7.1.0.zip"</span> <span class="pl-k">-</span>ModuleName WinSCP <span class="pl-k">-</span>Type ZIP</pre></div>
 
 <h2>
 <a id="winscp-cmdlets" class="anchor" href="#winscp-cmdlets" aria-hidden="true"><span class="octicon octicon-link"></span></a>WinSCP Cmdlets</h2>
 
 <ul>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/New-WinSCPSessionOptions">New-WinSCPSessionOptions</a></li>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/Open-WinSCPSession">Open-WinSCPSession</a></li>
 <li><a href="https://github.com/dotps1/WinSCP/wiki/Close-WinSCPSession">Close-WinSCPSession</a></li>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/Receive-WinSCPItem">Receive-WinSCPItem</a></li>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/Send-WinSCPItem">Send-WinSCPItem</a></li>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/New-WinSCPDirectory">New-WinSCPDirectory</a></li>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/Test-WinSCPItemExists">Test-WinSCPItemExists</a></li>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/Get-WinSCPItemInformation">Get-WinSCPItemInformation</a></li>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/Get-WinSCPDirectoryContents">Get-WinSCPDirectoryContents</a></li>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/Move-WinSCPItem">Move-WinSCPItem</a></li>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPItem">Remove-WinSCPItem</a></li>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/Sync-WinSCPDirectory">Sync-WinSCPDirectory</a></li>
 <li><a href="https://github.com/dotps1/WinSCP/wiki/ConvertTo-WinSCPEscapedString">ConvertTo-WinSCPEscapedString</a></li>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/New-WinSCPTransferOptions">New-WinSCPTransferOptions</a></li>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/New-WinSCPFilePermissions">New-WinSCPFilePermissions</a></li>
+<li><a href="https://github.com/dotps1/WinSCP/wiki/Get-WinSCPDirectoryContents">Get-WinSCPDirectoryContents</a></li>
+<li><a href="https://github.com/dotps1/WinSCP/wiki/Get-WinSCPItemInformation">Get-WinSCPItemInformation</a></li>
 <li><a href="https://github.com/dotps1/WinSCP/wiki/Invoke-WinSCPCommand">Invoke-WinSCPCommand</a></li>
+<li><a href="https://github.com/dotps1/WinSCP/wiki/Move-WinSCPItem">Move-WinSCPItem</a></li>
+<li><a href="https://github.com/dotps1/WinSCP/wiki/New-WinSCPDirectory">New-WinSCPDirectory</a></li>
+<li><a href="https://github.com/dotps1/WinSCP/wiki/New-WinSCPFilePermissions">New-WinSCPFilePermissions</a></li>
+<li><a href="https://github.com/dotps1/WinSCP/wiki/New-WinSCPSessionOptions">New-WinSCPSessionOptions</a></li>
+<li><a href="https://github.com/dotps1/WinSCP/wiki/New-WinSCPTransferOptions">New-WinSCPTransferOptions</a></li>
+<li><a href="https://github.com/dotps1/WinSCP/wiki/Open-WinSCPSession">Open-WinSCPSession</a></li>
+<li><a href="https://github.com/dotps1/WinSCP/wiki/Receive-WinSCPItem">Receive-WinSCPItem</a></li>
+<li><a href="https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPItem">Remove-WinSCPItem</a></li>
+<li><a href="https://github.com/dotps1/WinSCP/wiki/Send-WinSCPItem">Send-WinSCPItem</a></li>
+<li><a href="https://github.com/dotps1/WinSCP/wiki/Sync-WinSCPDirectory">Sync-WinSCPDirectory</a></li>
+<li><a href="https://github.com/dotps1/WinSCP/wiki/Test-WinSCPItemExists">Test-WinSCPItemExists</a></li>
 </ul>
 
 <h2>
@@ -63,7 +65,7 @@
     UserName <span class="pl-k">=</span> <span class="pl-s">"ftpuser"</span>
     Password <span class="pl-k">=</span> <span class="pl-s">"FtpUserPword"</span>
     SshHostKeyFingerprint <span class="pl-k">=</span> <span class="pl-s">"ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx"</span>
-    }
+}
 
 <span class="pl-c"># Open a new WinSCPSession using the splatted parameters.</span>
 <span class="pl-k">$</span><span class="pl-smi">session</span> <span class="pl-k">=</span> <span class="pl-c1">Open-WinSCPSession</span> <span class="pl-k">-</span>SessionOptions <span class="pl-k">(</span><span class="pl-c1">New-WinSCPSessionOptions</span> @sessionOptions<span class="pl-k">)</span>
