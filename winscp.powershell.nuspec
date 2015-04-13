@@ -19,5 +19,6 @@
   </metadata>
   <files>
 	<file src="chocolateyinstall.ps1" />
+    <file src="chocolateyuninstall.ps1" />
   </files>
 </package>

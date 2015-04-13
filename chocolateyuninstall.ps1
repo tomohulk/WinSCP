@@ -1,0 +1,1 @@
+﻿Remove-Item -Path "$env:ProgramFiles\WindowsPowershell\Modules\WinSCP" -Recurse -Force -Confirm:$false
