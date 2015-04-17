@@ -24,8 +24,12 @@
 
 <p>This module can be installed with <a href="https://chocolatey.org/packages/winscp.powershell">chocolatey</a>:</p>
 
-<pre><code>choco install winscp.powershell -version 5.7.1.0
-</code></pre>
+<div class="highlight highlight-PowerShell"><pre><span class="pl-c"># Fresh install:</span>
+choco install winscp.powershell <span class="pl-k">-</span>version <span class="pl-c1"><span class="pl-c1">5.7</span></span>.<span class="pl-c1"><span class="pl-c1">2.0</span></span>
+
+<span class="pl-c"># Update install if you already have it installed:</span>
+choco upgrade winscp.powershell <span class="pl-k">-</span>version <span class="pl-c1"><span class="pl-c1">5.7</span></span>.<span class="pl-c1"><span class="pl-c1">2.0</span></span>
+<span class="pl-c1">Import-Module</span> WinSCP</pre></div>
 
 <p>This module can be installed with <a href="http://psget.net/">PsGet</a>:</p>
 
