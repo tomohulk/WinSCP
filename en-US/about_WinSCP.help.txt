@@ -1,0 +1,39 @@
+Topic
+	about_WinSCP
+	
+Short Description
+	PowerShell Module Wrapper for use with the WinSCP.exe and WinSCPnet.dll
+	
+Long Description
+	The  developers of the WinSCP have exposed most if not all available methods and properties of the program to .net and COM, this is a set of PowerShell Cmdlets to sit on top of that assembly to allow for easy automation of WinSCP via PowerShell.
+	
+Examples
+	# Splat session options.
+	$sessionOptions = @{
+		HostName = 'myftphost.org'
+		UserName = 'myuser'
+		Password = 'mypassword'
+		Protocol = 'Ftp'
+	}
+	
+	# Create new Session Options Object.
+	$session = Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions @sessionOptions)
+	
+	# Open the WinSCP Session using Session Options Object for Configuration.
+	Get-WinSCPDirectoryContents -WinSCPSession $session -ShowDetails
+	
+	# Send a file to the host.
+	Send-WinSCPItem -WinSCPSession $session -RemotePath './file.txt' -LocalPath 'C:\file.txt'
+	
+	# Receive a file from the host and remove it from the host after completion.
+	Receive-WinSCPItem -WinSCPSession $session -RemotePath './file.txt' -LocalPath 'C:\file.txt' -Remove
+	
+	# Close the session.
+	Close-WinSCPSession -WinSCPSession $session
+	
+	
+	# If the Open Session Object is passed through the pipeline it will be auto-closed upon the completion of that command.
+	Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions -HostName 'myftphost.org' -UserName 'myuser' -Password 'mypassword' -Protocol Ftp) | Send-WinSCPItem -RemotePath './file.txt' -LocalPath 'C:\File.txt' -Remove
+	
+Keywords
+	WinSCP

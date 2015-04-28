@@ -3,10 +3,10 @@
 This module can be installed with [chocolatey](https://chocolatey.org/packages/winscp.powershell):
 ```PowerShell
 # Fresh install:
-choco install winscp.powershell -version 5.7.2.0
+choco install winscp.powershell -version 5.7.2.1
 
 # Update install if you already have it installed:
-choco upgrade winscp.powershell -version 5.7.2.0
+choco upgrade winscp.powershell -version 5.7.2.1
 Import-Module WinSCP
 ```
 
@@ -32,6 +32,7 @@ Install-Module -ModuleUrl "https://github.com/dotps1/WinSCP/raw/master/WinSCP.zi
 * [Receive-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Receive-WinSCPItem)
 * [Remove-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPItem)
 * [Send-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Send-WinSCPItem)
+* [Start-WinSCPConsole](https://github.com/dotps1/WinSCP/wiki/Start-WinSCPConsole))
 * [Sync-WinSCPDirectory](https://github.com/dotps1/WinSCP/wiki/Sync-WinSCPDirectory)
 * [Test-WinSCPItemExists](https://github.com/dotps1/WinSCP/wiki/Test-WinSCPItemExists)
 

@@ -69,7 +69,7 @@ Describe 'Receive-WinSCPItem' {
 
         It "Folder should exist only in $local directory." {
             $result.IsSuccess | Should Not Be $false
-            Test-Path -Path "$($ftp.FullName)\Folder" | Should Not Be $false
+            Test-Path -Path "$($ftp.FullName)\Folder" | Should Be $false
             Test-Path -Path "$($local.FullName)\Folder" | Should Not Be $false
         }
 
