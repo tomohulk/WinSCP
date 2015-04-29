@@ -1,6 +1,6 @@
 # Local Repository Files To Ignore:
 winscp.ini
-Pester-WinSCP.ps1
+Invoke-WinSCP.Build.ps1
 *.nupkg
 
 # Windows image file caches
