@@ -32,7 +32,7 @@ Install-Module -ModuleUrl "https://github.com/dotps1/WinSCP/raw/master/WinSCP.zi
 * [Receive-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Receive-WinSCPItem)
 * [Remove-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPItem)
 * [Send-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Send-WinSCPItem)
-* [Start-WinSCPConsole](https://github.com/dotps1/WinSCP/wiki/Start-WinSCPConsole))
+* [Start-WinSCPConsole](https://github.com/dotps1/WinSCP/wiki/Start-WinSCPConsole)
 * [Sync-WinSCPDirectory](https://github.com/dotps1/WinSCP/wiki/Sync-WinSCPDirectory)
 * [Test-WinSCPItemExists](https://github.com/dotps1/WinSCP/wiki/Test-WinSCPItemExists)
 
