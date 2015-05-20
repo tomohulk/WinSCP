@@ -3,10 +3,10 @@
 This module can be installed with [chocolatey](https://chocolatey.org/packages/winscp.powershell):
 ```PowerShell
 # Fresh install:
-choco install winscp.powershell -version 5.7.2.1
+choco install winscp.powershell -version 5.7.3.0
 
 # Update install if you already have it installed:
-choco upgrade winscp.powershell -version 5.7.2.1
+choco upgrade winscp.powershell -version 5.7.3.0
 Import-Module WinSCP
 ```
 
