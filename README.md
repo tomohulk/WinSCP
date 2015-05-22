@@ -3,11 +3,10 @@
 This module can be installed with [chocolatey](https://chocolatey.org/packages/winscp.powershell):
 ```PowerShell
 # Fresh install:
-choco install winscp.powershell -version 5.7.3.0
+choco install winscp.powershell -version 5.7.3.1
 
 # Update install if you already have it installed:
-choco upgrade winscp.powershell -version 5.7.3.0
-Import-Module WinSCP
+choco upgrade winscp.powershell -version 5.7.3.1
 ```
 
 This module can be installed with [PsGet](http://psget.net/):
@@ -18,9 +17,11 @@ Install-Module -ModuleUrl "https://github.com/dotps1/WinSCP/raw/master/WinSCP.zi
 
 ## WinSCP Cmdlets
 
+* [Add-WinSCPSessionOptionsRawSettings(https://github.com/dotps1/WinSCP/wiki/Add-WinSCPSessionOptionsRawSettings)]
 * [Close-WinSCPSession](https://github.com/dotps1/WinSCP/wiki/Close-WinSCPSession)
 * [ConvertTo-WinSCPEscapedString](https://github.com/dotps1/WinSCP/wiki/ConvertTo-WinSCPEscapedString)
 * [Get-WinSCPDirectoryContents](https://github.com/dotps1/WinSCP/wiki/Get-WinSCPDirectoryContents)
+* [Get-WinSCPFileChecksum(https://github.com/dotps1/WinSCP/wiki/Get-WinSCPFileChecksum)]
 * [Get-WinSCPItemInformation](https://github.com/dotps1/WinSCP/wiki/Get-WinSCPItemInformation)
 * [Invoke-WinSCPCommand](https://github.com/dotps1/WinSCP/wiki/Invoke-WinSCPCommand)
 * [Move-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Move-WinSCPItem)

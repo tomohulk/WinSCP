@@ -9,10 +9,14 @@
     WinSCP.Session.
 .PARAMETER SessionOptions
     Defines information to allow an automatic connection and authentication of the session.
-.PARAMETER SessionLogPath
-    Path to store session log file to. Default null means, no session log file is created.
 .PARAMETER DebugLogPath
     Path to store assembly debug log to. Default null means, no debug log file is created. See also SessionLogPath. The property has to be set before calling Open.
+.PARAMETER SessionLogPath
+    Path to store session log file to. Default null means, no session log file is created.
+.PARAMETER  ReconnectTime
+    Sets time limit in seconds to try reconnecting broken sessions. Default is 120 seconds. Use TimeSpan.MaxValue to remove any limit.
+.PARAMETER Timeout
+    Maximal interval between two consecutive outputs from WinSCP console session, before TimeoutException is thrown. The default is one minute. It’s not recommended to change the value.
 .EXAMPLE
     PS C:\> $session = Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions -Hostname myftphost.org -Username ftpuser -password "FtpUserPword" -Protocol Ftp)
     PS C:\> $session
@@ -73,18 +77,35 @@ Function Open-WinSCPSession
 
         [Parameter()]
         [String]
-        $SessionLogPath = $null,
+        $DebugLogPath,
 
         [Parameter()]
         [String]
-        $DebugLogPath = $null
+        $SessionLogPath,
+
+        [Parameter()]
+        [TimeSpan]
+        $ReconnectTime,
+
+        [Parameter()]
+        [TimeSpan]
+        $Timeout
     )
 
-    $session = New-Object -TypeName WinSCP.Session -Property @{
-        SessionLogPath = $SessionLogPath
-        DebugLogPath = $DebugLogPath
-    }
+    $session = New-Object -TypeName WinSCP.Session
     
+    foreach ($key in $PSBoundParameters.Keys | ?{ $_ -ne 'SessionOptions' })
+    {
+        try
+        {
+            $session.$($key) = $PSBoundParameters.$($key)
+        }
+        catch [System.Exception]
+        {
+            throw $_
+        }
+        }
+
     try
     {
         $session.Open($SessionOptions)

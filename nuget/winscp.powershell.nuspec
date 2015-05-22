@@ -5,7 +5,7 @@
     <!-- Read this before publishing packages to chocolatey.org: https://github.com/chocolatey/chocolatey/wiki/CreatePackages -->
     <id>winscp.powershell</id>
     <title>WinSCP PowerShell Module (Install)</title>
-    <version>5.7.3.0</version>
+    <version>5.7.3.1</version>
     <authors>Thomas J. Malkewitz @dotps1</authors>
     <owners>Thomas J. Malkewitz @dotps1</owners>
     <summary>WinSCP PowerShell Module Wrapper.</summary>

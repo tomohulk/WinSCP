@@ -9,11 +9,11 @@
     WinSCP.SessionOptions.
 .PARAMETER FtpMode
     Possible values are FtpMode.Passive (default) and FtpMode.Active.
-.PRAMETER FtpSecure
+.PARAMETER FtpSecure
     FTPS mode. Possible values are FtpSecure.None (default), FtpSecure.Implicit and FtpSecure.Explicit (FtpSecure.ExplicitTls in older versions).
 .PARAMETER GiveUpSecurityAndAcceptAnySshHostKey
     Give up security and accept any SSH host key. To be used in exceptional situations only, when security is not required. When set, log files will include warning about insecure connection. To maintain security, use SshHostKeyFingerprint.
-.PAREMETER GiveUpSecurityAndAcceptAnyTlsHostCertificate
+.PARAMETER GiveUpSecurityAndAcceptAnyTlsHostCertificate
     Give up security and accept any FTPS/WebDAVS server TLS/SSL certificate. To be used in exceptional situations only, when security is not required. When set, log files will include warning about insecure connection. To maintain security, use TlsHostCertificateFingerprint.
 .PARAMETER HostName
     Name of the host to connect to. Mandatory property.
@@ -176,7 +176,7 @@ Function New-WinSCPSessionOptions
             $SshHostKeyFingerprintAttribute.Mandatory = $true
         }
 
-        $SshHostKeyFingerprintAttributeCollection = New-Object Collections.ObjectModel.Collection[$SshHostKeyFingerprintAttribute]
+        $SshHostKeyFingerprintAttributeCollection = New-Object -TypeName Collections.ObjectModel.Collection[$SshHostKeyFingerprintAttribute]
         $SshHostKeyFingerprintAttributeCollection.Add($SshHostKeyFingerprintAttribute)
 
         $SshHostKeyFingerprintParameter = @{

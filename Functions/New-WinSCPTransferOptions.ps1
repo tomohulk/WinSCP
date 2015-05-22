@@ -11,6 +11,12 @@
     http://winscp.net/eng/docs/file_mask
 .PARAMETER FilePermissions
     Permissions to applied to a remote file (used for uploads only).
+.PARAMETER State
+    Sets what files will be transfered with resume support/to temporary filename. Use TransferResumeSupportState.Default for built-in default (currently all files above 100 KB), TransferResumeSupportState.On for all files, TransferResumeSupportState.Off for no file (turn off) or TransferResumeSupportState.Smart for all files above threshold (see Threshold).
+.PARAMETER Threshold
+    Threshold (in KB) for State.Smart mode.
+.PARAMETER SpeedLimit
+     Limit transfer speed (in KB/s).
 .PARAMETER PreserveTimeStamp
     Preserve timestamp (set last write time of destination file to that of source file). Defaults to true.
 .PARAMETER TransferMode
@@ -58,6 +64,18 @@ Function New-WinSCPTransferOptions
         $PreserveTimeStamp,
 
         [Parameter()]
+        [WinSCP.TransferResumeSupportState]
+        $State,
+
+        [Parameter()]
+        [Int]
+        $Threshold,
+        
+        [Parameter()]
+        [Int]
+        $SpeedLimit,
+
+        [Parameter()]
         [WinSCP.TransferMode]
         $TransferMode
     )
@@ -70,7 +88,14 @@ Function New-WinSCPTransferOptions
         {
             try
             {
-                $transferOptions.$($key) = $PSBoundParameters.$($key)
+                if ($key -eq 'State' -or $key -eq 'Threshold')
+                {
+                    $transferOptions.ResumeSupport.$($key) = $PSBoundParameters.$($key)
+                }
+                else
+                {
+                    $transferOptions.$($key) = $PSBoundParameters.$($key)
+                }
             }
             catch [System.Exception]
             {
