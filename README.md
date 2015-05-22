@@ -17,11 +17,11 @@ Install-Module -ModuleUrl "https://github.com/dotps1/WinSCP/raw/master/WinSCP.zi
 
 ## WinSCP Cmdlets
 
-* [Add-WinSCPSessionOptionsRawSettings(https://github.com/dotps1/WinSCP/wiki/Add-WinSCPSessionOptionsRawSettings)]
+* [Add-WinSCPSessionOptionsRawSettings](https://github.com/dotps1/WinSCP/wiki/Add-WinSCPSessionOptionsRawSettings)
 * [Close-WinSCPSession](https://github.com/dotps1/WinSCP/wiki/Close-WinSCPSession)
 * [ConvertTo-WinSCPEscapedString](https://github.com/dotps1/WinSCP/wiki/ConvertTo-WinSCPEscapedString)
 * [Get-WinSCPDirectoryContents](https://github.com/dotps1/WinSCP/wiki/Get-WinSCPDirectoryContents)
-* [Get-WinSCPFileChecksum(https://github.com/dotps1/WinSCP/wiki/Get-WinSCPFileChecksum)]
+* [Get-WinSCPFileChecksum](https://github.com/dotps1/WinSCP/wiki/Get-WinSCPFileChecksum)
 * [Get-WinSCPItemInformation](https://github.com/dotps1/WinSCP/wiki/Get-WinSCPItemInformation)
 * [Invoke-WinSCPCommand](https://github.com/dotps1/WinSCP/wiki/Invoke-WinSCPCommand)
 * [Move-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Move-WinSCPItem)
