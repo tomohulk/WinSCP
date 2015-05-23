@@ -1,5 +1,10 @@
 # WinSCP PowerShell Module Wrapper
 
+This module can be installed from the [PowerShellGet Gallery](https://www.powershellgallery.com/),  You need [WMF 5](https://www.microsoft.com/en-us/download/details.aspx?id=44987) to use this feature.
+```PowerShell
+# To install WinSCP, run the following command in the PowerShell prompt in Administrator mode:
+Install-Module -Name WinSCP
+
 This module can be installed with [chocolatey](https://chocolatey.org/packages/winscp.powershell):
 ```PowerShell
 # Fresh install:
