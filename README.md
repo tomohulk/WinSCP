@@ -4,6 +4,7 @@ This module can be installed from the [PowerShellGet Gallery](https://www.powers
 ```PowerShell
 # To install WinSCP, run the following command in the PowerShell prompt in Administrator mode:
 Install-Module -Name WinSCP
+```
 
 This module can be installed with [chocolatey](https://chocolatey.org/packages/winscp.powershell):
 ```PowerShell
