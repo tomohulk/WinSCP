@@ -104,7 +104,7 @@ Function Open-WinSCPSession
         {
             throw $_
         }
-        }
+    }
 
     try
     {

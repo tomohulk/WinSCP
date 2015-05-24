@@ -1,18 +1,14 @@
 # WinSCP PowerShell Module Wrapper
 
-This module can be installed from the [PowerShellGet Gallery](https://www.powershellgallery.com/),  You need [WMF 5](https://www.microsoft.com/en-us/download/details.aspx?id=44987) to use this feature.
+This module can be installed from the [PowerShellGet Gallery](https://www.powershellgallery.com/packages/WinSCP/),  You need [WMF 5](https://www.microsoft.com/en-us/download/details.aspx?id=44987) to use this feature.
 ```PowerShell
 # To install WinSCP, run the following command in the PowerShell prompt in Administrator mode:
 Install-Module -Name WinSCP
 ```
 
 This module can be installed with [chocolatey](https://chocolatey.org/packages/winscp.powershell):
-```PowerShell
-# Fresh install:
+```
 choco install winscp.powershell -version 5.7.3.1
-
-# Update install if you already have it installed:
-choco upgrade winscp.powershell -version 5.7.3.1
 ```
 
 This module can be installed with [PsGet](http://psget.net/):
@@ -70,8 +66,9 @@ Close-WinSCPSession -WinSCPSession $session
 
 Example 2:
 ```PowerShell
-# Create session and download file in one line.
-# If the WinSCPSession object is piped into the another command, it will auto close the session after the command completes.
+# Create session, download a file, and close the session in one line.
+# If the WinSCP.Session Object is passed through the pipeline it will be auto-closed upon the completion of that command.
+# To avoid this behaviour, set the WinSCP.Session object value to variable to be reused.
 Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions -HostName "myftphost.org" -UserName "ftpUser" -Password "MyPassword" -Protocol Ftp) | Receive-WinSCPItem -RemotePath "./file.txt" -LocalPath "C:\folder\"
 ```
 

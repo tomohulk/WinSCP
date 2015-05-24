@@ -12,7 +12,7 @@
 .PARAMETER FilePermissions
     Permissions to applied to a remote file (used for uploads only).
 .PARAMETER State
-    Sets what files will be transfered with resume support/to temporary filename. Use TransferResumeSupportState.Default for built-in default (currently all files above 100 KB), TransferResumeSupportState.On for all files, TransferResumeSupportState.Off for no file (turn off) or TransferResumeSupportState.Smart for all files above threshold (see Threshold).
+    Sets what files will be transferred with resume support/to temporary filename. Use TransferResumeSupportState.Default for built-in default (currently all files above 100 KB), TransferResumeSupportState.On for all files, TransferResumeSupportState.Off for no file (turn off) or TransferResumeSupportState.Smart for all files above threshold (see Threshold).
 .PARAMETER Threshold
     Threshold (in KB) for State.Smart mode.
 .PARAMETER SpeedLimit
