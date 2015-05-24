@@ -22,18 +22,15 @@
       <h1>
 <a id="winscp-powershell-module-wrapper" class="anchor" href="#winscp-powershell-module-wrapper" aria-hidden="true"><span class="octicon octicon-link"></span></a>WinSCP PowerShell Module Wrapper</h1>
 
-<p>This module can be installed from the <a href="https://www.powershellgallery.com/">PowerShellGet Gallery</a>,  You need <a href="https://www.microsoft.com/en-us/download/details.aspx?id=44987">WMF 5</a> to use this feature.</p>
+<p>This module can be installed from the <a href="https://www.powershellgallery.com/packages/WinSCP/">PowerShellGet Gallery</a>,  You need <a href="https://www.microsoft.com/en-us/download/details.aspx?id=44987">WMF 5</a> to use this feature.</p>
 
 <div class="highlight highlight-PowerShell"><pre><span class="pl-c"># To install WinSCP, run the following command in the PowerShell prompt in Administrator mode:</span>
 <span class="pl-c1">Install-Module</span> <span class="pl-k">-</span>Name WinSCP</pre></div>
 
 <p>This module can be installed with <a href="https://chocolatey.org/packages/winscp.powershell">chocolatey</a>:</p>
 
-<div class="highlight highlight-PowerShell"><pre><span class="pl-c"># Fresh install:</span>
-choco install winscp.powershell <span class="pl-k">-</span>version <span class="pl-c1"><span class="pl-c1">5.7</span></span>.<span class="pl-c1"><span class="pl-c1">3.1</span></span>
-
-<span class="pl-c"># Update install if you already have it installed:</span>
-choco upgrade winscp.powershell <span class="pl-k">-</span>version <span class="pl-c1"><span class="pl-c1">5.7</span></span>.<span class="pl-c1"><span class="pl-c1">3.1</span></span></pre></div>
+<pre><code>choco install winscp.powershell -version 5.7.3.1
+</code></pre>
 
 <p>This module can be installed with <a href="http://psget.net/">PsGet</a>:</p>
 
@@ -90,8 +87,9 @@ choco upgrade winscp.powershell <span class="pl-k">-</span>version <span class="
 
 <p>Example 2:</p>
 
-<div class="highlight highlight-PowerShell"><pre><span class="pl-c"># Create session and download file in one line.</span>
-<span class="pl-c"># If the WinSCPSession object is piped into the another command, it will auto close the session after the command completes.</span>
+<div class="highlight highlight-PowerShell"><pre><span class="pl-c"># Create session, download a file, and close the session in one line.</span>
+<span class="pl-c"># If the WinSCP.Session Object is passed through the pipeline it will be auto-closed upon the completion of that command.</span>
+<span class="pl-c"># To avoid this behaviour, set the WinSCP.Session object value to variable to be reused.</span>
 <span class="pl-c1">Open-WinSCPSession</span> <span class="pl-k">-</span>SessionOptions <span class="pl-k">(</span><span class="pl-c1">New-WinSCPSessionOptions</span> <span class="pl-k">-</span>HostName <span class="pl-s">"myftphost.org"</span> <span class="pl-k">-</span>UserName <span class="pl-s">"ftpUser"</span> <span class="pl-k">-</span>Password <span class="pl-s">"MyPassword"</span> <span class="pl-k">-</span>Protocol Ftp<span class="pl-k">)</span> <span class="pl-k">|</span> <span class="pl-c1">Receive-WinSCPItem</span> <span class="pl-k">-</span>RemotePath <span class="pl-s">"./file.txt"</span> <span class="pl-k">-</span>LocalPath <span class="pl-s">"C:\folder\"</span></pre></div>
 
 <p>This is still a very beta version, with most of the functionality available with WinSCP, I intend on developing this extensively.<br>
