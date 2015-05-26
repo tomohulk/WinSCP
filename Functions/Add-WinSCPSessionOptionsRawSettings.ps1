@@ -62,9 +62,9 @@ Function Add-WinSCPSessionOptionsRawSettings
 
     try
     {
-        foreach ($key in $RawSetting.Keys)
+        foreach ($key in $RawSettings.Keys)
         {
-            $SessionOptions.AddRawSettings($key, $RawSetting.Values[$key])
+            $SessionOptions.AddRawSettings($key, $RawSettings[$key])
         }
     }
     catch [System.Exception]

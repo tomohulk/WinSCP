@@ -28,8 +28,8 @@ Function Close-WinSCPSession
     
     Param
     (
-        [Parameter(ValueFromPipeLine = $true)]
-        [Alias('Session')]
+        [Parameter(Mandatory = $true,
+                   ValueFromPipeLine = $true)]
         [WinSCP.Session]
         $WinSCPSession
     )

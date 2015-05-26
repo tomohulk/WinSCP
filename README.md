@@ -8,7 +8,7 @@ Install-Module -Name WinSCP
 
 This module can be installed with [chocolatey](https://chocolatey.org/packages/winscp.powershell):
 ```
-choco install winscp.powershell -version 5.7.3.1
+choco install winscp.powershell -version 5.7.3.2
 ```
 
 This module can be installed with [PsGet](http://psget.net/):
