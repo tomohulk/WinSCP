@@ -1,8 +1,8 @@
 ﻿<#
 .SYNOPSIS
-    Moves an item from one location to another from an active WinSCP Session.
+    Renames a remote item
 .DESCRIPTION
-    Once connected to an active WinSCP Session, one or many files can be moved to another location within the same WinSCP Session.
+    Renames a remote file or directory.  Be sure to include the file extension when renameing a file.
 .INPUTS
     WinSCP.Session.
 .OUTPUTS
@@ -10,14 +10,14 @@
 .PARAMETER WinSCPSession
     A valid open WinSCP.Session, returned from Open-WinSCPSession.
 .PARAMETER Path
-    Full path to remote item to be moved.
-.PARAMETER Destination
-    Full path to new location to move the item to.
+    Full path to remote item to be renamed.
+.PARAMETER NewName
+    The new name for the the item.
 .EXAMPLE
-    PS C:\> Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions -Hostname 'myftphost.org' -Username 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp) | Move-WinSCPItem -Path './rDir/rFile.txt' -Destination './rDir/rSubDir/'
+    PS C:\> Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions -Hostname 'myftphost.org' -Username 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp) | Rename-WinSCPItem -Path './rDir/rFile.txt' -Destination './rDir/rNewFile.txt'
 .EXAMPLE
     PS C:\> $session = New-WinSCPSessionOptions -Hostname 'myftphost.org' -Username 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx' | Open-WinSCPSession
-    PS C:\> Move-WinSCPItem -WinSCPSession $session -Path './rDir/rFile.txt' -Destination './rDir/rSubDir/'
+    PS C:\> Rename-WinSCPItem -WinSCPSession $session -Path './rDir/rFile.txt' -Destination './rDir/rNewFile.txt'
 .NOTES
     If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
 .LINK
@@ -25,11 +25,11 @@
 .LINK 
     http://winscp.net/eng/docs/library_session_movefile
 #>
-Function Move-WinSCPItem
+Function Rename-WinSCPItem
 {
     [CmdletBinding()]
     [OutputType([Void])]
-    
+
     Param
     (
         [Parameter(Mandatory = $true,
@@ -53,7 +53,7 @@ Function Move-WinSCPItem
         [Parameter(Mandatory = $true)]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
-        $Destination
+        $NewName
     )
 
     Begin
@@ -67,23 +67,15 @@ Function Move-WinSCPItem
         {
             try
             {
-                if (-not ($Destination.EndsWith('/')))
-                {
-                    $Destination += '/'
-                }
+                $newItemPath = $item.Replace($item.Substring($item.LastIndexOf('/') + 1), $NewName)
 
-                if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $Destination))
-                {
-                    New-WinSCPDirectory -WinSCPSession $WinSCPSession -Path $Destination | Out-Null
-                }
-
-                Write-Verbose -Message "Performing the operation `"Move WinSCPItem`" on target `"Item: $item Destination: $($Destination.Replace('\','/'))`"."
-                $WinSCPSession.MoveFile($item, $Destination.Replace('\','/'))
+                Write-Verbose -Message "Performing the operation `"Rename WinSCPItem`" on target `"Item: $item Destination: $newItemPath`"."
+                $WinSCPSession.MoveFile($item, $newItemPath)
             }
             catch [System.Exception]
             {
                 Write-Error -ErrorRecord $_
-                
+
                 continue
             }
         }

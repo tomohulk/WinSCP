@@ -10,13 +10,13 @@
 .PARAMETER FileMask
     File path to convert.
 .EXAMPLE
-    ConvertTo-WinSCPEscapedString -FileMask "*.txt"
+    ConvertTo-WinSCPEscapedString -FileMask '*.txt'
 
     [*].txt
 .EXAMPLE
-    $session = New-WinSCPSessionOptions -Hostname myftphost.org -Username ftpuser -password "FtpUserPword" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Open-WinSCPSession
-    $searchString = ConvertTo-WinSCPEscapedString -FileMask "*.txt"
-    Receive-WinSCPItem -WinSCPSession $session -RemoteItem "./rDir/$searchString" -LocalItem "C:\lDir\"
+    $session = New-WinSCPSessionOptions -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx' | Open-WinSCPSession
+    $searchString = ConvertTo-WinSCPEscapedString -FileMask '*.txt'
+    Receive-WinSCPItem -WinSCPSession $session -RemoteItem "./rDir/$searchString" -LocalItem 'C:\lDir\'
 .NOTES
     Useful with Send-WinSCPItem, Receive-WinSCPItem, Remove-WinSCPItem cmdlets.
 .LINK
@@ -26,7 +26,6 @@
 #>
 Function ConvertTo-WinSCPEscapedString
 {
-    [CmdletBinding()]
     [OutputType([String])]
 
     Param

@@ -3,7 +3,6 @@
     Allows configuring any site settings using raw format.
 .DESCRIPTION
     Allows for highly customized settings to be added to the New-WinSCPSessionOptions Object.
-    These settings can also be configured in the .ini file created in the .\NeededAssembly folder.
 .INPUTS
     WinSCP.SessionOptions.
 .OUTPUTS
@@ -13,7 +12,7 @@
 .PARAMETER RawSettings
     A Hashtable of Settings and Values to add to the WinSCP.SessionOptions Object.
 .EXAMPLE
-    PS C:\> $so = New-WinSCPSessionOptions -Hostname 'myftphost.org' -Username ftpuser -password "FtpUserPword" -Protocol Ftp | Add-WinSCPSessionOptionsRawSettings -RawSettings @{ 'Compression' = 1; 'Proxymethod' = 3 }
+    PS C:\> $so = New-WinSCPSessionOptions -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Add-WinSCPSessionOptionsRawSetting -RawSettings @{ 'Compression' = 1; 'Proxymethod' = 3 }
 
     Protocol                                     : Ftp
     HostName                                     : myftphost.org
@@ -33,9 +32,12 @@
     WebdavRoot                                   : 
     TlsHostCertificateFingerprint                : 
     GiveUpSecurityAndAcceptAnyTlsHostCertificate : False
+
+    PS C:\> $s = Open-WinSCPSession -SessionOptions $so
 .NOTES
+    These settings can also be configured in the .ini file created in the .\NeededAssembly folder.
     The WinSCP.SessionOptions Object will not show these custom settings.
-    There is currently no way to show added raw settings.
+    There is currently no way to show the added raw settings in the WinSCP.SessionOptions Object.
 .LINK
     http://dotps1.github.io/WinSCP
 .LINK
@@ -43,9 +45,8 @@
 .LINK
     http://winscp.net/eng/docs/rawsettings
 #>
-Function Add-WinSCPSessionOptionsRawSettings
+Function Add-WinSCPSessionOptionsRawSetting
 {
-    [CmdletBinding()]
     [OutputType([WinSCP.SessionOptions])]
 
     Param
@@ -56,6 +57,7 @@ Function Add-WinSCPSessionOptionsRawSettings
         $SessionOptions,
 
         [Parameter(Mandatory = $true)]
+        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [HashTable]
         $RawSettings
     )

@@ -16,14 +16,14 @@
 .PARAMETER TransferOptions
     Transfer options. Defaults to null, what is equivalent to New-TransferOptions. 
 .EXAMPLE
-    PS C:\> Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions -Hostname myftphost.org -Username ftpuser -password "FtpUserPword" -Protocol Ftp) | Receive-WinSCPItem -RemotePath "rDir/rFile.txt" -LocalPath "C:\lDir\lFile.txt"
+    PS C:\> Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions -Hostname 'myftphost.org' -Username 'ftpuser' -password 'FtpUserPword' -Protocol Ftp) | Receive-WinSCPItem -RemotePath './rDir/rFile.txt' -LocalPath 'C:\lDir\lFile.txt'
 
     Transfers         Failures IsSuccess
     ---------         -------- ---------
     {/rDir/rFile.txt} {}       True
 .EXAMPLE
-    PS C:\> $session = New-WinSCPSessionOptions -Hostname myftphost.org -Username ftpuser -password "FtpUserPword" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Open-WinSCPSession
-    PS C:\> Receive-WinSCPItem -WinSCPSession $session -RemotePath "rDir/rFile.txt" -LocalPath "C:\lDir\lFile.txt" -Remove
+    PS C:\> $session = New-WinSCPSessionOptions -Hostname 'myftphost.org' -Username 'ftpuser' -password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx' | Open-WinSCPSession
+    PS C:\> Receive-WinSCPItem -WinSCPSession $session -RemotePath './rDir/rFile.txt' -LocalPath 'C:\lDir\lFile.txt' -Remove
 
     Transfers         Failures IsSuccess
     ---------         -------- ---------

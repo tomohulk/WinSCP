@@ -38,7 +38,7 @@
 .PARAMETER UserWrite
     Write permission for owner.
 .EXAMPLE
-    New-WinSCPFilePermissions
+    New-WinSCPItemPermission
 
     Numeric      : 0
     Text         : ---------
@@ -56,7 +56,7 @@
     SetGid       : False
     SetUid       : False
 .EXAMPLE
-    New-WinSCPFilePermissions -GroupExecute -GroupRead -UserExecute -UserRead
+    New-WinSCPItemPermission -GroupExecute -GroupRead -UserExecute -UserRead
 
     Numeric      : 360
     Text         : r-xr-x---
@@ -80,7 +80,7 @@
 .LINK
     http://winscp.net/eng/docs/library_filepermissions
 #>
-Function New-WinSCPFilePermissions
+Function New-WinSCPItemPermission
 {
     [CmdletBinding()]
     [OutputType([WinSCP.FilePermissions])]

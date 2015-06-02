@@ -5,6 +5,8 @@
     Use IANA Algorithm to retrive the checksum of a remote file.
 .INPUTS
     WinSCP.Session.
+.OUTPUTS
+    System.Array.
 .PARAMETER WinSCPSession
     A valid open WinSCP.Session, returned from Open-WinSCPSession.
 .PARAMETER Algorithm
@@ -12,7 +14,7 @@
 .PARAMETER Path
      A full path to a remote file to calculate a checksum for.  
 .EXAMPLE
-    PS C:\> Get-WinSCPFileChecksum -Algorithm 'sha-1' -Path './rDir/file.txt
+    PS C:\> Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions -Hostname 'myftphost.org' -Username 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp) | Get-WinSCPFileChecksum -Algorithm 'sha-1' -Path './rDir/file.txt'
 .NOTES
 .LINK
     http://dotps1.github.io/WinSCP
@@ -21,23 +23,30 @@
 #>
 Function Get-WinSCPFileChecksum
 {
-    [CmdletBinding()]
-    [OutputType()]
+    [OutputType([Array])]
 
     Param
     (
         [Parameter(Mandatory = $true,
                    ValueFromPipeLine = $true)]
-        [ValidateScript({ if($_.Open){ return $true }else{ throw 'The WinSCP Session is not in an Open state.' } })]
-        [Alias('Session')]
+        [ValidateScript({ if ($_.Open)
+            { 
+                return $true 
+            }
+            else
+            { 
+                throw 'The WinSCP Session is not in an Open state.' 
+            } })]
         [WinSCP.Session]
         $WinSCPSession,
 
         [Parameter(Mandatory = $true)]
+        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
         $Algorithm,
 
         [Parameter(Mandatory = $true)]
+        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String[]]
         $Path
     )
@@ -55,7 +64,7 @@ Function Get-WinSCPFileChecksum
         }
         catch [System.Exception]
         {
-            throw $_
+            Write-Error -ErrorRecord $_
         }
     }
     
