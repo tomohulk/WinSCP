@@ -91,11 +91,6 @@ Function Get-WinSCPChildItem
     Begin
     {
         $sessionValueFromPipeLine = $PSBoundParameters.ContainsKey('WinSCPSession')
-
-        if(-not ($Path.EndsWith('/')))
-        {
-            $Path += '/'
-        }
     }
 
     Process
