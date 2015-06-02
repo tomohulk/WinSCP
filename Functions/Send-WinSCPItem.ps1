@@ -18,13 +18,13 @@
 .PARAMETER Remove
     When present, deletes source local file(s) after transfer.
 .EXAMPLE
-    PS C:\> Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions -Hostname 'myftphost.org' -UserName 'ftpuser' -password 'FtpUserPword' -Protocol Ftp) | Send-WinSCPItem -Path 'C:\lDir\lFile.txt' -Destination './rDir/rFile.txt'
+    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -password 'FtpUserPword' -Protocol Ftp | Send-WinSCPItem -Path 'C:\lDir\lFile.txt' -Destination './rDir/rFile.txt'
     
     Transfers           Failures IsSuccess
     ---------           -------- ---------
     {C:\lDir\lFile.txt} {}       True 
 .EXAMPLE
-    PS C:\> $session = New-WinSCPSessionOptions -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword; -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx' | Open-WinSCPSession
+    PS C:\> $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
     PS C:\> Send-WinSCPItem -WinSCPSession $session -Path 'C:\lDir\lFile.txt' -Destination './rDir/rFile.txt' -Remove
 
     Transfers           Failures IsSuccess
@@ -69,12 +69,20 @@ Function Send-WinSCPItem
         $Path,
 
         [Parameter()]
+        [ValidateScript({ if (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $_) 
+            {
+                return $true
+            }
+            else
+            {
+                throw "Cannot find the file specified $_."
+            } })]
         [String]
         $Destination = './',
         
         [Parameter()]
         [WinSCP.TransferOptions]
-        $TransferOptions,
+        $TransferOptions = (New-WinSCPTransferOptions),
 
         [Parameter()]
         [Switch]
@@ -84,26 +92,24 @@ Function Send-WinSCPItem
     Begin
     {
         $sessionValueFromPipeLine = $PSBoundParameters.ContainsKey('WinSCPSession')
-
-        if (-not ($Path.EndsWith('/')))
-        {
-            $Path += '/'
-        }
     }
 
     Process
     {
         foreach ($item in $Path)
         {
+            if (-not ($Destination.EndsWith('/')))
+            {
+                $Destination += '/'
+            }
+
             try
             {
                 $WinSCPSession.PutFiles($item, $Destination.Replace('\','/'), $Remove.IsPresent, $TransferOptions)
             }
             catch [System.Exception]
             {
-                Write-Error -Message $_.ToString()
-                
-                continue
+                throw $_
             }
         }
     }
@@ -112,7 +118,7 @@ Function Send-WinSCPItem
     {
         if (-not ($sessionValueFromPipeLine))
         {
-            Close-WinSCPSession -WinSCPSession $WinSCPSession
+            Remove-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }

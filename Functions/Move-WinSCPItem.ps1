@@ -45,12 +45,26 @@ Function Move-WinSCPItem
         $WinSCPSession,
 
         [Parameter(Mandatory = $true)]
-        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
+        [ValidateScript({ if (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $_) 
+            {
+                return $true
+            }
+            else
+            {
+                throw "Cannot find the file specified $_."
+            } })]
         [String[]]
         $Path,
 
         [Parameter(Mandatory = $true)]
-        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
+        [ValidateScript({ if (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $_) 
+            {
+                return $true
+            }
+            else
+            {
+                throw "Cannot find the file specified $_."
+            } })]
         [String]
         $Destination
     )
@@ -76,11 +90,6 @@ Function Move-WinSCPItem
 
             try
             {
-                if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $Destination))
-                {
-                    New-WinSCPDirectory -WinSCPSession $WinSCPSession -Path $Destination | Out-Null
-                }
-
                 $WinSCPSession.MoveFile($item, $Destination.Replace('\','/'))
             }
             catch [System.Exception]

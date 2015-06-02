@@ -24,7 +24,7 @@
 .PARAMETER TransferOptions
     Transfer options. Defaults to null, what is equivalent to New-WinSCPTransferOptions. 
 .EXAMPLE
-    PS C:\> Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions -Hostname myftphost.org -Username ftpuser -password "FtpUserPword" -Protocol Ftp) | Sync-WinSCPDirectory -RemotePath "./" -LocalPath "C:\lDir\" -Mode Local
+    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Sync-WinSCPDirectory -RemotePath "./" -LocalPath "C:\lDir\" -Mode Local
 
     Uploads   : {}
     Downloads : {/rDir/rSubDir/rFile.txt}
@@ -32,8 +32,8 @@
     Failures  : {}
     IsSuccess : True
 .EXAMPLE
-    PS C:\> $session = New-WinSCPSessionOptions -Hostname myftphost.org -Username ftpuser -password "FtpUserPword" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Open-WinSCPSession
-    PS C:\> Sync-WinSCPDirectory -WinSCPSession $session -RemotePath "./" -LocalPath "C:\lDir\" -SyncMode Local
+    PS C:\> $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+    PS C:\> Sync-WinSCPDirectory -WinSCPSession $session -RemotePath './' -LocalPath 'C:\lDir\' -SyncMode Local
 
     Uploads   : {}
     Downloads : {/rDir/rSubDir/rFile.txt}
@@ -55,8 +55,14 @@ Function Sync-WinSCPDirectory
     (
         [Parameter(Mandatory = $true,
                    ValueFromPipeLine = $true)]
-        [ValidateScript({ if($_.Open){ return $true }else{ throw 'The WinSCP Session is not in an Open state.' } })]
-        [Alias('Session')]
+        [ValidateScript({ if ($_.Open)
+            { 
+                return $true 
+            }
+            else
+            { 
+                throw 'The WinSCP Session is not in an Open state.' 
+            } })]
         [WinSCP.Session]
         $WinSCPSession,
 
@@ -65,12 +71,26 @@ Function Sync-WinSCPDirectory
         $Mode,
 
         [Parameter()]
-        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
+        [ValidateScript({ if (Test-Path -Path $_)
+            {
+                return $true
+            }
+            else
+            {
+                throw "Cannot find the file specified $_."
+            } })]
         [String]
         $LocalPath = "$(Get-Location)\",
 
         [Parameter()]
-        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
+        [ValidateScript({ if (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $_) 
+            {
+                return $true
+            }
+            else
+            {
+                throw "Cannot find the file specified $_."
+            } })]
         [String]
         $RemotePath = './',
 
@@ -88,7 +108,7 @@ Function Sync-WinSCPDirectory
 
         [Parameter()]
         [WinSCP.TransferOptions]
-        $TransferOptions
+        $TransferOptions = (New-WinSCPTransferOptions)
     )
 
     Begin
@@ -112,7 +132,7 @@ Function Sync-WinSCPDirectory
     {
         if (-not ($sessionValueFromPipeLine))
         {
-            Close-WinSCPSession -WinSCPSession $WinSCPSession
+            Remove-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }
