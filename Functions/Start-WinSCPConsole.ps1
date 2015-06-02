@@ -17,7 +17,6 @@
 #>
 Function Start-WinSCPConsole
 {
-    [CmdletBinding()]
     [OutputType([Void])]
 
     Param ( )

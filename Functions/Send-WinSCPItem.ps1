@@ -39,7 +39,6 @@
 #>
 Function Send-WinSCPItem
 {
-    [CmdletBinding()]
     [OutputType([WinSCP.TransferOperationResult])]
 
     Param

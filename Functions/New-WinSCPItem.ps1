@@ -18,13 +18,13 @@
 .PARAMETER Value
     Initial value to add to the object being created.
 .EXAMPLE
-    PS C:\> Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp) | New-WinSCPItem-Path './rDir' -Name 'rSubDir' -ItemType Directory
+    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | New-WinSCPItem-Path './rDir' -Name 'rSubDir' -ItemType Directory
 
     FileType             LastWriteTime     Length Name                                                                                                                                                                                                                                        
     --------             -------------     ------ ----                                                                                                                                                                                                                                        
     D             1/1/2015 12:00:00 AM          0 /rDir/rSubDir
 .EXAMPLE
-    PS C:\> $session = New-WinSCPSessionOptions -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx' | Open-WinSCPSession
+    PS C:\> $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
     PS C:\> New-WinSCPItem -WinSCPSession $session -Path './rDir' -Name 'rTextFile.txt' -ItemType File -Value 'Hello World!'
 
     FileType             LastWriteTime     Length Name                                                                                                                                                                                                                                        
@@ -57,6 +57,14 @@ Function New-WinSCPItem
         $WinSCPSession,
 
         [Parameter()]
+        [ValidateScript({ if (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $_)
+            {
+                return $true
+            }
+            else
+            {
+                throw "Cannot find the file specified $_."
+            } })]
         [String[]]
         $Path = './',
 
@@ -109,7 +117,7 @@ Function New-WinSCPItem
     {
         if (-not ($sessionValueFromPipeLine))
         {
-            Close-WinSCPSession -WinSCPSession $WinSCPSession
+            Remove-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }

@@ -37,15 +37,20 @@
 #>
 Function Receive-WinSCPItem
 {
-    [CmdletBinding()]
     [OutputType([WinSCP.TransferOperationResult])]
 
     Param
     (
         [Parameter(Mandatory = $true,
                    ValueFromPipeLine = $true)]
-        [ValidateScript({ if ($_.Open) { return $true } else { throw 'The WinSCP Session is not in an Open state.' } })]
-        [Alias('Session')]
+        [ValidateScript({ if ($_.Open)
+            { 
+                return $true 
+            }
+            else
+            { 
+                throw 'The WinSCP Session is not in an Open state.' 
+            } })]
         [WinSCP.Session]
         $WinSCPSession,
 
@@ -94,7 +99,7 @@ Function Receive-WinSCPItem
     {
         if (-not ($sessionValueFromPipeLine))
         {
-            Close-WinSCPSession -WinSCPSession $WinSCPSession
+            Remove-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }

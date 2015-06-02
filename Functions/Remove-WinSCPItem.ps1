@@ -33,15 +33,20 @@
 #>
 Function Remove-WinSCPItem
 {
-    [CmdletBinding()]
     [OutputType([WinSCP.RemovalOperationResult])]
 
     Param
     (
         [Parameter(Mandatory = $true,
                    ValueFromPipeLine = $true)]
-        [ValidateScript({ if ($_.Open) { return $true } else { throw 'The WinSCP Session is not in an Open state.' } })]
-        [Alias('Session')]
+        [ValidateScript({ if ($_.Open)
+            { 
+                return $true 
+            }
+            else
+            { 
+                throw 'The WinSCP Session is not in an Open state.' 
+            } })]
         [WinSCP.Session]
         $WinSCPSession,
 

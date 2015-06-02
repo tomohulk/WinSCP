@@ -12,11 +12,11 @@
 .PARAMETER Path
     Full path to remote file.
 .EXAMPLE
-    PS C:\> Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions -Hostname 'myftphost.org' -Username 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp) | Test-WinSCPPath -Path './rDir/rSubDir'
+    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Test-WinSCPPath -Path './rDir/rSubDir'
 
     True
 .EXAMPLE
-    PS C:\> $session = New-WinSCPSessionOptions -Hostname 'myftphost.org' -Username 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx' | Open-WinSCPSession
+    PS C:\> $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
     PS C:\> Test-WinSCPPath -WinSCPSession $session -Path './rDir/rSubDir'
 
     True
@@ -29,7 +29,6 @@
 #>
 Function Test-WinSCPPath
 {
-    [CmdletBinding()]
     [OutputType([Bool])]
     
     Param
@@ -44,7 +43,6 @@ Function Test-WinSCPPath
             { 
                 throw 'The WinSCP Session is not in an Open state.' 
             } })]
-        [Alias('Session')]
         [WinSCP.Session]
         $WinSCPSession,
 
@@ -63,6 +61,11 @@ Function Test-WinSCPPath
     {
         foreach($item in $Path.Replace('\','/'))
         {
+            if (-not ($item.EndsWith('/')))
+            {
+                $item += '/'
+            }
+
             try
             {
                 $WinSCPSession.FileExists($item)

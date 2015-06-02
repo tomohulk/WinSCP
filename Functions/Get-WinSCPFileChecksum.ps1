@@ -14,7 +14,7 @@
 .PARAMETER Path
      A full path to a remote file to calculate a checksum for.  
 .EXAMPLE
-    PS C:\> Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions -Hostname 'myftphost.org' -Username 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp) | Get-WinSCPFileChecksum -Algorithm 'sha-1' -Path './rDir/file.txt'
+    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp) | Get-WinSCPFileChecksum -Algorithm 'sha-1' -Path './rDir/file.txt'
 .NOTES
 .LINK
     http://dotps1.github.io/WinSCP
@@ -46,7 +46,14 @@ Function Get-WinSCPFileChecksum
         $Algorithm,
 
         [Parameter(Mandatory = $true)]
-        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
+        [ValidateScript({ if (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $_) 
+            {
+                return $true
+            }
+            else
+            {
+                throw "Cannot find the file specified $_."
+            } })]
         [String[]]
         $Path
     )
@@ -64,7 +71,7 @@ Function Get-WinSCPFileChecksum
         }
         catch [System.Exception]
         {
-            Write-Error -ErrorRecord $_
+            throw $_
         }
     }
     
@@ -72,7 +79,7 @@ Function Get-WinSCPFileChecksum
     {
         if (-not ($sessionValueFromPipeLine))
         {
-            Close-WinSCPSession -WinSCPSession $WinSCPSession
+            Remove-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }

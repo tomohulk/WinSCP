@@ -49,7 +49,6 @@
 #>
 Function Sync-WinSCPDirectory
 {
-    [CmdletBinding()]
     [OutputType([WinSCP.SynchronizationResult])]
 
     Param

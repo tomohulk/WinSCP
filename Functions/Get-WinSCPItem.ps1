@@ -12,13 +12,13 @@
 .PARAMETER Path
     Full path to remote file.
 .EXAMPLE
-    PS C:\> Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp) | Get-WinSCPItem -Path './rDir/rSubDir'
+    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Get-WinSCPItem -Path './rDir/rSubDir'
     
     FileType             LastWriteTime     Length Name                                                                                                                                                                                                                                        
     --------             -------------     ------ ----                                                                                                                                                                                                                                        
     D             1/1/2015 12:00:00 AM          0 /rdir/rSubDir
 .EXAMPLE
-    PS C:\> $session = New-WinSCPSessionOptions -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx' | Open-WinSCPSession
+    PS C:\> $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
     PS C:\> Get-WinSCPItem -WinSCPSession $session -Path './rDir/rSubDir'
 
     FileType             LastWriteTime     Length Name                                                                                                                                                                                                                                        
@@ -83,9 +83,7 @@ Function Get-WinSCPItem
             }
             catch [System.Exception]
             {
-                Write-Error $_
-                
-                continue
+                throw $_
             }
         }
     }
@@ -94,7 +92,7 @@ Function Get-WinSCPItem
     {
         if (-not ($sessionValueFromPipeLine))
         {
-            Close-WinSCPSession -WinSCPSession $WinSCPSession
+            Remove-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }

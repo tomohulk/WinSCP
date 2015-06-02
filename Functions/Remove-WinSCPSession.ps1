@@ -21,7 +21,7 @@
 .LINK
     http://winscp.net/eng/docs/library_session
 #>
-Function Close-WinSCPSession
+Function Remove-WinSCPSession
 {
     [OutputType([Void])]
     
