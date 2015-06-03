@@ -12,11 +12,11 @@
 .PARAMETER Path
     Full path to local file or directory to upload. Filename in the path can be replaced with Windows wildcard to select multiple files. When file name is omitted (path ends with backslash), all files and subdirectories in the local directory are uploaded.
 .PARAMETER Destination
-    Full path to upload the file to. When uploading multiple files, the filename in the path should be replaced with ConvertTo-WinSCPEscapedString or omitted (path ends with slash). 
-.PARAMETER TransferOptions
-    Transfer options. Defaults to null, what is equivalent to New-TransferOptions.
+    Full path to upload the file to. When uploading multiple files, the filename in the path should be replaced with ConvertTo-WinSCPEscapedString or omitted (path ends with slash).
 .PARAMETER Remove
     When present, deletes source local file(s) after transfer.
+.PARAMETER TransferOptions
+    Transfer options. Defaults to null, what is equivalent to New-TransferOptions.
 .EXAMPLE
     PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -password 'FtpUserPword' -Protocol Ftp | Send-WinSCPItem -Path 'C:\lDir\lFile.txt' -Destination './rDir/rFile.txt'
     
@@ -81,12 +81,12 @@ Function Send-WinSCPItem
         $Destination = './',
         
         [Parameter()]
-        [WinSCP.TransferOptions]
-        $TransferOptions = (New-WinSCPTransferOptions),
+        [Switch]
+        $Remove,
 
         [Parameter()]
-        [Switch]
-        $Remove
+        [WinSCP.TransferOptions]
+        $TransferOptions
     )
 
     Begin
@@ -98,11 +98,6 @@ Function Send-WinSCPItem
     {
         foreach ($item in $Path)
         {
-            if (-not ($Destination.EndsWith('/')))
-            {
-                $Destination += '/'
-            }
-
             try
             {
                 $WinSCPSession.PutFiles($item, $Destination.Replace('\','/'), $Remove.IsPresent, $TransferOptions)

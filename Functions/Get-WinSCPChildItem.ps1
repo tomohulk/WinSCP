@@ -80,6 +80,7 @@ Function Get-WinSCPChildItem
         $Path = './',
 
         [Parameter()]
+        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
         $Filter = '*',
 

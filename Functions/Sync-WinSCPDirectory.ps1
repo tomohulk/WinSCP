@@ -104,11 +104,11 @@ Function Sync-WinSCPDirectory
 
         [Parameter()]
         [WinSCP.SynchronizationCriteria]
-        $Criteria = [WinSCP.SynchronizationCriteria]::Time,
+        $Criteria = 'Time',
 
         [Parameter()]
         [WinSCP.TransferOptions]
-        $TransferOptions = (New-WinSCPTransferOptions)
+        $TransferOptions
     )
 
     Begin

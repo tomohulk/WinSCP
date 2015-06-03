@@ -2,7 +2,7 @@
 .SYNOPSIS
     Defines information to allow an automatic connection and authentication of the session.
 .DESCRIPTION
-    
+    Defines all settings that can be configrued for the WinSCP.SessionOptions Object, then opens and returns the WinSCP.Session Object.
 .INPUTS
     None.
 .OUTPUTS
@@ -98,7 +98,14 @@ Function New-WinSCPSession
         $SshHostKeyFingerprint,
 
         [Parameter()]
-        [ValidateScript({ if (Test-Path -Path $_){ return $true } else { throw "$_ not found." } })]
+        [ValidateScript({ if (Test-Path -Path $_)
+            { 
+                return $true 
+            } 
+            else 
+            { 
+                throw "$_ not found." 
+            } })]
         [String]
         $SshPrivateKeyPath,
 
@@ -135,12 +142,26 @@ Function New-WinSCPSession
         $RawSetting,
 
         [Parameter()]
-        [ValidateScript({ if (Test-Path -Path $_){ return $true } else { throw "$_ not found." } })]
+        [ValidateScript({ if (Test-Path -Path $_)
+            { 
+                return $true 
+            } 
+            else 
+            { 
+                throw "$_ not found." 
+            } })]
         [String]
         $DebugLogPath,
 
         [Parameter()]
-        [ValidateScript({ if (Test-Path -Path $_){ return $true } else { throw "$_ not found." } })]
+        [ValidateScript({ if (Test-Path -Path $_)
+            { 
+                return $true 
+            } 
+            else 
+            { 
+                throw "$_ not found." 
+            } })]
         [String]
         $SessionLogPath,
 

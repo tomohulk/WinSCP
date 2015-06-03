@@ -84,7 +84,7 @@ Function Receive-WinSCPItem
 
         [Parameter()]
         [WinSCP.TransferOptions]
-        $TransferOptions = (New-WinSCPTransferOptions)
+        $TransferOptions
     )
 
     Begin
@@ -96,11 +96,6 @@ Function Receive-WinSCPItem
     {
         foreach ($item in $Path.Replace('\','/'))
         {
-            if (-not ($item.EndsWith('/')))
-            {
-                $item += '/'
-            }
-
             try
             {
                 $WinSCPSession.GetFiles($item, $Destination, $Remove.IsPresent, $TransferOptions)

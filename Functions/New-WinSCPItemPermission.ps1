@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
     Represents *nix-style remote file permissions.
 .DESCRIPTION
@@ -11,7 +11,7 @@
     Execute permission for group.
 .PARAMETER GroupRead
     Read permission for group.
-.PARAMETWER GroupWrite
+.PARAMETER GroupWrite
     Read permission for group.
 .PARAMETER Numeric
     Permissions as a number.
