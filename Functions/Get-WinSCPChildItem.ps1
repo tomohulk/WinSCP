@@ -77,7 +77,7 @@ Function Get-WinSCPChildItem
                 throw "Cannot find the file specified $_."
             } })]
         [String]
-        $Path = './',
+        $Path = $WinSCPSession.HomePath,
 
         [Parameter()]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]

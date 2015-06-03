@@ -14,9 +14,9 @@
 .PARAMETER NewName
     The new name for the the item.
 .EXAMPLE
-    PS C:\> Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions -Hostname 'myftphost.org' -Username 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp) | Rename-WinSCPItem -Path './rDir/rFile.txt' -Destination './rDir/rNewFile.txt'
+    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Rename-WinSCPItem -Path './rDir/rFile.txt' -Destination './rDir/rNewFile.txt'
 .EXAMPLE
-    PS C:\> $session = New-WinSCPSessionOptions -Hostname 'myftphost.org' -Username 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx' | Open-WinSCPSession
+    PS C:\> $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
     PS C:\> Rename-WinSCPItem -WinSCPSession $session -Path './rDir/rFile.txt' -Destination './rDir/rNewFile.txt'
 .NOTES
     If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
@@ -27,7 +27,6 @@
 #>
 Function Rename-WinSCPItem
 {
-    [CmdletBinding()]
     [OutputType([Void])]
 
     Param
@@ -46,7 +45,14 @@ Function Rename-WinSCPItem
         $WinSCPSession,
 
         [Parameter(Mandatory = $true)]
-        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
+        [ValidateScript({ if (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $_) 
+            {
+                return $true
+            }
+            else
+            {
+                throw "Cannot find the file specified $_."
+            } })]
         [String[]]
         $Path,
 
@@ -69,7 +75,6 @@ Function Rename-WinSCPItem
             {
                 $newItemPath = $item.Replace($item.Substring($item.LastIndexOf('/') + 1), $NewName)
 
-                Write-Verbose -Message "Performing the operation `"Rename WinSCPItem`" on target `"Item: $item Destination: $newItemPath`"."
                 $WinSCPSession.MoveFile($item, $newItemPath)
             }
             catch [System.Exception]
@@ -85,7 +90,7 @@ Function Rename-WinSCPItem
     {
         if (-not ($sessionValueFromPipeLine))
         {
-            Close-WinSCPSession -WinSCPSession $WinSCPSession
+            Remove-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }

@@ -142,25 +142,25 @@ Function New-WinSCPSession
         $RawSetting,
 
         [Parameter()]
-        [ValidateScript({ if (Test-Path -Path $_)
-            { 
-                return $true 
-            } 
-            else 
-            { 
-                throw "$_ not found." 
+        [ValidateScript({if (Test-Path -Path (Split-Path -Path $_))
+            {
+                return $true
+            }
+            else
+            {
+                throw "Path not found $(Split-Path -Path $_)."
             } })]
         [String]
         $DebugLogPath,
 
         [Parameter()]
-        [ValidateScript({ if (Test-Path -Path $_)
-            { 
-                return $true 
-            } 
-            else 
-            { 
-                throw "$_ not found." 
+        [ValidateScript({if (Test-Path -Path (Split-Path -Path $_))
+            {
+                return $true
+            }
+            else
+            {
+                throw "Path not found $(Split-Path -Path $_)."
             } })]
         [String]
         $SessionLogPath,

@@ -82,7 +82,6 @@
 #>
 Function New-WinSCPItemPermission
 {
-    [CmdletBinding()]
     [OutputType([WinSCP.FilePermissions])]
 
     Param
