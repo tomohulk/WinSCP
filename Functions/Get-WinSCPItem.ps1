@@ -10,7 +10,7 @@
 .PARAMETER WinSCPSession
     A valid open WinSCP.Session, returned from Open-WinSCPSession.
 .PARAMETER Path
-    Full path to remote file.
+    Full path to remote Item.
 .EXAMPLE
     PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Get-WinSCPItem -Path './rDir/rSubDir'
     
@@ -50,17 +50,10 @@ Function Get-WinSCPItem
         [WinSCP.Session]
         $WinSCPSession,
 
-        [Parameter(Mandatory = $true)]
-        [ValidateScript({ if (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $_)
-            {
-                return $true
-            }
-            else
-            {
-                throw "Cannot find the file specified $_."
-            } })]
+        [Parameter()]
+        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String[]]
-        $Path
+        $Path = '/'
     )
 
     Begin

@@ -4,18 +4,18 @@
 .DESCRIPTION
     Escapes special characters so they are not misinterpreted as wildcards or other special characters.
 .INPUTS
-   None.
+   System.String.
 .OUTPUTS
     System.String.
 .PARAMETER FileMask
     File path to convert.
 .EXAMPLE
-    ConvertTo-WinSCPEscapedString -FileMask '*.txt'
+    ConvertTo-WinSCPEscapedString -FileMask 'FileWithA*InName.txt'
 
-    [*].txt
+    FileWithA[*]InName.txt
 .EXAMPLE
-    $session = New-WinSCPSession-Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
-    $searchString = ConvertTo-WinSCPEscapedString -FileMask '*.txt'
+    $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+    $searchString = ConvertTo-WinSCPEscapedString -FileMask 'FileWithA*InName.txt'
     Receive-WinSCPItem -WinSCPSession $session -RemoteItem "./rDir/$searchString" -LocalItem 'C:\lDir\'
 .NOTES
     Useful with Send-WinSCPItem, Receive-WinSCPItem, Remove-WinSCPItem cmdlets.
@@ -30,7 +30,8 @@ Function ConvertTo-WinSCPEscapedString
 
     Param
     (
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true,
+                   ValueFromPipeLine = $true)]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
         $FileMask

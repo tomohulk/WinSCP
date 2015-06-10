@@ -10,7 +10,7 @@
 .PARAMETER WinSCPSession
     A valid open WinSCP.Session, returned from Open-WinSCPSession.
 .PARAMETER Path
-    Full path to remote directory to be read.
+    Specifies a path to one or more locations. Wildcards are permitted. The default location is the home directory of the user making the connection.
 .PARAMETER Filter
     Filter to be applied to returned objects.
 .PARAMETER Recurse
@@ -68,16 +68,9 @@ Function Get-WinSCPChildItem
         $WinSCPSession,
 
         [Parameter()]
-        [ValidateScript({ if (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $_) 
-            {
-                return $true
-            }
-            else
-            {
-                throw "Cannot find the file specified $_."
-            } })]
-        [String]
-        $Path = $WinSCPSession.HomePath,
+        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
+        [String[]]
+        $Path = '/',
 
         [Parameter()]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
