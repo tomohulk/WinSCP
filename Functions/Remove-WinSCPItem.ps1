@@ -6,7 +6,7 @@
 .INPUTS.
     WinSCP.Session.
 .OUTPUTS.
-    WinSCP.RemovalOperationResult.
+    None.
 .PARAMETER WinSCPSession
     A valid open WinSCP.Session, returned from Open-WinSCPSession.
 .PARAMETER Path
@@ -33,7 +33,9 @@
 #>
 Function Remove-WinSCPItem
 {
-    [OutputType([WinSCP.RemovalOperationResult])]
+    [CmdletBinding(SupportsShouldProcess = $true,
+                   ConfirmImpact = 'High')]
+    [OutputType([Void])]
 
     Param
     (
@@ -51,7 +53,6 @@ Function Remove-WinSCPItem
         $WinSCPSession,
 
         [Parameter(Mandatory = $true)]
-        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String[]]
         $Path
     )
@@ -65,24 +66,27 @@ Function Remove-WinSCPItem
     {
         foreach ($item in $Path.Replace('\','/'))
         {
-            try
+            if ($PSCmdlet.ShouldProcess($item))
             {
-                $WinSCPSession.RemoveFiles($item)
+                $results = $WinSCPSession.RemoveFiles($item)
+
+                if (-not ($results.IsSuccess))
+                {
+                    Write-Error -Message $results.Failures
+                }
+                else
+                {
+                    $results
+                }
             }
-            catch [System.Exception]
-            {
-                Write-Error $_
-                
-                continue
-            }
-        }
+        } 
     }
 
     End
     {
         if (-not ($sessionValueFromPipeLine))
         {
-            Close-WinSCPSession -WinSCPSession $WinSCPSession
+            Remove-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }

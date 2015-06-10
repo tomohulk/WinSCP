@@ -12,7 +12,7 @@
 .PARAMETER Path
     Full path to remote directory to be read.
 .PARAMETER Filter
-    Filter returned objects.
+    Filter to be applied to returned objects.
 .PARAMETER Recurse
     Return items from all subdirectories.
 .EXAMPLE

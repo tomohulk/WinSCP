@@ -47,6 +47,37 @@
     Path to store session log file to. Default null means, no session log file is created.
 .PARAMETER  ReconnectTime
     Sets time limit in seconds to try reconnecting broken sessions. Default is 120 seconds. Use TimeSpan.MaxValue to remove any limit.
+.EXAMPLE
+    PS C:\> $session = New-WinSCPSession -HostName $env:COMPUTERNAME -UserName $env:USERNAME -Protocol Ftp
+
+    PS C:\> $session
+
+
+    ExecutablePath                : 
+    AdditionalExecutableArguments : 
+    DefaultConfiguration          : True
+    DisableVersionCheck           : False
+    IniFilePath                   : 
+    ReconnectTime                 : 00:02:00
+    ReconnectTimeInMilliseconds   : 120000
+    DebugLogPath                  : 
+    DebugLogLevel                 : 0
+    SessionLogPath                : 
+    XmlLogPath                    : C:\Users\$env:USERNAME\AppData\Local\Temp\wscp6934.0246B60F.tmp
+    HomePath                      : /
+    Timeout                       : 00:01:00
+    Output                        : {winscp> option batch on, batch           on        , reconnecttime   120       , winscp> option 
+                                    confirm off...}
+    Opened                        : True
+    UnderlyingSystemType          : WinSCP.Session
+.NOTES
+    This function is used to open a WinSCP Session to be used with most other cmdlets in in the WinSCP PowerShell Module.
+.LINK
+    http://dotps1.github.io/WinSCP
+.LINK
+    http://winscp.net/eng/docs/library_session
+.LINK
+    http://winscp.net/eng/docs/library_sessionoptions
 #>
 Function New-WinSCPSession
 {
@@ -56,11 +87,11 @@ Function New-WinSCPSession
     (
         [Parameter()]
         [WinSCP.FtpMode]
-        $FtpMode,
+        $FtpMode = (New-Object -TypeName WinSCP.FtpMode),
 
         [Parameter()]
         [WinSCP.FtpSecure]
-        $FtpSecure,
+        $FtpSecure = (New-Object -TypeName WinSCP.FtpSecure),
         
         [Parameter()]
         [Switch]
@@ -73,12 +104,12 @@ Function New-WinSCPSession
         [Parameter(Mandatory = $true)]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
-        $HostName,
+        $HostName = $null,
 
         [Parameter()]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
-        $Password,
+        $Password = $null,
 
         [Parameter()]
         [Int]
@@ -86,16 +117,16 @@ Function New-WinSCPSession
 
         [Parameter()]
         [WinSCP.Protocol]
-        $Protocol,
+        $Protocol = (New-Object -TypeName WinSCP.Protocol),
 
         [Parameter()]
         [System.Security.SecureString]
-        $SecurePassword,
+        $SecurePassword = $null,
 
         [Parameter()]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String[]]
-        $SshHostKeyFingerprint,
+        $SshHostKeyFingerprint = $null,
 
         [Parameter()]
         [ValidateScript({ if (Test-Path -Path $_)
@@ -107,26 +138,26 @@ Function New-WinSCPSession
                 throw "$_ not found." 
             } })]
         [String]
-        $SshPrivateKeyPath,
+        $SshPrivateKeyPath = $null,
 
         [Parameter()]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
-        $SshPrivateKeyPassphrase,
+        $SshPrivateKeyPassphrase = $null,
 
         [Parameter()]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
-        $TlsHostCertificateFingerprint,
+        $TlsHostCertificateFingerprint = $null,
 
         [Parameter()]
         [TimeSpan]
-        $Timeout,
+        $Timeout = (New-TimeSpan -Seconds 15),
 
         [Parameter(Mandatory = $true)]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
-        $UserName,
+        $UserName = $null,
 
         [Parameter()]
         [Switch]
@@ -135,11 +166,11 @@ Function New-WinSCPSession
         [Parameter()]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
-        $WebdavRoot,
+        $WebdavRoot = $null,
         
         [Parameter()]
         [HashTable]
-        $RawSetting,
+        $RawSetting = $null,
 
         [Parameter()]
         [ValidateScript({if (Test-Path -Path (Split-Path -Path $_))
@@ -151,7 +182,7 @@ Function New-WinSCPSession
                 throw "Path not found $(Split-Path -Path $_)."
             } })]
         [String]
-        $DebugLogPath,
+        $DebugLogPath = $null,
 
         [Parameter()]
         [ValidateScript({if (Test-Path -Path (Split-Path -Path $_))
@@ -163,18 +194,18 @@ Function New-WinSCPSession
                 throw "Path not found $(Split-Path -Path $_)."
             } })]
         [String]
-        $SessionLogPath,
+        $SessionLogPath = $null,
 
         [Parameter()]
         [TimeSpan]
-        $ReconnectTime
+        $ReconnectTime = (New-TimeSpan -Seconds 120)
     )
+
+    $sessionOptions = New-Object -TypeName WinSCP.SessionOptions
+    $session = New-Object -TypeName WinSCP.Session
 
     try
     {
-        $sessionOptions = New-Object -TypeName WinSCP.SessionOptions
-        $session = New-Object -TypeName WinSCP.Session
-
         foreach ($key in $PSBoundParameters.Keys)
         {
             if (($sessionOptions | Get-Member -MemberType Properties).Name -contains $key)
@@ -200,6 +231,7 @@ Function New-WinSCPSession
     try
     {
         $session.Open($sessionOptions)
+
         return $session
     }
     catch [System.Exception]
