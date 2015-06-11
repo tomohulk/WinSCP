@@ -16,7 +16,7 @@
 .PARAMETER Recurse
     Return items from all subdirectories.
 .EXAMPLE
-    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Get-WinSCPChildItem -Path './rDir/'
+    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Get-WinSCPChildItem -Path '/rDir/'
     
        Directory: /rDir
 
@@ -26,7 +26,7 @@
     -             1/1/2015 12:00:00 AM          0 rTextFile.txt    
 .EXAMPLE
     PS C:\> $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
-    PS C:\> Get-WinSCPChildItem -WinSCPSession $session -Path './rDir/' -Recurse
+    PS C:\> Get-WinSCPChildItem -WinSCPSession $session -Path '/rDir/' -Recurse
 
        Directory: /rDir
 
@@ -98,7 +98,8 @@ Function Get-WinSCPChildItem
 
             try
             {
-                if (($root = $WinSCPSession.ListDirectory($item).Files | Where-Object { $_.Name -ne '..' }).Count -gt 0)
+                $root = $WinSCPSession.ListDirectory($item).Files | Where-Object { $_.Name -ne '..' }
+                if (-not ([String]::IsNullOrEmpty($root)))
                 {
                     $root | ForEach-Object {
                         $_ | Add-Member -NotePropertyName 'ParentPath' -NotePropertyValue $item

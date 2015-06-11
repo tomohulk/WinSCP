@@ -1,3 +1,5 @@
+#requires -Version 2 -Modules Pester, PSScriptAnalyzer
+
 if (Get-Module | Where-Object { $_.Name -eq 'WinSCP' })
 {
     Remove-Module -Name WinSCP
@@ -13,6 +15,14 @@ Describe 'ConvertTo-WinSCPEscapedString' {
 
         It 'Star in file name should be escaped.' {
             $escapedString | Should BeExactly 'FileNameWith[*].txt'
+        }
+    }
+
+    Context "Invoke-ScriptAnalyzer -Path $(Resolve-Path -Path (Get-Location))\Functions\ConvertTo-WinSCPEscapedString.ps1." {
+        $results = Invoke-ScriptAnalyzer -Path .\Functions\ConvertTo-WinSCPEscapedString.ps1
+
+        It 'Invoke-ScriptAnalyzer results of ConvertTo-WinSCPEscapedString count should be 0.' {
+            $results.Count | Should Be 0
         }
     }
 }

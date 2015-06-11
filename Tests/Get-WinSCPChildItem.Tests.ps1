@@ -82,13 +82,13 @@ Describe 'Get-WinSCPChildItem' {
         }
     }
 
-    <#Context "Invoke-ScriptAnalyzer -Path $(Resolve-Path -Path (Get-Location))\Functions\Get-WinSCPChildItem.ps1." {
+    Context "Invoke-ScriptAnalyzer -Path $(Resolve-Path -Path (Get-Location))\Functions\Get-WinSCPChildItem.ps1." {
         $results = Invoke-ScriptAnalyzer -Path .\Functions\Get-WinSCPChildItem.ps1
 
-        It 'Invoke-ScriptAnalyzer results count should be 0.' {
+        It 'Invoke-ScriptAnalyzer of Get-WinSCPChildItem results count should be 0.' {
             $results.Count | Should Be 0
         }
-    }#>
+    }
 
     Remove-Item -Path $ftp -Recurse -Force -Confirm:$false
 }

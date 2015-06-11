@@ -1,3 +1,5 @@
+#requires -Version 2 -Modules Pester, PSScriptAnalyzer
+
 if (Get-Module | Where-Object { $_.Name -eq 'WinSCP' })
 {
     Remove-Module -Name WinSCP
@@ -59,7 +61,7 @@ Describe 'New-WinSCPSession' {
     Context "Invoke-ScriptAnalyzer -Path $(Resolve-Path -Path (Get-Location))\Functions\New-WinSCPSession.ps1." {
         $results = Invoke-ScriptAnalyzer -Path .\Functions\New-WinSCPSession.ps1 -ExcludeRule ('PSAvoidUsingUserNameAndPassWordParams','PSAvoidUsingPlainTextForPassword')
 
-        it 'Invoke-ScriptAnalyzer results count should be 0.' {
+        it 'Invoke-ScriptAnalyzer results of New-WinSCPSession count should be 0.' {
             $results.Count | Should Be 0
         }
     }
