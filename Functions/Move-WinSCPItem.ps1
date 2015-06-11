@@ -14,10 +14,10 @@
 .PARAMETER Destination
     Full path to new location to move the item to.
 .EXAMPLE
-    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Move-WinSCPItem -Path './rDir/rFile.txt' -Destination './rDir/rSubDir/'
+    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Move-WinSCPItem -Path '/rDir/rFile.txt' -Destination '/rDir/rSubDir/'
 .EXAMPLE
     PS C:\> $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
-    PS C:\> Move-WinSCPItem -WinSCPSession $session -Path './rDir/rFile.txt' -Destination './rDir/rSubDir/'
+    PS C:\> Move-WinSCPItem -WinSCPSession $session -Path '/rDir/rFile.txt' -Destination '/rDir/rSubDir/'
 .NOTES
     If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
 .LINK
@@ -45,21 +45,18 @@ Function Move-WinSCPItem
         $WinSCPSession,
 
         [Parameter(Mandatory = $true)]
-        [ValidateScript({ if (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $_) 
-            {
-                return $true
-            }
-            else
-            {
-                throw "Cannot find the file specified $_."
-            } })]
+        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String[]]
         $Path,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter()]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
-        $Destination
+        $Destination = '/',
+
+        [Parameter()]
+        [Switch]
+        $PassThru
     )
 
     Begin
@@ -85,6 +82,11 @@ Function Move-WinSCPItem
                 }
 
                 $WinSCPSession.MoveFile($item, $Destination)
+
+                if ($PassThru.IsPresent)
+                {
+                    Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $item
+                }
             }
             catch [System.Exception]
             {
