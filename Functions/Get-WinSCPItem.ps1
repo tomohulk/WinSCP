@@ -70,13 +70,20 @@ Function Get-WinSCPItem
                 $item += '/'
             }
 
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $item))
+            {
+                Write-Error -Message "Cannot find path: $item because it does not exist."
+
+                continue
+            }
+
             try
             {
                 $WinSCPSession.GetFileInfo($item)
             }
-            catch [System.Exception]
+            catch
             {
-                throw $_
+                Write-Error -Message $_.Exception.InnerException.Message
             }
         }
     }

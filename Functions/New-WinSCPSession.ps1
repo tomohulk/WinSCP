@@ -223,9 +223,9 @@ Function New-WinSCPSession
             $sessionOptions.AddRawSettings($key, $RawSetting[$key])
         }
     }
-    catch [System.Exception]
+    catch
     {
-        throw $_
+        throw $_.Exception.Message
     }
 
     try
@@ -236,6 +236,6 @@ Function New-WinSCPSession
     }
     catch [System.Exception]
     {
-        throw $_
+        throw $_.Exception.Message
     }
 }

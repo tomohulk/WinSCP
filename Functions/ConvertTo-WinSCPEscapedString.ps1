@@ -48,9 +48,9 @@ Function ConvertTo-WinSCPEscapedString
         {
             return ($sessionObject.EscapeFileMask($FileMask))
         }
-        catch [System.Exception]
+        catch
         {
-            throw $_
+            Write-Error -Message $_.Exception.InnerException.Message
         }
     }
     

@@ -96,6 +96,13 @@ Function Get-WinSCPChildItem
                 $item += '/'
             }
 
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $item))
+            {
+                Write-Error -Message "Cannot find path: $item because it does not exist."
+
+                continue
+            }
+
             try
             {
                 $root = $WinSCPSession.ListDirectory($item).Files | Where-Object { $_.Name -ne '..' }
@@ -116,9 +123,9 @@ Function Get-WinSCPChildItem
                     }
                 }
             }
-            catch [System.Exception]
+            catch
             {
-                throw $_
+                Write-Error -Message $_.Exception.InnerException.Message
             }
         }
     }

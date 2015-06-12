@@ -13,6 +13,10 @@
     Full path to remote item to be moved.
 .PARAMETER Destination
     Full path to new location to move the item to.
+.PARAMETER Force
+    Creates the destination directory if it does not exist.
+.PARAMETER PassThru
+    Returns a WinSCP.RemoteFileInfo of the moved object.
 .EXAMPLE
     PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Move-WinSCPItem -Path '/rDir/rFile.txt' -Destination '/rDir/rSubDir/'
 .EXAMPLE
@@ -56,6 +60,10 @@ Function Move-WinSCPItem
 
         [Parameter()]
         [Switch]
+        $Force,
+
+        [Parameter()]
+        [Switch]
         $PassThru
     )
 
@@ -74,23 +82,39 @@ Function Move-WinSCPItem
                 $Destination += '/'
             }
 
-            try
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $item))
             {
-                if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $Destination))
+                Write-Error -Message "Cannot find path: $item because it does not exist."
+
+                continue
+            }
+
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $Destination))
+            {
+                if ($Force.IsPresent)
                 {
                     $WinSCPSession.CreateDirectory($Destination)
                 }
+                else
+                {
+                    Write-Error -Message 'Could not find a part of the path.'
 
+                    break
+                }
+            }
+
+            try
+            {
                 $WinSCPSession.MoveFile($item, $Destination)
 
                 if ($PassThru.IsPresent)
                 {
-                    Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $item
+                    Get-WinSCPItem -WinSCPSession $WinSCPSession -Path "$Destination\$item"
                 }
             }
-            catch [System.Exception]
+            catch
             {
-                throw $_
+                Write-Error -Message $_.Exception.InnerException.Message
             }
         }
     }

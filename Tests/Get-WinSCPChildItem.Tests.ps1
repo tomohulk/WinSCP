@@ -60,6 +60,14 @@ Describe 'Get-WinSCPChildItem' {
         }
     }
 
+    Context "New-WinSCPSession -HostName $env:COMPUTERNAME -UserName $env:USERNAME -Protocal Ftp | Get-WinSCPChildItem -Path '/InvalidPath'" {
+        It 'Results of Get-WinSCPChildItem should throw file not found.' {
+            New-WinSCPSession -HostName $env:COMPUTERNAME -UserName $env:USERNAME -Protocol Ftp | Get-WinSCPChildItem -Path '/InvalidPath' -ErrorVariable e -ErrorAction SilentlyContinue
+            $e.Count | Should Not Be 0
+            $e.Exception.Message | Should Be 'Cannot find path: /InvalidPath/ because it does not exist.'
+        }
+    }
+
     Context "`$session = New-WinSCPSession -HostName $env:COMPUTERNAME -UserName $env:USERNAME -Protocal Ftp; Get-WinSCPChildItem -WinSCPSession `$session -Recurse -Filter '*.txt'" {
         $session = New-WinSCPSession -HostName $env:COMPUTERNAME -UserName $env:USERNAME -Protocol Ftp
         $results = Get-WinSCPChildItem -WinSCPSession $session -Recurse -Filter '*.txt'

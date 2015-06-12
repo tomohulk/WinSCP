@@ -15,11 +15,11 @@ Describe 'Get-WinSCPItem' {
     Context "New-WinSCPSession -HostName $env:COMPUTERNAME -UserName $env:USERNAME -Protocal Ftp | Get-WinSCPItem" {
         $results = New-WinSCPSession -HostName $env:COMPUTERNAME -UserName $env:USERNAME -Protocol Ftp | Get-WinSCPItem
 
-        It 'Results of Get-WinSCPChildItem should not be null.' {
+        It 'Results of Get-WinSCPItem should not be null.' {
             $results | Should Not Be Null
         }
 
-        It 'Results of Get-WinSCPChildItem Count should be one.' {
+        It 'Results of Get-WinSCPItem Count should be one.' {
             $results.Count | Should Be 1
         }
 
@@ -36,11 +36,11 @@ Describe 'Get-WinSCPItem' {
             $session.Opened | Should Be $true
         }
 
-        It 'Results of Get-WinSCPChildItem should not be null.' {
+        It 'Results of Get-WinSCPItem should not be null.' {
             $results | Should Not Be Null
         }
 
-        It 'Results of Get-WinSCPChildItem Count should be one.' {
+        It 'Results of Get-WinSCPItem Count should be one.' {
             $results.Count | Should Be 1
         }
 
@@ -50,10 +50,18 @@ Describe 'Get-WinSCPItem' {
         }
     }
 
+    Context "New-WinSCPSession -HostName $env:COMPUTERNAME -UserName $env:USERNAME -Protocal Ftp | Get-WinSCPItem -Path '/InvalidPath'" {
+        It 'Results of Get-WinSCPItem should throw file not found.' {
+            New-WinSCPSession -HostName $env:COMPUTERNAME -UserName $env:USERNAME -Protocol Ftp | Get-WinSCPItem -Path '/InvalidPath' -ErrorVariable e -ErrorAction SilentlyContinue
+            $e.Count | Should Not Be 0
+            $e.Exception.Message | Should Be 'Cannot find path: /InvalidPath/ because it does not exist.'
+        }
+    }
+
     Context "Invoke-ScriptAnalyzer -Path $(Resolve-Path -Path (Get-Location))\Functions\Get-WinSCPItem.ps1." {
         $results = Invoke-ScriptAnalyzer -Path .\Functions\Get-WinSCPItem.ps1
 
-        It 'Invoke-ScriptAnalyzer results count should be 0.' {
+        It 'Invoke-ScriptAnalyzer results count for Get-WinSCPItem.ps1 should be 0.' {
             $results.Count | Should Be 0
         }
     }
