@@ -14,10 +14,10 @@
 .PARAMETER NewName
     The new name for the the item.
 .EXAMPLE
-    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Rename-WinSCPItem -Path './rDir/rFile.txt' -Destination './rDir/rNewFile.txt'
+    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Rename-WinSCPItem -Path '/rDir/rFile.txt' -Destination '/rDir/rNewFile.txt'
 .EXAMPLE
     PS C:\> $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
-    PS C:\> Rename-WinSCPItem -WinSCPSession $session -Path './rDir/rFile.txt' -Destination './rDir/rNewFile.txt'
+    PS C:\> Rename-WinSCPItem -WinSCPSession $session -Path '/rDir/rFile.txt' -Destination '/rDir/rNewFile.txt'
 .NOTES
     If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
 .LINK
@@ -45,14 +45,7 @@ Function Rename-WinSCPItem
         $WinSCPSession,
 
         [Parameter(Mandatory = $true)]
-        [ValidateScript({ if (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $_) 
-            {
-                return $true
-            }
-            else
-            {
-                throw "Cannot find the file specified $_."
-            } })]
+        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String[]]
         $Path,
 
@@ -69,19 +62,25 @@ Function Rename-WinSCPItem
 
     Process
     {
-        foreach ($item in $Path.Replace('\','/').TrimEnd('/'))
+        foreach ($item in $Path)
         {
-            try
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $item))
             {
-                $newItemPath = $item.Replace($item.Substring($item.LastIndexOf('/') + 1), $NewName)
-
-                $WinSCPSession.MoveFile($item, $newItemPath)
-            }
-            catch [System.Exception]
-            {
-                Write-Error -ErrorRecord $_
+                Write-Error -Message "Cannot find path: $item because it does not exist."
 
                 continue
+            }
+
+            try
+            {
+                $item = Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $item
+                $newItem = "$($item.Name.SubString(0, $item.Name.LastIndexOf('/') + 1))/$NewName"
+
+                $WinSCPSession.MoveFile($item.Name, $newItemPath)
+            }
+            catch
+            {
+                Write-Error -Message $_.Exception.InnerException.Message
             }
         }
     }

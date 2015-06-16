@@ -16,14 +16,14 @@
 .PARAMETER TransferOptions
     Transfer options. Defaults to null, what is equivalent to New-TransferOptions. 
 .EXAMPLE
-    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Receive-WinSCPItem -Path './rDir/rFile.txt' -Destination 'C:\lDir\lFile.txt'
+    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Receive-WinSCPItem -Path '/rDir/rFile.txt' -Destination 'C:\lDir\lFile.txt'
 
     Transfers         Failures IsSuccess
     ---------         -------- ---------
     {/rDir/rFile.txt} {}       True
 .EXAMPLE
     PS C:\> $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
-    PS C:\> Receive-WinSCPItem -WinSCPSession $session -Path './rDir/rFile.txt' -Destination 'C:\lDir\lFile.txt' -Remove
+    PS C:\> Receive-WinSCPItem -WinSCPSession $session -Path '/rDir/rFile.txt' -Destination 'C:\lDir\lFile.txt' -Remove
 
     Transfers         Failures IsSuccess
     ---------         -------- ---------
@@ -55,28 +55,14 @@ Function Receive-WinSCPItem
         $WinSCPSession,
 
         [Parameter(Mandatory = $true)]
-        [ValidateScript({ if (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $_) 
-            {
-                return $true
-            }
-            else
-            {
-                throw "Cannot find the file specified $_."
-            } })]
+        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String[]]
         $Path,
 
         [Parameter()]
-        [ValidateScript({ if (Test-Path -Path $_)
-            {
-                return $true
-            }
-            else
-            {
-                throw "Cannot find the file specified $_."
-            } })]
+        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
-        $Destination = "$(Get-Location)\",
+        $Destination = $pwd,
 
         [Parameter()]
         [Switch]
@@ -84,7 +70,7 @@ Function Receive-WinSCPItem
 
         [Parameter()]
         [WinSCP.TransferOptions]
-        $TransferOptions
+        $TransferOptions = (New-Object -TypeName WinSCP.TransferOptions)
     )
 
     Begin
@@ -94,8 +80,22 @@ Function Receive-WinSCPItem
 
     Process
     {
-        foreach ($item in $Path.Replace('\','/'))
+        foreach ($item in $Path)
         {
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $Path))
+            {
+                Write-Error -Message "Cannot find path: $Path because it does not exist."
+
+                continue
+            }
+
+            if (-not (Test-Path -Path $Destination))
+            {
+                Write-Error -Message "Cannot find path: $Destination because it does not exist."
+
+                continue
+            }
+
             try
             {
                 $WinSCPSession.GetFiles($item, $Destination, $Remove.IsPresent, $TransferOptions)

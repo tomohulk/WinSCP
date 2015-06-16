@@ -12,18 +12,10 @@
 .PARAMETER Path
     Full path to remote directory followed by slash and wildcard to select files or subdirectories to remove. 
 .EXAMPLE
-    PS C:\> Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions -Hostname myftphost.org -Username ftpuser -password "FtpUserPword" -Protocol Ftp) | Remove-WinSCPItem -Path "rDir/rFile.txt"
-
-    Removals                  Failures IsSuccess
-    --------                  -------- ---------
-    {/rDir/rSubDir/rFile.txt} {}       True
+    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Remove-WinSCPItem -Path "/rDir/rFile.txt"
 .EXAMPLE
-    PS C:\> $session = New-WinSCPSessionOptions -Hostname myftphost.org -Username ftpuser -password "FtpUserPword" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Open-WinSCPSession
-    PS C:\> Remove-WinSCPItem -WinSCPSession $session -Path "rDir/rFile.txt"
-
-    Removals                  Failures IsSuccess
-    --------                  -------- ---------
-    {/rDir/rSubDir/rFile.txt} {}       True
+    PS C:\> $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+    PS C:\> Remove-WinSCPItem -WinSCPSession $session -Path "/rDir/rFile.txt"
 .NOTES
     If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
 .LINK
@@ -64,19 +56,24 @@ Function Remove-WinSCPItem
 
     Process
     {
-        foreach ($item in $Path.Replace('\','/'))
+        foreach ($item in $Path)
         {
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $item))
+            {
+                Write-Error -Message "Cannot find path: $item because it does not exist."
+
+                continue
+            }
+
             if ($PSCmdlet.ShouldProcess($item))
             {
-                $results = $WinSCPSession.RemoveFiles($item)
-
-                if (-not ($results.IsSuccess))
+                try
                 {
-                    Write-Error -Message $results.Failures
+                    $WinSCPSession.RemoveFiles($item) | Out-Null
                 }
-                else
+                catch
                 {
-                    $results
+                    Write-Error -Message $_.Exception.InnerException.Message
                 }
             }
         } 

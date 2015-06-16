@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?> 
 <Configuration>
+	<!-- ################ VIEW DEFINITIONS ################ -->
     <ViewDefinitions>
        <View>
             <Name>DefaultView</Name>
@@ -7,8 +8,10 @@
                 <TypeName>WinSCP.RemoteFileInfo</TypeName>
             </ViewSelectedBy>
             <GroupBy>
-                <PropertyName>ParentPath</PropertyName>
 				<Label>Directory</Label>
+				<ScriptBlock>
+					$_.Name.SubString(0, $_.Name.LastIndexOf('/') + 1)
+				</ScriptBlock>
             </GroupBy>
             <TableControl>
                 <TableHeaders>
@@ -27,7 +30,9 @@
                         <Width>10</Width>
                         <Alignment>right</Alignment>
                     </TableColumnHeader>
-                    <TableColumnHeader/>
+                    <TableColumnHeader>
+						<Label>Name</Label>
+					</TableColumnHeader>
                 </TableHeaders>
                 <TableRowEntries>
                     <TableRowEntry>
@@ -43,7 +48,9 @@
 								<PropertyName>Length</PropertyName>
                             </TableColumnItem>
                             <TableColumnItem>
-                                <PropertyName>Name</PropertyName>
+								<ScriptBlock>
+									$_.Name.SubString($_.Name.LastIndexOf('/') + 1)
+								</ScriptBlock>
                             </TableColumnItem>
                         </TableColumnItems>
                     </TableRowEntry>

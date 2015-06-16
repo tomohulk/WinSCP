@@ -16,7 +16,7 @@
 .EXAMPLE
     $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
     $searchString = ConvertTo-WinSCPEscapedString -FileMask 'FileWithA*InName.txt'
-    Receive-WinSCPItem -WinSCPSession $session -RemoteItem "./rDir/$searchString" -LocalItem 'C:\lDir\'
+    Receive-WinSCPItem -WinSCPSession $session -RemoteItem "/rDir/$searchString" -LocalItem 'C:\lDir\'
 .NOTES
     Useful with Send-WinSCPItem, Receive-WinSCPItem, Remove-WinSCPItem cmdlets.
 .LINK

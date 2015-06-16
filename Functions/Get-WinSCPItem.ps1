@@ -53,7 +53,11 @@ Function Get-WinSCPItem
         [Parameter()]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String[]]
-        $Path = '/'
+        $Path = '/',
+
+        [Parameter()]
+        [String]
+        $Filter = '*'
     )
 
     Begin
@@ -63,13 +67,8 @@ Function Get-WinSCPItem
 
     Process
     {
-        foreach ($item in $Path.Replace('\','/'))
+        foreach ($item in $Path)
         {
-            if (-not ($item.EndsWith('/')))
-            {
-                $item += '/'
-            }
-
             if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $item))
             {
                 Write-Error -Message "Cannot find path: $item because it does not exist."
@@ -77,13 +76,20 @@ Function Get-WinSCPItem
                 continue
             }
 
-            try
+            if ($PSBoundParameters.ContainsKey('Filter'))
             {
-                $WinSCPSession.GetFileInfo($item)
+                Get-WinSCPChildItem -WinSCPSession $WinSCPSession -Path $item -Filter $Filter
             }
-            catch
+            else
             {
-                Write-Error -Message $_.Exception.InnerException.Message
+                try
+                {
+                    $WinSCPSession.GetFileInfo($item)
+                }
+                catch
+                {
+                    Write-Error -Message $_.Exception.InnerException.Message
+                }
             }
         }
     }

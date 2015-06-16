@@ -47,7 +47,7 @@
 .LINK
     http://winscp.net/eng/docs/library_session_synchronizedirectories
 #>
-Function Sync-WinSCPDirectory
+Function Sync-WinSCPPath
 {
     [OutputType([WinSCP.SynchronizationResult])]
 
@@ -66,33 +66,19 @@ Function Sync-WinSCPDirectory
         [WinSCP.Session]
         $WinSCPSession,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter()]
         [WinSCP.SynchronizationMode]
-        $Mode,
+        $Mode = (New-Object -TypeName WinSCP.SyncronizationMode),
 
         [Parameter()]
-        [ValidateScript({ if (Test-Path -Path $_)
-            {
-                return $true
-            }
-            else
-            {
-                throw "Cannot find the file specified $_."
-            } })]
+        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
-        $LocalPath = "$(Get-Location)\",
+        $LocalPath = $pwd,
 
         [Parameter()]
-        [ValidateScript({ if (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $_) 
-            {
-                return $true
-            }
-            else
-            {
-                throw "Cannot find the file specified $_."
-            } })]
+        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
-        $RemotePath = './',
+        $RemotePath = '/',
 
         [Parameter()]
         [Switch]
@@ -104,11 +90,11 @@ Function Sync-WinSCPDirectory
 
         [Parameter()]
         [WinSCP.SynchronizationCriteria]
-        $Criteria = 'Time',
+        $Criteria = (New-Object -TypeName WinSCP.SynchronizationCriteria),
 
         [Parameter()]
         [WinSCP.TransferOptions]
-        $TransferOptions
+        $TransferOptions = (New-Object -TypeName WinSCP.TransferOptions)
     )
 
     Begin
@@ -118,9 +104,23 @@ Function Sync-WinSCPDirectory
 
     Process
     {
+        if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $RemotePath))
+        {
+            Write-Error -Message "Cannot find path: $RemotePath because it does not exist."
+
+            continue
+        }
+
+        if (-not (Test-Path -Path $LocalPath))
+        {
+            Write-Error -Message "Cannot find path: $LocalPath because it does not exist."
+
+            continue
+        }
+
         try
         {
-            $WinSCPSession.SynchronizeDirectories($Mode, $LocalPath.Replace('/','\'), $RemotePath.Replace('\','/'), $Remove.IsPresent, $Mirror.IsPresent, $Criteria, $TransferOptions)
+            $WinSCPSession.SynchronizeDirectories($Mode, $LocalPath, $RemotePath, $Remove.IsPresent, $Mirror.IsPresent, $Criteria, $TransferOptions)
         }
         catch [System.Exception]
         {

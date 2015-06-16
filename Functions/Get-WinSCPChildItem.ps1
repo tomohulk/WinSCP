@@ -91,10 +91,6 @@ Function Get-WinSCPChildItem
     {
         foreach ($item in $Path.Replace('\','/'))
         {
-            if (-not ($item.EndsWith('/')))
-            {
-                $item += '/'
-            }
 
             if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $item))
             {
@@ -105,21 +101,18 @@ Function Get-WinSCPChildItem
 
             try
             {
-                $root = $WinSCPSession.ListDirectory($item).Files | Where-Object { $_.Name -ne '..' }
-                if (-not ([String]::IsNullOrEmpty($root)))
+                $root = foreach ($file in ($WinSCPSession.ListDirectory($item).Files | Where-Object { $_.Name -ne '..' }))
                 {
-                    $root | ForEach-Object {
-                        $_ | Add-Member -NotePropertyName 'ParentPath' -NotePropertyValue $item
-                    }
-
-                    $root | Where-Object { $_.Name -like $Filter }
+                    $WinSCPSession.GetFileInfo((Join-Path -Path $item -ChildPath $file).Replace('\','/'))
                 }
+
+                $root | Where-Object { $_.Name -like $Filter }
 
                 if ($Recurse.IsPresent)
                 {
                     foreach ($directory in ($root | Where-Object { $_.IsDirectory }).Name)
                     {
-                        Get-WinSCPChildItem -WinSCPSession $WinSCPSession -Path ($WinSCPSession.GetFileInfo("$item$directory").Name) -Recurse -Filter $Filter
+                        Get-WinSCPChildItem -WinSCPSession $WinSCPSession -Path (Join-Path -Path $item -ChildPath $directory).Replace('\','/') -Recurse -Filter $Filter
                     }
                 }
             }

@@ -1,4 +1,4 @@
-#requires -Version 2 -Modules Pester, PSScriptAnalyzer
+#requires -Modules Pester,PSScriptAnalyzer
 
 if (Get-Module | Where-Object { $_.Name -eq 'WinSCP' })
 {

@@ -1,3 +1,5 @@
+#requires -Modules Pester,PSScriptAnalyzer
+
 if (Get-Module | Where-Object { $_.Name -eq 'WinSCP' })
 {
     Remove-Module -Name WinSCP

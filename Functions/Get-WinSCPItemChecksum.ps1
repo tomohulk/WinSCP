@@ -14,14 +14,14 @@
 .PARAMETER Path
      A full path to a remote file to calculate a checksum for.  
 .EXAMPLE
-    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp) | Get-WinSCPFileChecksum -Algorithm 'sha-1' -Path './rDir/file.txt'
+    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Get-WinSCPItemChecksum -Algorithm 'sha-1' -Path '/rDir/file.txt'
 .NOTES
 .LINK
     http://dotps1.github.io/WinSCP
 .LINK
     http://winscp.net/eng/docs/library_session_calculatefilechecksum
 #>
-Function Get-WinSCPFileChecksum
+Function Get-WinSCPItemChecksum
 {
     [OutputType([Array])]
 
@@ -46,14 +46,7 @@ Function Get-WinSCPFileChecksum
         $Algorithm,
 
         [Parameter(Mandatory = $true)]
-        [ValidateScript({ if (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $_) 
-            {
-                return $true
-            }
-            else
-            {
-                throw "Cannot find the file specified $_."
-            } })]
+        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String[]]
         $Path
     )
@@ -65,13 +58,23 @@ Function Get-WinSCPFileChecksum
 
     Process
     {
-        try
+        foreach ($item in $Path.Replace('\','/'))
         {
-            return ($WinSCPSession.CalculateFileChecksum($Algorithm, $Path))
-        }
-        catch [System.Exception]
-        {
-            throw $_
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $item))
+            {
+                Write-Error -Message "Cannot find path: $item because it does not exist."
+
+                continue
+            }
+
+            try
+            {
+                return ($WinSCPSession.CalculateFileChecksum($Algorithm, $item))
+            }
+            catch
+            {
+                Write-Error -Message $_.Exception.InnerException.Message
+            }
         }
     }
     

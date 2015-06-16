@@ -37,8 +37,8 @@ Function Remove-WinSCPSession
     {
         $WinSCPSession.Dispose()
     }
-    catch [System.Exception]
+    catch
     {
-        throw $_
+        Write-Error $_.Exception.InnerException.Message
     }
 }

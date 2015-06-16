@@ -57,28 +57,14 @@ Function Send-WinSCPItem
         $WinSCPSession,
 
         [Parameter(Mandatory = $true)]
-        [ValidateScript({ if (Test-Path -Path $_)
-            {
-                return $true
-            }
-            else
-            {
-                throw "Cannot find the file specified $_."
-            } })]
+        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String[]]
         $Path,
 
         [Parameter()]
-        [ValidateScript({ if (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $_) 
-            {
-                return $true
-            }
-            else
-            {
-                throw "Cannot find the file specified $_."
-            } })]
+        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
-        $Destination = './',
+        $Destination = '/',
         
         [Parameter()]
         [Switch]
@@ -86,7 +72,7 @@ Function Send-WinSCPItem
 
         [Parameter()]
         [WinSCP.TransferOptions]
-        $TransferOptions
+        $TransferOptions = (New-Object -TypeName WinSCP.TransferOptions)
     )
 
     Begin

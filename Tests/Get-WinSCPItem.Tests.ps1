@@ -1,3 +1,5 @@
+#requires -Modules Pester,PSScriptAnalyzer
+
 if (Get-Module | Where-Object { $_.Name -eq 'WinSCP' })
 {
     Remove-Module -Name WinSCP
@@ -54,7 +56,7 @@ Describe 'Get-WinSCPItem' {
         It 'Results of Get-WinSCPItem should throw file not found.' {
             New-WinSCPSession -HostName $env:COMPUTERNAME -UserName $env:USERNAME -Protocol Ftp | Get-WinSCPItem -Path '/InvalidPath' -ErrorVariable e -ErrorAction SilentlyContinue
             $e.Count | Should Not Be 0
-            $e.Exception.Message | Should Be 'Cannot find path: /InvalidPath/ because it does not exist.'
+            $e.Exception.Message | Should Be 'Cannot find path: /InvalidPath because it does not exist.'
         }
     }
 
