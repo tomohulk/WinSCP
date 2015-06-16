@@ -59,22 +59,15 @@ Function Test-WinSCPPath
 
     Process
     {
-        foreach($item in $Path.Replace('\','/'))
+        foreach($item in $Path)
         {
-            if (-not ($item.EndsWith('/')))
-            {
-                $item += '/'
-            }
-
             try
             {
                 $WinSCPSession.FileExists($item)
             }
-            catch [System.Exception]
+            catch
             {
-                Write-Error -Exception $_
-                
-                continue
+                Write-Error -Message $_.Exception.InnerException.Message
             }
         }
     }

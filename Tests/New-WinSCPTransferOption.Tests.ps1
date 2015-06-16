@@ -11,7 +11,7 @@ Import-Module -Name .\WinSCP.psd1
 
 Describe 'New-WinSCPTransferOption' {
     Context "Invoke-ScriptAnalyzer -Path $(Resolve-Path -Path (Get-Location))\Functions\New-WinSCPTransferOption.ps1." {
-        $results = Invoke-ScriptAnalyzer -Path .\Functions\Get-WinSCPItemChecksum.ps1
+        $results = Invoke-ScriptAnalyzer -Path .\Functions\New-WinSCPTransferOption.ps1
 
         It 'Invoke-ScriptAnalyzer of New-WinSCPTransferOption results count should be 0.' {
             $results.Count | Should Be 0

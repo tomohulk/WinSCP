@@ -11,7 +11,7 @@ Import-Module -Name .\WinSCP.psd1
 
 Describe 'New-WinSCPItemPermission' {
     Context "Invoke-ScriptAnalyzer -Path $(Resolve-Path -Path (Get-Location))\Functions\New-WinSCPItemPermission.ps1." {
-        $results = Invoke-ScriptAnalyzer -Path .\Functions\Get-WinSCPItemChecksum.ps1
+        $results = Invoke-ScriptAnalyzer -Path .\Functions\New-WinSCPItemPermission.ps1
 
         It 'Invoke-ScriptAnalyzer of New-WinSCPItemPermission results count should be 0.' {
             $results.Count | Should Be 0

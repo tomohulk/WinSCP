@@ -89,7 +89,7 @@ Function Get-WinSCPChildItem
 
     Process
     {
-        foreach ($item in $Path.Replace('\','/'))
+        foreach ($item in $Path)
         {
 
             if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $item))

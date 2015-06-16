@@ -11,7 +11,7 @@ Import-Module -Name .\WinSCP.psd1
 
 Describe 'Send-WinSCPItem' {
     Context "Invoke-ScriptAnalyzer -Path $(Resolve-Path -Path (Get-Location))\Functions\Send-WinSCPItem.ps1." {
-        $results = Invoke-ScriptAnalyzer -Path .\Functions\Get-WinSCPItemChecksum.ps1
+        $results = Invoke-ScriptAnalyzer -Path .\Functions\Send-WinSCPItem.ps1
 
         It 'Invoke-ScriptAnalyzer of Send-WinSCPItem results count should be 0.' {
             $results.Count | Should Be 0

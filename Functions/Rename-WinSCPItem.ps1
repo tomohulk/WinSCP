@@ -74,9 +74,8 @@ Function Rename-WinSCPItem
             try
             {
                 $item = Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $item
-                $newItem = "$($item.Name.SubString(0, $item.Name.LastIndexOf('/') + 1))/$NewName"
 
-                $WinSCPSession.MoveFile($item.Name, $newItemPath)
+                $WinSCPSession.MoveFile($item.Name, (Join-Path -Path ($item.Name.SubString(0, $item.Name.LastIndexOf('/') + 1)) -ChildPath $NewName).Replace('\','/'))
             }
             catch
             {

@@ -74,14 +74,8 @@ Function Move-WinSCPItem
 
     Process
     {
-        foreach ($item in $Path.Replace('\','/').TrimEnd('/'))
+        foreach ($item in $Path)
         {
-            $Destination = $Destination.Replace('\','/')
-            if (-not ($Destination.EndsWith('/')))
-            {
-                $Destination += '/'
-            }
-
             if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $item))
             {
                 Write-Error -Message "Cannot find path: $item because it does not exist."
@@ -105,11 +99,11 @@ Function Move-WinSCPItem
 
             try
             {
-                $WinSCPSession.MoveFile($item, $Destination)
+                $WinSCPSession.MoveFile($item, (Join-Path -Path $Destination -ChildPath (Split-Path -Path $item -Leaf)).Replace('\','/'))
 
                 if ($PassThru.IsPresent)
                 {
-                    Get-WinSCPItem -WinSCPSession $WinSCPSession -Path "$Destination\$item"
+                    Get-WinSCPItem -WinSCPSession $WinSCPSession -Path (Join-Path -Path $Destination -ChildPath (Split-Path -Path $item -Leaf)).Replace('\','/')
                 }
             }
             catch

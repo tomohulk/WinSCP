@@ -86,11 +86,11 @@ Function Send-WinSCPItem
         {
             try
             {
-                $WinSCPSession.PutFiles($item, $Destination.Replace('\','/'), $Remove.IsPresent, $TransferOptions)
+                $WinSCPSession.PutFiles($item.Replace('\','/'), $Destination.Replace('\','/'), $Remove.IsPresent, $TransferOptions)
             }
-            catch [System.Exception]
+            catch
             {
-                throw $_
+                Write-Error -Message $_.Exception.InnerException.Message
             }
         }
     }

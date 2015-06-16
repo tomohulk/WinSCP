@@ -11,14 +11,12 @@
     A valid open WinSCP.Session, returned from Open-WinSCPSession.
 .PARAMETER Path
     Full path to remote directory to create.
-.PARAMETER Name
-    The name for the new object to be created.
 .PARAMETER ItemType
     The type of object to be created, IE: File, Directory.
 .PARAMETER Value
     Initial value to add to the object being created.
 .EXAMPLE
-    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | New-WinSCPItem-Path './rDir' -Name 'rSubDir' -ItemType Directory
+    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | New-WinSCPItem-Path '/rDir/rSubDir' -ItemType Directory
 
     FileType             LastWriteTime     Length Name                                                                                                                                                                                                                                        
     --------             -------------     ------ ----                                                                                                                                                                                                                                        
@@ -56,33 +54,20 @@ Function New-WinSCPItem
         [WinSCP.Session]
         $WinSCPSession,
 
-        [Parameter()]
-        [ValidateScript({ if (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $_)
-            {
-                return $true
-            }
-            else
-            {
-                throw "Cannot find the file specified $_."
-            } })]
+        [Parameter(Mandatory = $true)]
+        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String[]]
-        $Path = './',
+        $Path,
 
-
-        [Parameter(Mandatory = $true)]
+        [Parameter()]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
-        $Name,
-
-        [Parameter(Mandatory = $true)]
-        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
-        [String]
-        $ItemType,
+        $ItemType = $null,
 
         [Parameter()]
         [ValidateNotNull()]
         [String]
-        $Value
+        $Value = $null
     )
 
     Begin
@@ -92,23 +77,33 @@ Function New-WinSCPItem
 
     Process
     {
-        foreach($item in $Path.Replace('\','/'))
+        foreach($item in $Path)
         {
-            if (-not ($item.EndsWith('/')))
-            {
-                $item += '/'
-            }
-
             try
             {
-                $object = New-Item -Path $env:TEMP -Name $Name -ItemType $ItemType -Value $Value -Force
-                Send-WinSCPItem -WinSCPSession $WinSCPSession -Path $object.FullName -Destination $item | Out-Null
+                $params = @{
+                    Path = $pwd
+                    Name = Split-Path -Path $item -Leaf
+                }
 
-                Get-WinSCPItem -WinSCPSession $WinSCPSession -Path "$item$($object.Name)"
+                if ($ItemType -ne $null)
+                {
+                    $params.Add('ItemType', $ItemType)
+                }
+
+                if ($Value -ne $null)
+                {
+                    $params.Add('Value', $Value)
+                }
+
+                $object = New-Item @params
+                $WinSCPSession.PutFiles($object.FullName, $item, $true) | Out-Null
+
+                Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $item
             }
-            catch [System.Exception]
+            catch 
             {
-                throw $_
+                Write-Error -Message $_
             }
         }
     }

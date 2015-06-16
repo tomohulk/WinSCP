@@ -11,7 +11,7 @@ Import-Module -Name .\WinSCP.psd1
 
 Describe 'Start-WinSCPConsole' {
     Context "Invoke-ScriptAnalyzer -Path $(Resolve-Path -Path (Get-Location))\Functions\Start-WinSCPConsole.ps1." {
-        $results = Invoke-ScriptAnalyzer -Path .\Functions\Get-WinSCPItemChecksum.ps1
+        $results = Invoke-ScriptAnalyzer -Path .\Functions\Start-WinSCPConsole.ps1 -ExcludeRule PSAvoidUsingInternalURLs
 
         It 'Invoke-ScriptAnalyzer of Start-WinSCPConsole results count should be 0.' {
             $results.Count | Should Be 0
