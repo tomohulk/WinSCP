@@ -16,7 +16,9 @@
 .PARAMETER  ReconnectTime
     Sets time limit in seconds to try reconnecting broken sessions. Default is 120 seconds. Use TimeSpan.MaxValue to remove any limit.
 .PARAMETER Timeout
-    Maximal interval between two consecutive outputs from WinSCP console session, before TimeoutException is thrown. The default is one minute. It’s not recommended to change the value.
+    Maximal interval between two consecutive outputs from WinSCP console session, before TimeoutException is thrown. The default is one minute. Itâ€™s not recommended to change the value.
+.PARAMETER ScriptBlock
+    Script block to execute roughly each second during file transfer
 .EXAMPLE
     PS C:\> $session = Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions -Hostname myftphost.org -Username ftpuser -password "FtpUserPword" -Protocol Ftp)
     PS C:\> $session
@@ -89,12 +91,21 @@ Function Open-WinSCPSession
 
         [Parameter()]
         [TimeSpan]
-        $Timeout
+        $Timeout,
+        
+        [Parameter()]
+        [ScriptBlock]
+        $ScriptBlock
     )
 
     $session = New-Object -TypeName WinSCP.Session
+
+    if ($ScriptBlock)
+    {
+        $session.add_FileTransferProgress($ScriptBlock)
+    }
     
-    foreach ($key in $PSBoundParameters.Keys | ?{ $_ -ne 'SessionOptions' })
+    foreach ($key in $PSBoundParameters.Keys | ?{ ($_ -ne 'SessionOptions') -and ($_ -ne 'ScriptBlock') })
     {
         try
         {
