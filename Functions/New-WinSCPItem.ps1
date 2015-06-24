@@ -62,7 +62,7 @@ Function New-WinSCPItem
         [Parameter()]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
-        $ItemType = $null,
+        $ItemType = 'File',
 
         [Parameter()]
         [ValidateNotNull()]
@@ -81,22 +81,7 @@ Function New-WinSCPItem
         {
             try
             {
-                $params = @{
-                    Path = $pwd
-                    Name = Split-Path -Path $item -Leaf
-                }
-
-                if ($ItemType -ne $null)
-                {
-                    $params.Add('ItemType', $ItemType)
-                }
-
-                if ($Value -ne $null)
-                {
-                    $params.Add('Value', $Value)
-                }
-
-                $object = New-Item @params
+                $object = New-Item -Path $pwd -Name (Split-Path -Path $item -Leaf) -ItemType $ItemType -Value $Value -Force
                 $WinSCPSession.PutFiles($object.FullName, $item, $true) | Out-Null
 
                 Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $item
