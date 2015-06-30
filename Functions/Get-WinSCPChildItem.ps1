@@ -42,7 +42,7 @@
     --------             -------------     ------ ----                                                                                                                                                                                                                                        
     -             1/1/2015 12:00:00 AM          0 rSubDirTextFile.txt
 .NOTES
-    If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
+    If the WinSCPSession is piped into this command, the connection will be closed upon completion of the command.
 .LINK
     http://dotps1.github.io/WinSCP
 .LINK
@@ -100,16 +100,16 @@ Function Get-WinSCPChildItem
 
             try
             {
-                $item = foreach ($file in ($WinSCPSession.ListDirectory($p).Files | Where-Object { $_.Name -ne '..' }))
+                $items = foreach ($file in ($WinSCPSession.ListDirectory($p).Files | Where-Object { $_.Name -ne '..' }))
                 {
                     $WinSCPSession.GetFileInfo((Format-WinSCPPathString -Path (Join-Path -Path $p -ChildPath $file)))
                 }
 
-                $item | Where-Object { $_.Name -like $Filter }
+                $items | Where-Object { $_.Name -like $Filter }
 
                 if ($Recurse.IsPresent)
                 {
-                    foreach ($directory in ($item | Where-Object { $_.IsDirectory }).Name)
+                    foreach ($directory in ($items | Where-Object { $_.IsDirectory }).Name)
                     {
                         Get-WinSCPChildItem -WinSCPSession $WinSCPSession -Path (Format-WinSCPPathString -Path (Join-Path -Path $p -ChildPath $directory)) -Recurse -Filter $Filter
                     }
@@ -126,7 +126,7 @@ Function Get-WinSCPChildItem
     {
         if (-not ($sessionValueFromPipeLine))
         {
-            Remove-WinSCPSession -WinSCPSession $WinSCPSession
+            Close-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }

@@ -15,7 +15,7 @@
     $session = New-WinSCPSession -Hostname 'myftphost.org' -UsernName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
     Invoke-WinSCPCommand -WinSCPSession $session -Command ("mysqldump --opt -u {0} --password={1} --all-databases | gzip > {2}" -f $dbUsername, $dbPassword, $tempFilePath)
 .NOTES
-    If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
+    If the WinSCPSession is piped into this command, the connection will be closed upon completion of the command.
 .LINK
     http://dotps1.github.io/WinSCP
 .LINK
@@ -59,9 +59,9 @@ Function Invoke-WinSCPCommand
             {
                 $WinSCPSession.ExecuteCommand($commandment)
             }
-            catch [System.Exception]
+            catch
             {
-                throw $_
+                Write-Error -Message $_.ToString()
             }
         }
     }
@@ -70,7 +70,7 @@ Function Invoke-WinSCPCommand
     {
         if (-not ($sessionValueFromPipeLine))
         {
-            Remove-WinSCPSession -WinSCPSession $WinSCPSession
+            Close-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }

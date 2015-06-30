@@ -25,7 +25,7 @@
     --------             -------------     ------ ----                                                                                                                                                                                                                                        
     D             1/1/2015 12:00:00 AM          0 /rdir/rSubDir
 .NOTES
-    If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
+    If the WinSCPSession is piped into this command, the connection will be closed upon completion of the command.
 .LINK
     http://dotps1.github.io/WinSCP
 .LINK
@@ -67,28 +67,28 @@ Function Get-WinSCPItem
 
     Process
     {
-        foreach ($item in $Path)
+        foreach ($p in (Format-WinSCPPathString -Path $($Path)))
         {
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $item))
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $p))
             {
-                Write-Error -Message "Cannot find path: $item because it does not exist."
+                Write-Error -Message "Cannot find path: $p because it does not exist."
 
                 continue
             }
 
             if ($PSBoundParameters.ContainsKey('Filter'))
             {
-                Get-WinSCPChildItem -WinSCPSession $WinSCPSession -Path $item -Filter $Filter
+                Get-WinSCPChildItem -WinSCPSession $WinSCPSession -Path $p -Filter $Filter
             }
             else
             {
                 try
                 {
-                    $WinSCPSession.GetFileInfo($item)
+                    $WinSCPSession.GetFileInfo($p)
                 }
                 catch
                 {
-                    Write-Error -Message $_.Exception.InnerException.Message
+                    Write-Error -Message $_.ToString()
                 }
             }
         }
@@ -98,7 +98,7 @@ Function Get-WinSCPItem
     {
         if (-not ($sessionValueFromPipeLine))
         {
-            Remove-WinSCPSession -WinSCPSession $WinSCPSession
+            Close-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }

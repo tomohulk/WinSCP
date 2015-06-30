@@ -16,6 +16,7 @@
 .EXAMPLE
     PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Get-WinSCPItemChecksum -Algorithm 'sha-1' -Path '/rDir/file.txt'
 .NOTES
+    If the WinSCPSession is piped into this command, the connection will be closed upon completion of the command.
 .LINK
     http://dotps1.github.io/WinSCP
 .LINK
@@ -58,22 +59,22 @@ Function Get-WinSCPItemChecksum
 
     Process
     {
-        foreach ($item in $Path.Replace('\','/'))
+        foreach ($p in (Format-WinSCPPathString -Path $($Path)))
         {
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $item))
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $p))
             {
-                Write-Error -Message "Cannot find path: $item because it does not exist."
+                Write-Error -Message "Cannot find path: $p because it does not exist."
 
                 continue
             }
 
             try
             {
-                return ($WinSCPSession.CalculateFileChecksum($Algorithm, $item))
+                return ($WinSCPSession.CalculateFileChecksum($Algorithm, $p))
             }
             catch
             {
-                Write-Error -Message $_.Exception.InnerException.Message
+                Write-Error -Message $_.ToString()
             }
         }
     }
@@ -82,7 +83,7 @@ Function Get-WinSCPItemChecksum
     {
         if (-not ($sessionValueFromPipeLine))
         {
-            Remove-WinSCPSession -WinSCPSession $WinSCPSession
+            Close-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }
