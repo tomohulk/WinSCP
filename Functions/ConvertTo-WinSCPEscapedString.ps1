@@ -50,7 +50,7 @@ Function ConvertTo-WinSCPEscapedString
         }
         catch
         {
-            Write-Error -Message $_.Exception.InnerException.Message
+            Write-Error -Message $_.ToString()
         }
     }
     

@@ -225,7 +225,7 @@ Function New-WinSCPSession
     }
     catch
     {
-        throw $_.Exception.Message
+        Write-Error -Message $_.ToString()
     }
 
     try
@@ -234,8 +234,8 @@ Function New-WinSCPSession
 
         return $session
     }
-    catch [System.Exception]
+    catch
     {
-        throw $_.Exception.Message
+        Write-Error -Message $_.ToString()
     }
 }

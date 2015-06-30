@@ -89,36 +89,35 @@ Function Get-WinSCPChildItem
 
     Process
     {
-        foreach ($item in $Path)
+        foreach ($p in (Format-WinSCPPathString -Path $($Path)))
         {
-
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $item))
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $p))
             {
-                Write-Error -Message "Cannot find path: $item because it does not exist."
+                Write-Error -Message "Cannot find path: $p because it does not exist."
 
                 continue
             }
 
             try
             {
-                $root = foreach ($file in ($WinSCPSession.ListDirectory($item).Files | Where-Object { $_.Name -ne '..' }))
+                $item = foreach ($file in ($WinSCPSession.ListDirectory($p).Files | Where-Object { $_.Name -ne '..' }))
                 {
-                    $WinSCPSession.GetFileInfo((Join-Path -Path $item -ChildPath $file).Replace('\','/'))
+                    $WinSCPSession.GetFileInfo((Format-WinSCPPathString -Path (Join-Path -Path $p -ChildPath $file)))
                 }
 
-                $root | Where-Object { $_.Name -like $Filter }
+                $item | Where-Object { $_.Name -like $Filter }
 
                 if ($Recurse.IsPresent)
                 {
-                    foreach ($directory in ($root | Where-Object { $_.IsDirectory }).Name)
+                    foreach ($directory in ($item | Where-Object { $_.IsDirectory }).Name)
                     {
-                        Get-WinSCPChildItem -WinSCPSession $WinSCPSession -Path (Join-Path -Path $item -ChildPath $directory).Replace('\','/') -Recurse -Filter $Filter
+                        Get-WinSCPChildItem -WinSCPSession $WinSCPSession -Path (Format-WinSCPPathString -Path (Join-Path -Path $p -ChildPath $directory)) -Recurse -Filter $Filter
                     }
                 }
             }
             catch
             {
-                Write-Error -Message $_.Exception.InnerException.Message
+                Write-Error -Message $_.ToString()
             }
         }
     }
