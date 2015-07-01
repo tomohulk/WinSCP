@@ -100,12 +100,12 @@ Function New-WinSCPItemPermission
 
         [Parameter()]
         [Int]
-        $Numeric,
+        $Numeric = $null,
 
         [Parameter()]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
-        $Octal,
+        $Octal = $null,
 
         [Parameter()]
         [Switch]
@@ -134,7 +134,7 @@ Function New-WinSCPItemPermission
         [Parameter()]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
-        $Text,
+        $Text = $null,
 
         [Parameter()]
         [Switch]

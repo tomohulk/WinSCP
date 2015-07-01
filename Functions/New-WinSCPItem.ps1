@@ -29,7 +29,7 @@
     --------             -------------     ------ ----                                                                                                                                                                                                                                        
     -             1/1/2015 12:00:00 AM         12 /rDir/rTextFile.txt
 .NOTES
-   If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
+   If the WinSCPSession is piped into this command, the connection will be closed upon completion of the command.
 .LINK
     http://dotps1.github.io/WinSCP
 .LINK
@@ -77,18 +77,18 @@ Function New-WinSCPItem
 
     Process
     {
-        foreach($item in $Path)
+        foreach($p in (Format-WinSCPPathString -Path $($Path)))
         {
             try
             {
-                $object = New-Item -Path $pwd -Name (Split-Path -Path $item -Leaf) -ItemType $ItemType -Value $Value -Force
-                $WinSCPSession.PutFiles($object.FullName, $item, $true) | Out-Null
+                $object = New-Item -Path $pwd -Name (Split-Path -Path $p -Leaf) -ItemType $ItemType -Value $Value -Force
+                $WinSCPSession.PutFiles($object.FullName, $p, $true) | Out-Null
 
                 Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $item
             }
             catch 
             {
-                Write-Error -Message $_
+                Write-Error -Message $_.ToString()
             }
         }
     }
@@ -97,7 +97,7 @@ Function New-WinSCPItem
     {
         if (-not ($sessionValueFromPipeLine))
         {
-            Remove-WinSCPSession -WinSCPSession $WinSCPSession
+            Close-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }

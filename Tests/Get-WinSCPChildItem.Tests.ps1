@@ -42,7 +42,7 @@ Describe 'Get-WinSCPChildItem' {
         }
 
         It 'WinSCP process should not exist.' {
-            Get-Process -Name WInSCP -ErrorAction SilentlyContinue | Should BeNullOrEmpty
+            Get-Process -Name WinSCP -ErrorAction SilentlyContinue | Should BeNullOrEmpty
         }
     }
 
@@ -66,7 +66,7 @@ Describe 'Get-WinSCPChildItem' {
         It 'Results of Get-WinSCPChildItem should throw file not found.' {
             New-WinSCPSession -HostName $env:COMPUTERNAME -UserName $env:USERNAME -Protocol Ftp | Get-WinSCPChildItem -Path '/InvalidPath' -ErrorVariable e -ErrorAction SilentlyContinue
             $e.Count | Should Not Be 0
-            $e.Exception.Message | Should Be 'Cannot find path: /InvalidPath because it does not exist.'
+            $e.Exception.Message | Should Be 'Cannot find path: ./InvalidPath/ because it does not exist.'
         }
     }
 

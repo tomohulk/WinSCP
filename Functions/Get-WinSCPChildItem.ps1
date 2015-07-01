@@ -67,7 +67,7 @@ Function Get-WinSCPChildItem
         [WinSCP.Session]
         $WinSCPSession,
 
-        [Parameter()]
+        [Parameter(ValueFromPipeLineByPropertyName = $true)]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String[]]
         $Path = '/',

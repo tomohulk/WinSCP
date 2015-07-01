@@ -25,7 +25,7 @@ Describe 'Move-WinSCPItem' {
             Test-Path -Path "$ftp\TextFile.txt" | Should Be $false
         }
 
-        It 'TextFile.txt should exsist in root/SubDirectory' {
+        It 'TextFile.txt should exsist in /root/SubDirectory' {
             Test-Path -Path "$ftp\SubDirectory\TextFile.txt" | Should Be $true
         }
 
@@ -40,7 +40,7 @@ Describe 'Move-WinSCPItem' {
         It 'Results of Move-WinSCPItem should throw file not found.' {
             New-WinSCPSession -HostName $env:COMPUTERNAME -UserName $env:USERNAME -Protocol Ftp | Move-WinSCPItem -Path '/InvalidFile.txt' -Destination '/InvalidSubDirectory' -ErrorVariable e -ErrorAction SilentlyContinue
             $e.Count | Should Not Be 0
-            $e.Exception.Message | Should Be 'Cannot find path: /InvalidFile.txt because it does not exist.'
+            $e.Exception.Message | Should Be 'Could not find a part of the path.'
         }
     }
 

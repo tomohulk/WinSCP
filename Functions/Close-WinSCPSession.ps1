@@ -22,7 +22,7 @@
 .LINK
     http://winscp.net/eng/docs/library_session
 #>
-Function Remove-WinSCPSession
+Function Close-WinSCPSession
 {
     [OutputType([Void])]
     

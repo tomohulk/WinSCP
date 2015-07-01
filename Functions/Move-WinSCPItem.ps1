@@ -23,7 +23,7 @@
     PS C:\> $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
     PS C:\> Move-WinSCPItem -WinSCPSession $session -Path '/rDir/rFile.txt' -Destination '/rDir/rSubDir/'
 .NOTES
-    If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
+    If the WinSCPSession is piped into this command, the connection will be closed upon completion of the command.
 .LINK
     http://dotps1.github.io/WinSCP
 .LINK 
@@ -48,7 +48,8 @@ Function Move-WinSCPItem
         [WinSCP.Session]
         $WinSCPSession,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true,
+                   ValueFromPipeLineByPropertyName = $true)]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String[]]
         $Path,
@@ -74,41 +75,41 @@ Function Move-WinSCPItem
 
     Process
     {
-        foreach ($item in $Path)
+        if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path ($Destination = Format-WinSCPPathString -Path $($Destination))))
         {
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $item))
+            if ($Force.IsPresent)
             {
-                Write-Error -Message "Cannot find path: $item because it does not exist."
+                $WinSCPSession.CreateDirectory($Destination)
+            }
+            else
+            {
+                Write-Error -Message 'Could not find a part of the path.'
+
+                return
+            }
+        }
+
+        foreach ($p in (Format-WinSCPPathString -Path $($Path)))
+        {
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $p))
+            {
+                Write-Error -Message "Cannot find path: $p because it does not exist."
 
                 continue
             }
 
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $Destination))
-            {
-                if ($Force.IsPresent)
-                {
-                    $WinSCPSession.CreateDirectory($Destination)
-                }
-                else
-                {
-                    Write-Error -Message 'Could not find a part of the path.'
-
-                    break
-                }
-            }
-
             try
             {
-                $WinSCPSession.MoveFile($item, (Join-Path -Path $Destination -ChildPath (Split-Path -Path $item -Leaf)).Replace('\','/'))
+                $WinSCPSession.MoveFile($p.TrimEnd('/'), $Destination)
 
                 if ($PassThru.IsPresent)
                 {
-                    Get-WinSCPItem -WinSCPSession $WinSCPSession -Path (Join-Path -Path $Destination -ChildPath (Split-Path -Path $item -Leaf)).Replace('\','/')
+                    Get-WinSCPItem -WinSCPSession $WinSCPSession -Path (Join-Path -Path $Destination -ChildPath (Split-Path -Path $p -Leaf))
                 }
             }
             catch
             {
-                Write-Error -Message $_.Exception.InnerException.Message
+                Write-Error -Message $_.ToString()
             }
         }
     }
@@ -117,7 +118,7 @@ Function Move-WinSCPItem
     {
         if (-not ($sessionValueFromPipeLine))
         {
-            Remove-WinSCPSession -WinSCPSession $WinSCPSession
+            Close-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }

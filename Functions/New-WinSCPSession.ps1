@@ -47,6 +47,8 @@
     Path to store session log file to. Default null means, no session log file is created.
 .PARAMETER  ReconnectTime
     Sets time limit in seconds to try reconnecting broken sessions. Default is 120 seconds. Use TimeSpan.MaxValue to remove any limit.
+.PARAMETER WinSCPSession
+    An existing WinSCP.Session Object to be re-opened.
 .EXAMPLE
     PS C:\> $session = New-WinSCPSession -HostName $env:COMPUTERNAME -UserName $env:USERNAME -Protocol Ftp
 
@@ -81,54 +83,56 @@
 #>
 Function New-WinSCPSession
 {
+    [CmdletBinding(DefaultParameterSetName = 'NewSession')]
     [OutputType([WinSCP.Session])]
     
     Param
     (
-        [Parameter()]
+        [Parameter(ParameterSetName = 'NewSession')]
         [WinSCP.FtpMode]
         $FtpMode = (New-Object -TypeName WinSCP.FtpMode),
 
-        [Parameter()]
+        [Parameter(ParameterSetName = 'NewSession')]
         [WinSCP.FtpSecure]
         $FtpSecure = (New-Object -TypeName WinSCP.FtpSecure),
         
-        [Parameter()]
+        [Parameter(ParameterSetName = 'NewSession')]
         [Switch]
         $GiveUpSecurityAndAcceptAnySshHostKey,
 
-        [Parameter()]
+        [Parameter(ParameterSetName = 'NewSession')]
         [Switch]
         $GiveUpSecureityAndAcceptAnyTlsHostCertificate,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true,
+                   ParameterSetName = 'NewSession')]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
         $HostName = $null,
 
-        [Parameter()]
+        [Parameter(ParameterSetName = 'NewSession')]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
         $Password = $null,
 
-        [Parameter()]
+        [Parameter(ParameterSetName = 'NewSession')]
         [Int]
         $PortNumber = 0,
 
-        [Parameter()]
+        [Parameter(ParameterSetName = 'NewSession')]
         [WinSCP.Protocol]
         $Protocol = (New-Object -TypeName WinSCP.Protocol),
 
-        [Parameter()]
+        [Parameter(ParameterSetName = 'NewSession')]
         [System.Security.SecureString]
         $SecurePassword = $null,
 
-        [Parameter()]
+        [Parameter(ParameterSetName = 'NewSession')]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String[]]
         $SshHostKeyFingerprint = $null,
 
-        [Parameter()]
+        [Parameter(ParameterSetName = 'NewSession')]
         [ValidateScript({ if (Test-Path -Path $_)
             { 
                 return $true 
@@ -140,39 +144,40 @@ Function New-WinSCPSession
         [String]
         $SshPrivateKeyPath = $null,
 
-        [Parameter()]
+        [Parameter(ParameterSetName = 'NewSession')]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
         $SshPrivateKeyPassphrase = $null,
 
-        [Parameter()]
+        [Parameter(ParameterSetName = 'NewSession')]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
         $TlsHostCertificateFingerprint = $null,
 
-        [Parameter()]
+        [Parameter(ParameterSetName = 'NewSession')]
         [TimeSpan]
         $Timeout = (New-TimeSpan -Seconds 15),
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true,
+                   ParameterSetName = 'NewSession')]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
         $UserName = $null,
 
-        [Parameter()]
+        [Parameter(ParameterSetName = 'NewSession')]
         [Switch]
         $WebdavSecure,
 
-        [Parameter()]
+        [Parameter(ParameterSetName = 'NewSession')]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
         $WebdavRoot = $null,
         
-        [Parameter()]
+        [Parameter(ParameterSetName = 'NewSession')]
         [HashTable]
         $RawSetting = $null,
 
-        [Parameter()]
+        [Parameter(ParameterSetName = 'NewSession')]
         [ValidateScript({if (Test-Path -Path (Split-Path -Path $_))
             {
                 return $true
@@ -184,7 +189,7 @@ Function New-WinSCPSession
         [String]
         $DebugLogPath = $null,
 
-        [Parameter()]
+        [Parameter(ParameterSetName = 'NewSession')]
         [ValidateScript({if (Test-Path -Path (Split-Path -Path $_))
             {
                 return $true
@@ -196,46 +201,68 @@ Function New-WinSCPSession
         [String]
         $SessionLogPath = $null,
 
-        [Parameter()]
+        [Parameter(ParameterSetName = 'NewSession')]
         [TimeSpan]
-        $ReconnectTime = (New-TimeSpan -Seconds 120)
+        $ReconnectTime = (New-TimeSpan -Seconds 120),
+
+        [Parameter(ParameterSetName = 'OpenSession')]
+        [WinSCP.Session]
+        $WinSCPSession = $null
     )
 
-    $sessionOptions = New-Object -TypeName WinSCP.SessionOptions
-    $session = New-Object -TypeName WinSCP.Session
-
-    try
+    switch ($PSCmdlet.ParameterSetName)
     {
-        foreach ($key in $PSBoundParameters.Keys)
-        {
-            if (($sessionOptions | Get-Member -MemberType Properties).Name -contains $key)
+        'OpenSession' {
+            try
             {
-                $sessionOptions.$key = $PSBoundParameters.$key
+                $WinSCPSession.Open()
+
+                return $WinSCPSession
             }
-            elseif (($session | Get-Member -MemberType Properties).Name -contains $key)
+            catch
             {
-                $session.$key = $PSBoundParameters.$key
+                Write-Error -Message $_.ToString()
             }
         }
 
-        foreach ($key in $RawSetting.Keys)
-        {
-            $sessionOptions.AddRawSettings($key, $RawSetting[$key])
+        default {
+            $sessionOptions = New-Object -TypeName WinSCP.SessionOptions
+            $session = New-Object -TypeName WinSCP.Session
+
+            try
+            {
+                foreach ($key in $PSBoundParameters.Keys)
+                {
+                    if (($sessionOptions | Get-Member -MemberType Properties).Name -contains $key)
+                    {
+                        $sessionOptions.$key = $PSBoundParameters.$key
+                    }
+                    elseif (($session | Get-Member -MemberType Properties).Name -contains $key)
+                    {
+                        $session.$key = $PSBoundParameters.$key
+                    }
+                }
+
+                foreach ($key in $RawSetting.Keys)
+                {
+                    $sessionOptions.AddRawSettings($key, $RawSetting[$key])
+                }
+            }
+            catch
+            {
+                Write-Error -Message $_.ToString()
+            }
+
+            try
+            {
+                $session.Open($sessionOptions)
+
+                return $session
+            }
+            catch
+            {
+                Write-Error -Message $_.ToString()
+            }
         }
-    }
-    catch
-    {
-        Write-Error -Message $_.ToString()
-    }
-
-    try
-    {
-        $session.Open($sessionOptions)
-
-        return $session
-    }
-    catch
-    {
-        Write-Error -Message $_.ToString()
     }
 }
