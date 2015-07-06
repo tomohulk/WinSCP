@@ -5,6 +5,7 @@
     After creating a valid WinSCP Session, this function can be used to create new directory or nested directories.
 .INPUTS
     WinSCP.Session.
+    System.String.
 .OUTPUTS
     WinSCP.RemoteFileInfo.
 .PARAMETER WinSCPSession
@@ -29,7 +30,7 @@
     --------             -------------     ------ ----                                                                                                                                                                                                                                        
     -             1/1/2015 12:00:00 AM         12 /rDir/rTextFile.txt
 .NOTES
-   If the WinSCPSession is piped into this command, the connection will be closed upon completion of the command.
+   If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.
 .LINK
     http://dotps1.github.io/WinSCP
 .LINK
@@ -42,8 +43,8 @@ Function New-WinSCPItem
     Param
     (
         [Parameter(Mandatory = $true,
-                   ValueFromPipeLine = $true)]
-        [ValidateScript({ if ($_.Open)
+                   ValueFromPipeline = $true)]
+        [ValidateScript({ if ($_.Opened)
             { 
                 return $true 
             }
@@ -54,7 +55,8 @@ Function New-WinSCPItem
         [WinSCP.Session]
         $WinSCPSession,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true,
+                   ValueFromPipelineByPropertyName = $true)]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String[]]
         $Path,
@@ -84,7 +86,7 @@ Function New-WinSCPItem
                 $object = New-Item -Path $pwd -Name (Split-Path -Path $p -Leaf) -ItemType $ItemType -Value $Value -Force
                 $WinSCPSession.PutFiles($object.FullName, $p, $true) | Out-Null
 
-                Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $item
+                Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $p
             }
             catch 
             {
@@ -97,7 +99,7 @@ Function New-WinSCPItem
     {
         if (-not ($sessionValueFromPipeLine))
         {
-            Close-WinSCPSession -WinSCPSession $WinSCPSession
+            Remove-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }

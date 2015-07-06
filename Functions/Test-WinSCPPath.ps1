@@ -5,6 +5,7 @@
     After creating a valid WinSCP Session, this function can be used to test if a directory or file exists on the remote source.
 .INPUTS
     WinSCP.Session.
+    System.String
 .OUTPUTS
     System.Boolean.
 .PARAMETER WinSCPSession
@@ -12,16 +13,16 @@
 .PARAMETER Path
     Full path to remote file.
 .EXAMPLE
-    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Test-WinSCPPath -Path './rDir/rSubDir'
+    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Test-WinSCPPath -Path '/rDir/rSubDir'
 
     True
 .EXAMPLE
-    PS C:\> $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
-    PS C:\> Test-WinSCPPath -WinSCPSession $session -Path './rDir/rSubDir'
+    PS C:\> $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+    PS C:\> Test-WinSCPPath -WinSCPSession $session -Path '/rDir/rSubDir'
 
     True
 .NOTES
-   If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
+   If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.
 .LINK
     http://dotps1.github.io/WinSCP
 .LINK
@@ -34,8 +35,8 @@ Function Test-WinSCPPath
     Param
     (
         [Parameter(Mandatory = $true,
-                   ValueFromPipeLine = $true)]
-        [ValidateScript({ if ($_.Open)
+                   ValueFromPipeline = $true)]
+        [ValidateScript({ if ($_.Opened)
             { 
                 return $true 
             }
@@ -46,7 +47,8 @@ Function Test-WinSCPPath
         [WinSCP.Session]
         $WinSCPSession,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true,
+                   ValueFromPipelineByPropertyName = $true)]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String[]]
         $Path
@@ -59,15 +61,15 @@ Function Test-WinSCPPath
 
     Process
     {
-        foreach($item in $Path)
+        foreach($p in (Format-WinSCPPathString -Path $($Path)))
         {
             try
             {
-                $WinSCPSession.FileExists($item)
+                $WinSCPSession.FileExists($p)
             }
             catch
             {
-                Write-Error -Message $_.Exception.InnerException.Message
+                Write-Error -Message $_.ToString()
             }
         }
     }
@@ -76,7 +78,7 @@ Function Test-WinSCPPath
     {
         if (-not ($sessionValueFromPipeLine))
         {
-            Close-WinSCPSession -WinSCPSession $WinSCPSession
+            Remove-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }

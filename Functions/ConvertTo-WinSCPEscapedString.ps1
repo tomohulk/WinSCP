@@ -31,7 +31,7 @@ Function ConvertTo-WinSCPEscapedString
     Param
     (
         [Parameter(Mandatory = $true,
-                   ValueFromPipeLine = $true)]
+                   ValueFromPipeline = $true)]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
         $FileMask

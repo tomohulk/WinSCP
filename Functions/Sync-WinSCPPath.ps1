@@ -24,7 +24,7 @@
 .PARAMETER TransferOptions
     Transfer options. Defaults to null, what is equivalent to New-WinSCPTransferOptions. 
 .EXAMPLE
-    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Sync-WinSCPDirectory -RemotePath "./" -LocalPath "C:\lDir\" -Mode Local
+    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Sync-WinSCPDirectory -RemotePath "/" -LocalPath "C:\lDir\" -Mode Local
 
     Uploads   : {}
     Downloads : {/rDir/rSubDir/rFile.txt}
@@ -33,7 +33,7 @@
     IsSuccess : True
 .EXAMPLE
     PS C:\> $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
-    PS C:\> Sync-WinSCPDirectory -WinSCPSession $session -RemotePath './' -LocalPath 'C:\lDir\' -SyncMode Local
+    PS C:\> Sync-WinSCPDirectory -WinSCPSession $session -RemotePath '/' -LocalPath 'C:\lDir\' -SyncMode Local
 
     Uploads   : {}
     Downloads : {/rDir/rSubDir/rFile.txt}
@@ -41,7 +41,7 @@
     Failures  : {}
     IsSuccess : True
 .NOTES
-    If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
+    If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.
 .LINK
     http://dotps1.github.io/WinSCP
 .LINK
@@ -54,8 +54,8 @@ Function Sync-WinSCPPath
     Param
     (
         [Parameter(Mandatory = $true,
-                   ValueFromPipeLine = $true)]
-        [ValidateScript({ if ($_.Open)
+                   ValueFromPipeline = $true)]
+        [ValidateScript({ if ($_.Opened)
             { 
                 return $true 
             }
@@ -104,6 +104,7 @@ Function Sync-WinSCPPath
 
     Process
     {
+        $RemotePath = Format-WinSCPPathString -Path $($RemotePath)
         if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $RemotePath))
         {
             Write-Error -Message "Cannot find path: $RemotePath because it does not exist."
@@ -122,9 +123,9 @@ Function Sync-WinSCPPath
         {
             $WinSCPSession.SynchronizeDirectories($Mode, $LocalPath, $RemotePath, $Remove.IsPresent, $Mirror.IsPresent, $Criteria, $TransferOptions)
         }
-        catch [System.Exception]
+        catch
         {
-            throw $_
+            Write-Error -Message $_.ToString()
         }
     }
 

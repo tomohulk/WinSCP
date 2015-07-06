@@ -5,6 +5,7 @@
     Once connected to an active WinSCP Session, one or many files can be moved to another location within the same WinSCP Session.
 .INPUTS
     WinSCP.Session.
+    System.String.
 .OUTPUTS
     None.
 .PARAMETER WinSCPSession
@@ -23,7 +24,7 @@
     PS C:\> $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
     PS C:\> Move-WinSCPItem -WinSCPSession $session -Path '/rDir/rFile.txt' -Destination '/rDir/rSubDir/'
 .NOTES
-    If the WinSCPSession is piped into this command, the connection will be closed upon completion of the command.
+    If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.
 .LINK
     http://dotps1.github.io/WinSCP
 .LINK 
@@ -36,8 +37,8 @@ Function Move-WinSCPItem
     Param
     (
         [Parameter(Mandatory = $true,
-                   ValueFromPipeLine = $true)]
-        [ValidateScript({ if ($_.Open)
+                   ValueFromPipeline = $true)]
+        [ValidateScript({ if ($_.Opened)
             { 
                 return $true 
             }
@@ -49,7 +50,7 @@ Function Move-WinSCPItem
         $WinSCPSession,
 
         [Parameter(Mandatory = $true,
-                   ValueFromPipeLineByPropertyName = $true)]
+                   ValueFromPipelineByPropertyName = $true)]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String[]]
         $Path,
@@ -79,7 +80,7 @@ Function Move-WinSCPItem
         {
             if ($Force.IsPresent)
             {
-                $WinSCPSession.CreateDirectory($Destination)
+                New-WinSCPItem -WinSCPSession $WinSCPSession -Path $Destination -ItemType Directory
             }
             else
             {
@@ -118,7 +119,7 @@ Function Move-WinSCPItem
     {
         if (-not ($sessionValueFromPipeLine))
         {
-            Close-WinSCPSession -WinSCPSession $WinSCPSession
+            Remove-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }

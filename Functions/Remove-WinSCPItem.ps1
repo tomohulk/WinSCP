@@ -5,6 +5,7 @@
     Removes and item, File or Directory from a remote sources.  This action will recurse if a the $Path value is a directory.
 .INPUTS.
     WinSCP.Session.
+    System.String.
 .OUTPUTS.
     None.
 .PARAMETER WinSCPSession
@@ -17,7 +18,7 @@
     PS C:\> $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
     PS C:\> Remove-WinSCPItem -WinSCPSession $session -Path "/rDir/rFile.txt"
 .NOTES
-    If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
+    If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.
 .LINK
     http://dotps1.github.io/WinSCP
 .LINK
@@ -32,8 +33,8 @@ Function Remove-WinSCPItem
     Param
     (
         [Parameter(Mandatory = $true,
-                   ValueFromPipeLine = $true)]
-        [ValidateScript({ if ($_.Open)
+                   ValueFromPipeline = $true)]
+        [ValidateScript({ if ($_.Opened)
             { 
                 return $true 
             }
@@ -44,7 +45,8 @@ Function Remove-WinSCPItem
         [WinSCP.Session]
         $WinSCPSession,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true,
+                   ValueFromPipelingByPropertyName = $true)]
         [String[]]
         $Path
     )
@@ -56,24 +58,24 @@ Function Remove-WinSCPItem
 
     Process
     {
-        foreach ($item in $Path)
+        foreach ($p in (Format-WinSCPPathString -Path $($Path)))
         {
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $item))
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $p))
             {
-                Write-Error -Message "Cannot find path: $item because it does not exist."
+                Write-Error -Message "Cannot find path: $p because it does not exist."
 
                 continue
             }
 
-            if ($PSCmdlet.ShouldProcess($item))
+            if ($PSCmdlet.ShouldProcess($p))
             {
                 try
                 {
-                    $WinSCPSession.RemoveFiles($item) | Out-Null
+                    $WinSCPSession.RemoveFiles($p) | Out-Null
                 }
                 catch
                 {
-                    Write-Error -Message $_.Exception.InnerException.Message
+                    Write-Error -Message $_.ToString()
                 }
             }
         } 

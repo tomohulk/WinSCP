@@ -5,6 +5,7 @@
     Use IANA Algorithm to retrive the checksum of a remote file.
 .INPUTS
     WinSCP.Session.
+    System.String.
 .OUTPUTS
     System.Array.
 .PARAMETER WinSCPSession
@@ -16,7 +17,7 @@
 .EXAMPLE
     PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Get-WinSCPItemChecksum -Algorithm 'sha-1' -Path '/rDir/file.txt'
 .NOTES
-    If the WinSCPSession is piped into this command, the connection will be closed upon completion of the command.
+    If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.
 .LINK
     http://dotps1.github.io/WinSCP
 .LINK
@@ -29,8 +30,8 @@ Function Get-WinSCPItemChecksum
     Param
     (
         [Parameter(Mandatory = $true,
-                   ValueFromPipeLine = $true)]
-        [ValidateScript({ if ($_.Open)
+                   ValueFromPipeline = $true)]
+        [ValidateScript({ if ($_.Opened)
             { 
                 return $true 
             }
@@ -84,7 +85,7 @@ Function Get-WinSCPItemChecksum
     {
         if (-not ($sessionValueFromPipeLine))
         {
-            Close-WinSCPSession -WinSCPSession $WinSCPSession
+            Remove-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }

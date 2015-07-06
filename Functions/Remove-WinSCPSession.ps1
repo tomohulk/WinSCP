@@ -8,11 +8,11 @@
 .OUTPUTS
     None.
 .PARAMETER WinSCPSession
-    The active WinSCP Session to close and disposed.
+    The WinSCP Session to be disposed.
 .EXAMPLE
     PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Remove-WinSCPSession
 .EXAMPLE
-    PS C:\> $session = New-WinSCPSessionOptions -Hostname 'myftphost.org' -Username 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx' | Open-WinSCPSession
+    PS C:\> $session = New-WinSCPSession -Hostname 'myftphost.org' -Username 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
     PS C:\> Remove-WinSCPSession -WinSCPSession $session
 .NOTES
     None.
@@ -28,7 +28,7 @@ Function Remove-WinSCPSession
     Param
     (
         [Parameter(Mandatory = $true,
-                   ValueFromPipeLine = $true)]
+                   ValueFromPipeline = $true)]
         [WinSCP.Session]
         $WinSCPSession
     )

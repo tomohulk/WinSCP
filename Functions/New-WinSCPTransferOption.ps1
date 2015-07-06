@@ -22,16 +22,16 @@
 .PARAMETER TransferMode
     Possible values are TransferMode.Binary (default), TransferMode.Ascii and TransferMode.Automatic (based on file extension).
 .EXAMPLE
-    PS C:\> New-WinSCPTransferOptions -PreserveTimeStamp -TransferMode Binary
+    PS C:\> New-WinSCPTransferOption -PreserveTimeStamp:$false -TransferMode Binary
 
-    PreserveTimestamp : True
+    PreserveTimestamp : False
     FilePermissions   : 
     TransferMode      : Binary
     FileMask          : 
     ResumeSupport     : default
     SpeedLimit        : 0
 .EXAMPLE
-    PS C:\> New-WinSCPTransferOptions -FilePermissions (New-WinSCPFilePermissions -GroupExecute -OtherRead)
+    PS C:\> New-WinSCPTransferOption -FilePermissions (New-WinSCPFilePermissions -GroupExecute -OtherRead)
 
     PreserveTimestamp : True
     FilePermissions   : 
@@ -101,7 +101,7 @@ Function New-WinSCPTransferOption
             }
             catch
             {
-                Write-Error -Message $_.Exception.InnerException.Message
+                Write-Error -Message $_.ToString()
             }
         }
     }

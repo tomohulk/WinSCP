@@ -5,6 +5,7 @@
     After creating a valid WinSCP Session, this function can be used to send file(s).
 .INPUTS
     WinSCP.Session.
+    System.String.
 .OUTPUTS
     WinSCP.TransferOperationResult.
 .PARAMETER WinSCPSession
@@ -18,20 +19,20 @@
 .PARAMETER TransferOptions
     Transfer options. Defaults to null, what is equivalent to New-TransferOptions.
 .EXAMPLE
-    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -password 'FtpUserPword' -Protocol Ftp | Send-WinSCPItem -Path 'C:\lDir\lFile.txt' -Destination './rDir/rFile.txt'
+    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -password 'FtpUserPword' -Protocol Ftp | Send-WinSCPItem -Path 'C:\lDir\lFile.txt' -Destination '/rDir/rFile.txt'
     
     Transfers           Failures IsSuccess
     ---------           -------- ---------
     {C:\lDir\lFile.txt} {}       True 
 .EXAMPLE
     PS C:\> $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
-    PS C:\> Send-WinSCPItem -WinSCPSession $session -Path 'C:\lDir\lFile.txt' -Destination './rDir/rFile.txt' -Remove
+    PS C:\> Send-WinSCPItem -WinSCPSession $session -Path 'C:\lDir\lFile.txt' -Destination '/rDir/rFile.txt' -Remove
 
     Transfers           Failures IsSuccess
     ---------           -------- ---------
     {C:\lDir\lFile.txt} {}       True 
 .NOTES
-    If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
+    If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.
 .LINK
     http://dotps1.github.io/WinSCP
 .LINK
@@ -44,8 +45,8 @@ Function Send-WinSCPItem
     Param
     (
         [Parameter(Mandatory = $true,
-                   ValueFromPipeLine = $true)]
-        [ValidateScript({ if ($_.Open)
+                   ValueFromPipeline = $true)]
+        [ValidateScript({ if ($_.Opened)
             { 
                 return $true 
             }
@@ -56,7 +57,8 @@ Function Send-WinSCPItem
         [WinSCP.Session]
         $WinSCPSession,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true,
+                   ValueFromPipelineByPropertyName = $true)]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String[]]
         $Path,
@@ -82,15 +84,15 @@ Function Send-WinSCPItem
 
     Process
     {
-        foreach ($item in $Path)
+        foreach ($p in (Format-WinSCPPathString -Path $($Path)))
         {
             try
             {
-                $WinSCPSession.PutFiles($item.Replace('\','/'), $Destination.Replace('\','/'), $Remove.IsPresent, $TransferOptions)
+                $WinSCPSession.PutFiles($p, (Format-WinSCPPathString -Path $($Destination)), $Remove.IsPresent, $TransferOptions)
             }
             catch
             {
-                Write-Error -Message $_.Exception.InnerException.Message
+                Write-Error -Message $_.ToString()
             }
         }
     }

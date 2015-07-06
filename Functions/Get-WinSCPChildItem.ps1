@@ -5,6 +5,7 @@
     Displays the contents within a remote directory, including other directories and files.
 .INPUTS
     WinSCP.Session.
+    System.String.
 .OUTPUTS
     System.Array.
 .PARAMETER WinSCPSession
@@ -42,7 +43,7 @@
     --------             -------------     ------ ----                                                                                                                                                                                                                                        
     -             1/1/2015 12:00:00 AM          0 rSubDirTextFile.txt
 .NOTES
-    If the WinSCPSession is piped into this command, the connection will be closed upon completion of the command.
+    If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.
 .LINK
     http://dotps1.github.io/WinSCP
 .LINK
@@ -55,8 +56,8 @@ Function Get-WinSCPChildItem
     Param
     (
         [Parameter(Mandatory = $true,
-                   ValueFromPipeLine = $true)]
-        [ValidateScript({ if ($_.Open)
+                   ValueFromPipeline = $true)]
+        [ValidateScript({ if ($_.Opened)
             { 
                 return $true 
             }
@@ -67,7 +68,7 @@ Function Get-WinSCPChildItem
         [WinSCP.Session]
         $WinSCPSession,
 
-        [Parameter(ValueFromPipeLineByPropertyName = $true)]
+        [Parameter(ValueFromPipelineByPropertyName = $true)]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String[]]
         $Path = '/',
@@ -126,7 +127,7 @@ Function Get-WinSCPChildItem
     {
         if (-not ($sessionValueFromPipeLine))
         {
-            Close-WinSCPSession -WinSCPSession $WinSCPSession
+            Remove-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }

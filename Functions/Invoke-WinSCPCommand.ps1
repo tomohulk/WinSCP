@@ -5,6 +5,7 @@
     Invokes a command on the system hosting the FTP/SFTP Service.
 .INPUTS
     WinSCP.Session.
+    System.String
 .OUTPUTS
     WinSCP.CommandExecutionResult.
 .PARAMETER WinSCPSession
@@ -15,7 +16,7 @@
     $session = New-WinSCPSession -Hostname 'myftphost.org' -UsernName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
     Invoke-WinSCPCommand -WinSCPSession $session -Command ("mysqldump --opt -u {0} --password={1} --all-databases | gzip > {2}" -f $dbUsername, $dbPassword, $tempFilePath)
 .NOTES
-    If the WinSCPSession is piped into this command, the connection will be closed upon completion of the command.
+    If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.
 .LINK
     http://dotps1.github.io/WinSCP
 .LINK
@@ -28,8 +29,8 @@ Function Invoke-WinSCPCommand
     Param
     (
         [Parameter(Mandatory = $true,
-                   ValueFromPipeLine = $true)]
-        [ValidateScript({ if ($_.Open)
+                   ValueFromPipeline = $true)]
+        [ValidateScript({ if ($_.Opened)
             { 
                 return $true 
             }
@@ -71,7 +72,7 @@ Function Invoke-WinSCPCommand
     {
         if (-not ($sessionValueFromPipeLine))
         {
-            Close-WinSCPSession -WinSCPSession $WinSCPSession
+            Remove-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }

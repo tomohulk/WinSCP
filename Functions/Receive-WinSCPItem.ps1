@@ -5,6 +5,7 @@
     After creating a valid WinSCP Session, this function can be used to receive file(s) and remove the remote files if desired.
 .INPUTS
     WinSCP.Session.
+    System.String.
 .OUTPUTS
     WinSCP.TransferOperationResult.
 .PARAMETER WinSCPSession
@@ -29,7 +30,7 @@
     ---------         -------- ---------
     {/rDir/rFile.txt} {}       True
 .NOTES
-    If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
+    If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.
 .LINK
     http://dotps1.github.io/WinSCP
 .LINK
@@ -42,8 +43,8 @@ Function Receive-WinSCPItem
     Param
     (
         [Parameter(Mandatory = $true,
-                   ValueFromPipeLine = $true)]
-        [ValidateScript({ if ($_.Open)
+                   ValueFromPipeline = $true)]
+        [ValidateScript({ if ($_.Opened)
             { 
                 return $true 
             }
@@ -54,7 +55,8 @@ Function Receive-WinSCPItem
         [WinSCP.Session]
         $WinSCPSession,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true,
+                   ValueFromPipelineByPropertyName = $true)]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String[]]
         $Path,
@@ -80,11 +82,11 @@ Function Receive-WinSCPItem
 
     Process
     {
-        foreach ($item in $Path)
+        foreach ($p in (Format-WinSCPPathString -Path $($Path)))
         {
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $Path))
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $p))
             {
-                Write-Error -Message "Cannot find path: $Path because it does not exist."
+                Write-Error -Message "Cannot find path: $p because it does not exist."
 
                 continue
             }
@@ -98,11 +100,11 @@ Function Receive-WinSCPItem
 
             try
             {
-                $WinSCPSession.GetFiles($item, $Destination, $Remove.IsPresent, $TransferOptions)
+                $WinSCPSession.GetFiles($p, $Destination, $Remove.IsPresent, $TransferOptions)
             }
-            catch [System.Exception]
+            catch 
             {
-                throw $_
+                Write-Error -Message $_.ToString()
             }
         }
     }

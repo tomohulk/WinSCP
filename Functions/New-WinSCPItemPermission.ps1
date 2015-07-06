@@ -159,9 +159,9 @@ Function New-WinSCPItemPermission
             {
                 $filePermmisions.$($key) = $PSBoundParameters.$($key)
             }
-            catch [System.Exception]
+            catch
             {
-                throw $_
+                Write-Error -Message $_.ToString()
             }
         }
     }

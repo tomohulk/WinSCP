@@ -14,12 +14,12 @@
 .PARAMETER NewName
     The new name for the the item.
 .EXAMPLE
-    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Rename-WinSCPItem -Path '/rDir/rFile.txt' -Destination '/rDir/rNewFile.txt'
+    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Rename-WinSCPItem -Path '/rDir/rFile.txt' -NewName 'rNewFile.txt'
 .EXAMPLE
     PS C:\> $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
-    PS C:\> Rename-WinSCPItem -WinSCPSession $session -Path '/rDir/rFile.txt' -Destination '/rDir/rNewFile.txt'
+    PS C:\> Rename-WinSCPItem -WinSCPSession $session -Path '/rDir/rFile.txt' -Destination 'rNewFile.txt'
 .NOTES
-    If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
+    If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.
 .LINK
     http://dotps1.github.io/WinSCP
 .LINK 
@@ -32,8 +32,8 @@ Function Rename-WinSCPItem
     Param
     (
         [Parameter(Mandatory = $true,
-                   ValueFromPipeLine = $true)]
-        [ValidateScript({ if ($_.Open)
+                   ValueFromPipeline = $true)]
+        [ValidateScript({ if ($_.Opened)
             { 
                 return $true 
             }
@@ -46,13 +46,17 @@ Function Rename-WinSCPItem
 
         [Parameter(Mandatory = $true)]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
-        [String[]]
+        [String]
         $Path,
 
         [Parameter(Mandatory = $true)]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
-        $NewName
+        $NewName,
+
+        [Parameter()]
+        [Switch]
+        $PassThru
     )
 
     Begin
@@ -62,25 +66,26 @@ Function Rename-WinSCPItem
 
     Process
     {
-        foreach ($item in $Path)
+        try
         {
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $item))
+            $p = Get-WinSCPItem -WinSCPSession $WinSCPSession -Path (Format-WinSCPPathString -Path $($Path)) -ErrorAction Stop
+            
+            if ($NewName.Contains('/') -or $NewName.Contains('\'))
             {
-                Write-Error -Message "Cannot find path: $item because it does not exist."
-
-                continue
+                $NewName = $NewName.Substring($NewName.LastIndexOfAny('/\'))
             }
 
-            try
-            {
-                $item = Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $item
+            $newPath = "$($p.Name.Substring(0, $p.Name.LastIndexOf('/') + 1))$NewName"
+            $WinSCPSession.MoveFile($p.Name, $newPath)
 
-                $WinSCPSession.MoveFile($item.Name, (Join-Path -Path ($item.Name.SubString(0, $item.Name.LastIndexOf('/') + 1)) -ChildPath $NewName).Replace('\','/'))
-            }
-            catch
+            if ($PassThru.IsPresent)
             {
-                Write-Error -Message $_.Exception.InnerException.Message
+                Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $newPath
             }
+        }
+        catch
+        {
+            Write-Error -Message $_.ToString()
         }
     }
 
