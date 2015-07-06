@@ -14,9 +14,10 @@
 .PARAMETER NewName
     The new name for the the item.
 .EXAMPLE
-    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Rename-WinSCPItem -Path '/rDir/rFile.txt' -NewName 'rNewFile.txt'
+    PS C:\> New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Rename-WinSCPItem -Path '/rDir/rFile.txt' -NewName 'rNewFile.txt'
 .EXAMPLE
-    PS C:\> $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+    PS C:\> $credential = Get-Credential
+    PS C:\> $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
     PS C:\> Rename-WinSCPItem -WinSCPSession $session -Path '/rDir/rFile.txt' -Destination 'rNewFile.txt'
 .NOTES
     If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.

@@ -19,9 +19,10 @@
 .PARAMETER PassThru
     Returns a WinSCP.RemoteFileInfo of the moved object.
 .EXAMPLE
-    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Move-WinSCPItem -Path '/rDir/rFile.txt' -Destination '/rDir/rSubDir/'
+    PS C:\> New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Move-WinSCPItem -Path '/rDir/rFile.txt' -Destination '/rDir/rSubDir/'
 .EXAMPLE
-    PS C:\> $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+    PS C:\> $credential = Get-Credential
+    PS C:\> $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
     PS C:\> Move-WinSCPItem -WinSCPSession $session -Path '/rDir/rFile.txt' -Destination '/rDir/rSubDir/'
 .NOTES
     If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.

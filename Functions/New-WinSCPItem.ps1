@@ -17,13 +17,14 @@
 .PARAMETER Value
     Initial value to add to the object being created.
 .EXAMPLE
-    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | New-WinSCPItem-Path '/rDir/rSubDir' -ItemType Directory
+    PS C:\> New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | New-WinSCPItem-Path '/rDir/rSubDir' -ItemType Directory
 
     FileType             LastWriteTime     Length Name                                                                                                                                                                                                                                        
     --------             -------------     ------ ----                                                                                                                                                                                                                                        
     D             1/1/2015 12:00:00 AM          0 /rDir/rSubDir
 .EXAMPLE
-    PS C:\> $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+    PS C:\> $credential = Get-Credential
+    PS C:\> $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
     PS C:\> New-WinSCPItem -WinSCPSession $session -Path './rDir' -Name 'rTextFile.txt' -ItemType File -Value 'Hello World!'
 
     FileType             LastWriteTime     Length Name                                                                                                                                                                                                                                        

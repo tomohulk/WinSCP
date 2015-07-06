@@ -24,7 +24,7 @@
 .PARAMETER TransferOptions
     Transfer options. Defaults to null, what is equivalent to New-WinSCPTransferOptions. 
 .EXAMPLE
-    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Sync-WinSCPDirectory -RemotePath "/" -LocalPath "C:\lDir\" -Mode Local
+    PS C:\> New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Sync-WinSCPDirectory -RemotePath '/' -LocalPath 'C:\lDir\' -Mode Local
 
     Uploads   : {}
     Downloads : {/rDir/rSubDir/rFile.txt}
@@ -32,7 +32,8 @@
     Failures  : {}
     IsSuccess : True
 .EXAMPLE
-    PS C:\> $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+    PS C:\> $credential = Get-Credential
+    PS C:\> $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
     PS C:\> Sync-WinSCPDirectory -WinSCPSession $session -RemotePath '/' -LocalPath 'C:\lDir\' -SyncMode Local
 
     Uploads   : {}

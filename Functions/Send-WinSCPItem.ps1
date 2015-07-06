@@ -19,13 +19,14 @@
 .PARAMETER TransferOptions
     Transfer options. Defaults to null, what is equivalent to New-TransferOptions.
 .EXAMPLE
-    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -password 'FtpUserPword' -Protocol Ftp | Send-WinSCPItem -Path 'C:\lDir\lFile.txt' -Destination '/rDir/rFile.txt'
+    PS C:\> New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Send-WinSCPItem -Path 'C:\lDir\lFile.txt' -Destination '/rDir/rFile.txt'
     
     Transfers           Failures IsSuccess
     ---------           -------- ---------
     {C:\lDir\lFile.txt} {}       True 
 .EXAMPLE
-    PS C:\> $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+    PS C:\> $credential = Get-Credential
+    PS C:\> $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
     PS C:\> Send-WinSCPItem -WinSCPSession $session -Path 'C:\lDir\lFile.txt' -Destination '/rDir/rFile.txt' -Remove
 
     Transfers           Failures IsSuccess

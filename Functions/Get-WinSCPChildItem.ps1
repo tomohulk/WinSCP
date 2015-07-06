@@ -17,7 +17,7 @@
 .PARAMETER Recurse
     Return items from all subdirectories.
 .EXAMPLE
-    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Get-WinSCPChildItem -Path '/rDir/'
+    PS C:\> New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Path '/rDir/'
     
        Directory: /rDir
 
@@ -26,7 +26,8 @@
     D             1/1/2015 12:00:00 AM          0 rSubDir                                                                                                                                                                                                                                     
     -             1/1/2015 12:00:00 AM          0 rTextFile.txt    
 .EXAMPLE
-    PS C:\> $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+    PS C:\> $credential = Get-Credential
+    PS C:\> $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
     PS C:\> Get-WinSCPChildItem -WinSCPSession $session -Path '/rDir/' -Recurse
 
        Directory: /rDir

@@ -14,8 +14,8 @@ Describe 'Get-WinSCPItem' {
     New-Item -Path "$ftp\TextFile.txt" -ItemType File -Value 'Hello World!' -Force
     New-Item -Path "$ftp\SubDirectory\SubDirectoryTextFile.txt" -ItemType File -Value 'Hellow World!' -Force
 
-    Context "New-WinSCPSession -HostName $env:COMPUTERNAME -UserName $env:USERNAME -Protocal Ftp | Get-WinSCPItem" {
-        $results = New-WinSCPSession -HostName $env:COMPUTERNAME -UserName $env:USERNAME -Protocol Ftp | Get-WinSCPItem
+    Context "New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPItem" {
+        $results = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPItem
 
         It 'Results of Get-WinSCPItem should not be null.' {
             $results | Should Not Be Null
@@ -30,8 +30,8 @@ Describe 'Get-WinSCPItem' {
         }
     }
 
-    Context "`$session = New-WinSCPSession -HostName $env:COMPUTERNAME -UserName $env:USERNAME -Protocal Ftp; Get-WinSCPItem -WinSCPSession $session -Path '/SubDirectory'" {
-        $session = New-WinSCPSession -HostName $env:COMPUTERNAME -UserName $env:USERNAME -Protocol Ftp
+    Context "`$session = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp; Get-WinSCPItem -WinSCPSession $session -Path '/SubDirectory'" {
+        $session = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp
         $results = Get-WinSCPItem -WinSCPSession $session -Path '/SubDirectory'
         
         It 'WinSCP Session should be open.' {
@@ -52,9 +52,9 @@ Describe 'Get-WinSCPItem' {
         }
     }
 
-    Context "New-WinSCPSession -HostName $env:COMPUTERNAME -UserName $env:USERNAME -Protocal Ftp | Get-WinSCPItem -Path '/InvalidPath'" {
+    Context "New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPItem -Path '/InvalidPath'" {
         It 'Results of Get-WinSCPItem should throw file not found.' {
-            New-WinSCPSession -HostName $env:COMPUTERNAME -UserName $env:USERNAME -Protocol Ftp | Get-WinSCPItem -Path '/InvalidPath' -ErrorVariable e -ErrorAction SilentlyContinue
+            New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPItem -Path '/InvalidPath' -ErrorVariable e -ErrorAction SilentlyContinue
             $e.Count | Should Not Be 0
             $e.Exception.Message | Should Be 'Cannot find path: ./InvalidPath/ because it does not exist.'
         }

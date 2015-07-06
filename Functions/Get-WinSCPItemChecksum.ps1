@@ -15,7 +15,7 @@
 .PARAMETER Path
      A full path to a remote file to calculate a checksum for.  
 .EXAMPLE
-    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Get-WinSCPItemChecksum -Algorithm 'sha-1' -Path '/rDir/file.txt'
+    PS C:\> New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -Hostname 'myftphost.org' -Protocol Ftp | Get-WinSCPItemChecksum -Algorithm 'sha-1' -Path '/rDir/file.txt'
 .NOTES
     If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.
 .LINK

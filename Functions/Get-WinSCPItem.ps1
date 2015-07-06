@@ -13,13 +13,14 @@
 .PARAMETER Path
     Full path to remote Item.
 .EXAMPLE
-    PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Get-WinSCPItem -Path '/rDir/rSubDir'
+    PS C:\> New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPItem -Path '/rDir/rSubDir'
     
     FileType             LastWriteTime     Length Name                                                                                                                                                                                                                                        
     --------             -------------     ------ ----                                                                                                                                                                                                                                        
     D             1/1/2015 12:00:00 AM          0 /rdir/rSubDir
 .EXAMPLE
-    PS C:\> $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+    PS C:\> $credential = Get-Credential
+    PS C:\> $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
     PS C:\> Get-WinSCPItem -WinSCPSession $session -Path '/rDir/rSubDir'
 
     FileType             LastWriteTime     Length Name                                                                                                                                                                                                                                        
