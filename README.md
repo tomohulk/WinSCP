@@ -36,7 +36,8 @@ Example 1:
 
 ```PowerShell
 # Open a new WinSCPSession using the splatted parameters.
-$session = New-WinSCPSession -HostName 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+$credential = Get-Credential
+$session = New-WinSCPSession -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp
 
 # Use that session to create a new Directory and then upload a file to it.
 New-WinSCPItem -WinSCPSession $session -Path './remoteDirectory' -ItemType Directory
@@ -51,7 +52,7 @@ Example 2:
 # Create session, download a file, and close the session in one line.
 # If the WinSCP.Session Object is passed through the pipeline it will be auto-closed upon the completion of that command.
 # To avoid this behaviour, set the WinSCP.Session object value to variable to be reused.
-New-WinSCPSession -HostName 'myftphost' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Receive-WinSCPItem -RemotePath "./file.txt" -LocalPath "C:\folder\"
+New-WinSCPSession -Credential (Get-Credential) -HostName $env:COMPUTERNAME -Protocol Ftp | Receive-WinSCPItem -RemotePath "./file.txt" -LocalPath "C:\folder\"
 ```
 
 This is still a very beta version, with most of the functionality available with WinSCP, I intend on developing this extensively.  
