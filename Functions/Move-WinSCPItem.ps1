@@ -5,35 +5,27 @@
     Once connected to an active WinSCP Session, one or many files can be moved to another location within the same WinSCP Session.
 .INPUTS
     WinSCP.Session.
+    System.String.
 .OUTPUTS
-    WinSCP.RemoteFileInfo.
+    None.
 .PARAMETER WinSCPSession
     A valid open WinSCP.Session, returned from Open-WinSCPSession.
-.PARAMETER SourcePath
-    Full path to remote file to move/rename.
-.PARAMETER TargetPath
-    Full path to new location/name to move/rename the file to.
+.PARAMETER Path
+    Full path to remote item to be moved.
+.PARAMETER Destination
+    Full path to new location to move the item to.
+.PARAMETER Force
+    Creates the destination directory if it does not exist.
+.PARAMETER PassThru
+    Returns a WinSCP.RemoteFileInfo of the moved object.
 .EXAMPLE
-    PS C:\> Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions -Hostname myftphost.org -Username ftpuser -password "FtpUserPword" -Protocol Ftp) | Move-WinSCPItem -SourcePath "rDir/rFile.txt" -TargetPath rDir/rSubDir/rFile.txt
-    
-    Name            : /rDir/rSubDir/rFile.txt
-    FileType        : -
-    Length          : 0
-    LastWriteTime   : 1/1/2015 12:00:00 AM
-    FilePermissions : ---------
-    IsDirectory     : False 
+    PS C:\> New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Move-WinSCPItem -Path '/rDir/rFile.txt' -Destination '/rDir/rSubDir/'
 .EXAMPLE
-    PS C:\> $session = New-WinSCPSessionOptions -Hostname myftphost.org -Username ftpuser -password "FtpUserPword" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Open-WinSCPSession
-    PS C:\> Move-WinSCPItem -WinSCPSession $session -SourcePath "rDir/rFile.txt" -TargetPath rDir/rSubDir/rFile.txt
-
-    Name            : /rDir/rSubDir/rFile.txt
-    FileType        : -
-    Length          : 0
-    LastWriteTime   : 1/1/2015 12:00:00 AM
-    FilePermissions : ---------
-    IsDirectory     : False 
+    PS C:\> $credential = Get-Credential
+    PS C:\> $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+    PS C:\> Move-WinSCPItem -WinSCPSession $session -Path '/rDir/rFile.txt' -Destination '/rDir/rSubDir/'
 .NOTES
-    If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
+    If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.
 .LINK
     http://dotps1.github.io/WinSCP
 .LINK 
@@ -41,29 +33,41 @@
 #>
 Function Move-WinSCPItem
 {
-    [CmdletBinding()]
-    [OutputType([WinSCP.RemoteFileInfo])]
+    [OutputType([Void])]
     
     Param
     (
         [Parameter(Mandatory = $true,
-                   ValueFromPipeLine = $true)]
-        [ValidateScript({ if ($_.Open) { return $true } else { throw 'The WinSCP Session is not in an Open state.' } })]
-        [Alias('Session')]
+                   ValueFromPipeline = $true)]
+        [ValidateScript({ if ($_.Opened)
+            { 
+                return $true 
+            }
+            else
+            { 
+                throw 'The WinSCP Session is not in an Open state.' 
+            } })]
         [WinSCP.Session]
         $WinSCPSession,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true,
+                   ValueFromPipelineByPropertyName = $true)]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
-        [Alias('Source')]
         [String[]]
-        $SourcePath,
+        $Path,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter()]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
-        [Alias('Target')]
         [String]
-        $TargetPath
+        $Destination = '/',
+
+        [Parameter()]
+        [Switch]
+        $Force,
+
+        [Parameter()]
+        [Switch]
+        $PassThru
     )
 
     Begin
@@ -73,28 +77,41 @@ Function Move-WinSCPItem
 
     Process
     {
-        foreach ($item in $SourcePath.Replace('\','/'))
+        if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path ($Destination = Format-WinSCPPathString -Path $($Destination))))
         {
+            if ($Force.IsPresent)
+            {
+                New-WinSCPItem -WinSCPSession $WinSCPSession -Path $Destination -ItemType Directory
+            }
+            else
+            {
+                Write-Error -Message 'Could not find a part of the path.'
+
+                return
+            }
+        }
+
+        foreach ($p in (Format-WinSCPPathString -Path $($Path)))
+        {
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $p))
+            {
+                Write-Error -Message "Cannot find path: $p because it does not exist."
+
+                continue
+            }
+
             try
             {
-                $filename = $item.Substring($item.LastIndexOf('/') + 1)
-                $destination = $TargetPath.Replace('\','/')
-                $WinSCPSession.MoveFile($item, $destination)
-                if ($destination.EndsWith('/'))
+                $WinSCPSession.MoveFile($p.TrimEnd('/'), $Destination)
+
+                if ($PassThru.IsPresent)
                 {
-                    return $WinSCPSession.GetFileInfo($destination + $filename)
+                    Get-WinSCPItem -WinSCPSession $WinSCPSession -Path (Join-Path -Path $Destination -ChildPath (Split-Path -Path $p -Leaf))
                 }
-                else
-                {
-                    return $WinSCPSession.GetFileInfo($destination)
-                }
-                
             }
-            catch [System.Exception]
+            catch
             {
-                Write-Error $_
-                
-                continue
+                Write-Error -Message $_.ToString()
             }
         }
     }
@@ -103,7 +120,7 @@ Function Move-WinSCPItem
     {
         if (-not ($sessionValueFromPipeLine))
         {
-            Close-WinSCPSession -WinSCPSession $WinSCPSession
+            Remove-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }

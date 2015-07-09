@@ -24,7 +24,7 @@
 .PARAMETER TransferOptions
     Transfer options. Defaults to null, what is equivalent to New-WinSCPTransferOptions. 
 .EXAMPLE
-    PS C:\> Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions -Hostname myftphost.org -Username ftpuser -password "FtpUserPword" -Protocol Ftp) | Sync-WinSCPDirectory -RemotePath "./" -LocalPath "C:\lDir\" -Mode Local
+    PS C:\> New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Sync-WinSCPDirectory -RemotePath '/' -LocalPath 'C:\lDir\' -Mode Local
 
     Uploads   : {}
     Downloads : {/rDir/rSubDir/rFile.txt}
@@ -32,8 +32,9 @@
     Failures  : {}
     IsSuccess : True
 .EXAMPLE
-    PS C:\> $session = New-WinSCPSessionOptions -Hostname myftphost.org -Username ftpuser -password "FtpUserPword" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Open-WinSCPSession
-    PS C:\> Sync-WinSCPDirectory -WinSCPSession $session -RemotePath "./" -LocalPath "C:\lDir\" -SyncMode Local
+    PS C:\> $credential = Get-Credential
+    PS C:\> $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+    PS C:\> Sync-WinSCPDirectory -WinSCPSession $session -RemotePath '/' -LocalPath 'C:\lDir\' -SyncMode Local
 
     Uploads   : {}
     Downloads : {/rDir/rSubDir/rFile.txt}
@@ -41,39 +42,44 @@
     Failures  : {}
     IsSuccess : True
 .NOTES
-    If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
+    If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.
 .LINK
     http://dotps1.github.io/WinSCP
 .LINK
     http://winscp.net/eng/docs/library_session_synchronizedirectories
 #>
-Function Sync-WinSCPDirectory
+Function Sync-WinSCPPath
 {
-    [CmdletBinding()]
     [OutputType([WinSCP.SynchronizationResult])]
 
     Param
     (
         [Parameter(Mandatory = $true,
-                   ValueFromPipeLine = $true)]
-        [ValidateScript({ if($_.Open){ return $true }else{ throw 'The WinSCP Session is not in an Open state.' } })]
-        [Alias('Session')]
+                   ValueFromPipeline = $true)]
+        [ValidateScript({ if ($_.Opened)
+            { 
+                return $true 
+            }
+            else
+            { 
+                throw 'The WinSCP Session is not in an Open state.' 
+            } })]
         [WinSCP.Session]
         $WinSCPSession,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter()]
         [WinSCP.SynchronizationMode]
-        $Mode,
+        $Mode = (New-Object -TypeName WinSCP.SyncronizationMode),
 
         [Parameter()]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
-        $LocalPath = "$(Get-Location)\",
+        $LocalPath = $pwd,
 
         [Parameter()]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
-        $RemotePath = './',
+        $RemotePath = '/',
 
         [Parameter()]
         [Switch]
@@ -85,11 +91,11 @@ Function Sync-WinSCPDirectory
 
         [Parameter()]
         [WinSCP.SynchronizationCriteria]
-        $Criteria = [WinSCP.SynchronizationCriteria]::Time,
+        $Criteria = (New-Object -TypeName WinSCP.SynchronizationCriteria),
 
         [Parameter()]
         [WinSCP.TransferOptions]
-        $TransferOptions
+        $TransferOptions = (New-Object -TypeName WinSCP.TransferOptions)
     )
 
     Begin
@@ -99,13 +105,28 @@ Function Sync-WinSCPDirectory
 
     Process
     {
+        $RemotePath = Format-WinSCPPathString -Path $($RemotePath)
+        if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $RemotePath))
+        {
+            Write-Error -Message "Cannot find path: $RemotePath because it does not exist."
+
+            continue
+        }
+
+        if (-not (Test-Path -Path $LocalPath))
+        {
+            Write-Error -Message "Cannot find path: $LocalPath because it does not exist."
+
+            continue
+        }
+
         try
         {
-            $WinSCPSession.SynchronizeDirectories($Mode, $LocalPath.Replace('/','\'), $RemotePath.Replace('\','/'), $Remove.IsPresent, $Mirror.IsPresent, $Criteria, $TransferOptions)
+            $WinSCPSession.SynchronizeDirectories($Mode, $LocalPath, $RemotePath, $Remove.IsPresent, $Mirror.IsPresent, $Criteria, $TransferOptions)
         }
-        catch [System.Exception]
+        catch
         {
-            throw $_
+            Write-Error -Message $_.ToString()
         }
     }
 
@@ -113,7 +134,7 @@ Function Sync-WinSCPDirectory
     {
         if (-not ($sessionValueFromPipeLine))
         {
-            Close-WinSCPSession -WinSCPSession $WinSCPSession
+            Remove-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }

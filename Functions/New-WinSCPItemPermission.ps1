@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
     Represents *nix-style remote file permissions.
 .DESCRIPTION
@@ -11,7 +11,7 @@
     Execute permission for group.
 .PARAMETER GroupRead
     Read permission for group.
-.PARAMETWER GroupWrite
+.PARAMETER GroupWrite
     Read permission for group.
 .PARAMETER Numeric
     Permissions as a number.
@@ -38,7 +38,7 @@
 .PARAMETER UserWrite
     Write permission for owner.
 .EXAMPLE
-    New-WinSCPFilePermissions
+    New-WinSCPItemPermission
 
     Numeric      : 0
     Text         : ---------
@@ -56,7 +56,7 @@
     SetGid       : False
     SetUid       : False
 .EXAMPLE
-    New-WinSCPFilePermissions -GroupExecute -GroupRead -UserExecute -UserRead
+    New-WinSCPItemPermission -GroupExecute -GroupRead -UserExecute -UserRead
 
     Numeric      : 360
     Text         : r-xr-x---
@@ -80,9 +80,8 @@
 .LINK
     http://winscp.net/eng/docs/library_filepermissions
 #>
-Function New-WinSCPFilePermissions
+Function New-WinSCPItemPermission
 {
-    [CmdletBinding()]
     [OutputType([WinSCP.FilePermissions])]
 
     Param
@@ -101,12 +100,12 @@ Function New-WinSCPFilePermissions
 
         [Parameter()]
         [Int]
-        $Numeric,
+        $Numeric = $null,
 
         [Parameter()]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
-        $Octal,
+        $Octal = $null,
 
         [Parameter()]
         [Switch]
@@ -135,7 +134,7 @@ Function New-WinSCPFilePermissions
         [Parameter()]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
-        $Text,
+        $Text = $null,
 
         [Parameter()]
         [Switch]
@@ -160,9 +159,9 @@ Function New-WinSCPFilePermissions
             {
                 $filePermmisions.$($key) = $PSBoundParameters.$($key)
             }
-            catch [System.Exception]
+            catch
             {
-                throw $_
+                Write-Error -Message $_.ToString()
             }
         }
     }

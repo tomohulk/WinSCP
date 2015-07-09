@@ -1,32 +1,38 @@
 ﻿<#
 .SYNOPSIS
-    Invokes a command on an Active WinSCP Session.
+    Test if a remote item exists.
 .DESCRIPTION
-    Invokes a command on the system hosting the FTP/SFTP Service.
+    After creating a valid WinSCP Session, this function can be used to test if a directory or file exists on the remote source.
 .INPUTS
     WinSCP.Session.
     System.String
 .OUTPUTS
-    WinSCP.CommandExecutionResult.
+    System.Boolean.
 .PARAMETER WinSCPSession
     A valid open WinSCP.Session, returned from Open-WinSCPSession.
-.PARAMETER Command
-    Command to execute.
+.PARAMETER Path
+    Full path to remote file.
+.EXAMPLE
+    PS C:\> New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Test-WinSCPPath -Path '/rDir/rSubDir'
+
+    True
 .EXAMPLE
     PS C:\> $credential = Get-Credential
     PS C:\> $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
-    Invoke-WinSCPCommand -WinSCPSession $session -Command ("mysqldump --opt -u {0} --password={1} --all-databases | gzip > {2}" -f $dbUsername, $dbPassword, $tempFilePath)
+    PS C:\> Test-WinSCPPath -WinSCPSession $session -Path '/rDir/rSubDir'
+
+    True
 .NOTES
-    If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.
+   If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.
 .LINK
     http://dotps1.github.io/WinSCP
 .LINK
-    http://winscp.net/eng/docs/library_session_executecommand
+    http://winscp.net/eng/docs/library_session_fileexists
 #>
-Function Invoke-WinSCPCommand
+Function Test-WinSCPPath
 {
-    [OutputType([WinSCP.CommandExecutionResult])]
-
+    [OutputType([Bool])]
+    
     Param
     (
         [Parameter(Mandatory = $true,
@@ -46,7 +52,7 @@ Function Invoke-WinSCPCommand
                    ValueFromPipelineByPropertyName = $true)]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String[]]
-        $Command
+        $Path
     )
 
     Begin
@@ -56,11 +62,11 @@ Function Invoke-WinSCPCommand
 
     Process
     {
-        foreach ($commandment in $Command)
+        foreach($p in (Format-WinSCPPathString -Path $($Path)))
         {
             try
             {
-                $WinSCPSession.ExecuteCommand($commandment)
+                $WinSCPSession.FileExists($p)
             }
             catch
             {

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<Configuration>
+	<!-- ################ VIEW DEFINITIONS ################ -->
+    <ViewDefinitions>
+       <View>
+            <Name>DefaultView</Name>
+            <ViewSelectedBy>
+                <TypeName>WinSCP.RemoteFileInfo</TypeName>
+            </ViewSelectedBy>
+            <GroupBy>
+				<Label>Directory</Label>
+				<ScriptBlock>
+					$_.Name.SubString(0, $_.Name.LastIndexOf('/') + 1)
+				</ScriptBlock>
+            </GroupBy>
+            <TableControl>
+                <TableHeaders>
+                   <TableColumnHeader>
+                      <Label>FileType</Label>
+                      <Width>8</Width>
+                      <Alignment>left</Alignment>
+                   </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>LastWriteTime</Label>
+                        <Width>25</Width>
+                        <Alignment>right</Alignment>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Length</Label>
+                        <Width>10</Width>
+                        <Alignment>right</Alignment>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+						<Label>Name</Label>
+					</TableColumnHeader>
+                </TableHeaders>
+                <TableRowEntries>
+                    <TableRowEntry>
+                        <Wrap/>
+                        <TableColumnItems>
+                            <TableColumnItem>
+                                <PropertyName>FileType</PropertyName>
+                            </TableColumnItem>
+                            <TableColumnItem>
+								<PropertyName>LastWriteTime</PropertyName>
+                            </TableColumnItem>
+                            <TableColumnItem>
+								<PropertyName>Length</PropertyName>
+                            </TableColumnItem>
+                            <TableColumnItem>
+								<ScriptBlock>
+									$_.Name.SubString($_.Name.LastIndexOf('/') + 1)
+								</ScriptBlock>
+                            </TableColumnItem>
+                        </TableColumnItems>
+                    </TableRowEntry>
+                </TableRowEntries>
+            </TableControl>
+        </View>
+    </ViewDefinitions>
+</Configuration>

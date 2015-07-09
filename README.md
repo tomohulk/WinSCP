@@ -6,6 +6,7 @@ This module can be installed from the [PowerShellGet Gallery](https://www.powers
 Install-Module -Name WinSCP
 ```
 
+<<<<<<< HEAD
 This module can be installed with [chocolatey](https://chocolatey.org/packages/winscp.powershell):
 ```
 choco install winscp.powershell -version 5.7.4.0
@@ -16,28 +17,30 @@ This module can be installed with [PsGet](http://psget.net/):
 # Install WinSCP module with PsGet
 Install-Module -ModuleUrl "https://github.com/dotps1/WinSCP/raw/master/WinSCP.zip" -ModuleName WinSCP -Type ZIP
 ```
+=======
+I will no longer be supporting Chocolatey or PSGet for module repos; mainly because i feel the PowerShellGallery is working very well, and Chocolatey takes months to approve packages.  I apologize for any trouble this causes.
+>>>>>>> origin/Alpha
 
 ## WinSCP Cmdlets
 
-* [Add-WinSCPSessionOptionsRawSettings](https://github.com/dotps1/WinSCP/wiki/Add-WinSCPSessionOptionsRawSettings)
-* [Close-WinSCPSession](https://github.com/dotps1/WinSCP/wiki/Close-WinSCPSession)
 * [ConvertTo-WinSCPEscapedString](https://github.com/dotps1/WinSCP/wiki/ConvertTo-WinSCPEscapedString)
-* [Get-WinSCPDirectoryContents](https://github.com/dotps1/WinSCP/wiki/Get-WinSCPDirectoryContents)
+* [Get-WinSCPChildItem](https://github.com/dotps1/WinSCP/wiki/Get-WinSCPChildItem)
+* [Get-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Get-WinSCPItem)
 * [Get-WinSCPFileChecksum](https://github.com/dotps1/WinSCP/wiki/Get-WinSCPFileChecksum)
-* [Get-WinSCPItemInformation](https://github.com/dotps1/WinSCP/wiki/Get-WinSCPItemInformation)
 * [Invoke-WinSCPCommand](https://github.com/dotps1/WinSCP/wiki/Invoke-WinSCPCommand)
 * [Move-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Move-WinSCPItem)
-* [New-WinSCPDirectory](https://github.com/dotps1/WinSCP/wiki/New-WinSCPDirectory)
-* [New-WinSCPFilePermissions](https://github.com/dotps1/WinSCP/wiki/New-WinSCPFilePermissions)
-* [New-WinSCPSessionOptions](https://github.com/dotps1/WinSCP/wiki/New-WinSCPSessionOptions)
-* [New-WinSCPTransferOptions](https://github.com/dotps1/WinSCP/wiki/New-WinSCPTransferOptions)
-* [Open-WinSCPSession](https://github.com/dotps1/WinSCP/wiki/Open-WinSCPSession)
+* [New-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/New-WinSCPItem)
+* [New-WinSCPFilePermission](https://github.com/dotps1/WinSCP/wiki/New-WinSCPFilePermission)
+* [New-WinSCPSession](https://github.com/dotps1/WinSCP/wiki/New-WinSCPSession)
+* [New-WinSCPTransferOption](https://github.com/dotps1/WinSCP/wiki/New-WinSCPTransferOption)
 * [Receive-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Receive-WinSCPItem)
 * [Remove-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPItem)
+* [Remove-WinSCPSession](https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPSession)
+* [Rename-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Rename-WinSCPItem)
 * [Send-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Send-WinSCPItem)
 * [Start-WinSCPConsole](https://github.com/dotps1/WinSCP/wiki/Start-WinSCPConsole)
-* [Sync-WinSCPDirectory](https://github.com/dotps1/WinSCP/wiki/Sync-WinSCPDirectory)
-* [Test-WinSCPItemExists](https://github.com/dotps1/WinSCP/wiki/Test-WinSCPItemExists)
+* [Sync-WinSCPPath](https://github.com/dotps1/WinSCP/wiki/Sync-WinSCPPath)
+* [Test-WinSCPPath](https://github.com/dotps1/WinSCP/wiki/Test-WinSCPPath)
 
 
 ## Examples
@@ -45,23 +48,16 @@ Install-Module -ModuleUrl "https://github.com/dotps1/WinSCP/raw/master/WinSCP.zi
 Example 1:
 
 ```PowerShell
-# Splat New-WinSCPSessionOptions.
-$sessionOptions = @{
-	HostName = "myftphost.org"
-	UserName = "ftpuser"
-	Password = "FtpUserPword"
-	SshHostKeyFingerprint = "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx"
-}
-
 # Open a new WinSCPSession using the splatted parameters.
-$session = Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions @sessionOptions)
+$credential = Get-Credential
+$session = New-WinSCPSession -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp
 
 # Use that session to create a new Directory and then upload a file to it.
-New-WinSCPDirectory -WinSCPSession $session -Path "./remoteDirectory"
-Send-WinSCPItem -WinSCPSession $session -LocalPath "C:\localDirectory\localFile.txt" -RemotePath "./remoteDirectory/"
+New-WinSCPItem -WinSCPSession $session -Path './remoteDirectory' -ItemType Directory
+Send-WinSCPItem -WinSCPSession $session -LocalPath "C:\localDirectory\localFile.txt" -RemotePath "/remoteDirectory/"
 
-# Close the session.
-Close-WinSCPSession -WinSCPSession $session
+# Close the session object.
+Remove-WinSCPSession -WinSCPSession $session
 ```
 
 Example 2:
@@ -69,7 +65,7 @@ Example 2:
 # Create session, download a file, and close the session in one line.
 # If the WinSCP.Session Object is passed through the pipeline it will be auto-closed upon the completion of that command.
 # To avoid this behaviour, set the WinSCP.Session object value to variable to be reused.
-Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions -HostName "myftphost.org" -UserName "ftpUser" -Password "MyPassword" -Protocol Ftp) | Receive-WinSCPItem -RemotePath "./file.txt" -LocalPath "C:\folder\"
+New-WinSCPSession -Credential (Get-Credential) -HostName $env:COMPUTERNAME -Protocol Ftp | Receive-WinSCPItem -RemotePath "./file.txt" -LocalPath "C:\folder\"
 ```
 
 This is still a very beta version, with most of the functionality available with WinSCP, I intend on developing this extensively.  

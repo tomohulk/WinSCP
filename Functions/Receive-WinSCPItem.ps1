@@ -5,31 +5,33 @@
     After creating a valid WinSCP Session, this function can be used to receive file(s) and remove the remote files if desired.
 .INPUTS
     WinSCP.Session.
+    System.String.
 .OUTPUTS
     WinSCP.TransferOperationResult.
 .PARAMETER WinSCPSession
     A valid open WinSCP.Session, returned from Open-WinSCPSession.
-.PARAMETER RemotePath
+.PARAMETER Path
     Full path to remote directory followed by slash and wildcard to select files or subdirectories to download. When wildcard is omitted (path ends with slash), all files and subdirectories in the remote directory are downloaded.
-.PARAMETER LocalPath
+.PARAMETER Destination
     Full path to download the file to. When downloading multiple files, the filename in the path should be replaced with operation mask or omitted (path ends with slash). 
 .PARAMETER TransferOptions
     Transfer options. Defaults to null, what is equivalent to New-TransferOptions. 
 .EXAMPLE
-    PS C:\> Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions -Hostname myftphost.org -Username ftpuser -password "FtpUserPword" -Protocol Ftp) | Receive-WinSCPItem -RemotePath "rDir/rFile.txt" -LocalPath "C:\lDir\lFile.txt"
+    PS C:\> New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Receive-WinSCPItem -Path '/rDir/rFile.txt' -Destination 'C:\lDir\lFile.txt'
 
     Transfers         Failures IsSuccess
     ---------         -------- ---------
     {/rDir/rFile.txt} {}       True
 .EXAMPLE
-    PS C:\> $session = New-WinSCPSessionOptions -Hostname myftphost.org -Username ftpuser -password "FtpUserPword" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Open-WinSCPSession
-    PS C:\> Receive-WinSCPItem -WinSCPSession $session -RemotePath "rDir/rFile.txt" -LocalPath "C:\lDir\lFile.txt" -Remove
+    PS C:\> $credential = Get-Credential
+    PS C:\> $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+    PS C:\> Receive-WinSCPItem -WinSCPSession $session -Path '/rDir/rFile.txt' -Destination 'C:\lDir\lFile.txt' -Remove
 
     Transfers         Failures IsSuccess
     ---------         -------- ---------
     {/rDir/rFile.txt} {}       True
 .NOTES
-    If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
+    If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.
 .LINK
     http://dotps1.github.io/WinSCP
 .LINK
@@ -37,27 +39,33 @@
 #>
 Function Receive-WinSCPItem
 {
-    [CmdletBinding()]
     [OutputType([WinSCP.TransferOperationResult])]
 
     Param
     (
         [Parameter(Mandatory = $true,
-                   ValueFromPipeLine = $true)]
-        [ValidateScript({ if ($_.Open) { return $true } else { throw 'The WinSCP Session is not in an Open state.' } })]
-        [Alias('Session')]
+                   ValueFromPipeline = $true)]
+        [ValidateScript({ if ($_.Opened)
+            { 
+                return $true 
+            }
+            else
+            { 
+                throw 'The WinSCP Session is not in an Open state.' 
+            } })]
         [WinSCP.Session]
         $WinSCPSession,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true,
+                   ValueFromPipelineByPropertyName = $true)]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String[]]
-        $RemotePath,
+        $Path,
 
         [Parameter()]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
-        $LocalPath = "$(Get-Location)\",
+        $Destination = $pwd,
 
         [Parameter()]
         [Switch]
@@ -65,7 +73,7 @@ Function Receive-WinSCPItem
 
         [Parameter()]
         [WinSCP.TransferOptions]
-        $TransferOptions
+        $TransferOptions = (New-Object -TypeName WinSCP.TransferOptions)
     )
 
     Begin
@@ -75,17 +83,34 @@ Function Receive-WinSCPItem
 
     Process
     {
-        foreach ($item in $RemotePath.Replace('\','/'))
+        foreach ($p in (Format-WinSCPPathString -Path $($Path)))
         {
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $p))
+            {
+                Write-Error -Message "Cannot find path: $p because it does not exist."
+
+                continue
+            }
+
+            if (-not (Test-Path -Path $Destination))
+            {
+                Write-Error -Message "Cannot find path: $Destination because it does not exist."
+
+                continue
+            }
+
+            if ((Get-Item -Path $Destination).Attributes -eq 'Directory' -and -not $Destination.EndsWith('\'))
+            {
+                $Destination += '\'
+            }
+
             try
             {
-                $WinSCPSession.GetFiles($item, $LocalPath, $Remove.IsPresent, $TransferOptions)
+                $WinSCPSession.GetFiles($p, $Destination, $Remove.IsPresent, $TransferOptions)
             }
-            catch [System.Exception]
+            catch 
             {
-                Write-Error $_
-                
-                continue
+                Write-Error -Message $_.ToString()
             }
         }
     }
@@ -94,7 +119,7 @@ Function Receive-WinSCPItem
     {
         if (-not ($sessionValueFromPipeLine))
         {
-            Close-WinSCPSession -WinSCPSession $WinSCPSession
+            Remove-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }

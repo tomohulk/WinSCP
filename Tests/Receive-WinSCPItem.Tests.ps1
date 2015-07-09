@@ -1,84 +1,50 @@
-Param ($server,$username,$password)
+#requires -Modules Pester,PSScriptAnalyzer
+
+if (Get-Module | Where-Object { $_.Name -eq 'WinSCP' })
+{
+    Remove-Module -Name WinSCP
+}
+
+Set-Location -Path "$env:USERPROFILE\Documents\GitHub\WinSCP"
+Import-Module -Name .\WinSCP.psd1
 
 
 Describe 'Receive-WinSCPItem' {
-    It 'WinSCP Module should be loaded.' {
-        Get-Module -Name WinSCP | Should Be $true
-        (Get-Module -Name WinSCP).Path | Should Be "$($env:USERPROFILE)\Documents\GitHub\WinSCP\WinSCP.psm1"
-    }
-    
-    $params = @{
-        HostName = $server
-        UserName = $username
-        Password = $password
-        Protocol = 'Ftp'
-    }
+    $ftp = "$pwd\Tests\Ftp"
+    New-Item -Path "$ftp\TextFile.txt" -ItemType File -Value 'Hello World!' -Force
+    New-Item -Path "$ftp\SubDirectory\SubDirectoryTextFile.txt" -ItemType File -Value 'Hellow World!' -Force
+    $temp = New-Item "$pwd\Tests\Temp" -ItemType Directory -Force
 
-    Context "Receive-WinSCPSession -WinSCPSession `$session -RemotePath `"./Folder`" -LocalPath `"$(Get-Location)\Folder`"" {
-        $ftp = New-Item -Path "$(Get-Location)\Ftp" -ItemType Directory
-        $folder = New-Item -Path "$ftp\Folder" -ItemType Directory
-        $local = New-Item -Path "$(Get-Location)\Local" -ItemType Directory
+    Context "New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Receive-WinSCPItem -Path '/TextFile.txt -Destination $($temp.FullName)" {
+        $results = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Receive-WinSCPItem -Path '/TextFile.txt' -Destination $temp.FullName
 
-        It "$($ftp.FullName), $($folder.FullName) and $($local.FullName) should exist." {
-            Test-Path -Path $ftp | Should Be $true
-            Test-Path -Path $folder | Should Be $true
-            Test-Path -Path $local | Should Be $true
-        }
-        
-        $session = Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions @params)
-
-        It 'Session should be open.' {
-            $session.Opened | Should Be $true
+        It 'Results of Get-WinSCPItem should not be null.' {
+            $results | Should Not Be Null
         }
 
-        $result = Receive-WinSCPItem -WinSCPSession $session -RemotePath './Folder' -LocalPath "$local\Folder"
-
-        It "Folder should exist in $($ftp.FullName) and $($local.FullName) directories." {
-            $result.IsSuccess | Should Not Be $false
-            Test-Path -Path "$($ftp.FullName)\Folder" | Should Not Be $false
-            Test-Path -Path "$($local.FullName)\Folder" | Should Not Be $false
+        It 'Results of transfer should be success.' {
+            $results.IsSuccess | Should Be $true
         }
 
-        It 'Session should be closed.' {
-            Close-WinSCPSession -WinSCPSession $session
-            $session.Opened | Should Be $null
+        It "TextFile.txt should exist in $temp" {
+            Test-Path -Path "$($temp.FullName)\TextFile.txt" | Should Be $true
         }
 
-        Remove-Item -Path $ftp -Confirm:$false -Force -Recurse
-        Remove-Item -Path $local -Confirm:$false -Force -Recurse
+        It 'WinSCP process should not exist.' {
+            Get-Process | Where-Object { $_.Name -eq 'WinSCP' } | Should BeNullOrEmpty
+        }
     }
 
-    Context "Receive-WinSCPSession -WinSCPSession `$session -RemotePath `"./Folder`" -LocalPath `"$(Get-Location)\Folder`" -Remove" {
-        $ftp = New-Item -Path "$(Get-Location)\Ftp" -ItemType Directory
-        $local = New-Item -Path "$(Get-Location)\Local" -ItemType Directory
-        $folder = New-Item -Path "$($ftp.FullName)\Folder" -ItemType Directory
+    Context "Invoke-ScriptAnalyzer -Path $(Resolve-Path -Path (Get-Location))\Functions\Receive-WinSCPItem.ps1." {
+        $results = Invoke-ScriptAnalyzer -Path .\Functions\Receive-WinSCPItem.ps1
 
-        It "$($ftp.FullName), $($folder.FullName) and $($local.FullName) should exist." {
-            Test-Path -Path $ftp | Should Be $true
-            Test-Path -Path $folder | Should Be $true
-            Test-Path -Path $local | Should Be $true
+        It 'Invoke-ScriptAnalyzer of Receive-WinSCPItem results count should be 0.' {
+            $results.Count | Should Be 0
         }
-        
-        $session = Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions @params)
-
-        It 'Session should be open.' {
-            $session.Opened | Should Be $true
-        }
-
-        $result = Receive-WinSCPItem -WinSCPSession $session -RemotePath './Folder' -LocalPath "$local\Folder" -Remove
-
-        It "Folder should exist only in $local directory." {
-            $result.IsSuccess | Should Not Be $false
-            Test-Path -Path "$($ftp.FullName)\Folder" | Should Be $false
-            Test-Path -Path "$($local.FullName)\Folder" | Should Not Be $false
-        }
-
-        It 'Session should be closed.' {
-            Close-WinSCPSession -WinSCPSession $session
-            $session.Opened | Should Be $null
-        }
-
-        Remove-Item -Path $ftp -Confirm:$false -Force -Recurse
-        Remove-Item -Path $local -Confirm:$false -Force -Recurse
     }
+
+    Remove-Item -Path $ftp -Recurse -Force -Confirm:$false
+    Remove-Item -Path $temp -Recurse -Force -Confirm:$false
 }
+
+Remove-Module -Name WinSCP

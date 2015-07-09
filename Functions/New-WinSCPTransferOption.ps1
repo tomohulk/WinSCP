@@ -22,30 +22,32 @@
 .PARAMETER TransferMode
     Possible values are TransferMode.Binary (default), TransferMode.Ascii and TransferMode.Automatic (based on file extension).
 .EXAMPLE
-    PS C:\> New-WinSCPTransferOptions -PreserveTimeStamp -TransferMode Binary
+    PS C:\> New-WinSCPTransferOption -PreserveTimeStamp:$false -TransferMode Binary
+
+    PreserveTimestamp : False
+    FilePermissions   : 
+    TransferMode      : Binary
+    FileMask          : 
+    ResumeSupport     : default
+    SpeedLimit        : 0
+.EXAMPLE
+    PS C:\> New-WinSCPTransferOption -FilePermissions (New-WinSCPFilePermissions -GroupExecute -OtherRead)
 
     PreserveTimestamp : True
     FilePermissions   : 
     TransferMode      : Binary
     FileMask          : 
     ResumeSupport     : default
-.EXAMPLE
-    PS C:\> New-WinSCPTransferOptions -FilePermissions (New-WinSCPFilePermissions -GroupExecute -OtherRead)
-
-    PreserveTimestamp : True
-    FilePermissions   : -----xr--
-    TransferMode      : Binary
-    FileMask          : 
-    ResumeSupport     : default
+    SpeedLimit        : 0
 .NOTES
+    New-WinSCPTransferOption is equivialnt to New-Object -TypeName WinSCP.TransferOptions.
 .LINK
     http://dotps1.github.io/WinSCP
 .LINK
     http://winscp.net/eng/docs/library_transferoptions
 #>
-Function New-WinSCPTransferOptions
+Function New-WinSCPTransferOption
 {
-    [CmdletBinding()]
     [OutputType([WinSCP.TransferOptions])]
 
     Param
@@ -53,11 +55,11 @@ Function New-WinSCPTransferOptions
         [Parameter()]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
-        $FileMask,
+        $FileMask = $null,
 
         [Parameter()]
         [WinSCP.FilePermissions]
-        $FilePermissions,
+        $FilePermissions = $null,
 
         [Parameter()]
         [Switch]
@@ -65,19 +67,19 @@ Function New-WinSCPTransferOptions
 
         [Parameter()]
         [WinSCP.TransferResumeSupportState]
-        $State,
+        $State = (New-Object -TypeName WinSCP.TransferResumeSupportState),
 
         [Parameter()]
         [Int]
-        $Threshold,
+        $Threshold = 100,
         
         [Parameter()]
         [Int]
-        $SpeedLimit,
+        $SpeedLimit = 0,
 
         [Parameter()]
         [WinSCP.TransferMode]
-        $TransferMode
+        $TransferMode = (New-Object -TypeName WinSCP.TransferMode)
     )
 
     Begin
@@ -97,9 +99,9 @@ Function New-WinSCPTransferOptions
                     $transferOptions.$($key) = $PSBoundParameters.$($key)
                 }
             }
-            catch [System.Exception]
+            catch
             {
-                throw $_
+                Write-Error -Message $_.ToString()
             }
         }
     }

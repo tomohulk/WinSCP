@@ -4,19 +4,19 @@
 .DESCRIPTION
     Escapes special characters so they are not misinterpreted as wildcards or other special characters.
 .INPUTS
-   None.
+   System.String.
 .OUTPUTS
     System.String.
 .PARAMETER FileMask
     File path to convert.
 .EXAMPLE
-    ConvertTo-WinSCPEscapedString -FileMask "*.txt"
+    ConvertTo-WinSCPEscapedString -FileMask 'FileWithA*InName.txt'
 
-    [*].txt
+    FileWithA[*]InName.txt
 .EXAMPLE
-    $session = New-WinSCPSessionOptions -Hostname myftphost.org -Username ftpuser -password "FtpUserPword" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Open-WinSCPSession
-    $searchString = ConvertTo-WinSCPEscapedString -FileMask "*.txt"
-    Receive-WinSCPItem -WinSCPSession $session -RemoteItem "./rDir/$searchString" -LocalItem "C:\lDir\"
+    $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+    $searchString = ConvertTo-WinSCPEscapedString -FileMask 'FileWithA*InName.txt'
+    Receive-WinSCPItem -WinSCPSession $session -RemoteItem "/rDir/$searchString" -LocalItem 'C:\lDir\'
 .NOTES
     Useful with Send-WinSCPItem, Receive-WinSCPItem, Remove-WinSCPItem cmdlets.
 .LINK
@@ -26,12 +26,12 @@
 #>
 Function ConvertTo-WinSCPEscapedString
 {
-    [CmdletBinding()]
     [OutputType([String])]
 
     Param
     (
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true,
+                   ValueFromPipeline = $true)]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
         $FileMask
@@ -48,9 +48,9 @@ Function ConvertTo-WinSCPEscapedString
         {
             return ($sessionObject.EscapeFileMask($FileMask))
         }
-        catch [System.Exception]
+        catch
         {
-            throw $_
+            Write-Error -Message $_.ToString()
         }
     }
     

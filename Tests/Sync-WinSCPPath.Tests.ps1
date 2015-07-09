@@ -9,11 +9,11 @@ Set-Location -Path "$env:USERPROFILE\Documents\GitHub\WinSCP"
 Import-Module -Name .\WinSCP.psd1
 
 
-Describe 'Send-WinSCPItem' {
-    Context "Invoke-ScriptAnalyzer -Path $(Resolve-Path -Path (Get-Location))\Functions\Send-WinSCPItem.ps1." {
-        $results = Invoke-ScriptAnalyzer -Path .\Functions\Send-WinSCPItem.ps1
+Describe 'Sync-WinSCPPath' {
+    Context "Invoke-ScriptAnalyzer -Path $(Resolve-Path -Path (Get-Location))\Functions\New-WinSCPPath.ps1." {
+        $results = Invoke-ScriptAnalyzer -Path .\Functions\Sync-WinSCPPath.ps1
 
-        It 'Invoke-ScriptAnalyzer of Send-WinSCPItem results count should be 0.' {
+        It 'Invoke-ScriptAnalyzer of Sync-WinSCPPath results count should be 0.' {
             $results.Count | Should Be 0
         }
     }

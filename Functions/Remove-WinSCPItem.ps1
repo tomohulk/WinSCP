@@ -5,27 +5,21 @@
     Removes and item, File or Directory from a remote sources.  This action will recurse if a the $Path value is a directory.
 .INPUTS.
     WinSCP.Session.
+    System.String.
 .OUTPUTS.
-    WinSCP.RemovalOperationResult.
+    None.
 .PARAMETER WinSCPSession
     A valid open WinSCP.Session, returned from Open-WinSCPSession.
 .PARAMETER Path
     Full path to remote directory followed by slash and wildcard to select files or subdirectories to remove. 
 .EXAMPLE
-    PS C:\> Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions -Hostname myftphost.org -Username ftpuser -password "FtpUserPword" -Protocol Ftp) | Remove-WinSCPItem -Path "rDir/rFile.txt"
-
-    Removals                  Failures IsSuccess
-    --------                  -------- ---------
-    {/rDir/rSubDir/rFile.txt} {}       True
+    PS C:\> New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Remove-WinSCPItem -Path "/rDir/rFile.txt"
 .EXAMPLE
-    PS C:\> $session = New-WinSCPSessionOptions -Hostname myftphost.org -Username ftpuser -password "FtpUserPword" -SshHostKeyFingerprint "ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx" | Open-WinSCPSession
-    PS C:\> Remove-WinSCPItem -WinSCPSession $session -Path "rDir/rFile.txt"
-
-    Removals                  Failures IsSuccess
-    --------                  -------- ---------
-    {/rDir/rSubDir/rFile.txt} {}       True
+    PS C:\> $credential = Get-Credential
+    PS C:\> $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+    PS C:\> Remove-WinSCPItem -WinSCPSession $session -Path "/rDir/rFile.txt"
 .NOTES
-    If the WinSCPSession is piped into this command, the connection will be disposed upon completion of the command.
+    If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.
 .LINK
     http://dotps1.github.io/WinSCP
 .LINK
@@ -33,20 +27,27 @@
 #>
 Function Remove-WinSCPItem
 {
-    [CmdletBinding()]
-    [OutputType([WinSCP.RemovalOperationResult])]
+    [CmdletBinding(SupportsShouldProcess = $true,
+                   ConfirmImpact = 'High')]
+    [OutputType([Void])]
 
     Param
     (
         [Parameter(Mandatory = $true,
-                   ValueFromPipeLine = $true)]
-        [ValidateScript({ if ($_.Open) { return $true } else { throw 'The WinSCP Session is not in an Open state.' } })]
-        [Alias('Session')]
+                   ValueFromPipeline = $true)]
+        [ValidateScript({ if ($_.Opened)
+            { 
+                return $true 
+            }
+            else
+            { 
+                throw 'The WinSCP Session is not in an Open state.' 
+            } })]
         [WinSCP.Session]
         $WinSCPSession,
 
-        [Parameter(Mandatory = $true)]
-        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
+        [Parameter(Mandatory = $true,
+                   ValueFromPipelingByPropertyName = $true)]
         [String[]]
         $Path
     )
@@ -58,26 +59,34 @@ Function Remove-WinSCPItem
 
     Process
     {
-        foreach ($item in $Path.Replace('\','/'))
+        foreach ($p in (Format-WinSCPPathString -Path $($Path)))
         {
-            try
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $p))
             {
-                $WinSCPSession.RemoveFiles($item)
-            }
-            catch [System.Exception]
-            {
-                Write-Error $_
-                
+                Write-Error -Message "Cannot find path: $p because it does not exist."
+
                 continue
             }
-        }
+
+            if ($PSCmdlet.ShouldProcess($p))
+            {
+                try
+                {
+                    $WinSCPSession.RemoveFiles($p) | Out-Null
+                }
+                catch
+                {
+                    Write-Error -Message $_.ToString()
+                }
+            }
+        } 
     }
 
     End
     {
         if (-not ($sessionValueFromPipeLine))
         {
-            Close-WinSCPSession -WinSCPSession $WinSCPSession
+            Remove-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }
