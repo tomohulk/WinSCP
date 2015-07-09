@@ -99,6 +99,11 @@ Function Receive-WinSCPItem
                 continue
             }
 
+            if ((Get-Item -Path $Destination).Attributes -eq 'Directory' -and -not $Destination.EndsWith('\'))
+            {
+                $Destination += '\'
+            }
+
             try
             {
                 $WinSCPSession.GetFiles($p, $Destination, $Remove.IsPresent, $TransferOptions)

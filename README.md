@@ -41,7 +41,7 @@ $session = New-WinSCPSession -Credential $credential -HostName $env:COMPUTERNAME
 
 # Use that session to create a new Directory and then upload a file to it.
 New-WinSCPItem -WinSCPSession $session -Path './remoteDirectory' -ItemType Directory
-Send-WinSCPItem -WinSCPSession $session -LocalPath "C:\localDirectory\localFile.txt" -RemotePath "./remoteDirectory/"
+Send-WinSCPItem -WinSCPSession $session -LocalPath "C:\localDirectory\localFile.txt" -RemotePath "/remoteDirectory/"
 
 # Close the session object.
 Remove-WinSCPSession -WinSCPSession $session
