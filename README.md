@@ -6,20 +6,7 @@ This module can be installed from the [PowerShellGet Gallery](https://www.powers
 Install-Module -Name WinSCP
 ```
 
-<<<<<<< HEAD
-This module can be installed with [chocolatey](https://chocolatey.org/packages/winscp.powershell):
-```
-choco install winscp.powershell -version 5.7.4.0
-```
-
-This module can be installed with [PsGet](http://psget.net/):
-```PowerShell
-# Install WinSCP module with PsGet
-Install-Module -ModuleUrl "https://github.com/dotps1/WinSCP/raw/master/WinSCP.zip" -ModuleName WinSCP -Type ZIP
-```
-=======
 I will no longer be supporting Chocolatey or PSGet for module repos; mainly because i feel the PowerShellGallery is working very well, and Chocolatey takes months to approve packages.  I apologize for any trouble this causes.
->>>>>>> origin/Alpha
 
 ## WinSCP Cmdlets
 
