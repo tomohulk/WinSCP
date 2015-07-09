@@ -8,32 +8,27 @@ Long Description
 	The  developers of the WinSCP have exposed most if not all available methods and properties of the program to .net and COM, this is a set of PowerShell Cmdlets to sit on top of that assembly to allow for easy automation of WinSCP via PowerShell.
 	
 Examples
-	# Splat session options.
-	$sessionOptions = @{
-		HostName = 'myftphost.org'
-		UserName = 'myuser'
-		Password = 'mypassword'
-		Protocol = 'Ftp'
-	}
+	# Create a PSCredenital Object to authenticate with.
+	$credential = Get-Credential
 	
 	# Create new Session Options Object.
-	$session = Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions @sessionOptions)
+	$session = New-WinSCPSession -HostName 'myftphost.org' -Credential $credential -Protocol Ftp
 	
-	# Open the WinSCP Session using Session Options Object for Configuration.
-	Get-WinSCPDirectoryContents -WinSCPSession $session -ShowDetails
+	# List contents of the root directory on the server.
+	Get-WinSCPChildItem -WinSCPSession $session -Path '/'
 	
 	# Send a file to the host.
-	Send-WinSCPItem -WinSCPSession $session -RemotePath './file.txt' -LocalPath 'C:\file.txt'
+	Send-WinSCPItem -WinSCPSession $session -Path 'C:\folder\file.txt' -Destination '/file.txt'
 	
-	# Receive a file from the host and remove it from the host after completion.
-	Receive-WinSCPItem -WinSCPSession $session -RemotePath './file.txt' -LocalPath 'C:\file.txt' -Remove
+	# Receive a file from the server and remove it from the host after completion.
+	Receive-WinSCPItem -WinSCPSession $session -Path './file.txt' -LocalPath 'C:\folder\file.txt' -Remove
 	
-	# Close the session.
-	Close-WinSCPSession -WinSCPSession $session
+	# Remove the WinSCP Session object.
+	Remove-WinSCPSession -WinSCPSession $session
 	
 	
-	# If the Open Session Object is passed through the pipeline it will be auto-closed upon the completion of that command.
-	Open-WinSCPSession -SessionOptions (New-WinSCPSessionOptions -HostName 'myftphost.org' -UserName 'myuser' -Password 'mypassword' -Protocol Ftp) | Send-WinSCPItem -RemotePath './file.txt' -LocalPath 'C:\File.txt' -Remove
+	# If the WinSCP.Session Object is passed through the pipeline it will be auto-closed upon the completion of that command.
+	New-WinSCPSession -HostName 'myftphost.org' -Protocol Ftp | Send-WinSCPItem -RemotePath './file.txt' -LocalPath 'C:\File.txt' -Remove
 	
 Keywords
 	WinSCP
