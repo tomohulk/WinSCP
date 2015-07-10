@@ -41,7 +41,7 @@ $session = New-WinSCPSession -Credential $credential -HostName $env:COMPUTERNAME
 
 # Use that session to create a new Directory and then upload a file to it.
 New-WinSCPItem -WinSCPSession $session -Path './remoteDirectory' -ItemType Directory
-Send-WinSCPItem -WinSCPSession $session -LocalPath "C:\localDirectory\localFile.txt" -RemotePath "/remoteDirectory/"
+Send-WinSCPItem -WinSCPSession $session -Path "C:\localDirectory\localFile.txt" -Destination "/remoteDirectory/"
 
 # Close the session object.
 Remove-WinSCPSession -WinSCPSession $session
@@ -52,7 +52,7 @@ Example 2:
 # Create session, download a file, and close the session in one line.
 # If the WinSCP.Session Object is passed through the pipeline it will be auto-closed upon the completion of that command.
 # To avoid this behaviour, set the WinSCP.Session object value to variable to be reused.
-New-WinSCPSession -Credential (Get-Credential) -HostName $env:COMPUTERNAME -Protocol Ftp | Receive-WinSCPItem -RemotePath "./file.txt" -LocalPath "C:\folder\"
+New-WinSCPSession -Credential (Get-Credential) -HostName $env:COMPUTERNAME -Protocol Ftp | Receive-WinSCPItem -Path "./file.txt" -Destination "C:\folder\"
 ```
 
 This is still a very beta version, with most of the functionality available with WinSCP, I intend on developing this extensively.  

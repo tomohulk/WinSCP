@@ -85,8 +85,15 @@ Function Send-WinSCPItem
 
     Process
     {
-        foreach ($p in (Format-WinSCPPathString -Path $($Path)))
+        foreach ($p in $Path)
         {
+            if (-not (Test-Path -Path $p))
+            {
+                Write-Error -Message "Cannot find path: $p because it does not exist."
+
+                continue
+            }
+
             try
             {
                 $WinSCPSession.PutFiles($p, (Format-WinSCPPathString -Path $($Destination)), $Remove.IsPresent, $TransferOptions)

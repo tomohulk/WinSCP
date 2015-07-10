@@ -92,13 +92,6 @@ Function Receive-WinSCPItem
                 continue
             }
 
-            if (-not (Test-Path -Path $Destination))
-            {
-                Write-Error -Message "Cannot find path: $Destination because it does not exist."
-
-                continue
-            }
-
             if ((Get-Item -Path $Destination).Attributes -eq 'Directory' -and -not $Destination.EndsWith('\'))
             {
                 $Destination += '\'
