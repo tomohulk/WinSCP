@@ -8,7 +8,7 @@
 .OUTPUTS
     WinSCP.SynchronizationResult.
 .PARAMETER WinSCPSession
-    A valid open WinSCP.Session, returned from Open-WinSCPSession.
+    A valid open WinSCP.Session, returned from New-WinSCPSession.
 .PARAMETER Mode
     Synchronization mode. Possible values are Local, Remote and Both. 
 .PARAMETER LocalPath

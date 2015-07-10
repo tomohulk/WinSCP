@@ -9,7 +9,7 @@
 .OUTPUTS
     WinSCP.TransferOperationResult.
 .PARAMETER WinSCPSession
-    A valid open WinSCP.Session, returned from Open-WinSCPSession.
+    A valid open WinSCP.Session, returned from New-WinSCPSession.
 .PARAMETER Path
     Full path to local file or directory to upload. Filename in the path can be replaced with Windows wildcard to select multiple files. When file name is omitted (path ends with backslash), all files and subdirectories in the local directory are uploaded.
 .PARAMETER Destination

@@ -9,7 +9,7 @@
 .OUTPUTS
     System.Array.
 .PARAMETER WinSCPSession
-    A valid open WinSCP.Session, returned from Open-WinSCPSession.
+    A valid open WinSCP.Session, returned from New-WinSCPSession.
 .PARAMETER Algorithm
     A name of a checksum algorithm to use. Use IANA name of algorithm or use a name of any proprietary algorithm the server supports (with SFTP protocol only). Commonly supported algorithms are sha-1 and md5.
 .PARAMETER Path

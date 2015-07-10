@@ -8,7 +8,7 @@
 .OUTPUTS
     None.
 .PARAMETER WinSCPSession
-    The WinSCP Session to be disposed.
+    A valid open WinSCP.Session, returned from New-WinSCPSession.
 .EXAMPLE
     PS C:\> New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Remove-WinSCPSession
 .EXAMPLE

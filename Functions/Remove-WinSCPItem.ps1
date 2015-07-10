@@ -9,7 +9,7 @@
 .OUTPUTS.
     None.
 .PARAMETER WinSCPSession
-    A valid open WinSCP.Session, returned from Open-WinSCPSession.
+    A valid open WinSCP.Session, returned from New-WinSCPSession.
 .PARAMETER Path
     Full path to remote directory followed by slash and wildcard to select files or subdirectories to remove. 
 .EXAMPLE

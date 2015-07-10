@@ -9,7 +9,7 @@
 .OUTPUTS
     WinSCP.RemoteFileInfo.
 .PARAMETER WinSCPSession
-    A valid open WinSCP.Session, returned from Open-WinSCPSession.
+    A valid open WinSCP.Session, returned from New-WinSCPSession.
 .PARAMETER Path
     Full path to remote Item.
 .EXAMPLE

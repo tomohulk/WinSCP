@@ -9,7 +9,7 @@
 .OUTPUTS
     System.Array.
 .PARAMETER WinSCPSession
-    A valid open WinSCP.Session, returned from Open-WinSCPSession.
+    A valid open WinSCP.Session, returned from New-WinSCPSession.
 .PARAMETER Path
     Specifies a path to one or more locations. Wildcards are permitted. The default location is the home directory of the user making the connection.
 .PARAMETER Filter

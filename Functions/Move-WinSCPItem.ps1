@@ -9,7 +9,7 @@
 .OUTPUTS
     None.
 .PARAMETER WinSCPSession
-    A valid open WinSCP.Session, returned from Open-WinSCPSession.
+    A valid open WinSCP.Session, returned from New-WinSCPSession.
 .PARAMETER Path
     Full path to remote item to be moved.
 .PARAMETER Destination

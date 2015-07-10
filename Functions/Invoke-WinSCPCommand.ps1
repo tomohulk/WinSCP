@@ -9,7 +9,7 @@
 .OUTPUTS
     WinSCP.CommandExecutionResult.
 .PARAMETER WinSCPSession
-    A valid open WinSCP.Session, returned from Open-WinSCPSession.
+    A valid open WinSCP.Session, returned from New-WinSCPSession.
 .PARAMETER Command
     Command to execute.
 .EXAMPLE
