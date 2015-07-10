@@ -2,7 +2,7 @@ Topic
 	about_WinSCP
 	
 Short Description
-	PowerShell Module Wrapper for use with the WinSCP.exe and WinSCPnet.dll
+	PowerShell Module Wrapper for use with the WinSCP.exe and WinSCPnet.dll.
 	
 Long Description
 	The  developers of the WinSCP have exposed most if not all available methods and properties of the program to .net and COM, this is a set of PowerShell Cmdlets to sit on top of that assembly to allow for easy automation of WinSCP via PowerShell.
@@ -21,14 +21,14 @@ Examples
 	Send-WinSCPItem -WinSCPSession $session -Path 'C:\folder\file.txt' -Destination '/file.txt'
 	
 	# Receive a file from the server and remove it from the host after completion.
-	Receive-WinSCPItem -WinSCPSession $session -Path './file.txt' -LocalPath 'C:\folder\file.txt' -Remove
+	Receive-WinSCPItem -WinSCPSession $session -Path '/file.txt' -Destination 'C:\folder\file.txt' -Remove
 	
 	# Remove the WinSCP Session object.
 	Remove-WinSCPSession -WinSCPSession $session
 	
 	
 	# If the WinSCP.Session Object is passed through the pipeline it will be auto-closed upon the completion of that command.
-	New-WinSCPSession -HostName 'myftphost.org' -Protocol Ftp | Send-WinSCPItem -RemotePath './file.txt' -LocalPath 'C:\File.txt' -Remove
+	New-WinSCPSession -HostName 'myftphost.org' -Protocol Ftp | Send-WinSCPItem -Path 'C:\File.txt' -Destination '/file.txt' -Remove
 	
 Keywords
 	WinSCP
