@@ -136,6 +136,11 @@ Function New-WinSCPSession
         [Parameter()]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [SecureString]
+        $SecureSshPrivateKeyPassphrase = $null,
+
+        [Parameter()]
+        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
+        [String]
         $SshPrivateKeyPassphrase = $null,
 
         [Parameter()]
@@ -201,12 +206,6 @@ Function New-WinSCPSession
     $PSBoundParameters.Add('UserName', $Credential.UserName)
     $PSBoundParameters.Add('SecurePassword', $Credential.Password)
 
-    # Convert SshPrivateKeyPasspahrase to plain text.
-    if ($SshPrivateKeyPassphrase -ne $null)
-    {
-        [String]$SshPrivateKeyPassphrase = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SshPrivateKeyPassphrase))
-    }
-
     try
     {
         # Enumerate each parameter.
@@ -224,6 +223,11 @@ Function New-WinSCPSession
             }
         }
 
+        if ($SecureSshPrivateKeyPassphrase -ne $null)
+        {
+        	$sessionOptions.SshPrivateKeyPassphrase = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureSshPrivateKeyPassphrase))
+        }
+	    
         # Enumerate raw settings and add the options to the WinSCP.SessionOptions object.
         foreach ($key in $RawSetting.Keys)
         {
