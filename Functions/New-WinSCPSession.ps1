@@ -204,7 +204,7 @@ Function New-WinSCPSession
     # Convert SshPrivateKeyPasspahrase to plain text.
     if ($SshPrivateKeyPassphrase -ne $null)
     {
-        $SshPrivateKeyPassphrase = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SshPrivateKeyPassphrase))
+        [String]$SshPrivateKeyPassphrase = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SshPrivateKeyPassphrase))
     }
 
     try
