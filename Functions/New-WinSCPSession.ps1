@@ -201,7 +201,7 @@ Function New-WinSCPSession
     $PSBoundParameters.Add('UserName', $Credential.UserName)
     $PSBoundParameters.Add('SecurePassword', $Credential.Password)
 
-    # Convert SshPrivateKeyPasspahrase to plain text.
+    # Convert SshPrivateKeySecurePasspahrase to plain text and set it to the corresponding SessionOptions property.
     if ($SshPrivateKeySecurePassphrase -ne $null)
     {
         $sessionOptions.SshPrivateKeyPassphrase = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SshPrivateKeySecurePassphrase))
