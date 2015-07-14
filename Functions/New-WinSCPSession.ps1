@@ -85,7 +85,11 @@ Function New-WinSCPSession
     (
         [Parameter(ValueFromPipeline = $true)]
         [PSCredential]
-        $Credential = (Get-Credential),
+        $Credential = $null,
+
+        [Parameter(ValueFromPipeline = $true)]
+        [String]
+        $UserName = $null,
 
         [Parameter()]
         [WinSCP.FtpMode]
@@ -197,8 +201,15 @@ Function New-WinSCPSession
     $sessionOptions = New-Object -TypeName WinSCP.SessionOptions
     $session = New-Object -TypeName WinSCP.Session
 
-    # Convert PSCredential Object to match names of the WinSCP.SessionOptions Object.
-    $PSBoundParameters.Add('UserName', $Credential.UserName)
+    if (-not($UserName) -and -not($Credential))
+	{
+		$Credential = Get-Credential
+	}
+
+	if (-not($UserName) )
+	{
+		$PSBoundParameters.Add('UserName', $Credential.UserName)
+	}
     $PSBoundParameters.Add('SecurePassword', $Credential.Password)
 
     # Convert SshPrivateKeySecurePasspahrase to plain text and set it to the corresponding SessionOptions property.
