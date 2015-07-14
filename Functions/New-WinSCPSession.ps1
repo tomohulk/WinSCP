@@ -25,7 +25,7 @@
     Fingerprint of SSH server host key (or several alternative fingerprints separated by semicolon). It makes WinSCP automatically accept host key with the fingerprint. Mandatory for SFTP/SCP protocol.
 .PARAMETER SshPrivateKeyPath 
     Full path to private key file.
-.PARAMETER SshPrivateKeyPassphrase
+.PARAMETER SshPrivateKeySecurePassphrase
     Passphrase for encrypted private keys.
 .PARAMETER TlsHostCertificateFingerprint
     Fingerprint of FTPS/WebDAVS server TLS/SSL certificate to be automatically accepted (useful for certificates signed by untrusted authority).
@@ -136,7 +136,7 @@ Function New-WinSCPSession
         [Parameter()]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [SecureString]
-        $SshPrivateKeyPassphrase = $null,
+        $SshPrivateKeySecurePassphrase = $null,
 
         [Parameter()]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
@@ -202,9 +202,9 @@ Function New-WinSCPSession
     $PSBoundParameters.Add('SecurePassword', $Credential.Password)
 
     # Convert SshPrivateKeyPasspahrase to plain text.
-    if ($SshPrivateKeyPassphrase -ne $null)
+    if ($SshPrivateKeySecurePassphrase -ne $null)
     {
-        [String]$SshPrivateKeyPassphrase = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SshPrivateKeyPassphrase))
+        $sessionOptions.SshPrivateKeyPassphrase = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SshPrivateKeySecurePassphrase))
     }
 
     try
