@@ -47,7 +47,7 @@ Function Remove-WinSCPItem
         $WinSCPSession,
 
         [Parameter(Mandatory = $true,
-                   ValueFromPipelingByPropertyName = $true)]
+                   ValueFromPipelineByPropertyName = $true)]
         [String[]]
         $Path
     )
