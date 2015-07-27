@@ -35,14 +35,14 @@ I will no longer be supporting Chocolatey or PSGet for module repos; mainly beca
 Example 1:
 
 ```PowerShell
-# Open a new WinSCPSession using the splatted parameters.
+# Capture credentials.
 $credential = Get-Credential
+# Create new WinSCP session using captured credentials.
 $session = New-WinSCPSession -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp
-
-# Use that session to create a new Directory and then upload a file to it.
+# Use that session to create a new Directory.
 New-WinSCPItem -WinSCPSession $session -Path './remoteDirectory' -ItemType Directory
+# Upload a file to the directory.
 Send-WinSCPItem -WinSCPSession $session -Path "C:\localDirectory\localFile.txt" -Destination "/remoteDirectory/"
-
 # Close the session object.
 Remove-WinSCPSession -WinSCPSession $session
 ```
@@ -51,7 +51,7 @@ Example 2:
 ```PowerShell
 # Create session, download a file, and close the session in one line.
 # If the WinSCP.Session Object is passed through the pipeline it will be auto-closed upon the completion of that command.
-# To avoid this behaviour, set the WinSCP.Session object value to variable to be reused.
+# To avoid this behavior, set the WinSCP.Session object value to variable to be reused.
 New-WinSCPSession -Credential (Get-Credential) -HostName $env:COMPUTERNAME -Protocol Ftp | Receive-WinSCPItem -Path "./file.txt" -Destination "C:\folder\"
 ```
 
