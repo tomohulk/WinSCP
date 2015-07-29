@@ -12,8 +12,6 @@
     A valid open WinSCP.Session, returned from New-WinSCPSession.
 .PARAMETER Path
     Full path to remote directory followed by slash and wildcard to select files or subdirectories to remove.
-.PARAMETER Force
-    Override the confermation to remove the item.
 .EXAMPLE
     PS C:\> New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Remove-WinSCPItem -Path "/rDir/rFile.txt"
 .EXAMPLE
@@ -51,10 +49,7 @@ Function Remove-WinSCPItem
         [Parameter(Mandatory = $true,
                    ValueFromPipelineByPropertyName = $true)]
         [String[]]
-        $Path,
-
-        [Switch]
-        $Force
+        $Path
     )
 
     Begin
@@ -73,7 +68,7 @@ Function Remove-WinSCPItem
                 continue
             }
 
-            if ($PSCmdlet.ShouldProcess($p) -or $Force.IsPresent)
+            if ($PSCmdlet.ShouldProcess($p))
             {
                 try
                 {

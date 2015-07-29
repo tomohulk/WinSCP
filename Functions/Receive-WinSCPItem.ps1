@@ -92,7 +92,7 @@ Function Receive-WinSCPItem
                 continue
             }
 
-            if ((Get-Item -Path $Destination).Attributes -eq 'Directory' -and -not $Destination.EndsWith('\'))
+            if ((Get-Item -Path $Destination -ErrorAction SilentlyContinue).Attributes -eq 'Directory' -and -not $Destination.EndsWith('\'))
             {
                 $Destination += '\'
             }
