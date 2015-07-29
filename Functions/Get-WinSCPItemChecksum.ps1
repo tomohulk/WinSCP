@@ -48,7 +48,7 @@ Function Get-WinSCPItemChecksum
         $Algorithm,
 
         [Parameter(Mandatory = $true,
-                   ValueFromPipelineByProperyName = $true)]
+                   ValueFromPipelineByPropertyName = $true)]
         [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String[]]
         $Path
