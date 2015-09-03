@@ -23,35 +23,32 @@
     http://dotps1.github.io/WinSCP
 #>
 
-Function Format-WinSCPPathString
-{
+Function Format-WinSCPPathString {
+    
     [OutputType([String])]
 
-    Param
-    (
-        [Parameter(Mandatory = $true)]
+    Param (
+        [Parameter(
+            Mandatory = $true
+        )]
         [String]
         $Path
     )
 
-    if ($Path.Contains('\'))
-    {
+    if ($Path.Contains('\')) {
         $Path = $Path.Replace('\','/')
     }
 
-    if (-not ($Path.StartsWith('.')))
-    {
+    if (-not ($Path.StartsWith('.'))) {
         $Path = ".$Path"
     }
 
-    if (-not ($Path.ToCharArray()[1] -eq '/'))
-    {
+    if (-not ($Path.ToCharArray()[1] -eq '/')) {
         $Path = $Path.Insert(1, '/')
     }
 
-    if (-not $Path.EndsWith('/'))
-    {
-        $Path =  "$Path/"
+    if (-not $Path.EndsWith('/')) {
+        $Path = "$Path/"
     }
 
     return $Path

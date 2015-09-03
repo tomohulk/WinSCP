@@ -50,32 +50,32 @@
 .LINK
     http://winscp.net/eng/docs/library_session_listdirectory
 #>
-Function Get-WinSCPChildItem
-{
+Function Get-WinSCPChildItem {
+    
     [OutputType([Array])]
 
-    Param
-    (
-        [Parameter(Mandatory = $true,
-                   ValueFromPipeline = $true)]
-        [ValidateScript({ if ($_.Opened)
-            { 
+    Param (
+        [Parameter(
+            Mandatory = $true,
+            ValueFromPipeline = $true
+        )]
+        [ValidateScript({ 
+            if ($_.Opened) { 
                 return $true 
+            } else { 
+                throw 'The WinSCP Session is not in an Open state.'
             }
-            else
-            { 
-                throw 'The WinSCP Session is not in an Open state.' 
-            } })]
+        })]
         [WinSCP.Session]
         $WinSCPSession,
 
-        [Parameter(ValueFromPipelineByPropertyName = $true)]
-        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
+        [Parameter(
+            ValueFromPipelineByPropertyName = $true
+        )]
         [String[]]
         $Path = '/',
 
         [Parameter()]
-        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
         $Filter = '*',
 
@@ -84,50 +84,38 @@ Function Get-WinSCPChildItem
         $Recurse
     )
 
-    Begin
-    {
+    Begin {
         $sessionValueFromPipeLine = $PSBoundParameters.ContainsKey('WinSCPSession')
     }
 
-    Process
-    {
-        foreach ($p in (Format-WinSCPPathString -Path $($Path)))
-        {
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $p))
-            {
+    Process {
+        foreach ($p in (Format-WinSCPPathString -Path $($Path))) {
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $p)) {
                 Write-Error -Message "Cannot find path: $p because it does not exist."
 
                 continue
             }
 
-            try
-            {
-                $items = foreach ($file in ($WinSCPSession.ListDirectory($p).Files | Where-Object { $_.Name -ne '..' }))
-                {
+            try {
+                $items = foreach ($file in ($WinSCPSession.ListDirectory($p).Files | Where-Object { $_.Name -ne '..' })) {
                     $WinSCPSession.GetFileInfo((Format-WinSCPPathString -Path (Join-Path -Path $p -ChildPath $file)))
                 }
 
                 $items | Where-Object { $_.Name -like $Filter }
 
-                if ($Recurse.IsPresent)
-                {
-                    foreach ($directory in ($items | Where-Object { $_.IsDirectory }).Name)
-                    {
+                if ($Recurse.IsPresent) {
+                    foreach ($directory in ($items | Where-Object { $_.IsDirectory }).Name) {
                         Get-WinSCPChildItem -WinSCPSession $WinSCPSession -Path (Format-WinSCPPathString -Path (Join-Path -Path $p -ChildPath $directory)) -Recurse -Filter $Filter
                     }
                 }
-            }
-            catch
-            {
+            } catch {
                 Write-Error -Message $_.ToString()
             }
         }
     }
 
-    End
-    {
-        if (-not ($sessionValueFromPipeLine))
-        {
+    End {
+        if (-not ($sessionValueFromPipeLine)) {
             Remove-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }

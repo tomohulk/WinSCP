@@ -26,32 +26,34 @@
 .LINK 
     http://winscp.net/eng/docs/library_session_movefile
 #>
-Function Rename-WinSCPItem
-{
+Function Rename-WinSCPItem {
+    
     [OutputType([Void])]
 
-    Param
-    (
-        [Parameter(Mandatory = $true,
-                   ValueFromPipeline = $true)]
-        [ValidateScript({ if ($_.Opened)
-            { 
+    Param (
+        [Parameter(
+            Mandatory = $true,
+            ValueFromPipeline = $true
+        )]
+        [ValidateScript({ 
+            if ($_.Opened) { 
                 return $true 
+            } else { 
+                throw 'The WinSCP Session is not in an Open state.'
             }
-            else
-            { 
-                throw 'The WinSCP Session is not in an Open state.' 
-            } })]
+        })]
         [WinSCP.Session]
         $WinSCPSession,
 
-        [Parameter(Mandatory = $true)]
-        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
+        [Parameter(
+            Mandatory = $true
+        )]
         [String]
         $Path,
 
-        [Parameter(Mandatory = $true)]
-        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
+        [Parameter(
+            Mandatory = $true
+        )]
         [String]
         $NewName,
 
@@ -60,40 +62,31 @@ Function Rename-WinSCPItem
         $PassThru
     )
 
-    Begin
-    {
+    Begin {
         $sessionValueFromPipeLine = $PSBoundParameters.ContainsKey('WinSCPSession')
     }
 
-    Process
-    {
-        try
-        {
+    Process {
+        try {
             $p = Get-WinSCPItem -WinSCPSession $WinSCPSession -Path (Format-WinSCPPathString -Path $($Path)) -ErrorAction Stop
             
-            if ($NewName.Contains('/') -or $NewName.Contains('\'))
-            {
+            if ($NewName.Contains('/') -or $NewName.Contains('\')) {
                 $NewName = $NewName.Substring($NewName.LastIndexOfAny('/\'))
             }
 
             $newPath = "$($p.Name.Substring(0, $p.Name.LastIndexOf('/') + 1))$NewName"
             $WinSCPSession.MoveFile($p.Name, $newPath)
 
-            if ($PassThru.IsPresent)
-            {
+            if ($PassThru.IsPresent) {
                 Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $newPath
             }
-        }
-        catch
-        {
+        } catch {
             Write-Error -Message $_.ToString()
         }
     }
 
-    End
-    {
-        if (-not ($sessionValueFromPipeLine))
-        {
+    End {
+        if (-not ($sessionValueFromPipeLine)) {
             Remove-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }

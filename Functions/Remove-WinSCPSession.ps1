@@ -21,24 +21,21 @@
 .LINK
     http://winscp.net/eng/docs/library_session
 #>
-Function Remove-WinSCPSession
-{
+Function Remove-WinSCPSession {
+    
     [OutputType([Void])]
     
-    Param
-    (
-        [Parameter(Mandatory = $true,
-                   ValueFromPipeline = $true)]
+    Param (
+        [Parameter(
+            Mandatory = $true,
+            ValueFromPipeline = $true)]
         [WinSCP.Session]
         $WinSCPSession
     )
 
-    try
-    {
+    try {
         $WinSCPSession.Dispose()
-    }
-    catch
-    {
+    } catch {
         Write-Error $_.ToString()
     }
 }

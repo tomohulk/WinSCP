@@ -24,38 +24,32 @@
 .LINK
     http://winscp.net/eng/docs/library_session_escapefilemask
 #>
-Function ConvertTo-WinSCPEscapedString
-{
+Function ConvertTo-WinSCPEscapedString {
+
     [OutputType([String])]
 
-    Param
-    (
-        [Parameter(Mandatory = $true,
-                   ValueFromPipeline = $true)]
-        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
+    Param (
+        [Parameter(
+            Mandatory = $true,
+            ValueFromPipeline = $true
+        )]
         [String]
         $FileMask
     )
 
-    Begin
-    {
+    Begin {
         $sessionObject = New-Object -TypeName WinSCP.Session
     }
 
-    Process
-    {
-        try
-        {
+    Process {
+        try {
             return ($sessionObject.EscapeFileMask($FileMask))
-        }
-        catch
-        {
+        } catch {
             Write-Error -Message $_.ToString()
         }
     }
     
-    End
-    {
+    End {
         $sessionObject.Dispose()
     }
 }

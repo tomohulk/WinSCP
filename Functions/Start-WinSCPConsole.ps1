@@ -15,11 +15,12 @@
 .LINK
     http://dotps1.github.io/WinSCP
 #>
-Function Start-WinSCPConsole
-{
+Function Start-WinSCPConsole {
+
     [OutputType([Void])]
 
-    Param ( )
+    Param( 
+    )
 
     $process = "$(Split-Path -Path $MyInvocation.MyCommand.Module.Path)\NeededAssemblies\WinSCP.exe"
     $args = '/Console'

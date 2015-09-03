@@ -37,33 +37,33 @@
 .LINK
     http://winscp.net/eng/docs/library_session_getfiles
 #>
-Function Receive-WinSCPItem
-{
+Function Receive-WinSCPItem {
+    
     [OutputType([WinSCP.TransferOperationResult])]
 
-    Param
-    (
-        [Parameter(Mandatory = $true,
-                   ValueFromPipeline = $true)]
-        [ValidateScript({ if ($_.Opened)
-            { 
+    Param (
+        [Parameter(
+            Mandatory = $true,
+            ValueFromPipeline = $true
+        )]
+        [ValidateScript({ 
+            if ($_.Opened) { 
                 return $true 
+            } else { 
+                throw 'The WinSCP Session is not in an Open state.'
             }
-            else
-            { 
-                throw 'The WinSCP Session is not in an Open state.' 
-            } })]
+        })]
         [WinSCP.Session]
         $WinSCPSession,
 
-        [Parameter(Mandatory = $true,
-                   ValueFromPipelineByPropertyName = $true)]
-        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
+        [Parameter(
+            Mandatory = $true,
+            ValueFromPipelineByPropertyName = $true
+        )]
         [String[]]
         $Path,
 
         [Parameter()]
-        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
         $Destination = $pwd,
 
@@ -76,42 +76,32 @@ Function Receive-WinSCPItem
         $TransferOptions = (New-Object -TypeName WinSCP.TransferOptions)
     )
 
-    Begin
-    {
+    Begin {
         $sessionValueFromPipeLine = $PSBoundParameters.ContainsKey('WinSCPSession')
     }
 
-    Process
-    {
-        foreach ($p in (Format-WinSCPPathString -Path $($Path)))
-        {
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $p))
-            {
+    Process {
+        foreach ($p in (Format-WinSCPPathString -Path $($Path))) {
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $p)) {
                 Write-Error -Message "Cannot find path: $p because it does not exist."
 
                 continue
             }
 
-            if ((Get-Item -Path $Destination -ErrorAction SilentlyContinue).Attributes -eq 'Directory' -and -not $Destination.EndsWith('\'))
-            {
+            if ((Get-Item -Path $Destination -ErrorAction SilentlyContinue).Attributes -eq 'Directory' -and -not $Destination.EndsWith('\')) {
                 $Destination += '\'
             }
 
-            try
-            {
+            try {
                 $WinSCPSession.GetFiles($p, $Destination, $Remove.IsPresent, $TransferOptions)
-            }
-            catch 
-            {
+            } catch {
                 Write-Error -Message $_.ToString()
             }
         }
     }
 
-    End
-    {
-        if (-not ($sessionValueFromPipeLine))
-        {
+    End {
+        if (-not ($sessionValueFromPipeLine)) {
             Remove-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }

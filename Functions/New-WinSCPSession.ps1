@@ -77,13 +77,14 @@
 .LINK
     http://winscp.net/eng/docs/library_sessionoptions
 #>
-Function New-WinSCPSession
-{
+Function New-WinSCPSession {
+
     [OutputType([WinSCP.Session])]
     
-    Param
-    (
-        [Parameter(ValueFromPipeline = $true)]
+    Param (
+        [Parameter(
+            ValueFromPipeline = $true
+        )]
         [PSCredential]
         $Credential = (Get-Credential),
 
@@ -103,8 +104,9 @@ Function New-WinSCPSession
         [Switch]
         $GiveUpSecureityAndAcceptAnyTlsHostCertificate,
 
-        [Parameter(Mandatory = $true)]
-        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
+        [Parameter(
+            Mandatory = $true
+        )]
         [String]
         $HostName = $null,
 
@@ -116,30 +118,28 @@ Function New-WinSCPSession
         [WinSCP.Protocol]
         $Protocol = (New-Object -TypeName WinSCP.Protocol),
 
-        [Parameter(ValueFromPipelineByPropertyName = $true)]
-        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
+        [Parameter(
+            ValueFromPipelineByPropertyName = $true
+        )]
         [String[]]
         $SshHostKeyFingerprint = $null,
 
         [Parameter()]
-        [ValidateScript({ if (Test-Path -Path $_)
-            { 
+        [ValidateScript({ 
+            if (Test-Path -Path $_) { 
                 return $true 
-            } 
-            else 
-            { 
+            } else { 
                 throw "$_ not found." 
-            } })]
+            } 
+        })]
         [String]
         $SshPrivateKeyPath = $null,
 
         [Parameter()]
-        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [SecureString]
         $SshPrivateKeySecurePassphrase = $null,
 
         [Parameter()]
-        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
         $TlsHostCertificateFingerprint = $null,
 
@@ -152,7 +152,6 @@ Function New-WinSCPSession
         $WebdavSecure,
 
         [Parameter()]
-        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
         $WebdavRoot = $null,
         
@@ -161,26 +160,24 @@ Function New-WinSCPSession
         $RawSetting = $null,
 
         [Parameter()]
-        [ValidateScript({if (Test-Path -Path (Split-Path -Path $_))
-            {
+        [ValidateScript({
+            if (Test-Path -Path (Split-Path -Path $_)) {
                 return $true
-            }
-            else
-            {
+            } else {
                 throw "Path not found $(Split-Path -Path $_)."
-            } })]
+            } 
+        })]
         [String]
         $DebugLogPath = $null,
 
         [Parameter()]
-        [ValidateScript({if (Test-Path -Path (Split-Path -Path $_))
-            {
+        [ValidateScript({
+            if (Test-Path -Path (Split-Path -Path $_)) {
                 return $true
-            }
-            else
-            {
+            } else {
                 throw "Path not found $(Split-Path -Path $_)."
-            } })]
+            } 
+        })]
         [String]
         $SessionLogPath = $null,
 
@@ -202,43 +199,33 @@ Function New-WinSCPSession
     $PSBoundParameters.Add('SecurePassword', $Credential.Password)
 
     # Convert SshPrivateKeySecurePasspahrase to plain text and set it to the corresponding SessionOptions property.
-    if ($SshPrivateKeySecurePassphrase -ne $null)
-    {
+    if ($SshPrivateKeySecurePassphrase -ne $null) {
         $sessionOptions.SshPrivateKeyPassphrase = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SshPrivateKeySecurePassphrase))
     }
 
-    try
-    {
+    try {
         # Enumerate each parameter.
-        foreach ($key in $PSBoundParameters.Keys)
-        {
+        foreach ($key in $PSBoundParameters.Keys) {
             # If the property is a member of the WinSCP.SessionOptions object, set the matching value.
-            if (($sessionOptions | Get-Member -MemberType Properties).Name -contains $key)
-            {
+            if (($sessionOptions | Get-Member -MemberType Properties).Name -contains $key) {
                 $sessionOptions.$key = $PSBoundParameters.$key
             }
             # If the property is a member of the WinSCP.Session object, set the matching value.
-            elseif (($session | Get-Member -MemberType Properties).Name -contains $key)
-            {
+            elseif (($session | Get-Member -MemberType Properties).Name -contains $key) {
                 $session.$key = $PSBoundParameters.$key
             }
         }
 
         # Enumerate raw settings and add the options to the WinSCP.SessionOptions object.
-        foreach ($key in $RawSetting.Keys)
-        {
+        foreach ($key in $RawSetting.Keys) {
             $sessionOptions.AddRawSettings($key, $RawSetting[$key])
         }
-    }
-    catch
-    {
+    } catch {
         Write-Error -Message $_.ToString()
     }
 
-    try
-    {
-        if ($FileTransferProgress -ne $null)
-        {
+    try {
+        if ($FileTransferProgress -ne $null) {
             $session.Add_FileTransferProgress($FileTransferProgress)
         }
 
@@ -247,9 +234,7 @@ Function New-WinSCPSession
 
         # Return the WinSCP.Session object.
         return $session
-    }
-    catch
-    {
+    } catch {
         Write-Error -Message $_.ToString()
     }
 }

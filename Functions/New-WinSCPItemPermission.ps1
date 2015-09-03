@@ -80,12 +80,11 @@
 .LINK
     http://winscp.net/eng/docs/library_filepermissions
 #>
-Function New-WinSCPItemPermission
-{
+Function New-WinSCPItemPermission {
+
     [OutputType([WinSCP.FilePermissions])]
 
-    Param
-    (
+    Param (
         [Parameter()]
         [Switch]
         $GroupExecute,
@@ -103,7 +102,6 @@ Function New-WinSCPItemPermission
         $Numeric = $null,
 
         [Parameter()]
-        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
         $Octal = $null,
 
@@ -132,7 +130,6 @@ Function New-WinSCPItemPermission
         $Sticky,
 
         [Parameter()]
-        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
         $Text = $null,
 
@@ -149,25 +146,19 @@ Function New-WinSCPItemPermission
         $UserWrite
     )
 
-    Begin
-    {
+    Begin {
         $filePermmisions = New-Object -TypeName WinSCP.FilePermissions
 
-        foreach ($key in $PSBoundParameters.Keys)
-        {
-            try
-            {
+        foreach ($key in $PSBoundParameters.Keys) {
+            try {
                 $filePermmisions.$($key) = $PSBoundParameters.$($key)
-            }
-            catch
-            {
+            } catch {
                 Write-Error -Message $_.ToString()
             }
         }
     }
 
-    End
-    {
+    End {
         return $filePermmisions
     }
 }

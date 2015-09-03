@@ -46,14 +46,12 @@
 .LINK
     http://winscp.net/eng/docs/library_transferoptions
 #>
-Function New-WinSCPTransferOption
-{
+Function New-WinSCPTransferOption {
+    
     [OutputType([WinSCP.TransferOptions])]
 
-    Param
-    (
+    Param (
         [Parameter()]
-        [ValidateScript({ -not ([String]::IsNullOrWhiteSpace($_)) })]
         [String]
         $FileMask = $null,
 
@@ -82,32 +80,23 @@ Function New-WinSCPTransferOption
         $TransferMode = (New-Object -TypeName WinSCP.TransferMode)
     )
 
-    Begin
-    {
+    Begin {
         $transferOptions = New-Object -TypeName WinSCP.TransferOptions
 
-        foreach ($key in $PSBoundParameters.Keys)
-        {
-            try
-            {
-                if ($key -eq 'State' -or $key -eq 'Threshold')
-                {
+        foreach ($key in $PSBoundParameters.Keys) {
+            try {
+                if ($key -eq 'State' -or $key -eq 'Threshold') {
                     $transferOptions.ResumeSupport.$($key) = $PSBoundParameters.$($key)
-                }
-                else
-                {
+                } else {
                     $transferOptions.$($key) = $PSBoundParameters.$($key)
                 }
-            }
-            catch
-            {
+            } catch {
                 Write-Error -Message $_.ToString()
             }
         }
     }
 
-    End
-    {
+    End {
         return $transferOptions
     }
 }
