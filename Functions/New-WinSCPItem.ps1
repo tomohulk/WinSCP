@@ -12,6 +12,8 @@
     A valid open WinSCP.Session, returned from New-WinSCPSession.
 .PARAMETER Path
     Full path to remote directory to create.
+.PARAMETER Name
+    The name of the new item to be created.  This can be omitted if full path is used to the new item.
 .PARAMETER ItemType
     The type of object to be created, IE: File, Directory.
 .PARAMETER Value
