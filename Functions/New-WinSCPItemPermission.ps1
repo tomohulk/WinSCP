@@ -38,7 +38,7 @@
 .PARAMETER UserWrite
     Write permission for owner.
 .EXAMPLE
-    New-WinSCPItemPermission
+    PS C:\> New-WinSCPItemPermission
 
     Numeric      : 0
     Text         : ---------
@@ -56,7 +56,7 @@
     SetGid       : False
     SetUid       : False
 .EXAMPLE
-    New-WinSCPItemPermission -GroupExecute -GroupRead -UserExecute -UserRead
+    PS C:\> New-WinSCPItemPermission -GroupExecute -GroupRead -UserExecute -UserRead
 
     Numeric      : 360
     Text         : r-xr-x---

@@ -19,7 +19,7 @@ I will no longer be supporting Chocolatey or PSGet for module repos; mainly beca
 * [Invoke-WinSCPCommand](https://github.com/dotps1/WinSCP/wiki/Invoke-WinSCPCommand)
 * [Move-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Move-WinSCPItem)
 * [New-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/New-WinSCPItem)
-* [New-WinSCPFilePermission](https://github.com/dotps1/WinSCP/wiki/New-WinSCPFilePermission)
+* [New-WinSCPItemPermission](https://github.com/dotps1/WinSCP/wiki/New-WinSCPItemPermission)
 * [New-WinSCPSession](https://github.com/dotps1/WinSCP/wiki/New-WinSCPSession)
 * [New-WinSCPTransferOption](https://github.com/dotps1/WinSCP/wiki/New-WinSCPTransferOption)
 * [Receive-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Receive-WinSCPItem)
