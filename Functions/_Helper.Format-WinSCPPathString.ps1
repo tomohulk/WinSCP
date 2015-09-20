@@ -10,7 +10,7 @@
 .PARAMETER Path
     The path string to be formated.
 .EXAMPLE
-    PS C:\> Format-WinSCPPathString -Path '\'
+    Format-WinSCPPathString -Path '\'
 
     ./
 .EXAMPLE
@@ -24,7 +24,6 @@
 #>
 
 Function Format-WinSCPPathString {
-    
     [OutputType([String])]
 
     Param (

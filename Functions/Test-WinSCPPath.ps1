@@ -1,36 +1,4 @@
-﻿<#
-.SYNOPSIS
-    Test if a remote item exists.
-.DESCRIPTION
-    After creating a valid WinSCP Session, this function can be used to test if a directory or file exists on the remote source.
-.INPUTS
-    WinSCP.Session.
-    System.String
-.OUTPUTS
-    System.Boolean.
-.PARAMETER WinSCPSession
-    A valid open WinSCP.Session, returned from New-WinSCPSession.
-.PARAMETER Path
-    Full path to remote file.
-.EXAMPLE
-    PS C:\> New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Test-WinSCPPath -Path '/rDir/rSubDir'
-
-    True
-.EXAMPLE
-    PS C:\> $credential = Get-Credential
-    PS C:\> $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
-    PS C:\> Test-WinSCPPath -WinSCPSession $session -Path '/rDir/rSubDir'
-
-    True
-.NOTES
-   If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.
-.LINK
-    http://dotps1.github.io/WinSCP
-.LINK
-    http://winscp.net/eng/docs/library_session_fileexists
-#>
-Function Test-WinSCPPath {
-
+﻿Function Test-WinSCPPath {
     [OutputType([Bool])]
     
     Param (

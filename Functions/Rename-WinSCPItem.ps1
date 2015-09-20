@@ -1,33 +1,4 @@
-﻿<#
-.SYNOPSIS
-    Renames a remote item
-.DESCRIPTION
-    Renames a remote file or directory.  Be sure to include the file extension when renameing a file.
-.INPUTS
-    WinSCP.Session.
-.OUTPUTS
-    None.
-.PARAMETER WinSCPSession
-    A valid open WinSCP.Session, returned from New-WinSCPSession.
-.PARAMETER Path
-    Full path to remote item to be renamed.
-.PARAMETER NewName
-    The new name for the the item.
-.EXAMPLE
-    PS C:\> New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Rename-WinSCPItem -Path '/rDir/rFile.txt' -NewName 'rNewFile.txt'
-.EXAMPLE
-    PS C:\> $credential = Get-Credential
-    PS C:\> $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
-    PS C:\> Rename-WinSCPItem -WinSCPSession $session -Path '/rDir/rFile.txt' -Destination 'rNewFile.txt'
-.NOTES
-    If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.
-.LINK
-    http://dotps1.github.io/WinSCP
-.LINK 
-    http://winscp.net/eng/docs/library_session_movefile
-#>
-Function Rename-WinSCPItem {
-    
+﻿Function Rename-WinSCPItem {    
     [OutputType([Void])]
 
     Param (
