@@ -161,14 +161,14 @@ PrivateData = @{
         IconUri = 'http://winscp.net/eng/images/og_logo_240x240.jpg'
 
         # ReleaseNotes of this module
-        ReleaseNotes = 'Corrected incorrect module manifest attributes.'
+        ReleaseNotes = 'Moved Comment Based Help to PowerShell Help file.'
 
     } # End of PSData hashtable
 
 } # End of PrivateData hashtable
 
 # HelpInfo URI of this module
-# HelpInfoURI = 'https://raw.githubusercontent.com/dotps1/WinSCP/master/en-US/about_WinSCP.help.txt'
+HelpInfoURI = 'https://raw.githubusercontent.com/dotps1/WinSCP/master/en-US/WinSCP-Help.xml'
 
 # Default prefix for commands exported from this module. Override the default prefix using Import-Module -Prefix.
 # DefaultCommandPrefix = 'WinSCP'
