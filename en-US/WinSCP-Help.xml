@@ -22,8 +22,7 @@
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 				<maml:name>FileMask</maml:name>
 				<maml:description>
-					<maml:para>File path to convert.
-</maml:para>
+					<maml:para>File path to convert.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			</command:parameter>
@@ -47,8 +46,7 @@
 		<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 			<maml:name>FileMask</maml:name>
 			<maml:description>
-				<maml:para>File path to convert.
-</maml:para>
+				<maml:para>File path to convert.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			<dev:type>
@@ -120,12 +118,14 @@
 			<maml:introduction>
 				<maml:paragraph>PS C:\&gt;</maml:paragraph>
 			</maml:introduction>
-			<dev:code>PS C:\&gt; ConvertTo-WinSCPEscapedString -FileMask &apos;FileWithA*InName.txt&apos;</dev:code>
+			<dev:code>PS C:\&gt; ConvertTo-WinSCPEscapedString -FileMask &apos;FileWithA*InName.txt&apos;
+
+FileWithA[*]InName.txt</dev:code>
 			<dev:remarks>
 				<maml:para />
 				<maml:para />
 				<maml:para />
-				<maml:para>FileWithA[*]InName.txt</maml:para>
+				<maml:para></maml:para>
 			</dev:remarks>
 			<command:commandLines>
 				<command:commandLine>
@@ -142,14 +142,16 @@
 			</maml:introduction>
 			<dev:code>PS C:\&gt; $session = New-WinSCPSession -Hostname &apos;myftphost.org&apos; -UserName &apos;ftpuser&apos; -Password &apos;FtpUserPword&apos; -SshHostKeyFingerprint &apos;ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx&apos;
 PS C:\&gt; $fileName = ConvertTo-WinSCPEscapedString -FileMask &apos;FileWithA*InName.txt&apos;
-PS C:\&gt; Receive-WinSCPItem -WinSCPSession $session -RemoteItem &quot;/rDir/$fileName&quot; -LocalItem &apos;C:\lDir\&apos;</dev:code>
+PS C:\&gt; Receive-WinSCPItem -WinSCPSession $session -RemoteItem &quot;/rDir/$fileName&quot; -LocalItem &apos;C:\lDir\&apos;
+
+Transfers                    Failures IsSuccess
+---------                    -------- ---------
+{/rDir/FileWithA*InName.txt} {}       True</dev:code>
 			<dev:remarks>
 				<maml:para />
 				<maml:para />
 				<maml:para />
-				<maml:para>Transfers                    Failures IsSuccess
----------                    -------- ---------
-{/rDir/FileWithA*InName.txt} {}       True</maml:para>
+				<maml:para></maml:para>
 			</dev:remarks>
 			<command:commandLines>
 				<command:commandLine>
@@ -194,32 +196,28 @@ PS C:\&gt; Receive-WinSCPItem -WinSCPSession $session -RemoteItem &quot;/rDir/$f
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 				<maml:name>WinSCPSession</maml:name>
 				<maml:description>
-					<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.
-</maml:para>
+					<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="true (ByPropertyName)" position="1">
 				<maml:name>Path</maml:name>
 				<maml:description>
-					<maml:para>Specifies a path to one or more locations. Wildcards are permitted. The default location is the home directory of the user making the connection.
-</maml:para>
+					<maml:para>Specifies a path to one or more locations. Wildcards are permitted. The default location is the home directory of the user making the connection.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="true">String[]</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2">
 				<maml:name>Filter</maml:name>
 				<maml:description>
-					<maml:para>Filter to be applied to returned objects.
-</maml:para>
+					<maml:para>Filter to be applied to returned objects.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 				<maml:name>Recurse</maml:name>
 				<maml:description>
-					<maml:para>Return items from all subdirectories.
-</maml:para>
+					<maml:para>Return items from all subdirectories.</maml:para>
 				</maml:description>
 				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			</command:parameter>
@@ -243,8 +241,7 @@ PS C:\&gt; Receive-WinSCPItem -WinSCPSession $session -RemoteItem &quot;/rDir/$f
 		<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 			<maml:name>WinSCPSession</maml:name>
 			<maml:description>
-				<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.
-</maml:para>
+				<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 			<dev:type>
@@ -256,8 +253,7 @@ PS C:\&gt; Receive-WinSCPItem -WinSCPSession $session -RemoteItem &quot;/rDir/$f
 		<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="true (ByPropertyName)" position="1">
 			<maml:name>Path</maml:name>
 			<maml:description>
-				<maml:para>Specifies a path to one or more locations. Wildcards are permitted. The default location is the home directory of the user making the connection.
-</maml:para>
+				<maml:para>Specifies a path to one or more locations. Wildcards are permitted. The default location is the home directory of the user making the connection.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="true">String[]</command:parameterValue>
 			<dev:type>
@@ -269,8 +265,7 @@ PS C:\&gt; Receive-WinSCPItem -WinSCPSession $session -RemoteItem &quot;/rDir/$f
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2">
 			<maml:name>Filter</maml:name>
 			<maml:description>
-				<maml:para>Filter to be applied to returned objects.
-</maml:para>
+				<maml:para>Filter to be applied to returned objects.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			<dev:type>
@@ -282,8 +277,7 @@ PS C:\&gt; Receive-WinSCPItem -WinSCPSession $session -RemoteItem &quot;/rDir/$f
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 			<maml:name>Recurse</maml:name>
 			<maml:description>
-				<maml:para>Return items from all subdirectories.
-</maml:para>
+				<maml:para>Return items from all subdirectories.</maml:para>
 			</maml:description>
 			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			<dev:type>
@@ -368,18 +362,19 @@ Represents text as a series of Unicode characters.</maml:para>
 			<maml:introduction>
 				<maml:paragraph>PS C:\&gt;</maml:paragraph>
 			</maml:introduction>
-			<dev:code>PS C:\&gt; New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Path &apos;/rDir/&apos;</dev:code>
-			<dev:remarks>
-				<maml:para>Lists all items from the remote path, and closes the active WinSCP Session upon completion.</maml:para>
-				<maml:para />
-				<maml:para />
-				<maml:para>   Directory: /rDir
+			<dev:code>PS C:\&gt; New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Path &apos;/rDir/&apos;
 
-FileType             LastWriteTime     Length Name                                                                                                                                                                                                                                        
---------             -------------     ------ ----                                                                                                                                                                                                                                        
-D             1/1/2015 12:00:00 AM          0 rSubDir                                                                                                                                                                                                                                     
--             1/1/2015 12:00:00 AM          0 rTextFile.txt
-</maml:para>
+   Directory: /rDir
+
+FileType             LastWriteTime     Length Name
+--------             -------------     ------ ----
+D             1/1/2015 12:00:00 AM          0 rSubDir
+-             1/1/2015 12:00:00 AM          0 rTextFile.txt</dev:code>
+			<dev:remarks>
+				<maml:para />
+				<maml:para />
+				<maml:para />
+				<maml:para></maml:para>
 			</dev:remarks>
 			<command:commandLines>
 				<command:commandLine>
@@ -396,24 +391,26 @@ D             1/1/2015 12:00:00 AM          0 rSubDir
 			</maml:introduction>
 			<dev:code>PS C:\&gt; $credential = Get-Credential
 PS C:\&gt; $session = New-WinSCPSession -Credential $credential -Hostname &apos;myftphost.org&apos; -SshHostKeyFingerprint &apos;ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx&apos;
-Get-WinSCPChildItem -WinSCPSession $session -Path &apos;/rDir/&apos; -Recurse</dev:code>
-			<dev:remarks>
-				<maml:para>Recursively lists all items from the remote path, and leaves the active WinSCP Session open to be reused.</maml:para>
-				<maml:para />
-				<maml:para />
-				<maml:para>   Directory: /rDir
+Get-WinSCPChildItem -WinSCPSession $session -Path &apos;/rDir/&apos; -Recurse
 
-FileType             LastWriteTime     Length Name                                                                                                                                                                                                                                        
---------             -------------     ------ ----                                                                                                                                                                                                                                        
-D             1/1/2015 12:00:00 AM          0 rSubDir                                                                                                                                                                                                                                     
--             1/1/2015 12:00:00 AM          0 rTextFile.txt                                                                                                                                                                                                                               
+   Directory: /rDir
+
+FileType             LastWriteTime     Length Name
+--------             -------------     ------ ----
+D             1/1/2015 12:00:00 AM          0 rSubDir
+-             1/1/2015 12:00:00 AM          0 rTextFile.txt
 
 
    Directory: /rDir/rSubDir
 
-FileType             LastWriteTime     Length Name                                                                                                                                                                                                                                        
---------             -------------     ------ ----                                                                                                                                                                                                                                        
--             1/1/2015 12:00:00 AM          0 rSubDirTextFile.txt</maml:para>
+FileType             LastWriteTime     Length Name
+--------             -------------     ------ ----
+-             1/1/2015 12:00:00 AM          0 rSubDirTextFile.txt</dev:code>
+			<dev:remarks>
+				<maml:para />
+				<maml:para />
+				<maml:para />
+				<maml:para></maml:para>
 			</dev:remarks>
 			<command:commandLines>
 				<command:commandLine>
@@ -458,16 +455,14 @@ FileType             LastWriteTime     Length Name
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 				<maml:name>WinSCPSession</maml:name>
 				<maml:description>
-					<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.
-</maml:para>
+					<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="true (ByPropertyName)" position="1">
 				<maml:name>Path</maml:name>
 				<maml:description>
-					<maml:para>Full path to remote Item.
-</maml:para>
+					<maml:para>Full path to remote Item.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="true">String[]</command:parameterValue>
 			</command:parameter>
@@ -498,8 +493,7 @@ FileType             LastWriteTime     Length Name
 		<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 			<maml:name>WinSCPSession</maml:name>
 			<maml:description>
-				<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.
-</maml:para>
+				<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 			<dev:type>
@@ -511,8 +505,7 @@ FileType             LastWriteTime     Length Name
 		<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="true (ByPropertyName)" position="1">
 			<maml:name>Path</maml:name>
 			<maml:description>
-				<maml:para>Full path to remote Item.
-</maml:para>
+				<maml:para>Full path to remote Item.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="true">String[]</command:parameterValue>
 			<dev:type>
@@ -574,8 +567,7 @@ FileType             LastWriteTime     Length Name
 				<maml:name>
 System.String</maml:name>
 				<maml:uri>
-https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx
-</maml:uri>
+https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx</maml:uri>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
@@ -610,16 +602,18 @@ Represents text as a series of Unicode characters.</maml:para>
 			<maml:introduction>
 				<maml:paragraph>PS C:\&gt;</maml:paragraph>
 			</maml:introduction>
-			<dev:code>PS C:\&gt; New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPItem -Path &apos;/rDir/rSubDir&apos;</dev:code>
+			<dev:code>PS C:\&gt; New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPItem -Path &apos;/rDir/rSubDir&apos;
+
+   Directory: /rDir
+
+FileType             LastWriteTime     Length Name
+--------             -------------     ------ ----
+D             1/1/2015 12:00:00 AM          0 /rdir/rSubDir</dev:code>
 			<dev:remarks>
 				<maml:para />
 				<maml:para />
 				<maml:para />
-				<maml:para>   Directory: /rDir
-
-FileType             LastWriteTime     Length Name                                                                                                                                                                                                                                        
---------             -------------     ------ ----                                                                                                                                                                                                                                        
-D             1/1/2015 12:00:00 AM          0 /rdir/rSubDir</maml:para>
+				<maml:para></maml:para>
 			</dev:remarks>
 			<command:commandLines>
 				<command:commandLine>
@@ -636,16 +630,18 @@ D             1/1/2015 12:00:00 AM          0 /rdir/rSubDir</maml:para>
 			</maml:introduction>
 			<dev:code>PS C:\&gt; $credential = Get-Credential
 PS C:\&gt; $session = New-WinSCPSession -Credential $credential -Hostname &apos;myftphost.org&apos; -SshHostKeyFingerprint &apos;ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx&apos;
-PS C:\&gt; Get-WinSCPItem -WinSCPSession $session -Path &apos;/rDir/rSubDir&apos;</dev:code>
+PS C:\&gt; Get-WinSCPItem -WinSCPSession $session -Path &apos;/rDir/rSubDir&apos;
+
+   Directory: /rDir
+
+FileType             LastWriteTime     Length Name
+--------             -------------     ------ ----
+D             1/1/2015 12:00:00 AM          0 /rdir/rSubDir</dev:code>
 			<dev:remarks>
 				<maml:para />
 				<maml:para />
 				<maml:para />
-				<maml:para>   Directory: /rDir
-
-FileType             LastWriteTime     Length Name                                                                                                                                                                                                                                        
---------             -------------     ------ ----                                                                                                                                                                                                                                        
-D             1/1/2015 12:00:00 AM          0 /rdir/rSubDir</maml:para>
+				<maml:para></maml:para>
 			</dev:remarks>
 			<command:commandLines>
 				<command:commandLine>
@@ -690,24 +686,21 @@ D             1/1/2015 12:00:00 AM          0 /rdir/rSubDir</maml:para>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 				<maml:name>WinSCPSession</maml:name>
 				<maml:description>
-					<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.
-</maml:para>
+					<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="1">
 				<maml:name>Algorithm</maml:name>
 				<maml:description>
-					<maml:para>A name of a checksum algorithm to use. Use IANA name of algorithm or use a name of any proprietary algorithm the server supports (with SFTP protocol only). Commonly supported algorithms are sha-1 and md5.
-</maml:para>
+					<maml:para>A name of a checksum algorithm to use. Use IANA name of algorithm or use a name of any proprietary algorithm the server supports (with SFTP protocol only). Commonly supported algorithms are sha-1 and md5.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="true (ByPropertyName)" position="2">
 				<maml:name>Path</maml:name>
 				<maml:description>
-					<maml:para>A full path to a remote file to calculate a checksum for.
-</maml:para>
+					<maml:para>A full path to a remote file to calculate a checksum for.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="true">String[]</command:parameterValue>
 			</command:parameter>
@@ -731,8 +724,7 @@ D             1/1/2015 12:00:00 AM          0 /rdir/rSubDir</maml:para>
 		<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 			<maml:name>WinSCPSession</maml:name>
 			<maml:description>
-				<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.
-</maml:para>
+				<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 			<dev:type>
@@ -744,8 +736,7 @@ D             1/1/2015 12:00:00 AM          0 /rdir/rSubDir</maml:para>
 		<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="1">
 			<maml:name>Algorithm</maml:name>
 			<maml:description>
-				<maml:para>A name of a checksum algorithm to use. Use IANA name of algorithm or use a name of any proprietary algorithm the server supports (with SFTP protocol only). Commonly supported algorithms are sha-1 and md5.
-</maml:para>
+				<maml:para>A name of a checksum algorithm to use. Use IANA name of algorithm or use a name of any proprietary algorithm the server supports (with SFTP protocol only). Commonly supported algorithms are sha-1 and md5.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			<dev:type>
@@ -757,8 +748,7 @@ D             1/1/2015 12:00:00 AM          0 /rdir/rSubDir</maml:para>
 		<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="true (ByPropertyName)" position="2">
 			<maml:name>Path</maml:name>
 			<maml:description>
-				<maml:para>A full path to a remote file to calculate a checksum for.
-</maml:para>
+				<maml:para>A full path to a remote file to calculate a checksum for.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="true">String[]</command:parameterValue>
 			<dev:type>
@@ -893,16 +883,14 @@ Represents text as a series of Unicode characters.</maml:para>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 				<maml:name>WinSCPSession</maml:name>
 				<maml:description>
-					<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.
-</maml:para>
+					<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="true (ByPropertyName)" position="1">
 				<maml:name>Command</maml:name>
 				<maml:description>
-					<maml:para>Command to execute.
-</maml:para>
+					<maml:para>Command to execute.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="true">String[]</command:parameterValue>
 			</command:parameter>
@@ -926,8 +914,7 @@ Represents text as a series of Unicode characters.</maml:para>
 		<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 			<maml:name>WinSCPSession</maml:name>
 			<maml:description>
-				<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.
-</maml:para>
+				<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 			<dev:type>
@@ -939,8 +926,7 @@ Represents text as a series of Unicode characters.</maml:para>
 		<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="true (ByPropertyName)" position="1">
 			<maml:name>Command</maml:name>
 			<maml:description>
-				<maml:para>Command to execute.
-</maml:para>
+				<maml:para>Command to execute.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="true">String[]</command:parameterValue>
 			<dev:type>
@@ -1077,40 +1063,35 @@ PS C:\&gt; Invoke-WinSCPCommand -WinSCPSession $session -Command (&quot;mysqldum
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 				<maml:name>WinSCPSession</maml:name>
 				<maml:description>
-					<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.
-</maml:para>
+					<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="true (ByPropertyName)" position="1">
 				<maml:name>Path</maml:name>
 				<maml:description>
-					<maml:para>Full path to remote item to be moved.
-</maml:para>
+					<maml:para>Full path to remote item to be moved.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="true">String[]</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2">
 				<maml:name>Destination</maml:name>
 				<maml:description>
-					<maml:para>Full path to new location to move the item to.
-</maml:para>
+					<maml:para>Full path to new location to move the item to.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 				<maml:name>Force</maml:name>
 				<maml:description>
-					<maml:para>Creates the destination directory if it does not exist.
-</maml:para>
+					<maml:para>Creates the destination directory if it does not exist.</maml:para>
 				</maml:description>
 				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 				<maml:name>PassThru</maml:name>
 				<maml:description>
-					<maml:para>Returns a WinSCP.RemoteFileInfo of the moved object.
-</maml:para>
+					<maml:para>Returns a WinSCP.RemoteFileInfo of the moved object.</maml:para>
 				</maml:description>
 				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			</command:parameter>
@@ -1134,8 +1115,7 @@ PS C:\&gt; Invoke-WinSCPCommand -WinSCPSession $session -Command (&quot;mysqldum
 		<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 			<maml:name>WinSCPSession</maml:name>
 			<maml:description>
-				<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.
-</maml:para>
+				<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 			<dev:type>
@@ -1147,8 +1127,7 @@ PS C:\&gt; Invoke-WinSCPCommand -WinSCPSession $session -Command (&quot;mysqldum
 		<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="true (ByPropertyName)" position="1">
 			<maml:name>Path</maml:name>
 			<maml:description>
-				<maml:para>Full path to remote item to be moved.
-</maml:para>
+				<maml:para>Full path to remote item to be moved.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="true">String[]</command:parameterValue>
 			<dev:type>
@@ -1160,8 +1139,7 @@ PS C:\&gt; Invoke-WinSCPCommand -WinSCPSession $session -Command (&quot;mysqldum
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2">
 			<maml:name>Destination</maml:name>
 			<maml:description>
-				<maml:para>Full path to new location to move the item to.
-</maml:para>
+				<maml:para>Full path to new location to move the item to.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			<dev:type>
@@ -1173,8 +1151,7 @@ PS C:\&gt; Invoke-WinSCPCommand -WinSCPSession $session -Command (&quot;mysqldum
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 			<maml:name>Force</maml:name>
 			<maml:description>
-				<maml:para>Creates the destination directory if it does not exist.
-</maml:para>
+				<maml:para>Creates the destination directory if it does not exist.</maml:para>
 			</maml:description>
 			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			<dev:type>
@@ -1186,8 +1163,7 @@ PS C:\&gt; Invoke-WinSCPCommand -WinSCPSession $session -Command (&quot;mysqldum
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 			<maml:name>PassThru</maml:name>
 			<maml:description>
-				<maml:para>Returns a WinSCP.RemoteFileInfo of the moved object.
-</maml:para>
+				<maml:para>Returns a WinSCP.RemoteFileInfo of the moved object.</maml:para>
 			</maml:description>
 			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			<dev:type>
@@ -1294,16 +1270,18 @@ Represents text as a series of Unicode characters.</maml:para>
 			</maml:introduction>
 			<dev:code>PS C:\&gt; $credential = Get-Credential
 PS C:\&gt; $session = New-WinSCPSession -Credential $credential -Hostname &apos;myftphost.org&apos; -SshHostKeyFingerprint &apos;ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx&apos;
-PS C:\&gt; Move-WinSCPItem -WinSCPSession $session -Path &apos;/rDir/rFile.txt&apos; -Destination &apos;/rDir/rSubDir/&apos; -PassThru</dev:code>
+PS C:\&gt; Move-WinSCPItem -WinSCPSession $session -Path &apos;/rDir/rFile.txt&apos; -Destination &apos;/rDir/rSubDir/&apos; -PassThru
+
+   Directory: /rdir/rSubdir
+
+FileType             LastWriteTime     Length Name
+--------             -------------     ------ ----
+D             1/1/2015 12:00:00 AM          0 rFile.txt</dev:code>
 			<dev:remarks>
 				<maml:para />
 				<maml:para />
 				<maml:para />
-				<maml:para>   Directory: /rdir/rSubdir
-
-FileType             LastWriteTime     Length Name                                                                                                                                                                                                                                        
---------             -------------     ------ ----                                                                                                                                                                                                                                        
-D             1/1/2015 12:00:00 AM          0 rFile.txt</maml:para>
+				<maml:para></maml:para>
 			</dev:remarks>
 			<command:commandLines>
 				<command:commandLine>
@@ -1348,40 +1326,35 @@ D             1/1/2015 12:00:00 AM          0 rFile.txt</maml:para>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 				<maml:name>WinSCPSession</maml:name>
 				<maml:description>
-					<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.
-</maml:para>
+					<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="true (ByPropertyName)" position="1">
 				<maml:name>Path</maml:name>
 				<maml:description>
-					<maml:para>Full path to remote directory to create.
-</maml:para>
+					<maml:para>Full path to remote directory to create.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="true">String[]</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="true (ByPropertyName)" position="2">
 				<maml:name>Name</maml:name>
 				<maml:description>
-					<maml:para>The name of the new item to be created.  This can be omitted if full path is used to the new item.
-</maml:para>
+					<maml:para>The name of the new item to be created.  This can be omitted if full path is used to the new item.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="3">
 				<maml:name>ItemType</maml:name>
 				<maml:description>
-					<maml:para>The type of object to be created, IE: File, Directory.
-</maml:para>
+					<maml:para>The type of object to be created, IE: File, Directory.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="4">
 				<maml:name>Value</maml:name>
 				<maml:description>
-					<maml:para>Initial value to add to the object being created.
-</maml:para>
+					<maml:para>Initial value to add to the object being created.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			</command:parameter>
@@ -1405,8 +1378,7 @@ D             1/1/2015 12:00:00 AM          0 rFile.txt</maml:para>
 		<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 			<maml:name>WinSCPSession</maml:name>
 			<maml:description>
-				<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.
-</maml:para>
+				<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 			<dev:type>
@@ -1418,8 +1390,7 @@ D             1/1/2015 12:00:00 AM          0 rFile.txt</maml:para>
 		<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="true (ByPropertyName)" position="1">
 			<maml:name>Path</maml:name>
 			<maml:description>
-				<maml:para>Full path to remote directory to create.
-</maml:para>
+				<maml:para>Full path to remote directory to create.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="true">String[]</command:parameterValue>
 			<dev:type>
@@ -1431,8 +1402,7 @@ D             1/1/2015 12:00:00 AM          0 rFile.txt</maml:para>
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="true (ByPropertyName)" position="2">
 			<maml:name>Name</maml:name>
 			<maml:description>
-				<maml:para>The name of the new item to be created.  This can be omitted if full path is used to the new item.
-</maml:para>
+				<maml:para>The name of the new item to be created.  This can be omitted if full path is used to the new item.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			<dev:type>
@@ -1444,8 +1414,7 @@ D             1/1/2015 12:00:00 AM          0 rFile.txt</maml:para>
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="3">
 			<maml:name>ItemType</maml:name>
 			<maml:description>
-				<maml:para>The type of object to be created, IE: File, Directory.
-</maml:para>
+				<maml:para>The type of object to be created, IE: File, Directory.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			<dev:type>
@@ -1457,8 +1426,7 @@ D             1/1/2015 12:00:00 AM          0 rFile.txt</maml:para>
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="4">
 			<maml:name>Value</maml:name>
 			<maml:description>
-				<maml:para>Initial value to add to the object being created.
-</maml:para>
+				<maml:para>Initial value to add to the object being created.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			<dev:type>
@@ -1505,8 +1473,7 @@ D             1/1/2015 12:00:00 AM          0 rFile.txt</maml:para>
 		</command:inputType>
 		<command:inputType>
 			<dev:type>
-				<maml:name>
-System.String</maml:name>
+				<maml:name>System.String</maml:name>
 				<maml:uri>
 https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx</maml:uri>
 				<maml:description/>
@@ -1543,16 +1510,18 @@ Represents text as a series of Unicode characters.</maml:para>
 			<maml:introduction>
 				<maml:paragraph>PS C:\&gt;</maml:paragraph>
 			</maml:introduction>
-			<dev:code>PS C:\&gt; New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | New-WinSCPItem-Path &apos;/rDir/rSubDir&apos; -ItemType Directory</dev:code>
+			<dev:code>PS C:\&gt; New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | New-WinSCPItem-Path &apos;/rDir/rSubDir&apos; -ItemType Directory
+
+   Directory: /rDir/
+
+FileType             LastWriteTime     Length Name
+--------             -------------     ------ ----
+D             1/1/2015 12:00:00 AM          0 /rSubDir</dev:code>
 			<dev:remarks>
 				<maml:para />
 				<maml:para />
 				<maml:para />
-				<maml:para>   Directory: /rDir/
-
-FileType             LastWriteTime     Length Name                                                                                                                                                                                                                                        
---------             -------------     ------ ----                                                                                                                                                                                                                                        
-D             1/1/2015 12:00:00 AM          0 /rSubDir</maml:para>
+				<maml:para></maml:para>
 			</dev:remarks>
 			<command:commandLines>
 				<command:commandLine>
@@ -1569,16 +1538,18 @@ D             1/1/2015 12:00:00 AM          0 /rSubDir</maml:para>
 			</maml:introduction>
 			<dev:code>PS C:\&gt; $credential = Get-Credential
 PS C:\&gt; $session = New-WinSCPSession -Credential $credential -Hostname &apos;myftphost.org&apos; -SshHostKeyFingerprint &apos;ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx&apos;
-PS C:\&gt; New-WinSCPItem -WinSCPSession $session -Path &apos;./rDir&apos; -Name &apos;rTextFile.txt&apos; -ItemType File -Value &apos;Hello World!&apos;</dev:code>
+PS C:\&gt; New-WinSCPItem -WinSCPSession $session -Path &apos;./rDir&apos; -Name &apos;rTextFile.txt&apos; -ItemType File -Value &apos;Hello World!&apos;
+   
+   Directory: /rDir
+
+FileType             LastWriteTime     Length Name
+--------             -------------     ------ ----
+-             1/1/2015 12:00:00 AM         12 /rTextFile.txt</dev:code>
 			<dev:remarks>
 				<maml:para />
 				<maml:para />
 				<maml:para />
-				<maml:para>   Directory: /rDir
-
-FileType             LastWriteTime     Length Name                                                                                                                                                                                                                                        
---------             -------------     ------ ----                                                                                                                                                                                                                                        
--             1/1/2015 12:00:00 AM         12 /rTextFile.txt</maml:para>
+				<maml:para></maml:para>
 			</dev:remarks>
 			<command:commandLines>
 				<command:commandLine>
@@ -1623,120 +1594,105 @@ FileType             LastWriteTime     Length Name
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 				<maml:name>GroupExecute</maml:name>
 				<maml:description>
-					<maml:para>Execute permission for group.
-</maml:para>
+					<maml:para>Execute permission for group.</maml:para>
 				</maml:description>
 				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 				<maml:name>GroupRead</maml:name>
 				<maml:description>
-					<maml:para>Read permission for group.
-</maml:para>
+					<maml:para>Read permission for group.</maml:para>
 				</maml:description>
 				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 				<maml:name>GroupWrite</maml:name>
 				<maml:description>
-					<maml:para>Read permission for group.
-</maml:para>
+					<maml:para>Read permission for group.</maml:para>
 				</maml:description>
 				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="0">
 				<maml:name>Numeric</maml:name>
 				<maml:description>
-					<maml:para>Permissions as a number.
-</maml:para>
+					<maml:para>Permissions as a number.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="1">
 				<maml:name>Octal</maml:name>
 				<maml:description>
-					<maml:para>Permissions in octal format, e.g. &quot;644&quot;. Octal format has 3 or 4 (when any special permissions are set) digits.
-</maml:para>
+					<maml:para>Permissions in octal format, e.g. &quot;644&quot;. Octal format has 3 or 4 (when any special permissions are set) digits.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 				<maml:name>OtherExecute</maml:name>
 				<maml:description>
-					<maml:para>Execute permission for others.
-</maml:para>
+					<maml:para>Execute permission for others.</maml:para>
 				</maml:description>
 				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 				<maml:name>OtherRead</maml:name>
 				<maml:description>
-					<maml:para>Read permission for others.
-</maml:para>
+					<maml:para>Read permission for others.</maml:para>
 				</maml:description>
 				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 				<maml:name>OtherWrite</maml:name>
 				<maml:description>
-					<maml:para>Write permission for others.
-</maml:para>
+					<maml:para>Write permission for others.</maml:para>
 				</maml:description>
 				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 				<maml:name>SetGid</maml:name>
 				<maml:description>
-					<maml:para>Grants the user, who executes the file, permissions of file group.
-</maml:para>
+					<maml:para>Grants the user, who executes the file, permissions of file group.</maml:para>
 				</maml:description>
 				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 				<maml:name>SetUid</maml:name>
 				<maml:description>
-					<maml:para>Grants the user, who executes the file, permissions of file owner.
-</maml:para>
+					<maml:para>Grants the user, who executes the file, permissions of file owner.</maml:para>
 				</maml:description>
 				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 				<maml:name>Sticky</maml:name>
 				<maml:description>
-					<maml:para>Sticky bit.
-</maml:para>
+					<maml:para>Sticky bit.</maml:para>
 				</maml:description>
 				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2">
 				<maml:name>Text</maml:name>
 				<maml:description>
-					<maml:para>Permissions as a text in format &quot;rwxrwxrwx&quot;.
-</maml:para>
+					<maml:para>Permissions as a text in format &quot;rwxrwxrwx&quot;.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 				<maml:name>UserExecute</maml:name>
 				<maml:description>
-					<maml:para>Execute permission for owner.
-</maml:para>
+					<maml:para>Execute permission for owner.</maml:para>
 				</maml:description>
 				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 				<maml:name>UserRead</maml:name>
 				<maml:description>
-					<maml:para>Read permission for owner.
-</maml:para>
+					<maml:para>Read permission for owner.</maml:para>
 				</maml:description>
 				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 				<maml:name>UserWrite</maml:name>
 				<maml:description>
-					<maml:para>Write permission for owner.
-</maml:para>
+					<maml:para>Write permission for owner.</maml:para>
 				</maml:description>
 				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			</command:parameter>
@@ -1760,8 +1716,7 @@ FileType             LastWriteTime     Length Name
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 			<maml:name>GroupExecute</maml:name>
 			<maml:description>
-				<maml:para>Execute permission for group.
-</maml:para>
+				<maml:para>Execute permission for group.</maml:para>
 			</maml:description>
 			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			<dev:type>
@@ -1773,8 +1728,7 @@ FileType             LastWriteTime     Length Name
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 			<maml:name>GroupRead</maml:name>
 			<maml:description>
-				<maml:para>Read permission for group.
-</maml:para>
+				<maml:para>Read permission for group.</maml:para>
 			</maml:description>
 			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			<dev:type>
@@ -1786,8 +1740,7 @@ FileType             LastWriteTime     Length Name
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 			<maml:name>GroupWrite</maml:name>
 			<maml:description>
-				<maml:para>Read permission for group.
-</maml:para>
+				<maml:para>Read permission for group.</maml:para>
 			</maml:description>
 			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			<dev:type>
@@ -1799,8 +1752,7 @@ FileType             LastWriteTime     Length Name
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="0">
 			<maml:name>Numeric</maml:name>
 			<maml:description>
-				<maml:para>Permissions as a number.
-</maml:para>
+				<maml:para>Permissions as a number.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
 			<dev:type>
@@ -1812,8 +1764,7 @@ FileType             LastWriteTime     Length Name
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="1">
 			<maml:name>Octal</maml:name>
 			<maml:description>
-				<maml:para>Permissions in octal format, e.g. &quot;644&quot;. Octal format has 3 or 4 (when any special permissions are set) digits.
-</maml:para>
+				<maml:para>Permissions in octal format, e.g. &quot;644&quot;. Octal format has 3 or 4 (when any special permissions are set) digits.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			<dev:type>
@@ -1825,8 +1776,7 @@ FileType             LastWriteTime     Length Name
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 			<maml:name>OtherExecute</maml:name>
 			<maml:description>
-				<maml:para>Execute permission for others.
-</maml:para>
+				<maml:para>Execute permission for others.</maml:para>
 			</maml:description>
 			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			<dev:type>
@@ -1838,8 +1788,7 @@ FileType             LastWriteTime     Length Name
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 			<maml:name>OtherRead</maml:name>
 			<maml:description>
-				<maml:para>Read permission for others.
-</maml:para>
+				<maml:para>Read permission for others.</maml:para>
 			</maml:description>
 			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			<dev:type>
@@ -1851,8 +1800,7 @@ FileType             LastWriteTime     Length Name
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 			<maml:name>OtherWrite</maml:name>
 			<maml:description>
-				<maml:para>Write permission for others.
-</maml:para>
+				<maml:para>Write permission for others.</maml:para>
 			</maml:description>
 			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			<dev:type>
@@ -1864,8 +1812,7 @@ FileType             LastWriteTime     Length Name
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 			<maml:name>SetGid</maml:name>
 			<maml:description>
-				<maml:para>Grants the user, who executes the file, permissions of file group.
-</maml:para>
+				<maml:para>Grants the user, who executes the file, permissions of file group.</maml:para>
 			</maml:description>
 			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			<dev:type>
@@ -1877,8 +1824,7 @@ FileType             LastWriteTime     Length Name
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 			<maml:name>SetUid</maml:name>
 			<maml:description>
-				<maml:para>Grants the user, who executes the file, permissions of file owner.
-</maml:para>
+				<maml:para>Grants the user, who executes the file, permissions of file owner.</maml:para>
 			</maml:description>
 			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			<dev:type>
@@ -1890,8 +1836,7 @@ FileType             LastWriteTime     Length Name
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 			<maml:name>Sticky</maml:name>
 			<maml:description>
-				<maml:para>Sticky bit.
-</maml:para>
+				<maml:para>Sticky bit.</maml:para>
 			</maml:description>
 			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			<dev:type>
@@ -1903,8 +1848,7 @@ FileType             LastWriteTime     Length Name
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2">
 			<maml:name>Text</maml:name>
 			<maml:description>
-				<maml:para>Permissions as a text in format &quot;rwxrwxrwx&quot;.
-</maml:para>
+				<maml:para>Permissions as a text in format &quot;rwxrwxrwx&quot;.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			<dev:type>
@@ -1916,8 +1860,7 @@ FileType             LastWriteTime     Length Name
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 			<maml:name>UserExecute</maml:name>
 			<maml:description>
-				<maml:para>Execute permission for owner.
-</maml:para>
+				<maml:para>Execute permission for owner.</maml:para>
 			</maml:description>
 			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			<dev:type>
@@ -1929,8 +1872,7 @@ FileType             LastWriteTime     Length Name
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 			<maml:name>UserRead</maml:name>
 			<maml:description>
-				<maml:para>Read permission for owner.
-</maml:para>
+				<maml:para>Read permission for owner.</maml:para>
 			</maml:description>
 			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			<dev:type>
@@ -1942,8 +1884,7 @@ FileType             LastWriteTime     Length Name
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 			<maml:name>UserWrite</maml:name>
 			<maml:description>
-				<maml:para>Write permission for owner.
-</maml:para>
+				<maml:para>Write permission for owner.</maml:para>
 			</maml:description>
 			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			<dev:type>
@@ -2015,12 +1956,9 @@ FileType             LastWriteTime     Length Name
 			<maml:introduction>
 				<maml:paragraph>PS C:\&gt;</maml:paragraph>
 			</maml:introduction>
-			<dev:code>PS C:\&gt; New-WinSCPItemPermission</dev:code>
-			<dev:remarks>
-				<maml:para />
-				<maml:para />
-				<maml:para />
-				<maml:para>Numeric      : 0
+			<dev:code>PS C:\&gt; New-WinSCPItemPermission
+
+Numeric      : 0
 Text         : ---------
 Octal        : 000
 OtherExecute : False
@@ -2034,7 +1972,12 @@ UserWrite    : False
 UserRead     : False
 Sticky       : False
 SetGid       : False
-SetUid       : False</maml:para>
+SetUid       : False</dev:code>
+			<dev:remarks>
+				<maml:para />
+				<maml:para />
+				<maml:para />
+				<maml:para></maml:para>
 			</dev:remarks>
 			<command:commandLines>
 				<command:commandLine>
@@ -2113,32 +2056,28 @@ SetUid       : False</maml:para>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 				<maml:name>Credential</maml:name>
 				<maml:description>
-					<maml:para>PSCredential object used for authentication.
-</maml:para>
+					<maml:para>PSCredential object used for authentication.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="1">
 				<maml:name>FtpMode</maml:name>
 				<maml:description>
-					<maml:para>Possible values are FtpMode.Passive (default) and FtpMode.Active.
-</maml:para>
+					<maml:para>Possible values are FtpMode.Passive (default) and FtpMode.Active.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">FtpMode</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2">
 				<maml:name>FtpSecure</maml:name>
 				<maml:description>
-					<maml:para>FTPS mode. Possible values are FtpSecure.None (default), FtpSecure.Implicit and FtpSecure.Explicit (FtpSecure.ExplicitTls in older versions).
-</maml:para>
+					<maml:para>FTPS mode. Possible values are FtpSecure.None (default), FtpSecure.Implicit and FtpSecure.Explicit (FtpSecure.ExplicitTls in older versions).</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">FtpSecure</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 				<maml:name>GiveUpSecurityAndAcceptAnySshHostKey</maml:name>
 				<maml:description>
-					<maml:para>Give up security and accept any SSH host key. To be used in exceptional situations only, when security is not required. When set, log files will include warning about insecure connection. To maintain security, use SshHostKeyFingerprint.
-</maml:para>
+					<maml:para>Give up security and accept any SSH host key. To be used in exceptional situations only, when security is not required. When set, log files will include warning about insecure connection. To maintain security, use SshHostKeyFingerprint.</maml:para>
 				</maml:description>
 				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			</command:parameter>
@@ -2159,7 +2098,7 @@ SetUid       : False</maml:para>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="4">
 				<maml:name>PortNumber</maml:name>
 				<maml:description>
-					<maml:para>Port number to connect to. Keep default 0 to use the default port for the protocol. </maml:para>
+					<maml:para>Port number to connect to. Keep default 0 to use the default port for the protocol.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
 			</command:parameter>
@@ -2274,8 +2213,7 @@ SetUid       : False</maml:para>
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 			<maml:name>Credential</maml:name>
 			<maml:description>
-				<maml:para>PSCredential object used for authentication.
-</maml:para>
+				<maml:para>PSCredential object used for authentication.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
 			<dev:type>
@@ -2287,8 +2225,7 @@ SetUid       : False</maml:para>
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="1">
 			<maml:name>FtpMode</maml:name>
 			<maml:description>
-				<maml:para>Possible values are FtpMode.Passive (default) and FtpMode.Active.
-</maml:para>
+				<maml:para>Possible values are FtpMode.Passive (default) and FtpMode.Active.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">FtpMode</command:parameterValue>
 			<dev:type>
@@ -2300,8 +2237,7 @@ SetUid       : False</maml:para>
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2">
 			<maml:name>FtpSecure</maml:name>
 			<maml:description>
-				<maml:para>FTPS mode. Possible values are FtpSecure.None (default), FtpSecure.Implicit and FtpSecure.Explicit (FtpSecure.ExplicitTls in older versions).
-</maml:para>
+				<maml:para>FTPS mode. Possible values are FtpSecure.None (default), FtpSecure.Implicit and FtpSecure.Explicit (FtpSecure.ExplicitTls in older versions).</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">FtpSecure</command:parameterValue>
 			<dev:type>
@@ -2313,8 +2249,7 @@ SetUid       : False</maml:para>
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 			<maml:name>GiveUpSecurityAndAcceptAnySshHostKey</maml:name>
 			<maml:description>
-				<maml:para>Give up security and accept any SSH host key. To be used in exceptional situations only, when security is not required. When set, log files will include warning about insecure connection. To maintain security, use SshHostKeyFingerprint.
-</maml:para>
+				<maml:para>Give up security and accept any SSH host key. To be used in exceptional situations only, when security is not required. When set, log files will include warning about insecure connection. To maintain security, use SshHostKeyFingerprint.</maml:para>
 			</maml:description>
 			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			<dev:type>
@@ -2350,7 +2285,7 @@ SetUid       : False</maml:para>
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="4">
 			<maml:name>PortNumber</maml:name>
 			<maml:description>
-				<maml:para>Port number to connect to. Keep default 0 to use the default port for the protocol. </maml:para>
+				<maml:para>Port number to connect to. Keep default 0 to use the default port for the protocol.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
 			<dev:type>
@@ -2553,8 +2488,7 @@ SetUid       : False</maml:para>
 		</command:inputType>
 		<command:inputType>
 			<dev:type>
-				<maml:name>
-System.String</maml:name>
+				<maml:name>System.String</maml:name>
 				<maml:uri>
 https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx</maml:uri>
 				<maml:description/>
@@ -2591,12 +2525,9 @@ Represents text as a series of Unicode characters.</maml:para>
 			<maml:introduction>
 				<maml:paragraph>PS C:\&gt;</maml:paragraph>
 			</maml:introduction>
-			<dev:code>PS C:\&gt; New-WinSCPSession -HostName $env:COMPUTERNAME -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -Protocol Ftp</dev:code>
-			<dev:remarks>
-				<maml:para />
-				<maml:para />
-				<maml:para />
-				<maml:para>ExecutablePath                : 
+			<dev:code>PS C:\&gt; New-WinSCPSession -HostName $env:COMPUTERNAME -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -Protocol Ftp
+
+ExecutablePath                : 
 AdditionalExecutableArguments : 
 DefaultConfiguration          : True
 DisableVersionCheck           : False
@@ -2612,7 +2543,12 @@ Timeout                       : 00:01:00
 Output                        : {winscp&gt; option batch on, batch           on        , reconnecttime   120       , winscp&gt; option 
                                 confirm off...}
 Opened                        : True
-UnderlyingSystemType          : WinSCP.Session</maml:para>
+UnderlyingSystemType          : WinSCP.Session</dev:code>
+			<dev:remarks>
+				<maml:para />
+				<maml:para />
+				<maml:para />
+				<maml:para></maml:para>
 			</dev:remarks>
 			<command:commandLines>
 				<command:commandLine>
@@ -2649,56 +2585,49 @@ UnderlyingSystemType          : WinSCP.Session</maml:para>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="0">
 				<maml:name>FileMask</maml:name>
 				<maml:description>
-					<maml:para>http://winscp.net/eng/docs/file_mask
-</maml:para>
+					<maml:para>http://winscp.net/eng/docs/file_mask</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="1">
 				<maml:name>FilePermissions</maml:name>
 				<maml:description>
-					<maml:para>Permissions to applied to a remote file (used for uploads only).
-</maml:para>
+					<maml:para>Permissions to applied to a remote file (used for uploads only).</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">FilePermissions</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 				<maml:name>PreserveTimeStamp</maml:name>
 				<maml:description>
-					<maml:para>Preserve timestamp (set last write time of destination file to that of source file). Defaults to true.
-</maml:para>
+					<maml:para>Preserve timestamp (set last write time of destination file to that of source file). Defaults to true.</maml:para>
 				</maml:description>
 				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2">
 				<maml:name>State</maml:name>
 				<maml:description>
-					<maml:para>Sets what files will be transferred with resume support/to temporary filename. Use TransferResumeSupportState.Default for built-in default (currently all files above 100 KB), TransferResumeSupportState.On for all files, TransferResumeSupportState.Off for no file (turn off) or TransferResumeSupportState.Smart for all files above threshold (see Threshold).
-</maml:para>
+					<maml:para>Sets what files will be transferred with resume support/to temporary filename. Use TransferResumeSupportState.Default for built-in default (currently all files above 100 KB), TransferResumeSupportState.On for all files, TransferResumeSupportState.Off for no file (turn off) or TransferResumeSupportState.Smart for all files above threshold (see Threshold).</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">TransferResumeSupportState</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="3">
 				<maml:name>Threshold</maml:name>
 				<maml:description>
-					<maml:para>Threshold (in KB) for State.Smart mode.
-</maml:para>
+					<maml:para>Threshold (in KB) for State.Smart mode.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="4">
 				<maml:name>SpeedLimit</maml:name>
 				<maml:description>
-					<maml:para>Limit transfer speed (in KB/s).
-</maml:para>
+					<maml:para>Limit transfer speed (in KB/s).</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="5">
 				<maml:name>TransferMode</maml:name>
 				<maml:description>
-					<maml:para>Possible values are TransferMode.Binary (default), TransferMode.Ascii and TransferMode.Automatic (based on file extension).
-</maml:para>
+					<maml:para>Possible values are TransferMode.Binary (default), TransferMode.Ascii and TransferMode.Automatic (based on file extension).</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">TransferMode</command:parameterValue>
 			</command:parameter>
@@ -2722,8 +2651,7 @@ UnderlyingSystemType          : WinSCP.Session</maml:para>
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="0">
 			<maml:name>FileMask</maml:name>
 			<maml:description>
-				<maml:para>http://winscp.net/eng/docs/file_mask
-</maml:para>
+				<maml:para>http://winscp.net/eng/docs/file_mask</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			<dev:type>
@@ -2735,8 +2663,7 @@ UnderlyingSystemType          : WinSCP.Session</maml:para>
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="1">
 			<maml:name>FilePermissions</maml:name>
 			<maml:description>
-				<maml:para>Permissions to applied to a remote file (used for uploads only).
-</maml:para>
+				<maml:para>Permissions to applied to a remote file (used for uploads only).</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">FilePermissions</command:parameterValue>
 			<dev:type>
@@ -2748,8 +2675,7 @@ UnderlyingSystemType          : WinSCP.Session</maml:para>
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 			<maml:name>PreserveTimeStamp</maml:name>
 			<maml:description>
-				<maml:para>Preserve timestamp (set last write time of destination file to that of source file). Defaults to true.
-</maml:para>
+				<maml:para>Preserve timestamp (set last write time of destination file to that of source file). Defaults to true.</maml:para>
 			</maml:description>
 			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			<dev:type>
@@ -2761,8 +2687,7 @@ UnderlyingSystemType          : WinSCP.Session</maml:para>
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2">
 			<maml:name>State</maml:name>
 			<maml:description>
-				<maml:para>Sets what files will be transferred with resume support/to temporary filename. Use TransferResumeSupportState.Default for built-in default (currently all files above 100 KB), TransferResumeSupportState.On for all files, TransferResumeSupportState.Off for no file (turn off) or TransferResumeSupportState.Smart for all files above threshold (see Threshold).
-</maml:para>
+				<maml:para>Sets what files will be transferred with resume support/to temporary filename. Use TransferResumeSupportState.Default for built-in default (currently all files above 100 KB), TransferResumeSupportState.On for all files, TransferResumeSupportState.Off for no file (turn off) or TransferResumeSupportState.Smart for all files above threshold (see Threshold).</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">TransferResumeSupportState</command:parameterValue>
 			<dev:type>
@@ -2774,8 +2699,7 @@ UnderlyingSystemType          : WinSCP.Session</maml:para>
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="3">
 			<maml:name>Threshold</maml:name>
 			<maml:description>
-				<maml:para>Threshold (in KB) for State.Smart mode.
-</maml:para>
+				<maml:para>Threshold (in KB) for State.Smart mode.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
 			<dev:type>
@@ -2787,8 +2711,7 @@ UnderlyingSystemType          : WinSCP.Session</maml:para>
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="4">
 			<maml:name>SpeedLimit</maml:name>
 			<maml:description>
-				<maml:para>Limit transfer speed (in KB/s).
-</maml:para>
+				<maml:para>Limit transfer speed (in KB/s).</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
 			<dev:type>
@@ -2800,8 +2723,7 @@ UnderlyingSystemType          : WinSCP.Session</maml:para>
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="5">
 			<maml:name>TransferMode</maml:name>
 			<maml:description>
-				<maml:para>Possible values are TransferMode.Binary (default), TransferMode.Ascii and TransferMode.Automatic (based on file extension).
-</maml:para>
+				<maml:para>Possible values are TransferMode.Binary (default), TransferMode.Ascii and TransferMode.Automatic (based on file extension).</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">TransferMode</command:parameterValue>
 			<dev:type>
@@ -2851,11 +2773,11 @@ UnderlyingSystemType          : WinSCP.Session</maml:para>
 		<command:returnValue>
 			<dev:type>
 				<maml:name>WinSCP.TransferOptions</maml:name>
-				<maml:uri></maml:uri>
+				<maml:uri>http://winscp.net/eng/docs/library_transferoptions</maml:uri>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-<maml:para />
+				<maml:para>Defines options for file transfers. </maml:para>
 			</maml:description>
 		</command:returnValue>
 	</command:returnValues>
@@ -2873,17 +2795,19 @@ UnderlyingSystemType          : WinSCP.Session</maml:para>
 			<maml:introduction>
 				<maml:paragraph>PS C:\&gt;</maml:paragraph>
 			</maml:introduction>
-			<dev:code>PS C:\&gt; New-WinSCPTransferOption -PreserveTimeStamp:$false -TransferMode Binary</dev:code>
-			<dev:remarks>
-				<maml:para />
-				<maml:para />
-				<maml:para />
-				<maml:para>PreserveTimestamp : False
+			<dev:code>PS C:\&gt; New-WinSCPTransferOption -PreserveTimeStamp:$false -TransferMode Binary
+
+PreserveTimestamp : False
 FilePermissions   : 
 TransferMode      : Binary
 FileMask          : 
 ResumeSupport     : default
-SpeedLimit        : 0</maml:para>
+SpeedLimit        : 0</dev:code>
+			<dev:remarks>
+				<maml:para />
+				<maml:para />
+				<maml:para />
+				<maml:para></maml:para>
 			</dev:remarks>
 			<command:commandLines>
 				<command:commandLine>
@@ -2898,17 +2822,19 @@ SpeedLimit        : 0</maml:para>
 			<maml:introduction>
 				<maml:paragraph>PS C:\&gt;</maml:paragraph>
 			</maml:introduction>
-			<dev:code>PS C:\&gt; New-WinSCPTransferOption -FilePermissions (New-WinSCPFilePermissions -GroupExecute -OtherRead)</dev:code>
+			<dev:code>PS C:\&gt; New-WinSCPTransferOption -FilePermissions (New-WinSCPItemPermission -GroupExecute -OtherRead)
+
+PreserveTimestamp : True
+FilePermissions   : -----xr--
+TransferMode      : Binary
+FileMask          :
+ResumeSupport     : default
+SpeedLimit        : 0</dev:code>
 			<dev:remarks>
 				<maml:para />
 				<maml:para />
 				<maml:para />
-				<maml:para>PreserveTimestamp : True
-FilePermissions   : 
-TransferMode      : Binary
-FileMask          : 
-ResumeSupport     : default
-SpeedLimit        : 0</maml:para>
+				<maml:para></maml:para>
 			</dev:remarks>
 			<command:commandLines>
 				<command:commandLine>
@@ -2920,6 +2846,14 @@ SpeedLimit        : 0</maml:para>
 		</command:example>
 	</command:examples>
 	<maml:relatedLinks>
+		<maml:navigationLink>
+			<maml:linkText>TransferOption Class</maml:linkText>
+			<maml:uri>http://winscp.net/eng/docs/library_transferoptions</maml:uri>
+		</maml:navigationLink>
+		<maml:navigationLink>
+			<maml:linkText>Project Home Page</maml:linkText>
+			<maml:uri>http://dotps1.github.io/WinSCP</maml:uri>
+		</maml:navigationLink>
 	</maml:relatedLinks>
 </command:command>
 <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
@@ -2945,24 +2879,21 @@ SpeedLimit        : 0</maml:para>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 				<maml:name>WinSCPSession</maml:name>
 				<maml:description>
-					<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.
-</maml:para>
+					<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="true (ByPropertyName)" position="1">
 				<maml:name>Path</maml:name>
 				<maml:description>
-					<maml:para>Full path to remote directory followed by slash and wildcard to select files or subdirectories to download. When wildcard is omitted (path ends with slash), all files and subdirectories in the remote directory are downloaded.
-</maml:para>
+					<maml:para>Full path to remote directory followed by slash and wildcard to select files or subdirectories to download. When wildcard is omitted (path ends with slash), all files and subdirectories in the remote directory are downloaded.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="true">String[]</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2">
 				<maml:name>Destination</maml:name>
 				<maml:description>
-					<maml:para>Full path to download the file to. When downloading multiple files, the filename in the path should be replaced with operation mask or omitted (path ends with slash).
-</maml:para>
+					<maml:para>Full path to download the file to. When downloading multiple files, the filename in the path should be replaced with operation mask or omitted (path ends with slash).</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			</command:parameter>
@@ -2976,7 +2907,7 @@ SpeedLimit        : 0</maml:para>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="3">
 				<maml:name>TransferOptions</maml:name>
 				<maml:description>
-					<maml:para />
+					<maml:para>Defines options for file transfers. </maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">TransferOptions</command:parameterValue>
 			</command:parameter>
@@ -3000,8 +2931,7 @@ SpeedLimit        : 0</maml:para>
 		<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 			<maml:name>WinSCPSession</maml:name>
 			<maml:description>
-				<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.
-</maml:para>
+				<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 			<dev:type>
@@ -3013,8 +2943,7 @@ SpeedLimit        : 0</maml:para>
 		<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="true (ByPropertyName)" position="1">
 			<maml:name>Path</maml:name>
 			<maml:description>
-				<maml:para>Full path to remote directory followed by slash and wildcard to select files or subdirectories to download. When wildcard is omitted (path ends with slash), all files and subdirectories in the remote directory are downloaded.
-</maml:para>
+				<maml:para>Full path to remote directory followed by slash and wildcard to select files or subdirectories to download. When wildcard is omitted (path ends with slash), all files and subdirectories in the remote directory are downloaded.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="true">String[]</command:parameterValue>
 			<dev:type>
@@ -3026,8 +2955,7 @@ SpeedLimit        : 0</maml:para>
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2">
 			<maml:name>Destination</maml:name>
 			<maml:description>
-				<maml:para>Full path to download the file to. When downloading multiple files, the filename in the path should be replaced with operation mask or omitted (path ends with slash).
-</maml:para>
+				<maml:para>Full path to download the file to. When downloading multiple files, the filename in the path should be replaced with operation mask or omitted (path ends with slash).</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			<dev:type>
@@ -3051,7 +2979,7 @@ SpeedLimit        : 0</maml:para>
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="3">
 			<maml:name>TransferOptions</maml:name>
 			<maml:description>
-				<maml:para />
+				<maml:para>Defines options for file transfers. </maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">TransferOptions</command:parameterValue>
 			<dev:type>
@@ -3089,22 +3017,24 @@ SpeedLimit        : 0</maml:para>
 		<command:inputType>
 			<dev:type>
 				<maml:name>WinSCP.Session</maml:name>
-				<maml:uri></maml:uri>
+				<maml:uri>http://winscp.net/eng/docs/library_session</maml:uri>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-<maml:para />
+				<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 			</maml:description>
 		</command:inputType>
 		<command:inputType>
 			<dev:type>
 				<maml:name>
 System.String</maml:name>
-				<maml:uri />
+				<maml:uri>
+https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx</maml:uri>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-<maml:para />
+				<maml:para>
+Represents text as a series of Unicode characters.</maml:para>
 			</maml:description>
 		</command:inputType>
 	</command:inputTypes>
@@ -3112,11 +3042,12 @@ System.String</maml:name>
 		<command:returnValue>
 			<dev:type>
 				<maml:name>WinSCP.TransferOperationResult</maml:name>
-				<maml:uri></maml:uri>
+				<maml:uri>http://winscp.net/eng/docs/library_transferoperationresult</maml:uri>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-<maml:para />
+				<maml:para>Represents results of transfer operation.
+</maml:para>
 			</maml:description>
 		</command:returnValue>
 	</command:returnValues>
@@ -3134,14 +3065,16 @@ System.String</maml:name>
 			<maml:introduction>
 				<maml:paragraph>PS C:\&gt;</maml:paragraph>
 			</maml:introduction>
-			<dev:code>PS C:\&gt; New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Receive-WinSCPItem -Path &apos;/rDir/rFile.txt&apos; -Destination &apos;C:\lDir\lFile.txt&apos;</dev:code>
+			<dev:code>PS C:\&gt; New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Receive-WinSCPItem -Path &apos;/rDir/rFile.txt&apos; -Destination &apos;C:\lDir\lFile.txt&apos;
+
+Transfers         Failures IsSuccess
+---------         -------- ---------
+{/rDir/rFile.txt} {}       True</dev:code>
 			<dev:remarks>
 				<maml:para />
 				<maml:para />
 				<maml:para />
-				<maml:para>Transfers         Failures IsSuccess
----------         -------- ---------
-{/rDir/rFile.txt} {}       True</maml:para>
+				<maml:para></maml:para>
 			</dev:remarks>
 			<command:commandLines>
 				<command:commandLine>
@@ -3158,14 +3091,16 @@ System.String</maml:name>
 			</maml:introduction>
 			<dev:code>PS C:\&gt; $credential = Get-Credential
 PS C:\&gt; $session = New-WinSCPSession -Credential $credential -Hostname &apos;myftphost.org&apos; -SshHostKeyFingerprint &apos;ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx&apos;
-PS C:\&gt; Receive-WinSCPItem -WinSCPSession $session -Path &apos;/rDir/rFile.txt&apos; -Destination &apos;C:\lDir\lFile.txt&apos; -Remove</dev:code>
+PS C:\&gt; Receive-WinSCPItem -WinSCPSession $session -Path &apos;/rDir/rFile.txt&apos; -Destination &apos;C:\lDir\lFile.txt&apos; -Remove
+
+Transfers         Failures IsSuccess
+---------         -------- ---------
+{/rDir/rFile.txt} {}       True</dev:code>
 			<dev:remarks>
 				<maml:para />
 				<maml:para />
 				<maml:para />
-				<maml:para>Transfers         Failures IsSuccess
----------         -------- ---------
-{/rDir/rFile.txt} {}       True</maml:para>
+				<maml:para></maml:para>
 			</dev:remarks>
 			<command:commandLines>
 				<command:commandLine>
@@ -3177,6 +3112,18 @@ PS C:\&gt; Receive-WinSCPItem -WinSCPSession $session -Path &apos;/rDir/rFile.tx
 		</command:example>
 	</command:examples>
 	<maml:relatedLinks>
+		<maml:navigationLink>
+			<maml:linkText>GetFiles Method</maml:linkText>
+			<maml:uri>http://winscp.net/eng/docs/library_session_getfiles</maml:uri>
+		</maml:navigationLink>
+		<maml:navigationLink>
+			<maml:linkText>TransferOptions Class</maml:linkText>
+			<maml:uri>http://winscp.net/eng/docs/library_transferoptions</maml:uri>
+		</maml:navigationLink>
+		<maml:navigationLink>
+			<maml:linkText>Project Home Page</maml:linkText>
+			<maml:uri>http://dotps1.github.io/WinSCP</maml:uri>
+		</maml:navigationLink>
 	</maml:relatedLinks>
 </command:command>
 <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
@@ -3202,16 +3149,14 @@ PS C:\&gt; Receive-WinSCPItem -WinSCPSession $session -Path &apos;/rDir/rFile.tx
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 				<maml:name>WinSCPSession</maml:name>
 				<maml:description>
-					<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.
-</maml:para>
+					<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="true (ByPropertyName)" position="1">
 				<maml:name>Path</maml:name>
 				<maml:description>
-					<maml:para>Full path to remote directory followed by slash and wildcard to select files or subdirectories to remove.
-</maml:para>
+					<maml:para>Full path to remote directory followed by slash and wildcard to select files or subdirectories to remove.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="true">String[]</command:parameterValue>
 			</command:parameter>
@@ -3249,8 +3194,7 @@ PS C:\&gt; Receive-WinSCPItem -WinSCPSession $session -Path &apos;/rDir/rFile.tx
 		<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 			<maml:name>WinSCPSession</maml:name>
 			<maml:description>
-				<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.
-</maml:para>
+				<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 			<dev:type>
@@ -3262,8 +3206,7 @@ PS C:\&gt; Receive-WinSCPItem -WinSCPSession $session -Path &apos;/rDir/rFile.tx
 		<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="true (ByPropertyName)" position="1">
 			<maml:name>Path</maml:name>
 			<maml:description>
-				<maml:para>Full path to remote directory followed by slash and wildcard to select files or subdirectories to remove.
-</maml:para>
+				<maml:para>Full path to remote directory followed by slash and wildcard to select files or subdirectories to remove.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="true">String[]</command:parameterValue>
 			<dev:type>
@@ -3325,22 +3268,24 @@ PS C:\&gt; Receive-WinSCPItem -WinSCPSession $session -Path &apos;/rDir/rFile.tx
 		<command:inputType>
 			<dev:type>
 				<maml:name>WinSCP.Session</maml:name>
-				<maml:uri></maml:uri>
+				<maml:uri>http://winscp.net/eng/docs/library_session</maml:uri>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-<maml:para />
+				<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 			</maml:description>
 		</command:inputType>
 		<command:inputType>
 			<dev:type>
 				<maml:name>
 System.String</maml:name>
-				<maml:uri />
+				<maml:uri>
+https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx</maml:uri>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-<maml:para />
+				<maml:para>
+Represents text as a series of Unicode characters.</maml:para>
 			</maml:description>
 		</command:inputType>
 	</command:inputTypes>
@@ -3348,11 +3293,11 @@ System.String</maml:name>
 		<command:returnValue>
 			<dev:type>
 				<maml:name>System.Void</maml:name>
-				<maml:uri></maml:uri>
+				<maml:uri>https://msdn.microsoft.com/en-us/library/system.void(v=vs.110).aspx</maml:uri>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-<maml:para />
+				<maml:para>Specifies a return value type for a method that does not return a value.</maml:para>
 			</maml:description>
 		</command:returnValue>
 	</command:returnValues>
@@ -3409,6 +3354,14 @@ PS C:\&gt; Remove-WinSCPItem -WinSCPSession $session -Path &quot;/rDir/rFile.txt
 		</command:example>
 	</command:examples>
 	<maml:relatedLinks>
+		<maml:navigationLink>
+			<maml:linkText>RemoveFiles Method</maml:linkText>
+			<maml:uri>http://winscp.net/eng/docs/library_session_removefiles</maml:uri>
+		</maml:navigationLink>
+		<maml:navigationLink>
+			<maml:linkText>Project Home Page</maml:linkText>
+			<maml:uri>http://dotps1.github.io/WinSCP</maml:uri>
+		</maml:navigationLink>
 	</maml:relatedLinks>
 </command:command>
 <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
@@ -3434,8 +3387,7 @@ PS C:\&gt; Remove-WinSCPItem -WinSCPSession $session -Path &quot;/rDir/rFile.txt
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 				<maml:name>WinSCPSession</maml:name>
 				<maml:description>
-					<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.
-</maml:para>
+					<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 			</command:parameter>
@@ -3459,8 +3411,7 @@ PS C:\&gt; Remove-WinSCPItem -WinSCPSession $session -Path &quot;/rDir/rFile.txt
 		<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 			<maml:name>WinSCPSession</maml:name>
 			<maml:description>
-				<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.
-</maml:para>
+				<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 			<dev:type>
@@ -3498,11 +3449,11 @@ PS C:\&gt; Remove-WinSCPItem -WinSCPSession $session -Path &quot;/rDir/rFile.txt
 		<command:inputType>
 			<dev:type>
 				<maml:name>WinSCP.Session</maml:name>
-				<maml:uri></maml:uri>
+				<maml:uri>http://winscp.net/eng/docs/library_session</maml:uri>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-<maml:para />
+				<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 			</maml:description>
 		</command:inputType>
 	</command:inputTypes>
@@ -3510,11 +3461,11 @@ PS C:\&gt; Remove-WinSCPItem -WinSCPSession $session -Path &quot;/rDir/rFile.txt
 		<command:returnValue>
 			<dev:type>
 				<maml:name>System.Void</maml:name>
-				<maml:uri></maml:uri>
+				<maml:uri>https://msdn.microsoft.com/en-us/library/system.void(v=vs.110).aspx</maml:uri>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-<maml:para />
+				<maml:para>Specifies a return value type for a method that does not return a value.</maml:para>
 			</maml:description>
 		</command:returnValue>
 	</command:returnValues>
@@ -3570,6 +3521,14 @@ PS C:\&gt; Remove-WinSCPSession -WinSCPSession $session</dev:code>
 		</command:example>
 	</command:examples>
 	<maml:relatedLinks>
+		<maml:navigationLink>
+			<maml:linkText>Close Method</maml:linkText>
+			<maml:uri>http://winscp.net/eng/docs/library_session_close</maml:uri>
+		</maml:navigationLink>
+		<maml:navigationLink>
+			<maml:linkText>Project Home Page</maml:linkText>
+			<maml:uri>http://dotps1.github.io/WinSCP</maml:uri>
+		</maml:navigationLink>
 	</maml:relatedLinks>
 </command:command>
 <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
@@ -3595,24 +3554,21 @@ PS C:\&gt; Remove-WinSCPSession -WinSCPSession $session</dev:code>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 				<maml:name>WinSCPSession</maml:name>
 				<maml:description>
-					<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.
-</maml:para>
+					<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="1">
 				<maml:name>Path</maml:name>
 				<maml:description>
-					<maml:para>Full path to remote item to be renamed.
-</maml:para>
+					<maml:para>Full path to remote item to be renamed.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="2">
 				<maml:name>NewName</maml:name>
 				<maml:description>
-					<maml:para>The new name for the the item.
-</maml:para>
+					<maml:para>The new name for the the item.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			</command:parameter>
@@ -3643,8 +3599,7 @@ PS C:\&gt; Remove-WinSCPSession -WinSCPSession $session</dev:code>
 		<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 			<maml:name>WinSCPSession</maml:name>
 			<maml:description>
-				<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.
-</maml:para>
+				<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 			<dev:type>
@@ -3656,8 +3611,7 @@ PS C:\&gt; Remove-WinSCPSession -WinSCPSession $session</dev:code>
 		<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="1">
 			<maml:name>Path</maml:name>
 			<maml:description>
-				<maml:para>Full path to remote item to be renamed.
-</maml:para>
+				<maml:para>Full path to remote item to be renamed.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			<dev:type>
@@ -3669,8 +3623,7 @@ PS C:\&gt; Remove-WinSCPSession -WinSCPSession $session</dev:code>
 		<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="2">
 			<maml:name>NewName</maml:name>
 			<maml:description>
-				<maml:para>The new name for the the item.
-</maml:para>
+				<maml:para>The new name for the the item.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			<dev:type>
@@ -3720,11 +3673,11 @@ PS C:\&gt; Remove-WinSCPSession -WinSCPSession $session</dev:code>
 		<command:inputType>
 			<dev:type>
 				<maml:name>WinSCP.Session</maml:name>
-				<maml:uri></maml:uri>
+				<maml:uri>http://winscp.net/eng/docs/library_session</maml:uri>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-<maml:para />
+				<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 			</maml:description>
 		</command:inputType>
 	</command:inputTypes>
@@ -3732,18 +3685,18 @@ PS C:\&gt; Remove-WinSCPSession -WinSCPSession $session</dev:code>
 		<command:returnValue>
 			<dev:type>
 				<maml:name>System.Void</maml:name>
-				<maml:uri></maml:uri>
+				<maml:uri>https://msdn.microsoft.com/en-us/library/system.void(v=vs.110).aspx</maml:uri>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-<maml:para />
+				<maml:para>Specifies a return value type for a method that does not return a value.
+</maml:para>
 			</maml:description>
 		</command:returnValue>
 		<command:returnValue>
 			<dev:type>
-				<maml:name>
-WinSCP.RemoteFileInfo</maml:name>
-				<maml:uri />
+				<maml:name></maml:name>
+				<maml:uri></maml:uri>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
@@ -3787,14 +3740,18 @@ WinSCP.RemoteFileInfo</maml:name>
 			</maml:introduction>
 			<dev:code>PS C:\&gt; $credential = Get-Credential
 PS C:\&gt; $session = New-WinSCPSession -Credential $credential -Hostname &apos;myftphost.org&apos; -SshHostKeyFingerprint &apos;ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx&apos;
-PS C:\&gt; Rename-WinSCPItem -WinSCPSession $session -Path &apos;/rDir/rFile.txt&apos; -Destination &apos;rNewFile.txt&apos; -PassThru</dev:code>
+PS C:\&gt; Rename-WinSCPItem -WinSCPSession $session -Path &apos;/rDir/rFile.txt&apos; -Destination &apos;rNewFile.txt&apos; -PassThru
+
+   Directory: /rDir
+
+FileType             LastWriteTime     Length Name
+--------             -------------     ------ ----
+D             1/1/2015 12:00:00 AM          0 /rNewFile.txt</dev:code>
 			<dev:remarks>
 				<maml:para />
 				<maml:para />
 				<maml:para />
-				<maml:para>FileType             LastWriteTime     Length Name                                                                                                                                                                                                                                        
---------             -------------     ------ ----                                                                                                                                                                                                                                        
-D             1/1/2015 12:00:00 AM          0 /rdir/rNewFile.txt</maml:para>
+				<maml:para></maml:para>
 			</dev:remarks>
 			<command:commandLines>
 				<command:commandLine>
@@ -3806,6 +3763,18 @@ D             1/1/2015 12:00:00 AM          0 /rdir/rNewFile.txt</maml:para>
 		</command:example>
 	</command:examples>
 	<maml:relatedLinks>
+		<maml:navigationLink>
+			<maml:linkText></maml:linkText>
+			<maml:uri></maml:uri>
+		</maml:navigationLink>
+		<maml:navigationLink>
+			<maml:linkText>Move Method</maml:linkText>
+			<maml:uri>http://winscp.net/eng/docs/library_session_movefile</maml:uri>
+		</maml:navigationLink>
+		<maml:navigationLink>
+			<maml:linkText>Project Home Page</maml:linkText>
+			<maml:uri>http://dotps1.github.io/WinSCP</maml:uri>
+		</maml:navigationLink>
 	</maml:relatedLinks>
 </command:command>
 <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
@@ -3831,24 +3800,21 @@ D             1/1/2015 12:00:00 AM          0 /rdir/rNewFile.txt</maml:para>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 				<maml:name>WinSCPSession</maml:name>
 				<maml:description>
-					<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.
-</maml:para>
+					<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="true (ByPropertyName)" position="1">
 				<maml:name>Path</maml:name>
 				<maml:description>
-					<maml:para>Full path to local file or directory to upload. Filename in the path can be replaced with Windows wildcard to select multiple files. When file name is omitted (path ends with backslash), all files and subdirectories in the local directory are uploaded.
-</maml:para>
+					<maml:para>Full path to local file or directory to upload. Filename in the path can be replaced with Windows wildcard to select multiple files. When file name is omitted (path ends with backslash), all files and subdirectories in the local directory are uploaded.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="true">String[]</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2">
 				<maml:name>Destination</maml:name>
 				<maml:description>
-					<maml:para>Full path to upload the file to. When uploading multiple files, the filename in the path should be replaced with ConvertTo-WinSCPEscapedString or omitted (path ends with slash).
-</maml:para>
+					<maml:para>Full path to upload the file to. When uploading multiple files, the filename in the path should be replaced with ConvertTo-WinSCPEscapedString or omitted (path ends with slash).</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			</command:parameter>
@@ -3862,8 +3828,7 @@ D             1/1/2015 12:00:00 AM          0 /rdir/rNewFile.txt</maml:para>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="3">
 				<maml:name>TransferOptions</maml:name>
 				<maml:description>
-					<maml:para>Transfer options. Defaults to null, what is equivalent to New-TransferOptions.
-</maml:para>
+					<maml:para>Transfer options. Defaults to null, what is equivalent to New-TransferOptions.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">TransferOptions</command:parameterValue>
 			</command:parameter>
@@ -3887,8 +3852,7 @@ D             1/1/2015 12:00:00 AM          0 /rdir/rNewFile.txt</maml:para>
 		<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 			<maml:name>WinSCPSession</maml:name>
 			<maml:description>
-				<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.
-</maml:para>
+				<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 			<dev:type>
@@ -3900,8 +3864,7 @@ D             1/1/2015 12:00:00 AM          0 /rdir/rNewFile.txt</maml:para>
 		<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="true (ByPropertyName)" position="1">
 			<maml:name>Path</maml:name>
 			<maml:description>
-				<maml:para>Full path to local file or directory to upload. Filename in the path can be replaced with Windows wildcard to select multiple files. When file name is omitted (path ends with backslash), all files and subdirectories in the local directory are uploaded.
-</maml:para>
+				<maml:para>Full path to local file or directory to upload. Filename in the path can be replaced with Windows wildcard to select multiple files. When file name is omitted (path ends with backslash), all files and subdirectories in the local directory are uploaded.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="true">String[]</command:parameterValue>
 			<dev:type>
@@ -3913,8 +3876,7 @@ D             1/1/2015 12:00:00 AM          0 /rdir/rNewFile.txt</maml:para>
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2">
 			<maml:name>Destination</maml:name>
 			<maml:description>
-				<maml:para>Full path to upload the file to. When uploading multiple files, the filename in the path should be replaced with ConvertTo-WinSCPEscapedString or omitted (path ends with slash).
-</maml:para>
+				<maml:para>Full path to upload the file to. When uploading multiple files, the filename in the path should be replaced with ConvertTo-WinSCPEscapedString or omitted (path ends with slash).</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			<dev:type>
@@ -3938,8 +3900,7 @@ D             1/1/2015 12:00:00 AM          0 /rdir/rNewFile.txt</maml:para>
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="3">
 			<maml:name>TransferOptions</maml:name>
 			<maml:description>
-				<maml:para>Transfer options. Defaults to null, what is equivalent to New-TransferOptions.
-</maml:para>
+				<maml:para>Transfer options. Defaults to null, what is equivalent to New-TransferOptions.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">TransferOptions</command:parameterValue>
 			<dev:type>
@@ -3977,22 +3938,24 @@ D             1/1/2015 12:00:00 AM          0 /rdir/rNewFile.txt</maml:para>
 		<command:inputType>
 			<dev:type>
 				<maml:name>WinSCP.Session</maml:name>
-				<maml:uri></maml:uri>
+				<maml:uri>http://winscp.net/eng/docs/library_session</maml:uri>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-<maml:para />
+				<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 			</maml:description>
 		</command:inputType>
 		<command:inputType>
 			<dev:type>
 				<maml:name>
 System.String</maml:name>
-				<maml:uri />
+				<maml:uri>
+https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx</maml:uri>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-<maml:para />
+				<maml:para>
+Represents text as a series of Unicode characters.</maml:para>
 			</maml:description>
 		</command:inputType>
 	</command:inputTypes>
@@ -4000,11 +3963,11 @@ System.String</maml:name>
 		<command:returnValue>
 			<dev:type>
 				<maml:name>WinSCP.TransferOperationResult</maml:name>
-				<maml:uri></maml:uri>
+				<maml:uri>http://winscp.net/eng/docs/library_transferoperationresult</maml:uri>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-<maml:para />
+				<maml:para>Represents results of transfer operation.</maml:para>
 			</maml:description>
 		</command:returnValue>
 	</command:returnValues>
@@ -4022,14 +3985,16 @@ System.String</maml:name>
 			<maml:introduction>
 				<maml:paragraph>PS C:\&gt;</maml:paragraph>
 			</maml:introduction>
-			<dev:code>PS C:\&gt; New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Send-WinSCPItem -Path &apos;C:\lDir\lFile.txt&apos; -Destination &apos;/rDir/rFile.txt&apos;</dev:code>
+			<dev:code>PS C:\&gt; New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Send-WinSCPItem -Path &apos;C:\lDir\lFile.txt&apos; -Destination &apos;/rDir/rFile.txt&apos;
+
+Transfers           Failures IsSuccess
+---------           -------- ---------
+{C:\lDir\lFile.txt} {}       True</dev:code>
 			<dev:remarks>
 				<maml:para />
 				<maml:para />
 				<maml:para />
-				<maml:para>Transfers           Failures IsSuccess
----------           -------- ---------
-{C:\lDir\lFile.txt} {}       True</maml:para>
+				<maml:para></maml:para>
 			</dev:remarks>
 			<command:commandLines>
 				<command:commandLine>
@@ -4046,14 +4011,16 @@ System.String</maml:name>
 			</maml:introduction>
 			<dev:code>PS C:\&gt; $credential = Get-Credential
 PS C:\&gt; $session = New-WinSCPSession -Credential $credential -Hostname &apos;myftphost.org&apos; -SshHostKeyFingerprint &apos;ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx&apos;
-PS C:\&gt; Send-WinSCPItem -WinSCPSession $session -Path &apos;C:\lDir\lFile.txt&apos; -Destination &apos;/rDir/rFile.txt&apos; -Remove</dev:code>
+PS C:\&gt; Send-WinSCPItem -WinSCPSession $session -Path &apos;C:\lDir\lFile.txt&apos; -Destination &apos;/rDir/rFile.txt&apos; -Remove
+
+Transfers           Failures IsSuccess
+---------           -------- ---------
+{C:\lDir\lFile.txt} {}       True</dev:code>
 			<dev:remarks>
 				<maml:para />
 				<maml:para />
 				<maml:para />
-				<maml:para>Transfers           Failures IsSuccess
----------           -------- ---------
-{C:\lDir\lFile.txt} {}       True</maml:para>
+				<maml:para></maml:para>
 			</dev:remarks>
 			<command:commandLines>
 				<command:commandLine>
@@ -4094,11 +4061,11 @@ PS C:\&gt; Send-WinSCPItem -WinSCPSession $session -Path &apos;C:\lDir\lFile.txt
 		<command:inputType>
 			<dev:type>
 				<maml:name>System.Void</maml:name>
-				<maml:uri></maml:uri>
+				<maml:uri>https://msdn.microsoft.com/en-us/library/system.void(v=vs.110).aspx</maml:uri>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-<maml:para />
+				<maml:para>Specifies a return value type for a method that does not return a value.</maml:para>
 			</maml:description>
 		</command:inputType>
 	</command:inputTypes>
@@ -4106,11 +4073,11 @@ PS C:\&gt; Send-WinSCPItem -WinSCPSession $session -Path &apos;C:\lDir\lFile.txt
 		<command:returnValue>
 			<dev:type>
 				<maml:name>System.Void</maml:name>
-				<maml:uri></maml:uri>
+				<maml:uri>https://msdn.microsoft.com/en-us/library/system.void(v=vs.110).aspx</maml:uri>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-<maml:para />
+				<maml:para>Specifies a return value type for a method that does not return a value.</maml:para>
 			</maml:description>
 		</command:returnValue>
 	</command:returnValues>
@@ -4170,64 +4137,56 @@ PS C:\&gt; Send-WinSCPItem -WinSCPSession $session -Path &apos;C:\lDir\lFile.txt
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 				<maml:name>WinSCPSession</maml:name>
 				<maml:description>
-					<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.
-</maml:para>
+					<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="1">
 				<maml:name>Mode</maml:name>
 				<maml:description>
-					<maml:para>Synchronization mode. Possible values are Local, Remote and Both.
-</maml:para>
+					<maml:para>Synchronization mode. Possible values are Local, Remote and Both.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">SynchronizationMode</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2">
 				<maml:name>LocalPath</maml:name>
 				<maml:description>
-					<maml:para>Full path to local directory.
-</maml:para>
+					<maml:para>Full path to local directory.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="3">
 				<maml:name>RemotePath</maml:name>
 				<maml:description>
-					<maml:para>Full path to remote directory.
-</maml:para>
+					<maml:para>Full path to remote directory.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 				<maml:name>Remove</maml:name>
 				<maml:description>
-					<maml:para>When used, deletes obsolete files. Cannot be used with -Mode Both.
-</maml:para>
+					<maml:para>When used, deletes obsolete files. Cannot be used with -Mode Both.</maml:para>
 				</maml:description>
 				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 				<maml:name>Mirror</maml:name>
 				<maml:description>
-					<maml:para>When used, synchronizes in mirror mode (synchronizes also older files). Cannot be used for -Mode Both.
-</maml:para>
+					<maml:para>When used, synchronizes in mirror mode (synchronizes also older files). Cannot be used for -Mode Both.</maml:para>
 				</maml:description>
 				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="4">
 				<maml:name>Criteria</maml:name>
 				<maml:description>
-					<maml:para>Comparison criteria. Possible values are None, Time (default), .Size and Either. For -Mode Both Time can be used only.
-</maml:para>
+					<maml:para>Comparison criteria. Possible values are None, Time (default), .Size and Either. For -Mode Both Time can be used only.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">SynchronizationCriteria</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="5">
 				<maml:name>TransferOptions</maml:name>
 				<maml:description>
-					<maml:para>Transfer options. Defaults to null, what is equivalent to New-WinSCPTransferOptions.
-</maml:para>
+					<maml:para>Transfer options. Defaults to null, what is equivalent to New-WinSCPTransferOptions.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">TransferOptions</command:parameterValue>
 			</command:parameter>
@@ -4251,8 +4210,7 @@ PS C:\&gt; Send-WinSCPItem -WinSCPSession $session -Path &apos;C:\lDir\lFile.txt
 		<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 			<maml:name>WinSCPSession</maml:name>
 			<maml:description>
-				<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.
-</maml:para>
+				<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 			<dev:type>
@@ -4264,8 +4222,7 @@ PS C:\&gt; Send-WinSCPItem -WinSCPSession $session -Path &apos;C:\lDir\lFile.txt
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="1">
 			<maml:name>Mode</maml:name>
 			<maml:description>
-				<maml:para>Synchronization mode. Possible values are Local, Remote and Both.
-</maml:para>
+				<maml:para>Synchronization mode. Possible values are Local, Remote and Both.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">SynchronizationMode</command:parameterValue>
 			<dev:type>
@@ -4277,8 +4234,7 @@ PS C:\&gt; Send-WinSCPItem -WinSCPSession $session -Path &apos;C:\lDir\lFile.txt
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2">
 			<maml:name>LocalPath</maml:name>
 			<maml:description>
-				<maml:para>Full path to local directory.
-</maml:para>
+				<maml:para>Full path to local directory.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			<dev:type>
@@ -4290,8 +4246,7 @@ PS C:\&gt; Send-WinSCPItem -WinSCPSession $session -Path &apos;C:\lDir\lFile.txt
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="3">
 			<maml:name>RemotePath</maml:name>
 			<maml:description>
-				<maml:para>Full path to remote directory.
-</maml:para>
+				<maml:para>Full path to remote directory.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			<dev:type>
@@ -4303,8 +4258,7 @@ PS C:\&gt; Send-WinSCPItem -WinSCPSession $session -Path &apos;C:\lDir\lFile.txt
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 			<maml:name>Remove</maml:name>
 			<maml:description>
-				<maml:para>When used, deletes obsolete files. Cannot be used with -Mode Both.
-</maml:para>
+				<maml:para>When used, deletes obsolete files. Cannot be used with -Mode Both.</maml:para>
 			</maml:description>
 			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			<dev:type>
@@ -4316,8 +4270,7 @@ PS C:\&gt; Send-WinSCPItem -WinSCPSession $session -Path &apos;C:\lDir\lFile.txt
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 			<maml:name>Mirror</maml:name>
 			<maml:description>
-				<maml:para>When used, synchronizes in mirror mode (synchronizes also older files). Cannot be used for -Mode Both.
-</maml:para>
+				<maml:para>When used, synchronizes in mirror mode (synchronizes also older files). Cannot be used for -Mode Both.</maml:para>
 			</maml:description>
 			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			<dev:type>
@@ -4329,8 +4282,7 @@ PS C:\&gt; Send-WinSCPItem -WinSCPSession $session -Path &apos;C:\lDir\lFile.txt
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="4">
 			<maml:name>Criteria</maml:name>
 			<maml:description>
-				<maml:para>Comparison criteria. Possible values are None, Time (default), .Size and Either. For -Mode Both Time can be used only.
-</maml:para>
+				<maml:para>Comparison criteria. Possible values are None, Time (default), .Size and Either. For -Mode Both Time can be used only.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">SynchronizationCriteria</command:parameterValue>
 			<dev:type>
@@ -4342,8 +4294,7 @@ PS C:\&gt; Send-WinSCPItem -WinSCPSession $session -Path &apos;C:\lDir\lFile.txt
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="5">
 			<maml:name>TransferOptions</maml:name>
 			<maml:description>
-				<maml:para>Transfer options. Defaults to null, what is equivalent to New-WinSCPTransferOptions.
-</maml:para>
+				<maml:para>Transfer options. Defaults to null, what is equivalent to New-WinSCPTransferOptions.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">TransferOptions</command:parameterValue>
 			<dev:type>
@@ -4381,11 +4332,11 @@ PS C:\&gt; Send-WinSCPItem -WinSCPSession $session -Path &apos;C:\lDir\lFile.txt
 		<command:inputType>
 			<dev:type>
 				<maml:name>WinSCP.Session</maml:name>
-				<maml:uri></maml:uri>
+				<maml:uri>http://winscp.net/eng/docs/library_session</maml:uri>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-<maml:para />
+				<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 			</maml:description>
 		</command:inputType>
 	</command:inputTypes>
@@ -4393,11 +4344,11 @@ PS C:\&gt; Send-WinSCPItem -WinSCPSession $session -Path &apos;C:\lDir\lFile.txt
 		<command:returnValue>
 			<dev:type>
 				<maml:name>WinSCP.SynchronizationResult</maml:name>
-				<maml:uri></maml:uri>
+				<maml:uri>http://winscp.net/eng/docs/library_synchronizationresult</maml:uri>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-<maml:para />
+				<maml:para>Represents results of synchronization. </maml:para>
 			</maml:description>
 		</command:returnValue>
 	</command:returnValues>
@@ -4415,16 +4366,18 @@ PS C:\&gt; Send-WinSCPItem -WinSCPSession $session -Path &apos;C:\lDir\lFile.txt
 			<maml:introduction>
 				<maml:paragraph>PS C:\&gt;</maml:paragraph>
 			</maml:introduction>
-			<dev:code>PS C:\&gt; New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Sync-WinSCPDirectory -RemotePath &apos;/&apos; -LocalPath &apos;C:\lDir\&apos; -Mode Local</dev:code>
+			<dev:code>PS C:\&gt; New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Sync-WinSCPDirectory -RemotePath &apos;/&apos; -LocalPath &apos;C:\lDir\&apos; -Mode Local
+
+Uploads   : {}
+Downloads : {/rDir/rSubDir/rFile.txt}
+Removals  : {}
+Failures  : {}
+IsSuccess : True</dev:code>
 			<dev:remarks>
 				<maml:para />
 				<maml:para />
 				<maml:para />
-				<maml:para>Uploads   : {}
-Downloads : {/rDir/rSubDir/rFile.txt}
-Removals  : {}
-Failures  : {}
-IsSuccess : True</maml:para>
+				<maml:para></maml:para>
 			</dev:remarks>
 			<command:commandLines>
 				<command:commandLine>
@@ -4441,16 +4394,18 @@ IsSuccess : True</maml:para>
 			</maml:introduction>
 			<dev:code>PS C:\&gt; $credential = Get-Credential
 PS C:\&gt; $session = New-WinSCPSession -Credential $credential -Hostname &apos;myftphost.org&apos; -SshHostKeyFingerprint &apos;ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx&apos;
-PS C:\&gt; Sync-WinSCPDirectory -WinSCPSession $session -RemotePath &apos;/&apos; -LocalPath &apos;C:\lDir\&apos; -SyncMode Local</dev:code>
+PS C:\&gt; Sync-WinSCPDirectory -WinSCPSession $session -RemotePath &apos;/&apos; -LocalPath &apos;C:\lDir\&apos; -SyncMode Local
+
+Uploads   : {}
+Downloads : {/rDir/rSubDir/rFile.txt}
+Removals  : {}
+Failures  : {}
+IsSuccess : True</dev:code>
 			<dev:remarks>
 				<maml:para />
 				<maml:para />
 				<maml:para />
-				<maml:para>Uploads   : {}
-Downloads : {/rDir/rSubDir/rFile.txt}
-Removals  : {}
-Failures  : {}
-IsSuccess : True</maml:para>
+				<maml:para></maml:para>
 			</dev:remarks>
 			<command:commandLines>
 				<command:commandLine>
@@ -4462,6 +4417,14 @@ IsSuccess : True</maml:para>
 		</command:example>
 	</command:examples>
 	<maml:relatedLinks>
+		<maml:navigationLink>
+			<maml:linkText>SynchronizeDirectories Method</maml:linkText>
+			<maml:uri>http://winscp.net/eng/docs/library_session_synchronizedirectories</maml:uri>
+		</maml:navigationLink>
+		<maml:navigationLink>
+			<maml:linkText>Project Home Page</maml:linkText>
+			<maml:uri>http://dotps1.github.io/WinSCP</maml:uri>
+		</maml:navigationLink>
 	</maml:relatedLinks>
 </command:command>
 <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
@@ -4487,16 +4450,14 @@ IsSuccess : True</maml:para>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 				<maml:name>WinSCPSession</maml:name>
 				<maml:description>
-					<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.
-</maml:para>
+					<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="true (ByPropertyName)" position="1">
 				<maml:name>Path</maml:name>
 				<maml:description>
-					<maml:para>Full path to remote file.
-</maml:para>
+					<maml:para>Full path to remote file.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="true">String[]</command:parameterValue>
 			</command:parameter>
@@ -4520,8 +4481,7 @@ IsSuccess : True</maml:para>
 		<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="true (ByValue)" position="0">
 			<maml:name>WinSCPSession</maml:name>
 			<maml:description>
-				<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.
-</maml:para>
+				<maml:para>A valid open WinSCP.Session, returned from New-WinSCPSession.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 			<dev:type>
@@ -4533,8 +4493,7 @@ IsSuccess : True</maml:para>
 		<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="true (ByPropertyName)" position="1">
 			<maml:name>Path</maml:name>
 			<maml:description>
-				<maml:para>Full path to remote file.
-</maml:para>
+				<maml:para>Full path to remote file.</maml:para>
 			</maml:description>
 			<command:parameterValue required="true" variableLength="true">String[]</command:parameterValue>
 			<dev:type>
@@ -4572,22 +4531,24 @@ IsSuccess : True</maml:para>
 		<command:inputType>
 			<dev:type>
 				<maml:name>WinSCP.Session</maml:name>
-				<maml:uri></maml:uri>
+				<maml:uri>http://winscp.net/eng/docs/library_session</maml:uri>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-<maml:para />
+				<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 			</maml:description>
 		</command:inputType>
 		<command:inputType>
 			<dev:type>
 				<maml:name>
 System.String</maml:name>
-				<maml:uri />
+				<maml:uri>
+https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx</maml:uri>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-<maml:para />
+				<maml:para>
+Represents text as a series of Unicode characters.</maml:para>
 			</maml:description>
 		</command:inputType>
 	</command:inputTypes>
@@ -4595,11 +4556,11 @@ System.String</maml:name>
 		<command:returnValue>
 			<dev:type>
 				<maml:name>System.Boolean</maml:name>
-				<maml:uri></maml:uri>
+				<maml:uri>https://msdn.microsoft.com/en-us/library/system.boolean(v=vs.110).aspx</maml:uri>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-<maml:para />
+				<maml:para>Represents a Boolean (true or false) value.</maml:para>
 			</maml:description>
 		</command:returnValue>
 	</command:returnValues>
@@ -4617,12 +4578,14 @@ System.String</maml:name>
 			<maml:introduction>
 				<maml:paragraph>PS C:\&gt;</maml:paragraph>
 			</maml:introduction>
-			<dev:code>PS C:\&gt; New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Test-WinSCPPath -Path &apos;/rDir/rSubDir&apos;</dev:code>
+			<dev:code>PS C:\&gt; New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Test-WinSCPPath -Path &apos;/rDir/rSubDir&apos;
+
+True</dev:code>
 			<dev:remarks>
 				<maml:para />
 				<maml:para />
 				<maml:para />
-				<maml:para>True</maml:para>
+				<maml:para></maml:para>
 			</dev:remarks>
 			<command:commandLines>
 				<command:commandLine>
@@ -4644,7 +4607,7 @@ PS C:\&gt; Test-WinSCPPath -WinSCPSession $session -Path &apos;/rDir/rSubDir&apo
 				<maml:para />
 				<maml:para />
 				<maml:para />
-				<maml:para>True</maml:para>
+				<maml:para></maml:para>
 			</dev:remarks>
 			<command:commandLines>
 				<command:commandLine>
@@ -4656,6 +4619,14 @@ PS C:\&gt; Test-WinSCPPath -WinSCPSession $session -Path &apos;/rDir/rSubDir&apo
 		</command:example>
 	</command:examples>
 	<maml:relatedLinks>
+		<maml:navigationLink>
+			<maml:linkText>FileExists Method</maml:linkText>
+			<maml:uri>http://winscp.net/eng/docs/library_session_fileexists</maml:uri>
+		</maml:navigationLink>
+		<maml:navigationLink>
+			<maml:linkText>Project Home Page</maml:linkText>
+			<maml:uri>http://dotps1.github.io/WinSCP</maml:uri>
+		</maml:navigationLink>
 	</maml:relatedLinks>
 </command:command>
 </helpItems>

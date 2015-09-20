@@ -12,7 +12,7 @@
 RootModule = 'WinSCP'
 
 # Version number of this module.
-ModuleVersion = '5.7.5.4'
+ModuleVersion = '5.7.5.5'
 
 # ID used to uniquely identify this module
 GUID = '06e0af4e-779b-48f4-939f-c90b8ec950e6'
@@ -112,7 +112,7 @@ FileList = @(
     'WinSCP.psd1',
     'WinSCP.psm1',
     'en-US\about_WinSCP.help.txt',
-    'en-US\WinSCP.dll-Help.xml'
+    'en-US\WinSCP-Help.xml'
     'Functions\_Helper.Format-WinSCPPathString.ps1',
     'Functions\ConvertTo-WinSCPEscapedString.ps1',
     'Functions\Get-WinSCPChildItem.ps1',

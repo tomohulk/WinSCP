@@ -1,0 +1,2456 @@
+<?xml version="1.0"?>
+<ModuleObject xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" fVersion="1.1" type="Script" mclass="External" useSupports="false">
+  <Name>WinSCP</Name>
+  <Version>5.7.5.4</Version>
+  <Description>PowerShell Module Wrapper for WinSCP.</Description>
+  <ModulePath>C:\Users\thomas\Documents\GitHub\WinSCP\WinSCP.psd1</ModulePath>
+  <HasManifest>false</HasManifest>
+  <OverridePostCount>false</OverridePostCount>
+  <FetchPostCount xsi:nil="true" />
+  <Cmdlets>
+    <CmdletObject verb="ConvertTo" noun="WinSCPEscapedString">
+      <Name>ConvertTo-WinSCPEscapedString</Name>
+      <GeneralHelp>
+        <Synopsis>Converts the special characters in string.</Synopsis>
+        <Description>Escapes special characters so they are not misinterpreted as wildcards or other special characters.</Description>
+        <Notes>Useful with Send-WinSCPItem, Receive-WinSCPItem, Remove-WinSCPItem cmdlets.</Notes>
+        <InputType>System.String</InputType>
+        <InputUrl>https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx</InputUrl>
+        <InputTypeDescription>
+Represents text as a series of Unicode characters.</InputTypeDescription>
+        <ReturnType>System.String</ReturnType>
+        <ReturnUrl>https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx</ReturnUrl>
+        <ReturnTypeDescription>
+Represents text as a series of Unicode characters.</ReturnTypeDescription>
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="FileMask Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Syntax>
+        <string>ConvertTo-WinSCPEscapedString [-FileMask] &lt;String&gt; [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
+      </Syntax>
+      <Parameters>
+        <ParameterDescription type="String" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="true" pipeProp="false" isPos="true" pos="0" globbing="false">
+          <Name>FileMask</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>File path to convert.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationAction</Name>
+          <Attributes>
+            <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>infa</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationVariable</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
+            <string>System.Management.Automation.AliasAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>iv</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>EXAMPLE 1</Name>
+          <Cmd>PS C:\&gt; ConvertTo-WinSCPEscapedString -FileMask 'FileWithA*InName.txt'
+
+FileWithA[*]InName.txt</Cmd>
+          <Description />
+          <Output />
+        </Example>
+        <Example>
+          <Name>EXAMPLE 2</Name>
+          <Cmd>PS C:\&gt; $session = New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+PS C:\&gt; $fileName = ConvertTo-WinSCPEscapedString -FileMask 'FileWithA*InName.txt'
+PS C:\&gt; Receive-WinSCPItem -WinSCPSession $session -RemoteItem "/rDir/$fileName" -LocalItem 'C:\lDir\'
+
+Transfers                    Failures IsSuccess
+---------                    -------- ---------
+{/rDir/FileWithA*InName.txt} {}       True</Cmd>
+          <Description />
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>EscapeFileMask Method</LinkText>
+          <LinkUrl>http://winscp.net/eng/docs/library_session_escapefilemask</LinkUrl>
+        </RelatedLink>
+        <RelatedLink>
+          <LinkText>Project Home Page</LinkText>
+          <LinkUrl>http://dotps1.github.io/WinSCP</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Get" noun="WinSCPChildItem">
+      <Name>Get-WinSCPChildItem</Name>
+      <GeneralHelp>
+        <Synopsis>Shows the contents of a remote directory.</Synopsis>
+        <Description>Displays the contents within a remote directory, including other directories and files.</Description>
+        <Notes>If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.</Notes>
+        <InputType>WinSCP.Session;System.String</InputType>
+        <InputUrl>http://winscp.net/eng/docs/library_session;https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx</InputUrl>
+        <InputTypeDescription>
+It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.;
+
+Represents text as a series of Unicode characters.</InputTypeDescription>
+        <ReturnType>System.Array</ReturnType>
+        <ReturnUrl>https://msdn.microsoft.com/en-us/library/system.array(v=vs.110).aspx</ReturnUrl>
+        <ReturnTypeDescription>
+Provides methods for creating, manipulating, searching, and sorting arrays, thereby serving as the base class for all arrays in the common language runtime.</ReturnTypeDescription>
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Path Filter Recurse ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Syntax>
+        <string>Get-WinSCPChildItem [-WinSCPSession] &lt;Session&gt; [[-Path] &lt;String[]&gt;] [[-Filter] &lt;String&gt;] [-Recurse] [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
+      </Syntax>
+      <Parameters>
+        <ParameterDescription type="Session" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="true" pipeProp="false" isPos="true" pos="0" globbing="false">
+          <Name>WinSCPSession</Name>
+          <Attributes>
+            <string>System.Management.Automation.ValidateScriptAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>A valid open WinSCP.Session, returned from New-WinSCPSession.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String[]" varLen="true" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="true" isPos="true" pos="1" globbing="false">
+          <Name>Path</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Specifies a path to one or more locations. Wildcards are permitted. The default location is the home directory of the user making the connection.</Description>
+          <DefaultValue>/</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="2" globbing="false">
+          <Name>Filter</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Filter to be applied to returned objects.</Description>
+          <DefaultValue>*</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>Recurse</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Return items from all subdirectories.</Description>
+          <DefaultValue>False</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationAction</Name>
+          <Attributes>
+            <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>infa</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationVariable</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
+            <string>System.Management.Automation.AliasAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>iv</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>EXAMPLE 1</Name>
+          <Cmd>PS C:\&gt; New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Path '/rDir/'
+
+   Directory: /rDir
+
+FileType             LastWriteTime     Length Name
+--------             -------------     ------ ----
+D             1/1/2015 12:00:00 AM          0 rSubDir
+-             1/1/2015 12:00:00 AM          0 rTextFile.txt</Cmd>
+          <Description />
+          <Output />
+        </Example>
+        <Example>
+          <Name>EXAMPLE 2</Name>
+          <Cmd>PS C:\&gt; $credential = Get-Credential
+PS C:\&gt; $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+Get-WinSCPChildItem -WinSCPSession $session -Path '/rDir/' -Recurse
+
+   Directory: /rDir
+
+FileType             LastWriteTime     Length Name
+--------             -------------     ------ ----
+D             1/1/2015 12:00:00 AM          0 rSubDir
+-             1/1/2015 12:00:00 AM          0 rTextFile.txt
+
+
+   Directory: /rDir/rSubDir
+
+FileType             LastWriteTime     Length Name
+--------             -------------     ------ ----
+-             1/1/2015 12:00:00 AM          0 rSubDirTextFile.txt</Cmd>
+          <Description />
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>RemoteFileInfo Class</LinkText>
+          <LinkUrl>http://winscp.net/eng/docs/library_remotefileinfo</LinkUrl>
+        </RelatedLink>
+        <RelatedLink>
+          <LinkText>Project Home Page</LinkText>
+          <LinkUrl>http://dotps1.github.io/WinSCP</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Get" noun="WinSCPItem">
+      <Name>Get-WinSCPItem</Name>
+      <GeneralHelp>
+        <Synopsis>Retrieves information about a File or Directory from an active WinSCP Session.</Synopsis>
+        <Description>Retrieves Name, FileType, Length, LastWriteTime, FilePermissions, and IsDirectory Properties on an Item from an Active WinSCP Session.</Description>
+        <Notes>If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.</Notes>
+        <InputType>WinSCP.Session;System.String</InputType>
+        <InputUrl>http://winscp.net/eng/docs/library_session;https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx</InputUrl>
+        <InputTypeDescription>
+It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.;
+
+Represents text as a series of Unicode characters.</InputTypeDescription>
+        <ReturnType>WinSCP.RemoteFileInfo</ReturnType>
+        <ReturnUrl>http://winscp.net/eng/docs/library_remotefileinfo</ReturnUrl>
+        <ReturnTypeDescription>
+Represents data about remote file.</ReturnTypeDescription>
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Path Filter ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Syntax>
+        <string>Get-WinSCPItem [-WinSCPSession] &lt;Session&gt; [[-Path] &lt;String[]&gt;] [[-Filter] &lt;String&gt;] [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
+      </Syntax>
+      <Parameters>
+        <ParameterDescription type="Session" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="true" pipeProp="false" isPos="true" pos="0" globbing="false">
+          <Name>WinSCPSession</Name>
+          <Attributes>
+            <string>System.Management.Automation.ValidateScriptAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>A valid open WinSCP.Session, returned from New-WinSCPSession.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String[]" varLen="true" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="true" isPos="true" pos="1" globbing="false">
+          <Name>Path</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Full path to remote Item.</Description>
+          <DefaultValue>/</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="2" globbing="false">
+          <Name>Filter</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Filters the returned results.</Description>
+          <DefaultValue>*</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationAction</Name>
+          <Attributes>
+            <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>infa</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationVariable</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
+            <string>System.Management.Automation.AliasAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>iv</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>EXAMPLE 1</Name>
+          <Cmd>PS C:\&gt; New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPItem -Path '/rDir/rSubDir'
+
+   Directory: /rDir
+
+FileType             LastWriteTime     Length Name
+--------             -------------     ------ ----
+D             1/1/2015 12:00:00 AM          0 /rdir/rSubDir</Cmd>
+          <Description />
+          <Output />
+        </Example>
+        <Example>
+          <Name>EXAMPLE 2</Name>
+          <Cmd>PS C:\&gt; $credential = Get-Credential
+PS C:\&gt; $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+PS C:\&gt; Get-WinSCPItem -WinSCPSession $session -Path '/rDir/rSubDir'
+
+   Directory: /rDir
+
+FileType             LastWriteTime     Length Name
+--------             -------------     ------ ----
+D             1/1/2015 12:00:00 AM          0 /rdir/rSubDir</Cmd>
+          <Description />
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>RemoteFileInfo Class</LinkText>
+          <LinkUrl>http://winscp.net/eng/docs/library_remotefileinfo</LinkUrl>
+        </RelatedLink>
+        <RelatedLink>
+          <LinkText>Project Home Page</LinkText>
+          <LinkUrl>http://dotps1.github.io/WinSCP</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Get" noun="WinSCPItemChecksum">
+      <Name>Get-WinSCPItemChecksum</Name>
+      <GeneralHelp>
+        <Synopsis>Calculates a checksum of a remote file.</Synopsis>
+        <Description>Use IANA Algorithm to retrieve the checksum of a remote file.</Description>
+        <Notes>If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.</Notes>
+        <InputType>WinSCP.Session;System.String</InputType>
+        <InputUrl>http://winscp.net/eng/docs/library_session;https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx</InputUrl>
+        <InputTypeDescription>
+It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.;
+
+Represents text as a series of Unicode characters.</InputTypeDescription>
+        <ReturnType>System.Array</ReturnType>
+        <ReturnUrl>https://msdn.microsoft.com/en-us/library/system.array(v=vs.110).aspx</ReturnUrl>
+        <ReturnTypeDescription>
+Provides methods for creating, manipulating, searching, and sorting arrays, thereby serving as the base class for all arrays in the common language runtime.</ReturnTypeDescription>
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Algorithm Path ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Syntax>
+        <string>Get-WinSCPItemChecksum [-WinSCPSession] &lt;Session&gt; [-Algorithm] &lt;String&gt; [-Path] &lt;String[]&gt; [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
+      </Syntax>
+      <Parameters>
+        <ParameterDescription type="Session" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="true" pipeProp="false" isPos="true" pos="0" globbing="false">
+          <Name>WinSCPSession</Name>
+          <Attributes>
+            <string>System.Management.Automation.ValidateScriptAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>A valid open WinSCP.Session, returned from New-WinSCPSession.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="1" globbing="false">
+          <Name>Algorithm</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>A name of a checksum algorithm to use. Use IANA name of algorithm or use a name of any proprietary algorithm the server supports (with SFTP protocol only). Commonly supported algorithms are sha-1 and md5.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String[]" varLen="true" required="true" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="true" isPos="true" pos="2" globbing="false">
+          <Name>Path</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>A full path to a remote file to calculate a checksum for.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationAction</Name>
+          <Attributes>
+            <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>infa</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationVariable</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
+            <string>System.Management.Automation.AliasAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>iv</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>EXAMPLE 1</Name>
+          <Cmd>PS C:\&gt; New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -Hostname 'myftphost.org' -Protocol Ftp | Get-WinSCPItemChecksum -Algorithm 'sha-1' -Path '/rDir/file.txt'</Cmd>
+          <Description />
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>CalculateFileChecksum Method</LinkText>
+          <LinkUrl>http://winscp.net/eng/docs/library_session_calculatefilechecksum</LinkUrl>
+        </RelatedLink>
+        <RelatedLink>
+          <LinkText>Project Home Page</LinkText>
+          <LinkUrl>http://dotps1.github.io/WinSCP</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Invoke" noun="WinSCPCommand">
+      <Name>Invoke-WinSCPCommand</Name>
+      <GeneralHelp>
+        <Synopsis>Invokes a command on an Active WinSCP Session.</Synopsis>
+        <Description>Invokes a command on the system hosting the FTP/SFTP Service.</Description>
+        <Notes>If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.</Notes>
+        <InputType>WinSCP.Session;System.String</InputType>
+        <InputUrl>http://winscp.net/eng/docs/library_session;https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx</InputUrl>
+        <InputTypeDescription>
+It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.;
+
+Represents text as a series of Unicode characters.</InputTypeDescription>
+        <ReturnType>WinSCP.CommandExecutionResult</ReturnType>
+        <ReturnUrl>http://winscp.net/eng/docs/library_commandexecutionresult</ReturnUrl>
+        <ReturnTypeDescription>
+Represents results of Session.ExecuteCommand.</ReturnTypeDescription>
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Command ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Syntax>
+        <string>Invoke-WinSCPCommand [-WinSCPSession] &lt;Session&gt; [-Command] &lt;String[]&gt; [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
+      </Syntax>
+      <Parameters>
+        <ParameterDescription type="Session" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="true" pipeProp="false" isPos="true" pos="0" globbing="false">
+          <Name>WinSCPSession</Name>
+          <Attributes>
+            <string>System.Management.Automation.ValidateScriptAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>A valid open WinSCP.Session, returned from New-WinSCPSession.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String[]" varLen="true" required="true" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="true" isPos="true" pos="1" globbing="false">
+          <Name>Command</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Command to execute.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationAction</Name>
+          <Attributes>
+            <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>infa</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationVariable</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
+            <string>System.Management.Automation.AliasAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>iv</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>EXAMPLE 1</Name>
+          <Cmd>PS C:\&gt; $credential = Get-Credential
+PS C:\&gt; $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+PS C:\&gt; Invoke-WinSCPCommand -WinSCPSession $session -Command ("mysqldump --opt -u {0} --password={1} --all-databases | gzip &gt; {2}" -f $dbUsername, $dbPassword, $tempFilePath)</Cmd>
+          <Description />
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>CommandExecutionResult Class</LinkText>
+          <LinkUrl>http://winscp.net/eng/docs/library_commandexecutionresult</LinkUrl>
+        </RelatedLink>
+        <RelatedLink>
+          <LinkText>Project Home Page</LinkText>
+          <LinkUrl>http://dotps1.github.io/WinSCP</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Move" noun="WinSCPItem">
+      <Name>Move-WinSCPItem</Name>
+      <GeneralHelp>
+        <Synopsis>Moves an item from one location to another from an active WinSCP Session.</Synopsis>
+        <Description>Once connected to an active WinSCP Session, one or many files can be moved to another location within the same WinSCP Session.</Description>
+        <Notes>If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.</Notes>
+        <InputType>WinSCP.Session;System.String</InputType>
+        <InputUrl>http://winscp.net/eng/docs/library_session;https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx</InputUrl>
+        <InputTypeDescription>
+It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.;
+
+Represents text as a series of Unicode characters.</InputTypeDescription>
+        <ReturnType>System.Void</ReturnType>
+        <ReturnUrl>https://msdn.microsoft.com/en-us/library/system.void(v=vs.110).aspx</ReturnUrl>
+        <ReturnTypeDescription>
+Specifies a return value type for a method that does not return a value.</ReturnTypeDescription>
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Path Destination Force PassThru ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Syntax>
+        <string>Move-WinSCPItem [-WinSCPSession] &lt;Session&gt; [-Path] &lt;String[]&gt; [[-Destination] &lt;String&gt;] [-Force] [-PassThru] [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
+      </Syntax>
+      <Parameters>
+        <ParameterDescription type="Session" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="true" pipeProp="false" isPos="true" pos="0" globbing="false">
+          <Name>WinSCPSession</Name>
+          <Attributes>
+            <string>System.Management.Automation.ValidateScriptAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>A valid open WinSCP.Session, returned from New-WinSCPSession.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String[]" varLen="true" required="true" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="true" isPos="true" pos="1" globbing="false">
+          <Name>Path</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Full path to remote item to be moved.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="2" globbing="false">
+          <Name>Destination</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Full path to new location to move the item to.</Description>
+          <DefaultValue>/</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>Force</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Creates the destination directory if it does not exist.</Description>
+          <DefaultValue>False</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>PassThru</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Returns a WinSCP.RemoteFileInfo of the moved object.</Description>
+          <DefaultValue>False</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationAction</Name>
+          <Attributes>
+            <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>infa</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationVariable</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
+            <string>System.Management.Automation.AliasAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>iv</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>EXAMPLE 1</Name>
+          <Cmd>PS C:\&gt; New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Move-WinSCPItem -Path '/rDir/rFile.txt' -Destination '/rDir/rSubDir/'</Cmd>
+          <Description />
+          <Output />
+        </Example>
+        <Example>
+          <Name>EXAMPLE 2</Name>
+          <Cmd>PS C:\&gt; $credential = Get-Credential
+PS C:\&gt; $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+PS C:\&gt; Move-WinSCPItem -WinSCPSession $session -Path '/rDir/rFile.txt' -Destination '/rDir/rSubDir/' -PassThru
+
+   Directory: /rdir/rSubdir
+
+FileType             LastWriteTime     Length Name
+--------             -------------     ------ ----
+D             1/1/2015 12:00:00 AM          0 rFile.txt</Cmd>
+          <Description />
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>MoveFile Method</LinkText>
+          <LinkUrl>http://winscp.net/eng/docs/library_session_movefile</LinkUrl>
+        </RelatedLink>
+        <RelatedLink>
+          <LinkText>Project Home Page</LinkText>
+          <LinkUrl>http://dotps1.github.io/WinSCP</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="New" noun="WinSCPItem">
+      <Name>New-WinSCPItem</Name>
+      <GeneralHelp>
+        <Synopsis>Creates a directory on an active WinSCP Session.</Synopsis>
+        <Description>After creating a valid WinSCP Session, this function can be used to create new directory or nested directories.</Description>
+        <Notes>If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.</Notes>
+        <InputType>WinSCP.Session;System.String</InputType>
+        <InputUrl>http://winscp.net/eng/docs/library_session;https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx</InputUrl>
+        <InputTypeDescription>
+It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.;
+
+Represents text as a series of Unicode characters.</InputTypeDescription>
+        <ReturnType>WinSCP.RemoteFileInfo</ReturnType>
+        <ReturnUrl>http://winscp.net/eng/docs/library_remotefileinfo</ReturnUrl>
+        <ReturnTypeDescription>
+Represents data about remote file.</ReturnTypeDescription>
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Path Name ItemType Value ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Syntax>
+        <string>New-WinSCPItem [-WinSCPSession] &lt;Session&gt; [[-Path] &lt;String[]&gt;] [[-Name] &lt;String&gt;] [[-ItemType] &lt;String&gt;] [[-Value] &lt;String&gt;] [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
+      </Syntax>
+      <Parameters>
+        <ParameterDescription type="Session" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="true" pipeProp="false" isPos="true" pos="0" globbing="false">
+          <Name>WinSCPSession</Name>
+          <Attributes>
+            <string>System.Management.Automation.ValidateScriptAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>A valid open WinSCP.Session, returned from New-WinSCPSession.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String[]" varLen="true" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="true" isPos="true" pos="1" globbing="false">
+          <Name>Path</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Full path to remote directory to create.</Description>
+          <DefaultValue>/</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="true" isPos="true" pos="2" globbing="false">
+          <Name>Name</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The name of the new item to be created.  This can be omitted if full path is used to the new item.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="3" globbing="false">
+          <Name>ItemType</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The type of object to be created, IE: File, Directory.</Description>
+          <DefaultValue>File</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="4" globbing="false">
+          <Name>Value</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Initial value to add to the object being created.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationAction</Name>
+          <Attributes>
+            <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>infa</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationVariable</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
+            <string>System.Management.Automation.AliasAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>iv</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>EXAMPLE 1</Name>
+          <Cmd>PS C:\&gt; New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | New-WinSCPItem-Path '/rDir/rSubDir' -ItemType Directory
+
+   Directory: /rDir/
+
+FileType             LastWriteTime     Length Name
+--------             -------------     ------ ----
+D             1/1/2015 12:00:00 AM          0 /rSubDir</Cmd>
+          <Description />
+          <Output />
+        </Example>
+        <Example>
+          <Name>EXAMPLE 2</Name>
+          <Cmd>PS C:\&gt; $credential = Get-Credential
+PS C:\&gt; $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+PS C:\&gt; New-WinSCPItem -WinSCPSession $session -Path './rDir' -Name 'rTextFile.txt' -ItemType File -Value 'Hello World!'
+   
+   Directory: /rDir
+
+FileType             LastWriteTime     Length Name
+--------             -------------     ------ ----
+-             1/1/2015 12:00:00 AM         12 /rTextFile.txt</Cmd>
+          <Description />
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>RemoteFileInfo Class</LinkText>
+          <LinkUrl>http://winscp.net/eng/docs/library_remotefileinfo</LinkUrl>
+        </RelatedLink>
+        <RelatedLink>
+          <LinkText>Project Home Page</LinkText>
+          <LinkUrl>http://dotps1.github.io/WinSCP</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="New" noun="WinSCPItemPermission">
+      <Name>New-WinSCPItemPermission</Name>
+      <GeneralHelp>
+        <Synopsis>Represents *nix-style remote file permissions.</Synopsis>
+        <Description>Creates a new WinSCP.FilePermmissions object that can be used with Send-WinSCPItem to apply permissions.</Description>
+        <Notes>Can only be used with File Uploads.</Notes>
+        <InputType>None</InputType>
+        <InputUrl />
+        <InputTypeDescription>
+</InputTypeDescription>
+        <ReturnType>WinSCP.FilePermissions</ReturnType>
+        <ReturnUrl>http://winscp.net/eng/docs/library_filepermissions</ReturnUrl>
+        <ReturnTypeDescription>
+Represents *nix-style remote file permissions.</ReturnTypeDescription>
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="GroupExecute GroupRead GroupWrite Numeric Octal OtherExecute OtherRead OtherWrite SetGid SetUid Sticky Text UserExecute UserRead UserWrite ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Syntax>
+        <string>New-WinSCPItemPermission [-GroupExecute] [-GroupRead] [-GroupWrite] [[-Numeric] &lt;Int32&gt;] [[-Octal] &lt;String&gt;] [-OtherExecute] [-OtherRead] [-OtherWrite] [-SetGid] [-SetUid] [-Sticky] [[-Text] &lt;String&gt;] [-UserExecute] [-UserRead] [-UserWrite] [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
+      </Syntax>
+      <Parameters>
+        <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>GroupExecute</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Execute permission for group.</Description>
+          <DefaultValue>False</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>GroupRead</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Read permission for group.</Description>
+          <DefaultValue>False</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>GroupWrite</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Read permission for group.</Description>
+          <DefaultValue>False</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="Int32" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="0" globbing="false">
+          <Name>Numeric</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Permissions as a number.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="1" globbing="false">
+          <Name>Octal</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Permissions in octal format, e.g. "644". Octal format has 3 or 4 (when any special permissions are set) digits.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>OtherExecute</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Execute permission for others.</Description>
+          <DefaultValue>False</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>OtherRead</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Read permission for others.</Description>
+          <DefaultValue>False</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>OtherWrite</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Write permission for others.</Description>
+          <DefaultValue>False</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>SetGid</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Grants the user, who executes the file, permissions of file group.</Description>
+          <DefaultValue>False</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>SetUid</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Grants the user, who executes the file, permissions of file owner.</Description>
+          <DefaultValue>False</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>Sticky</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Sticky bit.</Description>
+          <DefaultValue>False</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="2" globbing="false">
+          <Name>Text</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Permissions as a text in format "rwxrwxrwx".</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>UserExecute</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Execute permission for owner.</Description>
+          <DefaultValue>False</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>UserRead</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Read permission for owner.</Description>
+          <DefaultValue>False</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>UserWrite</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Write permission for owner.</Description>
+          <DefaultValue>False</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationAction</Name>
+          <Attributes>
+            <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>infa</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationVariable</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
+            <string>System.Management.Automation.AliasAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>iv</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>EXAMPLE 1</Name>
+          <Cmd>PS C:\&gt; New-WinSCPItemPermission
+
+Numeric      : 0
+Text         : ---------
+Octal        : 000
+OtherExecute : False
+OtherWrite   : False
+OtherRead    : False
+GroupExecute : False
+GroupWrite   : False
+GroupRead    : False
+UserExecute  : False
+UserWrite    : False
+UserRead     : False
+Sticky       : False
+SetGid       : False
+SetUid       : False</Cmd>
+          <Description />
+          <Output />
+        </Example>
+        <Example>
+          <Name>EXAMPLE 2</Name>
+          <Cmd>PS C:\&gt; New-WinSCPItemPermission -GroupExecute -GroupRead -UserExecute -UserRead</Cmd>
+          <Description />
+          <Output>Numeric      : 360
+Text         : r-xr-x---
+Octal        : 550
+OtherExecute : False
+OtherWrite   : False
+OtherRead    : False
+GroupExecute : True
+GroupWrite   : False
+GroupRead    : True
+UserExecute  : True
+UserWrite    : False
+UserRead     : True
+Sticky       : False
+SetGid       : False
+SetUid       : False</Output>
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>FilePermissions Class</LinkText>
+          <LinkUrl>http://winscp.net/eng/docs/library_filepermissions</LinkUrl>
+        </RelatedLink>
+        <RelatedLink>
+          <LinkText>Project Home Page</LinkText>
+          <LinkUrl>http://dotps1.github.io/WinSCP</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="New" noun="WinSCPSession">
+      <Name>New-WinSCPSession</Name>
+      <GeneralHelp>
+        <Synopsis>Defines information to allow an automatic connection and authentication of the session.</Synopsis>
+        <Description>Defines all settings that can be configured for the WinSCP.SessionOptions Object, then opens and returns the WinSCP.Session Object.</Description>
+        <Notes>This function is used to open a WinSCP Session to be used with most other cmdlets in the WinSCP PowerShell Module.</Notes>
+        <InputType>System.Management.Automation.PSCredential;System.String</InputType>
+        <InputUrl>https://msdn.microsoft.com/en-us/library/system.management.automation.pscredential(v=vs.85).aspx;https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx</InputUrl>
+        <InputTypeDescription>
+Represents a set of security credentials, such as a user name and a password.;
+
+Represents text as a series of Unicode characters.</InputTypeDescription>
+        <ReturnType>WinSCP.Session</ReturnType>
+        <ReturnUrl>http://winscp.net/eng/docs/library_session</ReturnUrl>
+        <ReturnTypeDescription>
+It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</ReturnTypeDescription>
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="Credential FtpMode FtpSecure GiveUpSecurityAndAcceptAnySshHostKey GiveUpSecureityAndAcceptAnyTlsHostCertificate HostName PortNumber Protocol SshHostKeyFingerprint SshPrivateKeyPath SshPrivateKeySecurePassphrase TlsHostCertificateFingerprint Timeout WebdavSecure WebdavRoot RawSetting DebugLogPath SessionLogPath ReconnectTime FileTransferProgress Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Syntax>
+        <string>New-WinSCPSession [[-Credential] &lt;PSCredential&gt;] [[-FtpMode] &lt;FtpMode&gt;] [[-FtpSecure] &lt;FtpSecure&gt;] [-GiveUpSecurityAndAcceptAnySshHostKey] [-GiveUpSecureityAndAcceptAnyTlsHostCertificate] [-HostName] &lt;String&gt; [[-PortNumber] &lt;Int32&gt;] [[-Protocol] &lt;Protocol&gt;] [[-SshHostKeyFingerprint] &lt;String[]&gt;] [[-SshPrivateKeyPath] &lt;String&gt;] [[-SshPrivateKeySecurePassphrase] &lt;SecureString&gt;] [[-TlsHostCertificateFingerprint] &lt;String&gt;] [[-Timeout] &lt;TimeSpan&gt;] [-WebdavSecure] [[-WebdavRoot] &lt;String&gt;] [[-RawSetting] &lt;Hashtable&gt;] [[-DebugLogPath] &lt;String&gt;] [[-SessionLogPath] &lt;String&gt;] [[-ReconnectTime] &lt;TimeSpan&gt;] [[-FileTransferProgress] &lt;ScriptBlock&gt;] [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
+      </Syntax>
+      <Parameters>
+        <ParameterDescription type="PSCredential" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="true" pipeProp="false" isPos="true" pos="0" globbing="false">
+          <Name>Credential</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.CredentialAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>PSCredential object used for authentication.</Description>
+          <DefaultValue>(Get-Credential)</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="FtpMode" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="1" globbing="false">
+          <Name>FtpMode</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Possible values are FtpMode.Passive (default) and FtpMode.Active.</Description>
+          <DefaultValue>(New-Object -TypeName WinSCP.FtpMode)</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="FtpSecure" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="2" globbing="false">
+          <Name>FtpSecure</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>FTPS mode. Possible values are FtpSecure.None (default), FtpSecure.Implicit and FtpSecure.Explicit (FtpSecure.ExplicitTls in older versions).</Description>
+          <DefaultValue>(New-Object -TypeName WinSCP.FtpSecure)</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>GiveUpSecurityAndAcceptAnySshHostKey</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Give up security and accept any SSH host key. To be used in exceptional situations only, when security is not required. When set, log files will include warning about insecure connection. To maintain security, use SshHostKeyFingerprint.</Description>
+          <DefaultValue>False</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>GiveUpSecureityAndAcceptAnyTlsHostCertificate</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Give up security and accept any FTPS/WebDAVS server TLS/SSL certificate. To be used in exceptional situations only, when security is not required. When set, log files will include warning about insecure connection. To maintain security, use TlsHostCertificateFingerprint.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="3" globbing="false">
+          <Name>HostName</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Name of the host to connect to. Mandatory property.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="Int32" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="4" globbing="false">
+          <Name>PortNumber</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Port number to connect to. Keep default 0 to use the default port for the protocol.</Description>
+          <DefaultValue>0</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="Protocol" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="5" globbing="false">
+          <Name>Protocol</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Protocol to use for the session. Possible values are Protocol.Sftp (default), Protocol.Scp, Protocol.Ftp and Protocol.Webdav.</Description>
+          <DefaultValue>Sftp</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="String[]" varLen="true" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="true" isPos="true" pos="6" globbing="false">
+          <Name>SshHostKeyFingerprint</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Fingerprint of SSH server host key (or several alternative fingerprints separated by semicolon). It makes WinSCP automatically accept host key with the fingerprint. Mandatory for SFTP/SCP protocol.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="7" globbing="false">
+          <Name>SshPrivateKeyPath</Name>
+          <Attributes>
+            <string>System.Management.Automation.ValidateScriptAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Full path to private key file.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="SecureString" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="8" globbing="false">
+          <Name>SshPrivateKeySecurePassphrase</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Passphrase for encrypted private keys.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="9" globbing="false">
+          <Name>TlsHostCertificateFingerprint</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Fingerprint of FTPS/WebDAVS server TLS/SSL certificate to be automatically accepted (useful for certificates signed by untrusted authority).</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="TimeSpan" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="10" globbing="false">
+          <Name>Timeout</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Server response timeout. Defaults to 15 seconds.</Description>
+          <DefaultValue>15 Seconds</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>WebdavSecure</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Use WebDAVS (WebDAV over TLS/SSL), instead of WebDAV.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="11" globbing="false">
+          <Name>WebdavRoot</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>WebDAV root path.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="Hashtable" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="12" globbing="false">
+          <Name>RawSetting</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>A Hashtable of Settings and Values to add to the WinSCP.SessionOptions Object.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="13" globbing="false">
+          <Name>DebugLogPath</Name>
+          <Attributes>
+            <string>System.Management.Automation.ValidateScriptAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Path to store assembly debug log to. Default null means, no debug log file is created. See also SessionLogPath. The property has to be set before calling Open.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="14" globbing="false">
+          <Name>SessionLogPath</Name>
+          <Attributes>
+            <string>System.Management.Automation.ValidateScriptAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Path to store session log file to. Default null means, no session log file is created.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="TimeSpan" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="15" globbing="false">
+          <Name>ReconnectTime</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Sets time limit in seconds to try reconnecting broken sessions. Default is 120 seconds. Use TimeSpan.MaxValue to remove any limit.</Description>
+          <DefaultValue>120 Seconds</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="ScriptBlock" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="16" globbing="false">
+          <Name>FileTransferProgress</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Adds the ability to run a script block for each file transfer.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationAction</Name>
+          <Attributes>
+            <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>infa</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationVariable</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
+            <string>System.Management.Automation.AliasAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>iv</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>EXAMPLE 1</Name>
+          <Cmd>PS C:\&gt; New-WinSCPSession -HostName $env:COMPUTERNAME -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -Protocol Ftp
+
+ExecutablePath                : 
+AdditionalExecutableArguments : 
+DefaultConfiguration          : True
+DisableVersionCheck           : False
+IniFilePath                   : 
+ReconnectTime                 : 00:02:00
+ReconnectTimeInMilliseconds   : 120000
+DebugLogPath                  : 
+DebugLogLevel                 : 0
+SessionLogPath                : 
+XmlLogPath                    : C:\Users\$env:USERNAME\AppData\Local\Temp\wscp6934.0246B60F.tmp
+HomePath                      : /
+Timeout                       : 00:01:00
+Output                        : {winscp&gt; option batch on, batch           on        , reconnecttime   120       , winscp&gt; option 
+                                confirm off...}
+Opened                        : True
+UnderlyingSystemType          : WinSCP.Session</Cmd>
+          <Description />
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks />
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="New" noun="WinSCPTransferOption">
+      <Name>New-WinSCPTransferOption</Name>
+      <GeneralHelp>
+        <Synopsis>Sets options for file transfers.</Synopsis>
+        <Description>Sets available options for file transfers between the client and server.</Description>
+        <Notes>New-WinSCPTransferOption is equivalent to New-Object -TypeName WinSCP.TransferOptions.</Notes>
+        <InputType>None</InputType>
+        <InputUrl />
+        <InputTypeDescription>
+</InputTypeDescription>
+        <ReturnType>WinSCP.TransferOptions</ReturnType>
+        <ReturnUrl>http://winscp.net/eng/docs/library_transferoptions</ReturnUrl>
+        <ReturnTypeDescription>
+Defines options for file transfers.</ReturnTypeDescription>
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="FileMask FilePermissions PreserveTimeStamp State Threshold SpeedLimit TransferMode ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Syntax>
+        <string>New-WinSCPTransferOption [[-FileMask] &lt;String&gt;] [[-FilePermissions] &lt;FilePermissions&gt;] [-PreserveTimeStamp] [[-State] &lt;TransferResumeSupportState&gt;] [[-Threshold] &lt;Int32&gt;] [[-SpeedLimit] &lt;Int32&gt;] [[-TransferMode] &lt;TransferMode&gt;] [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
+      </Syntax>
+      <Parameters>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="0" globbing="false">
+          <Name>FileMask</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>http://winscp.net/eng/docs/file_mask</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="FilePermissions" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="1" globbing="false">
+          <Name>FilePermissions</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Permissions to applied to a remote file (used for uploads only).</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>PreserveTimeStamp</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Preserve timestamp (set last write time of destination file to that of source file). Defaults to true.</Description>
+          <DefaultValue>False</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="TransferResumeSupportState" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="2" globbing="false">
+          <Name>State</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Sets what files will be transferred with resume support/to temporary filename. Use TransferResumeSupportState.Default for built-in default (currently all files above 100 KB), TransferResumeSupportState.On for all files, TransferResumeSupportState.Off for no file (turn off) or TransferResumeSupportState.Smart for all files above threshold (see Threshold).</Description>
+          <DefaultValue>(New-Object -TypeName WinSCP.TransferResumeSupportState)</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="Int32" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="3" globbing="false">
+          <Name>Threshold</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Threshold (in KB) for State.Smart mode.</Description>
+          <DefaultValue>100</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="Int32" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="4" globbing="false">
+          <Name>SpeedLimit</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Limit transfer speed (in KB/s).</Description>
+          <DefaultValue>0</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="TransferMode" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="5" globbing="false">
+          <Name>TransferMode</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Possible values are TransferMode.Binary (default), TransferMode.Ascii and TransferMode.Automatic (based on file extension).</Description>
+          <DefaultValue>(New-Object -TypeName WinSCP.TransferMode)</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationAction</Name>
+          <Attributes>
+            <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>infa</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationVariable</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
+            <string>System.Management.Automation.AliasAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>iv</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>EXAMPLE 1</Name>
+          <Cmd>PS C:\&gt; New-WinSCPTransferOption -PreserveTimeStamp:$false -TransferMode Binary
+
+PreserveTimestamp : False
+FilePermissions   : 
+TransferMode      : Binary
+FileMask          : 
+ResumeSupport     : default
+SpeedLimit        : 0</Cmd>
+          <Description />
+          <Output />
+        </Example>
+        <Example>
+          <Name>EXAMPLE 2</Name>
+          <Cmd>PS C:\&gt; New-WinSCPTransferOption -FilePermissions (New-WinSCPItemPermission -GroupExecute -OtherRead)
+
+PreserveTimestamp : True
+FilePermissions   : -----xr--
+TransferMode      : Binary
+FileMask          :
+ResumeSupport     : default
+SpeedLimit        : 0</Cmd>
+          <Description />
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>TransferOption Class</LinkText>
+          <LinkUrl>http://winscp.net/eng/docs/library_transferoptions</LinkUrl>
+        </RelatedLink>
+        <RelatedLink>
+          <LinkText>Project Home Page</LinkText>
+          <LinkUrl>http://dotps1.github.io/WinSCP</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Receive" noun="WinSCPItem">
+      <Name>Receive-WinSCPItem</Name>
+      <GeneralHelp>
+        <Synopsis>Receives file(s) from an active WinSCP Session.</Synopsis>
+        <Description>After creating a valid WinSCP Session, this function can be used to receive file(s) and remove the remote files if desired.</Description>
+        <Notes>If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.</Notes>
+        <InputType>WinSCP.Session;System.String</InputType>
+        <InputUrl>http://winscp.net/eng/docs/library_session;https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx</InputUrl>
+        <InputTypeDescription>
+It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.;
+
+Represents text as a series of Unicode characters.</InputTypeDescription>
+        <ReturnType>WinSCP.TransferOperationResult</ReturnType>
+        <ReturnUrl>http://winscp.net/eng/docs/library_transferoperationresult</ReturnUrl>
+        <ReturnTypeDescription>
+Represents results of transfer operation.</ReturnTypeDescription>
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Path Destination Remove TransferOptions ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Syntax>
+        <string>Receive-WinSCPItem [-WinSCPSession] &lt;Session&gt; [-Path] &lt;String[]&gt; [[-Destination] &lt;String&gt;] [-Remove] [[-TransferOptions] &lt;TransferOptions&gt;] [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
+      </Syntax>
+      <Parameters>
+        <ParameterDescription type="Session" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="true" pipeProp="false" isPos="true" pos="0" globbing="false">
+          <Name>WinSCPSession</Name>
+          <Attributes>
+            <string>System.Management.Automation.ValidateScriptAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>A valid open WinSCP.Session, returned from New-WinSCPSession.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String[]" varLen="true" required="true" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="true" isPos="true" pos="1" globbing="false">
+          <Name>Path</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Full path to remote directory followed by slash and wildcard to select files or subdirectories to download. When wildcard is omitted (path ends with slash), all files and subdirectories in the remote directory are downloaded.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="2" globbing="false">
+          <Name>Destination</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Full path to download the file to. When downloading multiple files, the filename in the path should be replaced with operation mask or omitted (path ends with slash).</Description>
+          <DefaultValue>$pwd</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>Remove</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>When present, deletes source file(s) after transfer.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="TransferOptions" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="3" globbing="false">
+          <Name>TransferOptions</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Defines options for file transfers.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationAction</Name>
+          <Attributes>
+            <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>infa</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationVariable</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
+            <string>System.Management.Automation.AliasAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>iv</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>EXAMPLE 1</Name>
+          <Cmd>PS C:\&gt; New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Receive-WinSCPItem -Path '/rDir/rFile.txt' -Destination 'C:\lDir\lFile.txt'
+
+Transfers         Failures IsSuccess
+---------         -------- ---------
+{/rDir/rFile.txt} {}       True</Cmd>
+          <Description />
+          <Output />
+        </Example>
+        <Example>
+          <Name>EXAMPLE 2</Name>
+          <Cmd>PS C:\&gt; $credential = Get-Credential
+PS C:\&gt; $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+PS C:\&gt; Receive-WinSCPItem -WinSCPSession $session -Path '/rDir/rFile.txt' -Destination 'C:\lDir\lFile.txt' -Remove
+
+Transfers         Failures IsSuccess
+---------         -------- ---------
+{/rDir/rFile.txt} {}       True</Cmd>
+          <Description />
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>GetFiles Method</LinkText>
+          <LinkUrl>http://winscp.net/eng/docs/library_session_getfiles</LinkUrl>
+        </RelatedLink>
+        <RelatedLink>
+          <LinkText>TransferOptions Class</LinkText>
+          <LinkUrl>http://winscp.net/eng/docs/library_transferoptions</LinkUrl>
+        </RelatedLink>
+        <RelatedLink>
+          <LinkText>Project Home Page</LinkText>
+          <LinkUrl>http://dotps1.github.io/WinSCP</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Remove" noun="WinSCPItem">
+      <Name>Remove-WinSCPItem</Name>
+      <GeneralHelp>
+        <Synopsis>Removes and item from an active WinSCP Session.</Synopsis>
+        <Description>Removes and item, File or Directory from a remote sources.  This action will recurse if a the $Path value is a directory.</Description>
+        <Notes>If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.</Notes>
+        <InputType>WinSCP.Session;System.String</InputType>
+        <InputUrl>http://winscp.net/eng/docs/library_session;https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx</InputUrl>
+        <InputTypeDescription>
+It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.;
+
+Represents text as a series of Unicode characters.</InputTypeDescription>
+        <ReturnType>System.Void</ReturnType>
+        <ReturnUrl>https://msdn.microsoft.com/en-us/library/system.void(v=vs.110).aspx</ReturnUrl>
+        <ReturnTypeDescription>
+Specifies a return value type for a method that does not return a value.</ReturnTypeDescription>
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Path ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable WhatIf Confirm" />
+      </ParamSets>
+      <Syntax>
+        <string>Remove-WinSCPItem [-WinSCPSession] &lt;Session&gt; [-Path] &lt;String[]&gt; [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;] [-WhatIf] [-Confirm]</string>
+      </Syntax>
+      <Parameters>
+        <ParameterDescription type="Session" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="true" pipeProp="false" isPos="true" pos="0" globbing="false">
+          <Name>WinSCPSession</Name>
+          <Attributes>
+            <string>System.Management.Automation.ValidateScriptAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>A valid open WinSCP.Session, returned from New-WinSCPSession.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String[]" varLen="true" required="true" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="true" isPos="true" pos="1" globbing="false">
+          <Name>Path</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Full path to remote directory followed by slash and wildcard to select files or subdirectories to remove.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationAction</Name>
+          <Attributes>
+            <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>infa</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationVariable</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
+            <string>System.Management.Automation.AliasAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>iv</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>WhatIf</Name>
+          <Attributes>
+            <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>wi</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>Confirm</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.AliasAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>cf</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>EXAMPLE 1</Name>
+          <Cmd>PS C:\&gt; New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Remove-WinSCPItem -Path "/rDir/rFile.txt"</Cmd>
+          <Description />
+          <Output />
+        </Example>
+        <Example>
+          <Name>EXAMPLE 2</Name>
+          <Cmd>PS C:\&gt; $credential = Get-Credential
+PS C:\&gt; $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+PS C:\&gt; Remove-WinSCPItem -WinSCPSession $session -Path "/rDir/rFile.txt"</Cmd>
+          <Description />
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>RemoveFiles Method</LinkText>
+          <LinkUrl>http://winscp.net/eng/docs/library_session_removefiles</LinkUrl>
+        </RelatedLink>
+        <RelatedLink>
+          <LinkText>Project Home Page</LinkText>
+          <LinkUrl>http://dotps1.github.io/WinSCP</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Remove" noun="WinSCPSession">
+      <Name>Remove-WinSCPSession</Name>
+      <GeneralHelp>
+        <Synopsis>Closes and disposes an active WinSCP Session Object.</Synopsis>
+        <Description>After a WinSCP Session is no longer needed this function will dispose the COM object.</Description>
+        <Notes>None.</Notes>
+        <InputType>WinSCP.Session</InputType>
+        <InputUrl>http://winscp.net/eng/docs/library_session</InputUrl>
+        <InputTypeDescription>
+It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</InputTypeDescription>
+        <ReturnType>System.Void</ReturnType>
+        <ReturnUrl>https://msdn.microsoft.com/en-us/library/system.void(v=vs.110).aspx</ReturnUrl>
+        <ReturnTypeDescription>
+Specifies a return value type for a method that does not return a value.</ReturnTypeDescription>
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Syntax>
+        <string>Remove-WinSCPSession [-WinSCPSession] &lt;Session&gt; [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
+      </Syntax>
+      <Parameters>
+        <ParameterDescription type="Session" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="true" pipeProp="false" isPos="true" pos="0" globbing="false">
+          <Name>WinSCPSession</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>A valid open WinSCP.Session, returned from New-WinSCPSession.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationAction</Name>
+          <Attributes>
+            <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>infa</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationVariable</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
+            <string>System.Management.Automation.AliasAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>iv</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>EXAMPLE 1</Name>
+          <Cmd>PS C:\&gt; New-WinSCPSession -Hostname 'myftphost.org' -UserName 'ftpuser' -Password 'FtpUserPword' -Protocol Ftp | Remove-WinSCPSession</Cmd>
+          <Description />
+          <Output />
+        </Example>
+        <Example>
+          <Name>EXAMPLE 2</Name>
+          <Cmd>PS C:\&gt; $session = New-WinSCPSession -Hostname 'myftphost.org' -Username 'ftpuser' -Password 'FtpUserPword' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+PS C:\&gt; Remove-WinSCPSession -WinSCPSession $session</Cmd>
+          <Description />
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>Close Method</LinkText>
+          <LinkUrl>http://winscp.net/eng/docs/library_session_close</LinkUrl>
+        </RelatedLink>
+        <RelatedLink>
+          <LinkText>Project Home Page</LinkText>
+          <LinkUrl>http://dotps1.github.io/WinSCP</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Rename" noun="WinSCPItem">
+      <Name>Rename-WinSCPItem</Name>
+      <GeneralHelp>
+        <Synopsis>Renames a remote item</Synopsis>
+        <Description>Renames a remote file or directory.  Be sure to include the file extension when renameing a file.</Description>
+        <Notes>If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.</Notes>
+        <InputType>WinSCP.Session</InputType>
+        <InputUrl>http://winscp.net/eng/docs/library_session</InputUrl>
+        <InputTypeDescription>
+It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</InputTypeDescription>
+        <ReturnType>System.Void;</ReturnType>
+        <ReturnUrl>https://msdn.microsoft.com/en-us/library/system.void(v=vs.110).aspx;</ReturnUrl>
+        <ReturnTypeDescription>
+Specifies a return value type for a method that does not return a value.;
+</ReturnTypeDescription>
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Path NewName PassThru ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Syntax>
+        <string>Rename-WinSCPItem [-WinSCPSession] &lt;Session&gt; [-Path] &lt;String&gt; [-NewName] &lt;String&gt; [-PassThru] [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
+      </Syntax>
+      <Parameters>
+        <ParameterDescription type="Session" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="true" pipeProp="false" isPos="true" pos="0" globbing="false">
+          <Name>WinSCPSession</Name>
+          <Attributes>
+            <string>System.Management.Automation.ValidateScriptAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>A valid open WinSCP.Session, returned from New-WinSCPSession.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="1" globbing="false">
+          <Name>Path</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Full path to remote item to be renamed.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="2" globbing="false">
+          <Name>NewName</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The new name for the the item.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>PassThru</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Will return a WinSCP.RemoteFileInfo object representation of the renamed object if used.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationAction</Name>
+          <Attributes>
+            <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>infa</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationVariable</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
+            <string>System.Management.Automation.AliasAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>iv</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>EXAMPLE 1</Name>
+          <Cmd>PS C:\&gt; New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Rename-WinSCPItem -Path '/rDir/rFile.txt' -NewName 'rNewFile.txt'</Cmd>
+          <Description />
+          <Output />
+        </Example>
+        <Example>
+          <Name>EXAMPLE 2</Name>
+          <Cmd>PS C:\&gt; $credential = Get-Credential
+PS C:\&gt; $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+PS C:\&gt; Rename-WinSCPItem -WinSCPSession $session -Path '/rDir/rFile.txt' -Destination 'rNewFile.txt' -PassThru
+
+   Directory: /rDir
+
+FileType             LastWriteTime     Length Name
+--------             -------------     ------ ----
+D             1/1/2015 12:00:00 AM          0 /rNewFile.txt</Cmd>
+          <Description />
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>Unknown</LinkText>
+          <LinkUrl />
+        </RelatedLink>
+        <RelatedLink>
+          <LinkText>Move Method</LinkText>
+          <LinkUrl>http://winscp.net/eng/docs/library_session_movefile</LinkUrl>
+        </RelatedLink>
+        <RelatedLink>
+          <LinkText>Project Home Page</LinkText>
+          <LinkUrl>http://dotps1.github.io/WinSCP</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Send" noun="WinSCPItem">
+      <Name>Send-WinSCPItem</Name>
+      <GeneralHelp>
+        <Synopsis>Send file(s) to an active WinSCP Session.</Synopsis>
+        <Description>After creating a valid WinSCP Session, this function can be used to send file(s).</Description>
+        <Notes>If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.</Notes>
+        <InputType>WinSCP.Session;System.String</InputType>
+        <InputUrl>http://winscp.net/eng/docs/library_session;https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx</InputUrl>
+        <InputTypeDescription>
+It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.;
+
+Represents text as a series of Unicode characters.</InputTypeDescription>
+        <ReturnType>WinSCP.TransferOperationResult</ReturnType>
+        <ReturnUrl>http://winscp.net/eng/docs/library_transferoperationresult</ReturnUrl>
+        <ReturnTypeDescription>
+Represents results of transfer operation.</ReturnTypeDescription>
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Path Destination Remove TransferOptions Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Syntax>
+        <string>Send-WinSCPItem [-WinSCPSession] &lt;Session&gt; [-Path] &lt;String[]&gt; [[-Destination] &lt;String&gt;] [-Remove] [[-TransferOptions] &lt;TransferOptions&gt;] [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
+      </Syntax>
+      <Parameters>
+        <ParameterDescription type="Session" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="true" pipeProp="false" isPos="true" pos="0" globbing="false">
+          <Name>WinSCPSession</Name>
+          <Attributes>
+            <string>System.Management.Automation.ValidateScriptAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>A valid open WinSCP.Session, returned from New-WinSCPSession.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String[]" varLen="true" required="true" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="true" isPos="true" pos="1" globbing="false">
+          <Name>Path</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Full path to local file or directory to upload. Filename in the path can be replaced with Windows wildcard to select multiple files. When file name is omitted (path ends with backslash), all files and subdirectories in the local directory are uploaded.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="2" globbing="false">
+          <Name>Destination</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Full path to upload the file to. When uploading multiple files, the filename in the path should be replaced with ConvertTo-WinSCPEscapedString or omitted (path ends with slash).</Description>
+          <DefaultValue>/</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>Remove</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>When present, deletes source file(s) after transfer.</Description>
+          <DefaultValue>False</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="TransferOptions" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="3" globbing="false">
+          <Name>TransferOptions</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Transfer options. Defaults to null, what is equivalent to New-TransferOptions.</Description>
+          <DefaultValue>(New-Object -TypeName WinSCP.TransferOptions)</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationAction</Name>
+          <Attributes>
+            <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>infa</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationVariable</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
+            <string>System.Management.Automation.AliasAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>iv</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>EXAMPLE 1</Name>
+          <Cmd>PS C:\&gt; New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Send-WinSCPItem -Path 'C:\lDir\lFile.txt' -Destination '/rDir/rFile.txt'
+
+Transfers           Failures IsSuccess
+---------           -------- ---------
+{C:\lDir\lFile.txt} {}       True</Cmd>
+          <Description />
+          <Output />
+        </Example>
+        <Example>
+          <Name>EXAMPLE 2</Name>
+          <Cmd>PS C:\&gt; $credential = Get-Credential
+PS C:\&gt; $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+PS C:\&gt; Send-WinSCPItem -WinSCPSession $session -Path 'C:\lDir\lFile.txt' -Destination '/rDir/rFile.txt' -Remove
+
+Transfers           Failures IsSuccess
+---------           -------- ---------
+{C:\lDir\lFile.txt} {}       True</Cmd>
+          <Description />
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks />
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Start" noun="WinSCPConsole">
+      <Name>Start-WinSCPConsole</Name>
+      <GeneralHelp>
+        <Synopsis>Opens a new instance of the WinSCP CLI.</Synopsis>
+        <Description>Opens a new instance of the WinSCP Command Line Interface where raw commands can be executed.</Description>
+        <Notes />
+        <InputType>System.Void</InputType>
+        <InputUrl>https://msdn.microsoft.com/en-us/library/system.void(v=vs.110).aspx</InputUrl>
+        <InputTypeDescription>
+Specifies a return value type for a method that does not return a value.</InputTypeDescription>
+        <ReturnType>System.Void</ReturnType>
+        <ReturnUrl>https://msdn.microsoft.com/en-us/library/system.void(v=vs.110).aspx</ReturnUrl>
+        <ReturnTypeDescription>
+Specifies a return value type for a method that does not return a value.</ReturnTypeDescription>
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="" />
+      </ParamSets>
+      <Syntax>
+        <string>Start-WinSCPConsole</string>
+      </Syntax>
+      <Parameters />
+      <Examples>
+        <Example>
+          <Name>EXAMPLE 1</Name>
+          <Cmd>PS C:\&gt; Start-WinSCPConsole</Cmd>
+          <Description />
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks />
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Sync" noun="WinSCPPath">
+      <Name>Sync-WinSCPPath</Name>
+      <GeneralHelp>
+        <Synopsis>Synchronizes directories with an active WinSCP Session.</Synopsis>
+        <Description>Synchronizes a local directory with a remote directory, or vise versa.</Description>
+        <Notes>If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.</Notes>
+        <InputType>WinSCP.Session</InputType>
+        <InputUrl>http://winscp.net/eng/docs/library_session</InputUrl>
+        <InputTypeDescription>
+It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</InputTypeDescription>
+        <ReturnType>WinSCP.SynchronizationResult</ReturnType>
+        <ReturnUrl>http://winscp.net/eng/docs/library_synchronizationresult</ReturnUrl>
+        <ReturnTypeDescription>
+Represents results of synchronization.</ReturnTypeDescription>
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Mode LocalPath RemotePath Remove Mirror Criteria TransferOptions ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Syntax>
+        <string>Sync-WinSCPPath [-WinSCPSession] &lt;Session&gt; [[-Mode] &lt;SynchronizationMode&gt;] [[-LocalPath] &lt;String&gt;] [[-RemotePath] &lt;String&gt;] [-Remove] [-Mirror] [[-Criteria] &lt;SynchronizationCriteria&gt;] [[-TransferOptions] &lt;TransferOptions&gt;] [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
+      </Syntax>
+      <Parameters>
+        <ParameterDescription type="Session" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="true" pipeProp="false" isPos="true" pos="0" globbing="false">
+          <Name>WinSCPSession</Name>
+          <Attributes>
+            <string>System.Management.Automation.ValidateScriptAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>A valid open WinSCP.Session, returned from New-WinSCPSession.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="SynchronizationMode" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="1" globbing="false">
+          <Name>Mode</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Synchronization mode. Possible values are Local, Remote and Both.</Description>
+          <DefaultValue>(New-Object -TypeName WinSCP.SyncronizationMode)</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="2" globbing="false">
+          <Name>LocalPath</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Full path to local directory.</Description>
+          <DefaultValue>$pwd</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="3" globbing="false">
+          <Name>RemotePath</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Full path to remote directory.</Description>
+          <DefaultValue>/</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>Remove</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>When used, deletes obsolete files. Cannot be used with -Mode Both.</Description>
+          <DefaultValue>False</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>Mirror</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>When used, synchronizes in mirror mode (synchronizes also older files). Cannot be used for -Mode Both.</Description>
+          <DefaultValue>False</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="SynchronizationCriteria" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="4" globbing="false">
+          <Name>Criteria</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Comparison criteria. Possible values are None, Time (default), .Size and Either. For -Mode Both Time can be used only.</Description>
+          <DefaultValue>(New-Object -TypeName WinSCP.SynchronizationCriteria)</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="TransferOptions" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="5" globbing="false">
+          <Name>TransferOptions</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Transfer options. Defaults to null, what is equivalent to New-WinSCPTransferOptions.</Description>
+          <DefaultValue>(New-Object -TypeName WinSCP.TransferOptions)</DefaultValue>
+        </ParameterDescription>
+        <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationAction</Name>
+          <Attributes>
+            <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>infa</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationVariable</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
+            <string>System.Management.Automation.AliasAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>iv</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>EXAMPLE 1</Name>
+          <Cmd>PS C:\&gt; New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Sync-WinSCPDirectory -RemotePath '/' -LocalPath 'C:\lDir\' -Mode Local
+
+Uploads   : {}
+Downloads : {/rDir/rSubDir/rFile.txt}
+Removals  : {}
+Failures  : {}
+IsSuccess : True</Cmd>
+          <Description />
+          <Output />
+        </Example>
+        <Example>
+          <Name>EXAMPLE 2</Name>
+          <Cmd>PS C:\&gt; $credential = Get-Credential
+PS C:\&gt; $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+PS C:\&gt; Sync-WinSCPDirectory -WinSCPSession $session -RemotePath '/' -LocalPath 'C:\lDir\' -SyncMode Local
+
+Uploads   : {}
+Downloads : {/rDir/rSubDir/rFile.txt}
+Removals  : {}
+Failures  : {}
+IsSuccess : True</Cmd>
+          <Description />
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>SynchronizeDirectories Method</LinkText>
+          <LinkUrl>http://winscp.net/eng/docs/library_session_synchronizedirectories</LinkUrl>
+        </RelatedLink>
+        <RelatedLink>
+          <LinkText>Project Home Page</LinkText>
+          <LinkUrl>http://dotps1.github.io/WinSCP</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject verb="Test" noun="WinSCPPath">
+      <Name>Test-WinSCPPath</Name>
+      <GeneralHelp>
+        <Synopsis>Test if a remote item exists.</Synopsis>
+        <Description>After creating a valid WinSCP Session, this function can be used to test if a directory or file exists on the remote source.</Description>
+        <Notes>If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.</Notes>
+        <InputType>WinSCP.Session;System.String</InputType>
+        <InputUrl>http://winscp.net/eng/docs/library_session;https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx</InputUrl>
+        <InputTypeDescription>
+It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.;
+
+Represents text as a series of Unicode characters.</InputTypeDescription>
+        <ReturnType>System.Boolean</ReturnType>
+        <ReturnUrl>https://msdn.microsoft.com/en-us/library/system.boolean(v=vs.110).aspx</ReturnUrl>
+        <ReturnTypeDescription>
+Represents a Boolean (true or false) value.</ReturnTypeDescription>
+      </GeneralHelp>
+      <ParamSets>
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Path ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+      </ParamSets>
+      <Syntax>
+        <string>Test-WinSCPPath [-WinSCPSession] &lt;Session&gt; [-Path] &lt;String[]&gt; [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
+      </Syntax>
+      <Parameters>
+        <ParameterDescription type="Session" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="true" pipeProp="false" isPos="true" pos="0" globbing="false">
+          <Name>WinSCPSession</Name>
+          <Attributes>
+            <string>System.Management.Automation.ValidateScriptAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>A valid open WinSCP.Session, returned from New-WinSCPSession.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String[]" varLen="true" required="true" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="true" isPos="true" pos="1" globbing="false">
+          <Name>Path</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Full path to remote file.</Description>
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationAction</Name>
+          <Attributes>
+            <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>infa</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
+          <Name>InformationVariable</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
+            <string>System.Management.Automation.AliasAttribute</string>
+          </Attributes>
+          <Aliases>
+            <string>iv</string>
+          </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>EXAMPLE 1</Name>
+          <Cmd>PS C:\&gt; New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Test-WinSCPPath -Path '/rDir/rSubDir'
+
+True</Cmd>
+          <Description />
+          <Output />
+        </Example>
+        <Example>
+          <Name>EXAMPLE 2</Name>
+          <Cmd>PS C:\&gt; $credential = Get-Credential
+PS C:\&gt; $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
+PS C:\&gt; Test-WinSCPPath -WinSCPSession $session -Path '/rDir/rSubDir'</Cmd>
+          <Description />
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>FileExists Method</LinkText>
+          <LinkUrl>http://winscp.net/eng/docs/library_session_fileexists</LinkUrl>
+        </RelatedLink>
+        <RelatedLink>
+          <LinkText>Project Home Page</LinkText>
+          <LinkUrl>http://dotps1.github.io/WinSCP</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" />
+      <Publish>false</Publish>
+    </CmdletObject>
+  </Cmdlets>
+</ModuleObject>
