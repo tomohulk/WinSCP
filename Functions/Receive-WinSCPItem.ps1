@@ -38,20 +38,14 @@
 
     Begin {
         $sessionValueFromPipeLine = $PSBoundParameters.ContainsKey('WinSCPSession')
+
+        if ((Get-Item -Path $Destination -ErrorAction SilentlyContinue).Attributes -match 'Directory' -and -not $Destination.EndsWith('\')) {
+            $Destination = "$Destination\"
+        }
     }
 
     Process {
         foreach ($p in (Format-WinSCPPathString -Path $($Path))) {
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $p)) {
-                Write-Error -Message "Cannot find path: $p because it does not exist."
-
-                continue
-            }
-
-            if ((Get-Item -Path $Destination -ErrorAction SilentlyContinue).Attributes -eq 'Directory' -and -not $Destination.EndsWith('\')) {
-                $Destination += '\'
-            }
-
             try {
                 $WinSCPSession.GetFiles($p, $Destination, $Remove.IsPresent, $TransferOptions)
             } catch {

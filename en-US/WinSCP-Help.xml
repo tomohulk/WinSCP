@@ -1992,12 +1992,9 @@ SetUid       : False</dev:code>
 			<maml:introduction>
 				<maml:paragraph>PS C:\&gt;</maml:paragraph>
 			</maml:introduction>
-			<dev:code>PS C:\&gt; New-WinSCPItemPermission -GroupExecute -GroupRead -UserExecute -UserRead</dev:code>
-			<dev:remarks>
-				<maml:para />
-				<maml:para />
-				<maml:para />
-				<maml:para>Numeric      : 360
+			<dev:code>PS C:\&gt; New-WinSCPItemPermission -GroupExecute -GroupRead -UserExecute -UserRead
+
+Numeric      : 360
 Text         : r-xr-x---
 Octal        : 550
 OtherExecute : False
@@ -2011,7 +2008,12 @@ UserWrite    : False
 UserRead     : True
 Sticky       : False
 SetGid       : False
-SetUid       : False</maml:para>
+SetUid       : False</dev:code>
+			<dev:remarks>
+				<maml:para />
+				<maml:para />
+				<maml:para />
+				<maml:para>
 			</dev:remarks>
 			<command:commandLines>
 				<command:commandLine>

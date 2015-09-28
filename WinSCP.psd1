@@ -12,7 +12,7 @@
 RootModule = 'WinSCP'
 
 # Version number of this module.
-ModuleVersion = '5.7.5.5'
+ModuleVersion = '5.7.5.6'
 
 # ID used to uniquely identify this module
 GUID = '06e0af4e-779b-48f4-939f-c90b8ec950e6'
@@ -161,7 +161,7 @@ PrivateData = @{
         IconUri = 'http://winscp.net/eng/images/og_logo_240x240.jpg'
 
         # ReleaseNotes of this module
-        ReleaseNotes = 'Moved Comment Based Help to PowerShell Help file.'
+        ReleaseNotes = 'Corrected wildcard file downloads.  https://github.com/dotps1/WinSCP/issues/24'
 
     } # End of PSData hashtable
 
