@@ -46,7 +46,7 @@ Function Format-WinSCPPathString {
         $Path = $Path.Insert(1, '/')
     }
 
-    if (-not ($Path -match '\.[^.]+')) {
+    if (-not ($Path -match '\.[^.]+$') -and -not ($Path.EndsWith('/'))) {
         $Path = "$Path/"
     }
 
