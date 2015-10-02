@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <ModuleObject xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" fVersion="1.1" type="Script" mclass="External" useSupports="false">
   <Name>WinSCP</Name>
-  <Version>5.7.5.4</Version>
+  <Version>5.7.5.7</Version>
   <Description>PowerShell Module Wrapper for WinSCP.</Description>
   <ModulePath>C:\Users\thomas\Documents\GitHub\WinSCP\WinSCP.psd1</ModulePath>
   <HasManifest>false</HasManifest>
@@ -43,8 +43,8 @@ Represents text as a series of Unicode characters.</ReturnTypeDescription>
         <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
           <Name>InformationAction</Name>
           <Attributes>
-            <string>System.Management.Automation.AliasAttribute</string>
             <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.AliasAttribute</string>
           </Attributes>
           <Aliases>
             <string>infa</string>
@@ -169,8 +169,8 @@ Provides methods for creating, manipulating, searching, and sorting arrays, ther
         <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
           <Name>InformationAction</Name>
           <Attributes>
-            <string>System.Management.Automation.AliasAttribute</string>
             <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.AliasAttribute</string>
           </Attributes>
           <Aliases>
             <string>infa</string>
@@ -300,8 +300,8 @@ Represents data about remote file.</ReturnTypeDescription>
         <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
           <Name>InformationAction</Name>
           <Attributes>
-            <string>System.Management.Automation.AliasAttribute</string>
             <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.AliasAttribute</string>
           </Attributes>
           <Aliases>
             <string>infa</string>
@@ -422,8 +422,8 @@ Provides methods for creating, manipulating, searching, and sorting arrays, ther
         <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
           <Name>InformationAction</Name>
           <Attributes>
-            <string>System.Management.Automation.AliasAttribute</string>
             <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.AliasAttribute</string>
           </Attributes>
           <Aliases>
             <string>infa</string>
@@ -514,8 +514,8 @@ Represents results of Session.ExecuteCommand.</ReturnTypeDescription>
         <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
           <Name>InformationAction</Name>
           <Attributes>
-            <string>System.Management.Automation.AliasAttribute</string>
             <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.AliasAttribute</string>
           </Attributes>
           <Aliases>
             <string>infa</string>
@@ -638,8 +638,8 @@ Specifies a return value type for a method that does not return a value.</Return
         <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
           <Name>InformationAction</Name>
           <Attributes>
-            <string>System.Management.Automation.AliasAttribute</string>
             <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.AliasAttribute</string>
           </Attributes>
           <Aliases>
             <string>infa</string>
@@ -774,8 +774,8 @@ Represents data about remote file.</ReturnTypeDescription>
         <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
           <Name>InformationAction</Name>
           <Attributes>
-            <string>System.Management.Automation.AliasAttribute</string>
             <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.AliasAttribute</string>
           </Attributes>
           <Aliases>
             <string>infa</string>
@@ -1013,8 +1013,8 @@ Represents *nix-style remote file permissions.</ReturnTypeDescription>
         <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
           <Name>InformationAction</Name>
           <Attributes>
-            <string>System.Management.Automation.AliasAttribute</string>
             <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.AliasAttribute</string>
           </Attributes>
           <Aliases>
             <string>infa</string>
@@ -1061,9 +1061,9 @@ SetUid       : False</Cmd>
         </Example>
         <Example>
           <Name>EXAMPLE 2</Name>
-          <Cmd>PS C:\&gt; New-WinSCPItemPermission -GroupExecute -GroupRead -UserExecute -UserRead</Cmd>
-          <Description />
-          <Output>Numeric      : 360
+          <Cmd>PS C:\&gt; New-WinSCPItemPermission -GroupExecute -GroupRead -UserExecute -UserRead
+
+Numeric      : 360
 Text         : r-xr-x---
 Octal        : 550
 OtherExecute : False
@@ -1077,7 +1077,9 @@ UserWrite    : False
 UserRead     : True
 Sticky       : False
 SetGid       : False
-SetUid       : False</Output>
+SetUid       : False</Cmd>
+          <Description />
+          <Output />
         </Example>
       </Examples>
       <RelatedLinks>
@@ -1111,7 +1113,7 @@ Represents text as a series of Unicode characters.</InputTypeDescription>
 It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</ReturnTypeDescription>
       </GeneralHelp>
       <ParamSets>
-        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="Credential FtpMode FtpSecure GiveUpSecurityAndAcceptAnySshHostKey GiveUpSecureityAndAcceptAnyTlsHostCertificate HostName PortNumber Protocol SshHostKeyFingerprint SshPrivateKeyPath SshPrivateKeySecurePassphrase TlsHostCertificateFingerprint Timeout WebdavSecure WebdavRoot RawSetting DebugLogPath SessionLogPath ReconnectTime FileTransferProgress Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="Credential FtpMode FtpSecure GiveUpSecurityAndAcceptAnySshHostKey GiveUpSecureityAndAcceptAnyTlsHostCertificate HostName PortNumber Protocol SshHostKeyFingerprint SshPrivateKeyPath SshPrivateKeySecurePassphrase TlsHostCertificateFingerprint Timeout WebdavSecure WebdavRoot RawSetting DebugLogPath SessionLogPath ReconnectTime FileTransferProgress ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
       </ParamSets>
       <Syntax>
         <string>New-WinSCPSession [[-Credential] &lt;PSCredential&gt;] [[-FtpMode] &lt;FtpMode&gt;] [[-FtpSecure] &lt;FtpSecure&gt;] [-GiveUpSecurityAndAcceptAnySshHostKey] [-GiveUpSecureityAndAcceptAnyTlsHostCertificate] [-HostName] &lt;String&gt; [[-PortNumber] &lt;Int32&gt;] [[-Protocol] &lt;Protocol&gt;] [[-SshHostKeyFingerprint] &lt;String[]&gt;] [[-SshPrivateKeyPath] &lt;String&gt;] [[-SshPrivateKeySecurePassphrase] &lt;SecureString&gt;] [[-TlsHostCertificateFingerprint] &lt;String&gt;] [[-Timeout] &lt;TimeSpan&gt;] [-WebdavSecure] [[-WebdavRoot] &lt;String&gt;] [[-RawSetting] &lt;Hashtable&gt;] [[-DebugLogPath] &lt;String&gt;] [[-SessionLogPath] &lt;String&gt;] [[-ReconnectTime] &lt;TimeSpan&gt;] [[-FileTransferProgress] &lt;ScriptBlock&gt;] [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
@@ -1324,8 +1326,8 @@ It represents a session and provides methods for manipulating remote files over 
         <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
           <Name>InformationAction</Name>
           <Attributes>
-            <string>System.Management.Automation.AliasAttribute</string>
             <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.AliasAttribute</string>
           </Attributes>
           <Aliases>
             <string>infa</string>
@@ -1373,7 +1375,16 @@ UnderlyingSystemType          : WinSCP.Session</Cmd>
           <Output />
         </Example>
       </Examples>
-      <RelatedLinks />
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>Session Class</LinkText>
+          <LinkUrl>http://winscp.net/eng/docs/library_session</LinkUrl>
+        </RelatedLink>
+        <RelatedLink>
+          <LinkText>Project Home Page</LinkText>
+          <LinkUrl>http://dotps1.github.io/WinSCP</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
       <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" />
       <Publish>false</Publish>
     </CmdletObject>
@@ -1472,8 +1483,8 @@ Defines options for file transfers.</ReturnTypeDescription>
         <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
           <Name>InformationAction</Name>
           <Attributes>
-            <string>System.Management.Automation.AliasAttribute</string>
             <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.AliasAttribute</string>
           </Attributes>
           <Aliases>
             <string>infa</string>
@@ -1614,8 +1625,8 @@ Represents results of transfer operation.</ReturnTypeDescription>
         <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
           <Name>InformationAction</Name>
           <Attributes>
-            <string>System.Management.Automation.AliasAttribute</string>
             <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.AliasAttribute</string>
           </Attributes>
           <Aliases>
             <string>infa</string>
@@ -1726,8 +1737,8 @@ Specifies a return value type for a method that does not return a value.</Return
         <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
           <Name>InformationAction</Name>
           <Attributes>
-            <string>System.Management.Automation.AliasAttribute</string>
             <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.AliasAttribute</string>
           </Attributes>
           <Aliases>
             <string>infa</string>
@@ -1751,8 +1762,8 @@ Specifies a return value type for a method that does not return a value.</Return
         <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
           <Name>WhatIf</Name>
           <Attributes>
-            <string>System.Management.Automation.AliasAttribute</string>
             <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.AliasAttribute</string>
           </Attributes>
           <Aliases>
             <string>wi</string>
@@ -1837,8 +1848,8 @@ Specifies a return value type for a method that does not return a value.</Return
         <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
           <Name>InformationAction</Name>
           <Attributes>
-            <string>System.Management.Automation.AliasAttribute</string>
             <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.AliasAttribute</string>
           </Attributes>
           <Aliases>
             <string>infa</string>
@@ -1955,8 +1966,8 @@ Specifies a return value type for a method that does not return a value.;
         <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
           <Name>InformationAction</Name>
           <Attributes>
-            <string>System.Management.Automation.AliasAttribute</string>
             <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.AliasAttribute</string>
           </Attributes>
           <Aliases>
             <string>infa</string>
@@ -2002,10 +2013,6 @@ D             1/1/2015 12:00:00 AM          0 /rNewFile.txt</Cmd>
       </Examples>
       <RelatedLinks>
         <RelatedLink>
-          <LinkText>Unknown</LinkText>
-          <LinkUrl />
-        </RelatedLink>
-        <RelatedLink>
           <LinkText>Move Method</LinkText>
           <LinkUrl>http://winscp.net/eng/docs/library_session_movefile</LinkUrl>
         </RelatedLink>
@@ -2035,7 +2042,7 @@ Represents text as a series of Unicode characters.</InputTypeDescription>
 Represents results of transfer operation.</ReturnTypeDescription>
       </GeneralHelp>
       <ParamSets>
-        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Path Destination Remove TransferOptions Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Path Destination Remove TransferOptions ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
       </ParamSets>
       <Syntax>
         <string>Send-WinSCPItem [-WinSCPSession] &lt;Session&gt; [-Path] &lt;String[]&gt; [[-Destination] &lt;String&gt;] [-Remove] [[-TransferOptions] &lt;TransferOptions&gt;] [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
@@ -2095,8 +2102,8 @@ Represents results of transfer operation.</ReturnTypeDescription>
         <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
           <Name>InformationAction</Name>
           <Attributes>
-            <string>System.Management.Automation.AliasAttribute</string>
             <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.AliasAttribute</string>
           </Attributes>
           <Aliases>
             <string>infa</string>
@@ -2142,7 +2149,16 @@ Transfers           Failures IsSuccess
           <Output />
         </Example>
       </Examples>
-      <RelatedLinks />
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>PutFiles Method</LinkText>
+          <LinkUrl>http://winscp.net/eng/docs/library_session_putfiles</LinkUrl>
+        </RelatedLink>
+        <RelatedLink>
+          <LinkText>Project Home Page</LinkText>
+          <LinkUrl>http://dotps1.github.io/WinSCP</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
       <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" />
       <Publish>false</Publish>
     </CmdletObject>
@@ -2176,7 +2192,12 @@ Specifies a return value type for a method that does not return a value.</Return
           <Output />
         </Example>
       </Examples>
-      <RelatedLinks />
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>Project Home Page</LinkText>
+          <LinkUrl>http://dotps1.github.io/WinSCP</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
       <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" />
       <Publish>false</Publish>
     </CmdletObject>
@@ -2286,8 +2307,8 @@ Represents results of synchronization.</ReturnTypeDescription>
         <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
           <Name>InformationAction</Name>
           <Attributes>
-            <string>System.Management.Automation.AliasAttribute</string>
             <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.AliasAttribute</string>
           </Attributes>
           <Aliases>
             <string>infa</string>
@@ -2398,8 +2419,8 @@ Represents a Boolean (true or false) value.</ReturnTypeDescription>
         <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
           <Name>InformationAction</Name>
           <Attributes>
-            <string>System.Management.Automation.AliasAttribute</string>
             <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.AliasAttribute</string>
           </Attributes>
           <Aliases>
             <string>infa</string>
@@ -2434,7 +2455,9 @@ True</Cmd>
           <Name>EXAMPLE 2</Name>
           <Cmd>PS C:\&gt; $credential = Get-Credential
 PS C:\&gt; $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
-PS C:\&gt; Test-WinSCPPath -WinSCPSession $session -Path '/rDir/rSubDir'</Cmd>
+PS C:\&gt; Test-WinSCPPath -WinSCPSession $session -Path '/rDir/rSubDir'
+
+True</Cmd>
           <Description />
           <Output />
         </Example>
