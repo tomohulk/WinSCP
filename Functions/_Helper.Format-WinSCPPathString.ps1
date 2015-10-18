@@ -24,6 +24,7 @@
 #>
 
 Function Format-WinSCPPathString {
+    
     [OutputType([String])]
 
     Param (
@@ -38,12 +39,8 @@ Function Format-WinSCPPathString {
         $Path = $Path.Replace('\','/')
     }
 
-    if (-not ($Path.StartsWith('.'))) {
-        $Path = ".$Path"
-    }
-
-    if (-not ($Path.ToCharArray()[1] -eq '/')) {
-        $Path = $Path.Insert(1, '/')
+    if (-not ($Path.StartsWith('/'))) {
+        $Path = "/$Path"
     }
 
     if (-not ($Path -match '\.[^.]+$') -and -not ($Path.EndsWith('/'))) {
