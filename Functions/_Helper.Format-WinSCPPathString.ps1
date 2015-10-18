@@ -16,9 +16,11 @@
 .EXAMPLE
     PS C:\> Format-WinSCPPathString -Path 'Top Folder\Middle Folder'
 
-    ./Top Folder/Middle Folder/
-.NOTES
-    This function always appends a trailing forward slash to paths, even files.  The commands still work with this.
+    /Top Folder/Middle Folder/
+.EXAMPLE
+    PS C:\> Format-WinSCPPathString -Path '.\path\subpath\file.txt'
+
+    ./path/subpath/file.txt
 .LINK
     http://dotps1.github.io/WinSCP
 #>
@@ -45,7 +47,7 @@ Function Format-WinSCPPathString {
         }
     }
 
-    if (-not ($Path -match '\.[^.]+$') -and -not ($Path.EndsWith('/'))) {
+    if ([System.IO.Path]::GetExtension($Path) -eq [String]::Empty -and -not ($Path.EndsWith('*'))) {
         $Path = "$Path/"
     }
 
