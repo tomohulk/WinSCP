@@ -47,7 +47,7 @@ Function Format-WinSCPPathString {
         }
     }
 
-    if ([System.IO.Path]::GetExtension($Path) -eq [String]::Empty -and -not ($Path.EndsWith('*'))) {
+    if (-not ([System.IO.Path]::HasExtension($Path)) -and -not ($Path.EndsWith('*'))) {
         $Path = "$Path/"
     }
 
