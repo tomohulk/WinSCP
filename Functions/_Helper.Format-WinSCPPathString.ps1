@@ -37,18 +37,18 @@ Function Format-WinSCPPathString {
         $Path
     )
 
+    if ($Path.Contains('\')) {
+        $Path = $Path.Replace('\','/')
+    }
+
     if ($Path.StartsWith('.')) {
         if ($Path.ToCharArray()[1] -ne '/') {
             $Path = $Path.Insert(1, '/')
         }
     } else {
-        if (-not ($Path.StartsWith('/'))) {
-            $Path = "/$Path"
+        if ($Path.StartsWith('/') -and $Path.EndsWith('/')) {
+            $Path = $Path.TrimStart('/')
         }
-    }
-
-    if (-not ([System.IO.Path]::HasExtension($Path)) -and -not ($Path.EndsWith('*'))) {
-        $Path = "$Path/"
     }
 
     return $Path
