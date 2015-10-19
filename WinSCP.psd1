@@ -161,7 +161,7 @@ PrivateData = @{
         IconUri = 'http://winscp.net/eng/images/og_logo_240x240.jpg'
 
         # ReleaseNotes of this module
-        ReleaseNotes = 'Corrected wildcard file downloads.  https://github.com/dotps1/WinSCP/issues/24'
+        ReleaseNotes = 'Added support for full and relitive paths: https://github.com/dotps1/WinSCP/issues/25'
 
     } # End of PSData hashtable
 
