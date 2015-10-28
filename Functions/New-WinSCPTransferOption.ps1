@@ -11,8 +11,8 @@
         $FilePermissions = $null,
 
         [Parameter()]
-        [Switch]
-        $PreserveTimeStamp,
+        [Bool]
+        $PreserveTimestamp = $true,
 
         [Parameter()]
         [WinSCP.TransferResumeSupportState]
