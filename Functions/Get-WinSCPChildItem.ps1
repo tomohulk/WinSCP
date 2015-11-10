@@ -36,23 +36,23 @@
     }
 
     Process {
-        foreach ($p in (Format-WinSCPPathString -Path $($Path))) {
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $p)) {
-                Write-Error -Message "Cannot find path: $p because it does not exist."
+        foreach ($item in (Format-WinSCPPathString -Path $($Path))) {
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $item)) {
+                Write-Error -Message "Cannot find path: $item because it does not exist."
 
                 continue
             }
 
             try {
-                $items = foreach ($file in ($WinSCPSession.ListDirectory($p).Files | Where-Object { $_.Name -ne '..' })) {
-                    $WinSCPSession.GetFileInfo((Format-WinSCPPathString -Path (Join-Path -Path $p -ChildPath $file)))
+                $items = foreach ($file in ($WinSCPSession.ListDirectory($item).Files | Where-Object { $_.Name -ne '..' })) {
+                    $WinSCPSession.GetFileInfo((Format-WinSCPPathString -Path (Join-Path -Path $item -ChildPath $file)))
                 }
 
                 $items | Where-Object { $_.Name -like $Filter }
 
                 if ($Recurse.IsPresent) {
                     foreach ($directory in ($items | Where-Object { $_.IsDirectory }).Name) {
-                        Get-WinSCPChildItem -WinSCPSession $WinSCPSession -Path (Format-WinSCPPathString -Path (Join-Path -Path $p -ChildPath $directory)) -Recurse -Filter $Filter
+                        Get-WinSCPChildItem -WinSCPSession $WinSCPSession -Path (Format-WinSCPPathString -Path (Join-Path -Path $item -ChildPath $directory)) -Recurse -Filter $Filter
                     }
                 }
             } catch {

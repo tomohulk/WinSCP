@@ -51,18 +51,18 @@
             }
         }
 
-        foreach ($p in (Format-WinSCPPathString -Path $($Path))) {
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $p)) {
-                Write-Error -Message "Cannot find path: $p because it does not exist."
+        foreach ($item in (Format-WinSCPPathString -Path $($Path))) {
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $item)) {
+                Write-Error -Message "Cannot find path: $item because it does not exist."
 
                 continue
             }
 
             try {
-                $WinSCPSession.MoveFile($p.TrimEnd('/'), $Destination)
+                $WinSCPSession.MoveFile($item, $Destination)
 
                 if ($PassThru.IsPresent) {
-                    Get-WinSCPItem -WinSCPSession $WinSCPSession -Path (Join-Path -Path $Destination -ChildPath (Split-Path -Path $p -Leaf))
+                    Get-WinSCPItem -WinSCPSession $WinSCPSession -Path (Join-Path -Path $Destination -ChildPath (Split-Path -Path $item -Leaf))
                 }
             } catch {
                 Write-Error -Message $_.ToString()

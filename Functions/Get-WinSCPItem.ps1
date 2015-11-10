@@ -32,18 +32,18 @@ Function Get-WinSCPItem {
     }
 
     Process {
-        foreach ($p in (Format-WinSCPPathString -Path $($Path))) {
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $p)) {
-                Write-Error -Message "Cannot find path: $p because it does not exist."
+        foreach ($item in (Format-WinSCPPathString -Path $($Path))) {
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $item)) {
+                Write-Error -Message "Cannot find path: $item because it does not exist."
 
                 continue
             }
 
             if ($PSBoundParameters.ContainsKey('Filter')) {
-                Get-WinSCPChildItem -WinSCPSession $WinSCPSession -Path $p -Filter $Filter
+                Get-WinSCPChildItem -WinSCPSession $WinSCPSession -Path $item -Filter $Filter
             } else {
                 try {
-                    $WinSCPSession.GetFileInfo($p)
+                    $WinSCPSession.GetFileInfo($item)
                 } catch {
                     Write-Error -Message $_.ToString()
                 }

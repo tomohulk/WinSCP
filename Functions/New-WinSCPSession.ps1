@@ -3,10 +3,13 @@
     
     Param (
         [Parameter(
+            Mandatory = $true,
             ValueFromPipeline = $true
         )]
-        [PSCredential]
-        $Credential = (Get-Credential),
+        [ValidateNotNull()]
+        [System.Management.Automation.PSCredential]
+        [System.Management.Automation.Credential()]
+        $Credential = [System.Management.Automation.PSCredential]::Empty,
 
         [Parameter()]
         [WinSCP.FtpMode]
@@ -55,11 +58,15 @@
         [String]
         $SshPrivateKeyPath = $null,
 
-        [Parameter()]
+        [Parameter(
+			ValueFromPipelineByPropertyName = $true
+		)]
         [SecureString]
         $SshPrivateKeySecurePassphrase = $null,
 
-        [Parameter()]
+        [Parameter(
+			ValueFromPipelineByPropertyName = $true
+		)]
         [String]
         $TlsHostCertificateFingerprint = $null,
 
@@ -120,7 +127,12 @@
 
     # Convert SshPrivateKeySecurePasspahrase to plain text and set it to the corresponding SessionOptions property.
     if ($SshPrivateKeySecurePassphrase -ne $null) {
-        $sessionOptions.SshPrivateKeyPassphrase = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SshPrivateKeySecurePassphrase))
+		try {
+			$sessionOptions.SshPrivateKeyPassphrase = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SshPrivateKeySecurePassphrase))
+		} catch {
+			Write-Error -Message $_.ToString()
+			return $null
+		}
     }
 
     try {
@@ -140,21 +152,24 @@
         foreach ($key in $RawSetting.Keys) {
             $sessionOptions.AddRawSettings($key, $RawSetting[$key])
         }
-    } catch {
-        Write-Error -Message $_.ToString()
-    }
 
-    try {
+		# Add FileTransferProgress ScriptBlock if present.
         if ($FileTransferProgress -ne $null) {
             $session.Add_FileTransferProgress($FileTransferProgress)
         }
+    } catch {
+        Write-Error -Message $_.ToString()
+		return $null
+    }
 
-        # Open the WinSCP.Session object using the WinSCP.SessionOptions object.
+	try {
+	    # Open the WinSCP.Session object using the WinSCP.SessionOptions object.
         $session.Open($sessionOptions)
 
         # Return the WinSCP.Session object.
         return $session
-    } catch {
-        Write-Error -Message $_.ToString()
-    }
+	} catch {
+	    Write-Error -Message $_.ToString()
+		return $null
+	}
 }

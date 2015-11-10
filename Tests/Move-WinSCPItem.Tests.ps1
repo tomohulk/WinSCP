@@ -6,13 +6,14 @@ if (Get-Module | Where-Object { $_.Name -eq 'WinSCP' })
 }
 
 Set-Location -Path "$env:USERPROFILE\Documents\GitHub\WinSCP"
-Import-Module -Name .\WinSCP.psd1
+Import-Module -Name .\WinSCP.psd1 -Force
 
+$ftp = "$pwd\Tests\Ftp"
+New-Item -Path "$ftp\TextFile.txt" -ItemType File -Value 'Hello World!' -Force | Out-Null
+New-Item -Path "$ftp\SubDirectory\SubDirectoryTextFile.txt" -ItemType File -Value 'Hellow World!' -Force | Out-Null
 
 Describe 'Move-WinSCPItem' {
-    $ftp = "$pwd\Tests\Ftp"
-    New-Item -Path "$ftp\TextFile.txt" -ItemType File -Value 'Hello World!' -Force
-    New-Item -Path "$ftp\SubDirectory\SubDirectoryTextFile.txt" -ItemType File -Value 'Hellow World!' -Force
+
 
     Context "New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Move-WinSCPItem -Path '/TextFile.txt' -Destination '/SubDirectory'" {
         $results = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | 
@@ -62,8 +63,7 @@ Describe 'Move-WinSCPItem' {
             $results.Count | Should Be 0
         }
     }
-
-    Remove-Item -Path $ftp -Recurse -Force -Confirm:$false
 }
 
-Remove-Module -Name WinSCP
+Remove-Item -Path $ftp -Recurse -Force -Confirm:$false
+Remove-Module -Name WinSCP -Force

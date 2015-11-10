@@ -46,7 +46,7 @@ Function Format-WinSCPPathString {
             $Path = $Path.Insert(1, '/')
         }
     } else {
-        if ($Path.StartsWith('/') -and $Path.EndsWith('/')) {
+        if ($Path.StartsWith('/') -and $Path.EndsWith('/') -and $Path.Length -gt 1) {
             $Path = $Path.TrimStart('/')
         }
     }

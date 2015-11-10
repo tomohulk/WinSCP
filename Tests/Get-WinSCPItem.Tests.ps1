@@ -1,19 +1,21 @@
-#requires -Modules Pester,PSScriptAnalyzer
+#Requires -Modules Pester,PSScriptAnalyzer
 
 if (Get-Module | Where-Object { $_.Name -eq 'WinSCP' })
 {
     Remove-Module -Name WinSCP
 }
 
+#Configure Environment.
 Set-Location -Path "$env:USERPROFILE\Documents\GitHub\WinSCP"
-Import-Module -Name .\WinSCP.psd1
+Import-Module -Name .\WinSCP.psd1 -Force
 
+Get-Process | Where-Object { $_.Name -eq 'WinSCP' } | Stop-Process -Force
+
+$ftp = "$pwd\Tests\Ftp"
+New-Item -Path "$ftp\TextFile.txt" -ItemType File -Value 'Hello World!' -Force | Out-Null
+New-Item -Path "$ftp\SubDirectory\SubDirectoryTextFile.txt" -ItemType File -Value 'Hellow World!' -Force | Out-Null
 
 Describe 'Get-WinSCPItem' {
-    $ftp = "$pwd\Tests\Ftp"
-    New-Item -Path "$ftp\TextFile.txt" -ItemType File -Value 'Hello World!' -Force
-    New-Item -Path "$ftp\SubDirectory\SubDirectoryTextFile.txt" -ItemType File -Value 'Hellow World!' -Force
-
     Context "New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPItem" {
         $results = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPItem
 
@@ -56,7 +58,7 @@ Describe 'Get-WinSCPItem' {
         It 'Results of Get-WinSCPItem should throw file not found.' {
             New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPItem -Path '/InvalidPath' -ErrorVariable e -ErrorAction SilentlyContinue
             $e.Count | Should Not Be 0
-            $e.Exception.Message | Should Be 'Cannot find path: ./InvalidPath/ because it does not exist.'
+            $e | Should Not BeNullOrEmpty
         }
     }
 
@@ -67,8 +69,7 @@ Describe 'Get-WinSCPItem' {
             $results.Count | Should Be 0
         }
     }
-
-    Remove-Item -Path $ftp -Recurse -Force -Confirm:$false
 }
 
-Remove-Module -Name WinSCP
+Remove-Item -Path $ftp -Recurse -Force -Confirm:$false
+Remove-Module -Name WinSCP -Force
