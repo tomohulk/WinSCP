@@ -1,5 +1,7 @@
 Function New-WinSCPItemPermission {
-    [OutputType([WinSCP.FilePermissions])]
+    [OutputType(
+        [WinSCP.FilePermissions]
+    )]
 
     Param (
         [Parameter()]

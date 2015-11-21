@@ -1,5 +1,7 @@
 ﻿Function Get-WinSCPItemChecksum {
-    [OutputType([Array])]
+    [OutputType(
+        [Array]
+    )]
 
     Param (
         [Parameter(
@@ -35,15 +37,15 @@
     }
 
     Process {
-        foreach ($p in (Format-WinSCPPathString -Path $($Path))) {
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $p)) {
-                Write-Error -Message "Cannot find path: $p because it does not exist."
+        foreach ($item in (Format-WinSCPPathString -Path $($Path))) {
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $item)) {
+                Write-Error -Message "Cannot find path: $item because it does not exist."
 
                 continue
             }
 
             try {
-                return ($WinSCPSession.CalculateFileChecksum($Algorithm, $p))
+                return ($WinSCPSession.CalculateFileChecksum($Algorithm, $item))
             } catch {
                 Write-Error -Message $_.ToString()
             }

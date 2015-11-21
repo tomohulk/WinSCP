@@ -1,5 +1,7 @@
 ﻿Function Remove-WinSCPSession {    
-    [OutputType([Void])]
+    [OutputType([
+        Void]
+    )]
     
     Param (
         [Parameter(

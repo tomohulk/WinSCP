@@ -26,8 +26,9 @@
 #>
 
 Function Format-WinSCPPathString {
-    
-    [OutputType([String])]
+    [OutputType(
+        [String]
+    )]
 
     Param (
         [Parameter(

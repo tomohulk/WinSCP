@@ -32,25 +32,69 @@ Describe 'Get-WinSCPItem' {
         }
     }
 
-    Context "`$session = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp; Get-WinSCPItem -WinSCPSession $session -Path '/SubDirectory'" {
-        $session = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp
-        $results = Get-WinSCPItem -WinSCPSession $session -Path '/SubDirectory'
+    $paths = @(
+        'SubDirectory',
+        'SubDirectory/'
+        '/SubDirectory',
+        '/SubDirectory/',
+        './SubDirectory',
+        './SubDirectory/'
+    )
+
+    foreach ($path in $paths) {
+        Context "`$session = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp; Get-WinSCPItem -WinSCPSession $session -Path '$path'" {
+            $session = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp
+            $results = Get-WinSCPItem -WinSCPSession $session -Path $path
         
-        It 'WinSCP Session should be open.' {
-            $session.Opened | Should Be $true
-        }
+            It 'WinSCP Session should be open.' {
+                $session.Opened | Should Be $true
+            }
 
-        It 'Results of Get-WinSCPItem should not be null.' {
-            $results | Should Not Be Null
-        }
+            It 'Results of Get-WinSCPItem should not be null.' {
+                $results | Should Not Be Null
+            }
 
-        It 'Results of Get-WinSCPItem Count should be one.' {
-            $results.Count | Should Be 1
-        }
+            It 'Results of Get-WinSCPItem Count should be one.' {
+                $results.Count | Should Be 1
+            }
 
-        It 'WinSCP Session should be closed.' {
-            Remove-WinSCPSession -WinSCPSession $session
-            Get-Process | Where-Object { $_.Name -eq 'WinSCP' } | Should BeNullOrEmpty
+            It 'WinSCP Session should be closed.' {
+                Remove-WinSCPSession -WinSCPSession $session
+                Get-Process | Where-Object { $_.Name -eq 'WinSCP' } | Should BeNullOrEmpty
+            }
+        }
+    }
+
+    $files = @(
+        'TextFile.txt',
+        'TextFile.txt/'
+        '/TextFile.txt',
+        '/TextFile.txt/',
+        './TextFile.txt',
+        './TextFile.txt/'
+    )
+
+    foreach ($file in $files) {
+        Context "`$session = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp; Get-WinSCPItem -WinSCPSession $session -Path '$file'" {
+            $session = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp
+            $results = Get-WinSCPItem -WinSCPSession $session -Path $file
+        
+            It 'WinSCP Session should be open.' {
+                $session.Opened | Should Be $true
+            }
+
+            It 'Results of Get-WinSCPItem should not be null.' {
+                $results | Should Not Be Null
+            }
+
+            It 'Results of Get-WinSCPItem Count should be one.' {
+                $results.Count | Should Be 1
+            }
+
+            It 'WinSCP Session should be closed.' {
+                Remove-WinSCPSession -WinSCPSession $session
+                Get-Process | Where-Object { $_.Name -eq 'WinSCP' } | Should BeNullOrEmpty
+            }
         }
     }
 

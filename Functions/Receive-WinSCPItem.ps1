@@ -1,5 +1,7 @@
 ﻿Function Receive-WinSCPItem {   
-    [OutputType([WinSCP.TransferOperationResult])]
+    [OutputType(
+        [WinSCP.TransferOperationResult]
+    )]
 
     Param (
         [Parameter(
@@ -45,9 +47,9 @@
     }
 
     Process {
-        foreach ($p in (Format-WinSCPPathString -Path $($Path))) {
+        foreach ($item in (Format-WinSCPPathString -Path $($Path))) {
             try {
-                $WinSCPSession.GetFiles($p, $Destination, $Remove.IsPresent, $TransferOptions)
+                $WinSCPSession.GetFiles($item, $Destination, $Remove.IsPresent, $TransferOptions)
             } catch {
                 Write-Error -Message $_.ToString()
             }

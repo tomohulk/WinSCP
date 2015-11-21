@@ -1,5 +1,7 @@
 ﻿Function Invoke-WinSCPCommand {
-    [OutputType([WinSCP.CommandExecutionResult])]
+    [OutputType(
+        [WinSCP.CommandExecutionResult]
+    )]
 
     Param (
         [Parameter(

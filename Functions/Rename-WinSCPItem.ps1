@@ -1,5 +1,7 @@
 ﻿Function Rename-WinSCPItem {    
-    [OutputType([Void])]
+    [OutputType(
+        [Void]
+    )]
 
     Param (
         [Parameter(
@@ -39,14 +41,14 @@
 
     Process {
         try {
-            $p = Get-WinSCPItem -WinSCPSession $WinSCPSession -Path (Format-WinSCPPathString -Path $($Path)) -ErrorAction Stop
+            $item = Get-WinSCPItem -WinSCPSession $WinSCPSession -Path (Format-WinSCPPathString -Path $($Path)) -ErrorAction Stop
             
             if ($NewName.Contains('/') -or $NewName.Contains('\')) {
                 $NewName = $NewName.Substring($NewName.LastIndexOfAny('/\'))
             }
 
-            $newPath = "$($p.Name.Substring(0, $p.Name.LastIndexOf('/') + 1))$NewName"
-            $WinSCPSession.MoveFile($p.Name, $newPath)
+            $newPath = "$($item.Name.Substring(0, $item.Name.LastIndexOf('/') + 1))$NewName"
+            $WinSCPSession.MoveFile($item.Name, $newPath)
 
             if ($PassThru.IsPresent) {
                 Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $newPath

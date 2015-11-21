@@ -1,5 +1,7 @@
 ﻿Function New-WinSCPTransferOption {    
-    [OutputType([WinSCP.TransferOptions])]
+    [OutputType(
+        [WinSCP.TransferOptions]
+    )]
 
     Param (
         [Parameter()]

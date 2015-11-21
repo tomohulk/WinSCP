@@ -1,5 +1,7 @@
 Function Get-WinSCPItem {
-    [OutputType([WinSCP.RemoteFileInfo])]
+    [OutputType(
+        [WinSCP.RemoteFileInfo]
+    )]
     
     Param (
         [Parameter(

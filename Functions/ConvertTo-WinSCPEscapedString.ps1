@@ -1,12 +1,15 @@
 ﻿Function ConvertTo-WinSCPEscapedString {
-    [OutputType([String])]
+    [OutputType(
+        [String]
+    )]
 
     Param (
         [Parameter(
             Mandatory = $true,
-            ValueFromPipeline = $true
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true
         )]
-        [String]
+        [String[]]
         $FileMask
     )
 
@@ -15,10 +18,12 @@
     }
 
     Process {
-        try {
-            return ($sessionObject.EscapeFileMask($FileMask))
-        } catch {
-            Write-Error -Message $_.ToString()
+        foreach ($item in $FileMask) {
+            try {
+                $sessionObject.EscapeFileMask($item)
+            } catch {
+                Write-Error -Message $_.ToString()
+            }
         }
     }
     

@@ -1,5 +1,7 @@
 ﻿Function Sync-WinSCPPath {
-    [OutputType([WinSCP.SynchronizationResult])]
+    [OutputType(
+        [WinSCP.SynchronizationResult]
+    )]
 
     Param (
         [Parameter(

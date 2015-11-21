@@ -1,5 +1,7 @@
 ﻿Function New-WinSCPSession {
-    [OutputType([WinSCP.Session])]
+    [OutputType(
+        [WinSCP.Session]
+    )]
     
     Param (
         [Parameter(

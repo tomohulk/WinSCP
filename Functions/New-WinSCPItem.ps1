@@ -1,5 +1,7 @@
 ﻿Function New-WinSCPItem {
-    [OutputType([WinSCP.RemoteFileInfo])]
+    [OutputType(
+        [WinSCP.RemoteFileInfo]
+    )]
     
     Param (
         [Parameter(
@@ -42,10 +44,10 @@
     }
 
     Process {
-        foreach($p in (Format-WinSCPPathString -Path $($Path))) {
+        foreach($item in (Format-WinSCPPathString -Path $($Path))) {
             if (-not ($PSBoundParameters.ContainsKey('Name'))) {
-                $Name = Split-Path -Path $p -Leaf
-                $p = Format-WinSCPPathString -Path (Split-Path -Path $p -Parent)
+                $Name = Split-Path -Path $item -Leaf
+                $item = Format-WinSCPPathString -Path (Split-Path -Path $item -Parent)
             }
 
             try {
@@ -57,12 +59,12 @@
                     Force = $true
                 }
 
-                $resutls = $WinSCPSession.PutFiles((New-Item @newItemParams).FullName, $p, $true)
+                $resutls = $WinSCPSession.PutFiles((New-Item @newItemParams).FullName, $item, $true)
 
                 if ($resutls.Transfers -ne $null) {
                     Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $resutls.Transfers.Destination
                 } else {
-                    Get-WinSCPItem -WinSCPSession $WinSCPSession -Path (Format-WinSCPPathString -Path (Join-Path -Path $p -ChildPath $Name))
+                    Get-WinSCPItem -WinSCPSession $WinSCPSession -Path (Format-WinSCPPathString -Path (Join-Path -Path $item -ChildPath $Name))
                 }
             } catch {
                 Write-Error -Message $_.ToString()

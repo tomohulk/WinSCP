@@ -1,5 +1,7 @@
 ﻿Function Get-WinSCPChildItem {
-    [OutputType([Array])]
+    [OutputType(
+        [Array]
+    )]
 
     Param (
         [Parameter(

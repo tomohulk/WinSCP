@@ -1,7 +1,11 @@
 ﻿Function Remove-WinSCPItem {    
-    [CmdletBinding(SupportsShouldProcess = $true,
-                   ConfirmImpact = 'High')]
-    [OutputType([Void])]
+    [CmdletBinding(
+        SupportsShouldProcess = $true,
+        ConfirmImpact = 'High'
+    )]
+    [OutputType(
+        [Void]
+    )]
 
     Param (
         [Parameter(
@@ -30,16 +34,16 @@
     }
 
     Process {
-        foreach ($p in (Format-WinSCPPathString -Path $($Path))) {
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $p)) {
-                Write-Error -Message "Cannot find path: $p because it does not exist."
+        foreach ($item in (Format-WinSCPPathString -Path $($Path))) {
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $item)) {
+                Write-Error -Message "Cannot find path: $item because it does not exist."
 
                 continue
             }
 
-            if ($PSCmdlet.ShouldProcess($p)) {
+            if ($PSCmdlet.ShouldProcess($item)) {
                 try {
-                    $WinSCPSession.RemoveFiles($p) | Out-Null
+                    $WinSCPSession.RemoveFiles($item) | Out-Null
                 } catch {
                     Write-Error -Message $_.ToString()
                 }

@@ -1,6 +1,7 @@
 ﻿Function Send-WinSCPItem {
-   
-    [OutputType([WinSCP.TransferOperationResult])]
+    [OutputType(
+        [WinSCP.TransferOperationResult]
+    )]
 
     Param (
         [Parameter(
@@ -42,15 +43,15 @@
     }
 
     Process {
-        foreach ($p in $Path) {
-            if (-not (Test-Path -Path $p)) {
+        foreach ($item in $Path) {
+            if (-not (Test-Path -Path $item)) {
                 Write-Error -Message "Cannot find path: $p because it does not exist."
 
                 continue
             }
 
             try {
-                $WinSCPSession.PutFiles($p, (Format-WinSCPPathString -Path $($Destination)), $Remove.IsPresent, $TransferOptions)
+                $WinSCPSession.PutFiles($item, (Format-WinSCPPathString -Path $($Destination)), $Remove.IsPresent, $TransferOptions)
             } catch {
                 Write-Error -Message $_.ToString()
             }

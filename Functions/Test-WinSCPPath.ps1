@@ -1,5 +1,7 @@
 ﻿Function Test-WinSCPPath {
-    [OutputType([Bool])]
+    [OutputType(
+        [Bool]
+    )]
     
     Param (
         [Parameter(

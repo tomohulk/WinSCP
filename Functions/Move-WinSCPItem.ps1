@@ -1,5 +1,7 @@
 ﻿Function Move-WinSCPItem {
-    [OutputType([Void])]
+    [OutputType(
+        [Void]
+    )]
     
     Param (
         [Parameter(
@@ -52,12 +54,6 @@
         }
 
         foreach ($item in (Format-WinSCPPathString -Path $($Path))) {
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $item)) {
-                Write-Error -Message "Cannot find path: $item because it does not exist."
-
-                continue
-            }
-
             try {
                 $WinSCPSession.MoveFile($item.TrimEnd('/'), $Destination)
 
