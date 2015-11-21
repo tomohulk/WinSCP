@@ -41,7 +41,7 @@
     Begin {
         $sessionValueFromPipeLine = $PSBoundParameters.ContainsKey('WinSCPSession')
 
-        if ((Get-Item -Path $Destination -ErrorAction SilentlyContinue).Attributes -match 'Directory' -and -not $Destination.EndsWith('\')) {
+        if ((Get-Item -Path $Destination -ErrorAction SilentlyContinue).PSIsContainer -and -not $Destination.EndsWith('\')) {
             $Destination = "$Destination\"
         }
     }

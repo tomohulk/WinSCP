@@ -63,10 +63,17 @@
             Write-Error -Message "Cannot find path: $LocalPath because it does not exist."
 
             continue
-        }
+        } else {
+            $LocalPath = Get-Item -Path $LocalPath
+
+            if (-not ($LocalPath.PSIsContainer)){
+                Write-Error -Message "$LocalPath must be a directory."
+
+                continue
+            }
 
         try {
-            $WinSCPSession.SynchronizeDirectories($Mode, $LocalPath, $RemotePath, $Remove.IsPresent, $Mirror.IsPresent, $Criteria, $TransferOptions)
+            $WinSCPSession.SynchronizeDirectories($Mode, $LocalPath.FullName, $RemotePath, $Remove.IsPresent, $Mirror.IsPresent, $Criteria, $TransferOptions)
         } catch {
             Write-Error -Message $_.ToString()
         }

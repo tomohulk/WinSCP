@@ -12,15 +12,15 @@
 .EXAMPLE
     Format-WinSCPPathString -Path '\'
 
-    ./
+    /
 .EXAMPLE
     Format-WinSCPPathString -Path 'Top Folder\Middle Folder'
 
-    /Top Folder/Middle Folder/
+    Top Folder/Middle Folder/
 .EXAMPLE
     Format-WinSCPPathString -Path '.\path\subpath\file.txt'
 
-    ./path/subpath/file.txt
+    path/subpath/file.txt/
 .LINK
     http://dotps1.github.io/WinSCP
 #>

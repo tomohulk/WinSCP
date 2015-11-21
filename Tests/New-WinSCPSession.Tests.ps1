@@ -1,13 +1,9 @@
 #requires -Modules Pester, PSScriptAnalyzer
 
-if (Get-Module | Where-Object { $_.Name -eq 'WinSCP' })
-{
-    Remove-Module -Name WinSCP
-}
-
 Set-Location -Path "$env:USERPROFILE\Documents\GitHub\WinSCP"
-Import-Module -Name .\WinSCP.psd1
+Import-Module -Name .\WinSCP.psd1 -Force
 
+Get-Process | Where-Object { $_.Name -eq 'WinSCP' } | Stop-Process -Force
 
 Describe 'New-WinSCPSession' {
     Context "New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp" {
@@ -67,4 +63,4 @@ Describe 'New-WinSCPSession' {
     }
 }
 
-Remove-Module -Name WinSCP
+Remove-Module -Name WinSCP -Force

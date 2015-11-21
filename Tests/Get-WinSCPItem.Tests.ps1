@@ -1,11 +1,5 @@
 #Requires -Modules Pester,PSScriptAnalyzer
 
-if (Get-Module | Where-Object { $_.Name -eq 'WinSCP' })
-{
-    Remove-Module -Name WinSCP
-}
-
-#Configure Environment.
 Set-Location -Path "$env:USERPROFILE\Documents\GitHub\WinSCP"
 Import-Module -Name .\WinSCP.psd1 -Force
 

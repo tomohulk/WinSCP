@@ -61,7 +61,7 @@
 
                 $resutls = $WinSCPSession.PutFiles((New-Item @newItemParams).FullName, $item, $true)
 
-                if ($resutls.Transfers -ne $null) {
+                if ($resutls.Transfers) {
                     Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $resutls.Transfers.Destination
                 } else {
                     Get-WinSCPItem -WinSCPSession $WinSCPSession -Path (Format-WinSCPPathString -Path (Join-Path -Path $item -ChildPath $Name))

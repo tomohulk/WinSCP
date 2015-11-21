@@ -1,20 +1,16 @@
 #requires -Modules Pester,PSScriptAnalyzer
 
-if (Get-Module | Where-Object { $_.Name -eq 'WinSCP' })
-{
-    Remove-Module -Name WinSCP
-}
-
 Set-Location -Path "$env:USERPROFILE\Documents\GitHub\WinSCP"
-Import-Module -Name .\WinSCP.psd1
+Import-Module -Name .\WinSCP.psd1 -Force
 
+Get-Process | Where-Object { $_.Name -eq 'WinSCP' } | Stop-Process -Force
+
+$ftp = "$pwd\Tests\Ftp"
+New-Item -Path "$ftp\TextFile.txt" -ItemType File -Value 'Hello World!' -Force | Out-Null
+New-Item -Path "$ftp\SubDirectory\SubDirectoryTextFile.txt" -ItemType File -Value 'Hello World!' -Force | Out-Null
+$temp = New-Item "$pwd\Tests\Temp" -ItemType Directory -Force
 
 Describe 'Receive-WinSCPItem' {
-    $ftp = "$pwd\Tests\Ftp"
-    New-Item -Path "$ftp\TextFile.txt" -ItemType File -Value 'Hello World!' -Force
-    New-Item -Path "$ftp\SubDirectory\SubDirectoryTextFile.txt" -ItemType File -Value 'Hellow World!' -Force
-    $temp = New-Item "$pwd\Tests\Temp" -ItemType Directory -Force
-
     Context "New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Receive-WinSCPItem -Path '/TextFile.txt -Destination $($temp.FullName)" {
         $results = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Receive-WinSCPItem -Path '/TextFile.txt' -Destination $temp.FullName
 
@@ -42,9 +38,8 @@ Describe 'Receive-WinSCPItem' {
             $results.Count | Should Be 0
         }
     }
-
-    Remove-Item -Path $ftp -Recurse -Force -Confirm:$false
-    Remove-Item -Path $temp -Recurse -Force -Confirm:$false
 }
 
-Remove-Module -Name WinSCP
+Remove-Item -Path $ftp -Recurse -Force -Confirm:$false
+Remove-Item -Path $temp -Recurse -Force -Confirm:$false
+Remove-Module -Name WinSCP -Force

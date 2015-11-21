@@ -1,13 +1,9 @@
 #requires -Modules Pester,PSScriptAnalyzer
 
-if (Get-Module | Where-Object { $_.Name -eq 'WinSCP' })
-{
-    Remove-Module -Name WinSCP
-}
-
 Set-Location -Path "$env:USERPROFILE\Documents\GitHub\WinSCP"
-Import-Module -Name .\WinSCP.psd1
+Import-Module -Name .\WinSCP.psd1 -Force
 
+Get-Process | Where-Object { $_.Name -eq 'WinSCP' } | Stop-Process -Force
 
 Describe 'New-WinSCPItem' {
     Context "Invoke-ScriptAnalyzer -Path $(Resolve-Path -Path (Get-Location))\Functions\New-WinSCPItem.ps1." {
@@ -19,4 +15,4 @@ Describe 'New-WinSCPItem' {
     }
 }
 
-Remove-Module -Name WinSCP
+Remove-Module -Name WinSCP -Force

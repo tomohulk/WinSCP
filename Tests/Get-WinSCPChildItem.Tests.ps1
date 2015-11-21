@@ -1,9 +1,5 @@
 #Requires -Modules Pester,PSScriptAnalyzer
 
-if (Get-Module | Where-Object { $_.Name -eq 'WinSCP' }) {
-    Remove-Module -Name WinSCP
-}
-
 Set-Location -Path "$env:USERPROFILE\Documents\GitHub\WinSCP"
 Import-Module -Name .\WinSCP.psd1 -Force
 
@@ -62,58 +58,27 @@ Describe 'Get-WinSCPChildItem' {
         }
     }
 
-    Context "New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Path '.'" {
-        $results = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Path '.'
+    $paths = @(
+        '.',
+        '/',
+        './'
+    )
 
-        It 'Results of Get-WinSCPChildItem should not be null.' {
-            $results | Should Not Be Null
-        }
+    foreach ($path in $paths) {
+        Context "New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Path '$path'" {
+            $results = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Path $path
 
-        It 'Results of Get-WinSCPChildItem Count should be two.' {
-            $results.Count | Should Be 2
-        }
+            It 'Results of Get-WinSCPChildItem should not be null.' {
+                $results | Should Not Be Null
+            }
 
-        It 'WinSCP process should not exist.' {
-            Get-Process | Where-Object { $_.Name -eq 'WinSCP' } | Should BeNullOrEmpty
-        }
-    }
+            It 'Results of Get-WinSCPChildItem Count should be two.' {
+                $results.Count | Should Be 2
+            }
 
-    Context "New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Path './'" {
-        $results = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Path './'
-
-        It 'Results of Get-WinSCPChildItem should not be null.' {
-            $results | Should Not Be Null
-        }
-
-        It 'Results of Get-WinSCPChildItem Count should be two.' {
-            $results.Count | Should Be 2
-        }
-
-        It 'WinSCP process should not exist.' {
-            Get-Process | Where-Object { $_.Name -eq 'WinSCP' } | Should BeNullOrEmpty
-        }
-    }
-
-    Context "New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Path '/'" {
-        $results = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Path '/'
-
-        It 'Results of Get-WinSCPChildItem should not be null.' {
-            $results | Should Not Be Null
-        }
-
-        It 'Results of Get-WinSCPChildItem Count should be two.' {
-            $results.Count | Should Be 2
-        }
-
-        It 'WinSCP process should not exist.' {
-            Get-Process | Where-Object { $_.Name -eq 'WinSCP' } | Should BeNullOrEmpty
-        }
-    }
-
-    Context "New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Path '/InvalidPath'" {
-        It 'Results of Get-WinSCPChildItem should Write-Error file not found.' {
-            New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Path '/InvalidPath' -ErrorVariable e -ErrorAction SilentlyContinue
-            $e | Should Not BeNullOrEmpty
+            It 'WinSCP process should not exist.' {
+                Get-Process | Where-Object { $_.Name -eq 'WinSCP' } | Should BeNullOrEmpty
+            }
         }
     }
 
@@ -136,6 +101,13 @@ Describe 'Get-WinSCPChildItem' {
         It 'WinSCP Session should be closed.' {
             Remove-WinSCPSession -WinSCPSession $session
             Get-Process | Where-Object { $_.Name -eq 'WinSCP' } | Should BeNullOrEmpty
+        }
+    }
+
+    Context "New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Path '/InvalidPath'" {
+        It 'Results of Get-WinSCPChildItem should Write-Error file not found.' {
+            New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Path '/InvalidPath' -ErrorVariable e -ErrorAction SilentlyContinue
+            $e | Should Not BeNullOrEmpty
         }
     }
 

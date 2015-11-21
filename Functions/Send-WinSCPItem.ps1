@@ -45,7 +45,7 @@
     Process {
         foreach ($item in $Path) {
             if (-not (Test-Path -Path $item)) {
-                Write-Error -Message "Cannot find path: $p because it does not exist."
+                Write-Error -Message "Cannot find path: $item because it does not exist."
 
                 continue
             }

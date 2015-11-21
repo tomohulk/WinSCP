@@ -27,7 +27,7 @@ Represents text as a series of Unicode characters.</ReturnTypeDescription>
         <CommandParameterSetInfo2 Name="__AllParameterSets" Params="FileMask Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
       </ParamSets>
       <Syntax>
-        <string>ConvertTo-WinSCPEscapedString [-FileMask] &lt;String&gt; [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
+        <string>ConvertTo-WinSCPEscapedString [-FileMask] &lt;String[]&gt; [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
       </Syntax>
       <Parameters>
         <ParameterDescription type="String" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="true" pipeProp="false" isPos="true" pos="0" globbing="false">
@@ -56,13 +56,23 @@ Represents text as a series of Unicode characters.</ReturnTypeDescription>
           <Name>InformationVariable</Name>
           <Attributes>
             <string>System.Management.Automation.ParameterAttribute</string>
-            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
             <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
           </Attributes>
           <Aliases>
             <string>iv</string>
           </Aliases>
           <Description />
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="String[]" varLen="true" required="true" dynamic="false" pipeRemaining="false" pipe="true" pipeProp="true" isPos="true" pos="0" globbing="false">
+          <Name>FileMask</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>File path to convert.</Description>
           <DefaultValue />
         </ParameterDescription>
       </Parameters>
@@ -119,7 +129,7 @@ Represents text as a series of Unicode characters.</InputTypeDescription>
 Provides methods for creating, manipulating, searching, and sorting arrays, thereby serving as the base class for all arrays in the common language runtime.</ReturnTypeDescription>
       </GeneralHelp>
       <ParamSets>
-        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Path Filter Recurse ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Path Filter Recurse Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
       </ParamSets>
       <Syntax>
         <string>Get-WinSCPChildItem [-WinSCPSession] &lt;Session&gt; [[-Path] &lt;String[]&gt;] [[-Filter] &lt;String&gt;] [-Recurse] [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
@@ -182,8 +192,8 @@ Provides methods for creating, manipulating, searching, and sorting arrays, ther
           <Name>InformationVariable</Name>
           <Attributes>
             <string>System.Management.Automation.ParameterAttribute</string>
-            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
             <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
           </Attributes>
           <Aliases>
             <string>iv</string>
@@ -260,7 +270,7 @@ Represents text as a series of Unicode characters.</InputTypeDescription>
 Represents data about remote file.</ReturnTypeDescription>
       </GeneralHelp>
       <ParamSets>
-        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Path Filter ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Path Filter Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
       </ParamSets>
       <Syntax>
         <string>Get-WinSCPItem [-WinSCPSession] &lt;Session&gt; [[-Path] &lt;String[]&gt;] [[-Filter] &lt;String&gt;] [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
@@ -313,8 +323,8 @@ Represents data about remote file.</ReturnTypeDescription>
           <Name>InformationVariable</Name>
           <Attributes>
             <string>System.Management.Automation.ParameterAttribute</string>
-            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
             <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
           </Attributes>
           <Aliases>
             <string>iv</string>
@@ -382,7 +392,7 @@ Represents text as a series of Unicode characters.</InputTypeDescription>
 Provides methods for creating, manipulating, searching, and sorting arrays, thereby serving as the base class for all arrays in the common language runtime.</ReturnTypeDescription>
       </GeneralHelp>
       <ParamSets>
-        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Algorithm Path ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Algorithm Path Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
       </ParamSets>
       <Syntax>
         <string>Get-WinSCPItemChecksum [-WinSCPSession] &lt;Session&gt; [-Algorithm] &lt;String&gt; [-Path] &lt;String[]&gt; [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
@@ -435,8 +445,8 @@ Provides methods for creating, manipulating, searching, and sorting arrays, ther
           <Name>InformationVariable</Name>
           <Attributes>
             <string>System.Management.Automation.ParameterAttribute</string>
-            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
             <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
           </Attributes>
           <Aliases>
             <string>iv</string>
@@ -484,7 +494,7 @@ Represents text as a series of Unicode characters.</InputTypeDescription>
 Represents results of Session.ExecuteCommand.</ReturnTypeDescription>
       </GeneralHelp>
       <ParamSets>
-        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Command ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Command Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
       </ParamSets>
       <Syntax>
         <string>Invoke-WinSCPCommand [-WinSCPSession] &lt;Session&gt; [-Command] &lt;String[]&gt; [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
@@ -527,8 +537,8 @@ Represents results of Session.ExecuteCommand.</ReturnTypeDescription>
           <Name>InformationVariable</Name>
           <Attributes>
             <string>System.Management.Automation.ParameterAttribute</string>
-            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
             <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
           </Attributes>
           <Aliases>
             <string>iv</string>
@@ -578,7 +588,7 @@ Represents text as a series of Unicode characters.</InputTypeDescription>
 Specifies a return value type for a method that does not return a value.</ReturnTypeDescription>
       </GeneralHelp>
       <ParamSets>
-        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Path Destination Force PassThru ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Path Destination Force PassThru Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
       </ParamSets>
       <Syntax>
         <string>Move-WinSCPItem [-WinSCPSession] &lt;Session&gt; [-Path] &lt;String[]&gt; [[-Destination] &lt;String&gt;] [-Force] [-PassThru] [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
@@ -651,8 +661,8 @@ Specifies a return value type for a method that does not return a value.</Return
           <Name>InformationVariable</Name>
           <Attributes>
             <string>System.Management.Automation.ParameterAttribute</string>
-            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
             <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
           </Attributes>
           <Aliases>
             <string>iv</string>
@@ -714,7 +724,7 @@ Represents text as a series of Unicode characters.</InputTypeDescription>
 Represents data about remote file.</ReturnTypeDescription>
       </GeneralHelp>
       <ParamSets>
-        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Path Name ItemType Value ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Path Name ItemType Value Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
       </ParamSets>
       <Syntax>
         <string>New-WinSCPItem [-WinSCPSession] &lt;Session&gt; [[-Path] &lt;String[]&gt;] [[-Name] &lt;String&gt;] [[-ItemType] &lt;String&gt;] [[-Value] &lt;String&gt;] [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
@@ -787,8 +797,8 @@ Represents data about remote file.</ReturnTypeDescription>
           <Name>InformationVariable</Name>
           <Attributes>
             <string>System.Management.Automation.ParameterAttribute</string>
-            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
             <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
           </Attributes>
           <Aliases>
             <string>iv</string>
@@ -846,15 +856,14 @@ FileType             LastWriteTime     Length Name
         <Notes>Can only be used with File Uploads.</Notes>
         <InputType>None</InputType>
         <InputUrl />
-        <InputTypeDescription>
-</InputTypeDescription>
+        <InputTypeDescription />
         <ReturnType>WinSCP.FilePermissions</ReturnType>
         <ReturnUrl>http://winscp.net/eng/docs/library_filepermissions</ReturnUrl>
         <ReturnTypeDescription>
 Represents *nix-style remote file permissions.</ReturnTypeDescription>
       </GeneralHelp>
       <ParamSets>
-        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="GroupExecute GroupRead GroupWrite Numeric Octal OtherExecute OtherRead OtherWrite SetGid SetUid Sticky Text UserExecute UserRead UserWrite ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="GroupExecute GroupRead GroupWrite Numeric Octal OtherExecute OtherRead OtherWrite SetGid SetUid Sticky Text UserExecute UserRead UserWrite Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
       </ParamSets>
       <Syntax>
         <string>New-WinSCPItemPermission [-GroupExecute] [-GroupRead] [-GroupWrite] [[-Numeric] &lt;Int32&gt;] [[-Octal] &lt;String&gt;] [-OtherExecute] [-OtherRead] [-OtherWrite] [-SetGid] [-SetUid] [-Sticky] [[-Text] &lt;String&gt;] [-UserExecute] [-UserRead] [-UserWrite] [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
@@ -1026,8 +1035,8 @@ Represents *nix-style remote file permissions.</ReturnTypeDescription>
           <Name>InformationVariable</Name>
           <Attributes>
             <string>System.Management.Automation.ParameterAttribute</string>
-            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
             <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
           </Attributes>
           <Aliases>
             <string>iv</string>
@@ -1113,17 +1122,18 @@ Represents text as a series of Unicode characters.</InputTypeDescription>
 It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</ReturnTypeDescription>
       </GeneralHelp>
       <ParamSets>
-        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="Credential FtpMode FtpSecure GiveUpSecurityAndAcceptAnySshHostKey GiveUpSecureityAndAcceptAnyTlsHostCertificate HostName PortNumber Protocol SshHostKeyFingerprint SshPrivateKeyPath SshPrivateKeySecurePassphrase TlsHostCertificateFingerprint Timeout WebdavSecure WebdavRoot RawSetting DebugLogPath SessionLogPath ReconnectTime FileTransferProgress ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="Credential FtpMode FtpSecure GiveUpSecurityAndAcceptAnySshHostKey GiveUpSecureityAndAcceptAnyTlsHostCertificate HostName PortNumber Protocol SshHostKeyFingerprint SshPrivateKeyPath SshPrivateKeySecurePassphrase TlsHostCertificateFingerprint Timeout WebdavSecure WebdavRoot RawSetting DebugLogPath SessionLogPath ReconnectTime FileTransferProgress Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
       </ParamSets>
       <Syntax>
-        <string>New-WinSCPSession [[-Credential] &lt;PSCredential&gt;] [[-FtpMode] &lt;FtpMode&gt;] [[-FtpSecure] &lt;FtpSecure&gt;] [-GiveUpSecurityAndAcceptAnySshHostKey] [-GiveUpSecureityAndAcceptAnyTlsHostCertificate] [-HostName] &lt;String&gt; [[-PortNumber] &lt;Int32&gt;] [[-Protocol] &lt;Protocol&gt;] [[-SshHostKeyFingerprint] &lt;String[]&gt;] [[-SshPrivateKeyPath] &lt;String&gt;] [[-SshPrivateKeySecurePassphrase] &lt;SecureString&gt;] [[-TlsHostCertificateFingerprint] &lt;String&gt;] [[-Timeout] &lt;TimeSpan&gt;] [-WebdavSecure] [[-WebdavRoot] &lt;String&gt;] [[-RawSetting] &lt;Hashtable&gt;] [[-DebugLogPath] &lt;String&gt;] [[-SessionLogPath] &lt;String&gt;] [[-ReconnectTime] &lt;TimeSpan&gt;] [[-FileTransferProgress] &lt;ScriptBlock&gt;] [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
+        <string>New-WinSCPSession [-Credential] &lt;PSCredential&gt; [[-FtpMode] &lt;FtpMode&gt;] [[-FtpSecure] &lt;FtpSecure&gt;] [-GiveUpSecurityAndAcceptAnySshHostKey] [-GiveUpSecureityAndAcceptAnyTlsHostCertificate] [-HostName] &lt;String&gt; [[-PortNumber] &lt;Int32&gt;] [[-Protocol] &lt;Protocol&gt;] [[-SshHostKeyFingerprint] &lt;String[]&gt;] [[-SshPrivateKeyPath] &lt;String&gt;] [[-SshPrivateKeySecurePassphrase] &lt;SecureString&gt;] [[-TlsHostCertificateFingerprint] &lt;String&gt;] [[-Timeout] &lt;TimeSpan&gt;] [-WebdavSecure] [[-WebdavRoot] &lt;String&gt;] [[-RawSetting] &lt;Hashtable&gt;] [[-DebugLogPath] &lt;String&gt;] [[-SessionLogPath] &lt;String&gt;] [[-ReconnectTime] &lt;TimeSpan&gt;] [[-FileTransferProgress] &lt;ScriptBlock&gt;] [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
       </Syntax>
       <Parameters>
-        <ParameterDescription type="PSCredential" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="true" pipeProp="false" isPos="true" pos="0" globbing="false">
+        <ParameterDescription type="PSCredential" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="true" pipeProp="false" isPos="true" pos="0" globbing="false">
           <Name>Credential</Name>
           <Attributes>
-            <string>System.Management.Automation.ParameterAttribute</string>
             <string>System.Management.Automation.CredentialAttribute</string>
+            <string>System.Management.Automation.ValidateNotNullAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
             <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
           </Attributes>
           <Aliases />
@@ -1221,7 +1231,7 @@ It represents a session and provides methods for manipulating remote files over 
           <Description>Full path to private key file.</Description>
           <DefaultValue />
         </ParameterDescription>
-        <ParameterDescription type="SecureString" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="8" globbing="false">
+        <ParameterDescription type="SecureString" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="true" isPos="true" pos="8" globbing="false">
           <Name>SshPrivateKeySecurePassphrase</Name>
           <Attributes>
             <string>System.Management.Automation.ParameterAttribute</string>
@@ -1231,7 +1241,7 @@ It represents a session and provides methods for manipulating remote files over 
           <Description>Passphrase for encrypted private keys.</Description>
           <DefaultValue />
         </ParameterDescription>
-        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="9" globbing="false">
+        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="true" isPos="true" pos="9" globbing="false">
           <Name>TlsHostCertificateFingerprint</Name>
           <Attributes>
             <string>System.Management.Automation.ParameterAttribute</string>
@@ -1339,8 +1349,8 @@ It represents a session and provides methods for manipulating remote files over 
           <Name>InformationVariable</Name>
           <Attributes>
             <string>System.Management.Automation.ParameterAttribute</string>
-            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
             <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
           </Attributes>
           <Aliases>
             <string>iv</string>
@@ -1396,18 +1406,17 @@ UnderlyingSystemType          : WinSCP.Session</Cmd>
         <Notes>New-WinSCPTransferOption is equivalent to New-Object -TypeName WinSCP.TransferOptions.</Notes>
         <InputType>None</InputType>
         <InputUrl />
-        <InputTypeDescription>
-</InputTypeDescription>
+        <InputTypeDescription />
         <ReturnType>WinSCP.TransferOptions</ReturnType>
         <ReturnUrl>http://winscp.net/eng/docs/library_transferoptions</ReturnUrl>
         <ReturnTypeDescription>
 Defines options for file transfers.</ReturnTypeDescription>
       </GeneralHelp>
       <ParamSets>
-        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="FileMask FilePermissions PreserveTimeStamp State Threshold SpeedLimit TransferMode ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="FileMask FilePermissions PreserveTimestamp State Threshold SpeedLimit TransferMode Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
       </ParamSets>
       <Syntax>
-        <string>New-WinSCPTransferOption [[-FileMask] &lt;String&gt;] [[-FilePermissions] &lt;FilePermissions&gt;] [-PreserveTimeStamp] [[-State] &lt;TransferResumeSupportState&gt;] [[-Threshold] &lt;Int32&gt;] [[-SpeedLimit] &lt;Int32&gt;] [[-TransferMode] &lt;TransferMode&gt;] [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
+        <string>New-WinSCPTransferOption [[-FileMask] &lt;String&gt;] [[-FilePermissions] &lt;FilePermissions&gt;] [[-PreserveTimestamp] &lt;Boolean&gt;] [[-State] &lt;TransferResumeSupportState&gt;] [[-Threshold] &lt;Int32&gt;] [[-SpeedLimit] &lt;Int32&gt;] [[-TransferMode] &lt;TransferMode&gt;] [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
       </Syntax>
       <Parameters>
         <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="0" globbing="false">
@@ -1440,7 +1449,7 @@ Defines options for file transfers.</ReturnTypeDescription>
           <Description>Preserve timestamp (set last write time of destination file to that of source file). Defaults to true.</Description>
           <DefaultValue>False</DefaultValue>
         </ParameterDescription>
-        <ParameterDescription type="TransferResumeSupportState" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="2" globbing="false">
+        <ParameterDescription type="TransferResumeSupportState" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="3" globbing="false">
           <Name>State</Name>
           <Attributes>
             <string>System.Management.Automation.ParameterAttribute</string>
@@ -1450,7 +1459,7 @@ Defines options for file transfers.</ReturnTypeDescription>
           <Description>Sets what files will be transferred with resume support/to temporary filename. Use TransferResumeSupportState.Default for built-in default (currently all files above 100 KB), TransferResumeSupportState.On for all files, TransferResumeSupportState.Off for no file (turn off) or TransferResumeSupportState.Smart for all files above threshold (see Threshold).</Description>
           <DefaultValue>(New-Object -TypeName WinSCP.TransferResumeSupportState)</DefaultValue>
         </ParameterDescription>
-        <ParameterDescription type="Int32" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="3" globbing="false">
+        <ParameterDescription type="Int32" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="4" globbing="false">
           <Name>Threshold</Name>
           <Attributes>
             <string>System.Management.Automation.ParameterAttribute</string>
@@ -1460,7 +1469,7 @@ Defines options for file transfers.</ReturnTypeDescription>
           <Description>Threshold (in KB) for State.Smart mode.</Description>
           <DefaultValue>100</DefaultValue>
         </ParameterDescription>
-        <ParameterDescription type="Int32" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="4" globbing="false">
+        <ParameterDescription type="Int32" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="5" globbing="false">
           <Name>SpeedLimit</Name>
           <Attributes>
             <string>System.Management.Automation.ParameterAttribute</string>
@@ -1470,7 +1479,7 @@ Defines options for file transfers.</ReturnTypeDescription>
           <Description>Limit transfer speed (in KB/s).</Description>
           <DefaultValue>0</DefaultValue>
         </ParameterDescription>
-        <ParameterDescription type="TransferMode" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="5" globbing="false">
+        <ParameterDescription type="TransferMode" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="6" globbing="false">
           <Name>TransferMode</Name>
           <Attributes>
             <string>System.Management.Automation.ParameterAttribute</string>
@@ -1496,12 +1505,22 @@ Defines options for file transfers.</ReturnTypeDescription>
           <Name>InformationVariable</Name>
           <Attributes>
             <string>System.Management.Automation.ParameterAttribute</string>
-            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
             <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
           </Attributes>
           <Aliases>
             <string>iv</string>
           </Aliases>
+          <Description />
+          <DefaultValue />
+        </ParameterDescription>
+        <ParameterDescription type="Boolean" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="2" globbing="false">
+          <Name>PreserveTimestamp</Name>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
+          </Attributes>
+          <Aliases />
           <Description />
           <DefaultValue />
         </ParameterDescription>
@@ -1565,7 +1584,7 @@ Represents text as a series of Unicode characters.</InputTypeDescription>
 Represents results of transfer operation.</ReturnTypeDescription>
       </GeneralHelp>
       <ParamSets>
-        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Path Destination Remove TransferOptions ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Path Destination Remove TransferOptions Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
       </ParamSets>
       <Syntax>
         <string>Receive-WinSCPItem [-WinSCPSession] &lt;Session&gt; [-Path] &lt;String[]&gt; [[-Destination] &lt;String&gt;] [-Remove] [[-TransferOptions] &lt;TransferOptions&gt;] [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
@@ -1638,8 +1657,8 @@ Represents results of transfer operation.</ReturnTypeDescription>
           <Name>InformationVariable</Name>
           <Attributes>
             <string>System.Management.Automation.ParameterAttribute</string>
-            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
             <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
           </Attributes>
           <Aliases>
             <string>iv</string>
@@ -1707,7 +1726,7 @@ Represents text as a series of Unicode characters.</InputTypeDescription>
 Specifies a return value type for a method that does not return a value.</ReturnTypeDescription>
       </GeneralHelp>
       <ParamSets>
-        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Path ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable WhatIf Confirm" />
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Path Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable WhatIf Confirm" />
       </ParamSets>
       <Syntax>
         <string>Remove-WinSCPItem [-WinSCPSession] &lt;Session&gt; [-Path] &lt;String[]&gt; [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;] [-WhatIf] [-Confirm]</string>
@@ -1750,8 +1769,8 @@ Specifies a return value type for a method that does not return a value.</Return
           <Name>InformationVariable</Name>
           <Attributes>
             <string>System.Management.Automation.ParameterAttribute</string>
-            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
             <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
           </Attributes>
           <Aliases>
             <string>iv</string>
@@ -1762,8 +1781,8 @@ Specifies a return value type for a method that does not return a value.</Return
         <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
           <Name>WhatIf</Name>
           <Attributes>
-            <string>System.Management.Automation.ParameterAttribute</string>
             <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
           </Attributes>
           <Aliases>
             <string>wi</string>
@@ -1774,8 +1793,8 @@ Specifies a return value type for a method that does not return a value.</Return
         <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
           <Name>Confirm</Name>
           <Attributes>
-            <string>System.Management.Automation.ParameterAttribute</string>
             <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
           </Attributes>
           <Aliases>
             <string>cf</string>
@@ -1829,7 +1848,7 @@ It represents a session and provides methods for manipulating remote files over 
 Specifies a return value type for a method that does not return a value.</ReturnTypeDescription>
       </GeneralHelp>
       <ParamSets>
-        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
       </ParamSets>
       <Syntax>
         <string>Remove-WinSCPSession [-WinSCPSession] &lt;Session&gt; [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
@@ -1861,8 +1880,8 @@ Specifies a return value type for a method that does not return a value.</Return
           <Name>InformationVariable</Name>
           <Attributes>
             <string>System.Management.Automation.ParameterAttribute</string>
-            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
             <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
           </Attributes>
           <Aliases>
             <string>iv</string>
@@ -1916,7 +1935,7 @@ Specifies a return value type for a method that does not return a value.;
 </ReturnTypeDescription>
       </GeneralHelp>
       <ParamSets>
-        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Path NewName PassThru ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Path NewName PassThru Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
       </ParamSets>
       <Syntax>
         <string>Rename-WinSCPItem [-WinSCPSession] &lt;Session&gt; [-Path] &lt;String&gt; [-NewName] &lt;String&gt; [-PassThru] [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
@@ -1979,8 +1998,8 @@ Specifies a return value type for a method that does not return a value.;
           <Name>InformationVariable</Name>
           <Attributes>
             <string>System.Management.Automation.ParameterAttribute</string>
-            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
             <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
           </Attributes>
           <Aliases>
             <string>iv</string>
@@ -2042,7 +2061,7 @@ Represents text as a series of Unicode characters.</InputTypeDescription>
 Represents results of transfer operation.</ReturnTypeDescription>
       </GeneralHelp>
       <ParamSets>
-        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Path Destination Remove TransferOptions ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Path Destination Remove TransferOptions Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
       </ParamSets>
       <Syntax>
         <string>Send-WinSCPItem [-WinSCPSession] &lt;Session&gt; [-Path] &lt;String[]&gt; [[-Destination] &lt;String&gt;] [-Remove] [[-TransferOptions] &lt;TransferOptions&gt;] [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
@@ -2115,8 +2134,8 @@ Represents results of transfer operation.</ReturnTypeDescription>
           <Name>InformationVariable</Name>
           <Attributes>
             <string>System.Management.Automation.ParameterAttribute</string>
-            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
             <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
           </Attributes>
           <Aliases>
             <string>iv</string>
@@ -2201,176 +2220,6 @@ Specifies a return value type for a method that does not return a value.</Return
       <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" />
       <Publish>false</Publish>
     </CmdletObject>
-    <CmdletObject verb="Sync" noun="WinSCPPath">
-      <Name>Sync-WinSCPPath</Name>
-      <GeneralHelp>
-        <Synopsis>Synchronizes directories with an active WinSCP Session.</Synopsis>
-        <Description>Synchronizes a local directory with a remote directory, or vise versa.</Description>
-        <Notes>If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.</Notes>
-        <InputType>WinSCP.Session</InputType>
-        <InputUrl>http://winscp.net/eng/docs/library_session</InputUrl>
-        <InputTypeDescription>
-It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</InputTypeDescription>
-        <ReturnType>WinSCP.SynchronizationResult</ReturnType>
-        <ReturnUrl>http://winscp.net/eng/docs/library_synchronizationresult</ReturnUrl>
-        <ReturnTypeDescription>
-Represents results of synchronization.</ReturnTypeDescription>
-      </GeneralHelp>
-      <ParamSets>
-        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Mode LocalPath RemotePath Remove Mirror Criteria TransferOptions ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
-      </ParamSets>
-      <Syntax>
-        <string>Sync-WinSCPPath [-WinSCPSession] &lt;Session&gt; [[-Mode] &lt;SynchronizationMode&gt;] [[-LocalPath] &lt;String&gt;] [[-RemotePath] &lt;String&gt;] [-Remove] [-Mirror] [[-Criteria] &lt;SynchronizationCriteria&gt;] [[-TransferOptions] &lt;TransferOptions&gt;] [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
-      </Syntax>
-      <Parameters>
-        <ParameterDescription type="Session" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="true" pipeProp="false" isPos="true" pos="0" globbing="false">
-          <Name>WinSCPSession</Name>
-          <Attributes>
-            <string>System.Management.Automation.ValidateScriptAttribute</string>
-            <string>System.Management.Automation.ParameterAttribute</string>
-            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
-          </Attributes>
-          <Aliases />
-          <Description>A valid open WinSCP.Session, returned from New-WinSCPSession.</Description>
-          <DefaultValue />
-        </ParameterDescription>
-        <ParameterDescription type="SynchronizationMode" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="1" globbing="false">
-          <Name>Mode</Name>
-          <Attributes>
-            <string>System.Management.Automation.ParameterAttribute</string>
-            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
-          </Attributes>
-          <Aliases />
-          <Description>Synchronization mode. Possible values are Local, Remote and Both.</Description>
-          <DefaultValue>(New-Object -TypeName WinSCP.SyncronizationMode)</DefaultValue>
-        </ParameterDescription>
-        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="2" globbing="false">
-          <Name>LocalPath</Name>
-          <Attributes>
-            <string>System.Management.Automation.ParameterAttribute</string>
-            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
-          </Attributes>
-          <Aliases />
-          <Description>Full path to local directory.</Description>
-          <DefaultValue>$pwd</DefaultValue>
-        </ParameterDescription>
-        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="3" globbing="false">
-          <Name>RemotePath</Name>
-          <Attributes>
-            <string>System.Management.Automation.ParameterAttribute</string>
-            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
-          </Attributes>
-          <Aliases />
-          <Description>Full path to remote directory.</Description>
-          <DefaultValue>/</DefaultValue>
-        </ParameterDescription>
-        <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
-          <Name>Remove</Name>
-          <Attributes>
-            <string>System.Management.Automation.ParameterAttribute</string>
-            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
-          </Attributes>
-          <Aliases />
-          <Description>When used, deletes obsolete files. Cannot be used with -Mode Both.</Description>
-          <DefaultValue>False</DefaultValue>
-        </ParameterDescription>
-        <ParameterDescription type="SwitchParameter" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
-          <Name>Mirror</Name>
-          <Attributes>
-            <string>System.Management.Automation.ParameterAttribute</string>
-            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
-          </Attributes>
-          <Aliases />
-          <Description>When used, synchronizes in mirror mode (synchronizes also older files). Cannot be used for -Mode Both.</Description>
-          <DefaultValue>False</DefaultValue>
-        </ParameterDescription>
-        <ParameterDescription type="SynchronizationCriteria" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="4" globbing="false">
-          <Name>Criteria</Name>
-          <Attributes>
-            <string>System.Management.Automation.ParameterAttribute</string>
-            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
-          </Attributes>
-          <Aliases />
-          <Description>Comparison criteria. Possible values are None, Time (default), .Size and Either. For -Mode Both Time can be used only.</Description>
-          <DefaultValue>(New-Object -TypeName WinSCP.SynchronizationCriteria)</DefaultValue>
-        </ParameterDescription>
-        <ParameterDescription type="TransferOptions" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="true" pos="5" globbing="false">
-          <Name>TransferOptions</Name>
-          <Attributes>
-            <string>System.Management.Automation.ParameterAttribute</string>
-            <string>System.Management.Automation.ArgumentTypeConverterAttribute</string>
-          </Attributes>
-          <Aliases />
-          <Description>Transfer options. Defaults to null, what is equivalent to New-WinSCPTransferOptions.</Description>
-          <DefaultValue>(New-Object -TypeName WinSCP.TransferOptions)</DefaultValue>
-        </ParameterDescription>
-        <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
-          <Name>InformationAction</Name>
-          <Attributes>
-            <string>System.Management.Automation.ParameterAttribute</string>
-            <string>System.Management.Automation.AliasAttribute</string>
-          </Attributes>
-          <Aliases>
-            <string>infa</string>
-          </Aliases>
-          <Description />
-          <DefaultValue />
-        </ParameterDescription>
-        <ParameterDescription type="String" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
-          <Name>InformationVariable</Name>
-          <Attributes>
-            <string>System.Management.Automation.ParameterAttribute</string>
-            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
-            <string>System.Management.Automation.AliasAttribute</string>
-          </Attributes>
-          <Aliases>
-            <string>iv</string>
-          </Aliases>
-          <Description />
-          <DefaultValue />
-        </ParameterDescription>
-      </Parameters>
-      <Examples>
-        <Example>
-          <Name>EXAMPLE 1</Name>
-          <Cmd>PS C:\&gt; New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Sync-WinSCPDirectory -RemotePath '/' -LocalPath 'C:\lDir\' -Mode Local
-
-Uploads   : {}
-Downloads : {/rDir/rSubDir/rFile.txt}
-Removals  : {}
-Failures  : {}
-IsSuccess : True</Cmd>
-          <Description />
-          <Output />
-        </Example>
-        <Example>
-          <Name>EXAMPLE 2</Name>
-          <Cmd>PS C:\&gt; $credential = Get-Credential
-PS C:\&gt; $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
-PS C:\&gt; Sync-WinSCPDirectory -WinSCPSession $session -RemotePath '/' -LocalPath 'C:\lDir\' -SyncMode Local
-
-Uploads   : {}
-Downloads : {/rDir/rSubDir/rFile.txt}
-Removals  : {}
-Failures  : {}
-IsSuccess : True</Cmd>
-          <Description />
-          <Output />
-        </Example>
-      </Examples>
-      <RelatedLinks>
-        <RelatedLink>
-          <LinkText>SynchronizeDirectories Method</LinkText>
-          <LinkUrl>http://winscp.net/eng/docs/library_session_synchronizedirectories</LinkUrl>
-        </RelatedLink>
-        <RelatedLink>
-          <LinkText>Project Home Page</LinkText>
-          <LinkUrl>http://dotps1.github.io/WinSCP</LinkUrl>
-        </RelatedLink>
-      </RelatedLinks>
-      <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" />
-      <Publish>false</Publish>
-    </CmdletObject>
     <CmdletObject verb="Test" noun="WinSCPPath">
       <Name>Test-WinSCPPath</Name>
       <GeneralHelp>
@@ -2389,7 +2238,7 @@ Represents text as a series of Unicode characters.</InputTypeDescription>
 Represents a Boolean (true or false) value.</ReturnTypeDescription>
       </GeneralHelp>
       <ParamSets>
-        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Path ErrorAction Verbose Debug WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
+        <CommandParameterSetInfo2 Name="__AllParameterSets" Params="WinSCPSession Path Verbose Debug ErrorAction WarningAction InformationAction ErrorVariable WarningVariable InformationVariable OutVariable OutBuffer PipelineVariable" />
       </ParamSets>
       <Syntax>
         <string>Test-WinSCPPath [-WinSCPSession] &lt;Session&gt; [-Path] &lt;String[]&gt; [-InformationAction &lt;ActionPreference&gt;] [-InformationVariable &lt;String&gt;]</string>
@@ -2432,8 +2281,8 @@ Represents a Boolean (true or false) value.</ReturnTypeDescription>
           <Name>InformationVariable</Name>
           <Attributes>
             <string>System.Management.Automation.ParameterAttribute</string>
-            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
             <string>System.Management.Automation.AliasAttribute</string>
+            <string>System.Management.Automation.Internal.CommonParameters+ValidateVariableName</string>
           </Attributes>
           <Aliases>
             <string>iv</string>

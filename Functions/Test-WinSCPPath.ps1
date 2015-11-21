@@ -31,9 +31,9 @@
     }
 
     Process {
-        foreach($p in (Format-WinSCPPathString -Path $($Path))) {
+        foreach($item in (Format-WinSCPPathString -Path $($Path))) {
             try {
-                $WinSCPSession.FileExists($p)
+                $WinSCPSession.FileExists($item)
             } catch {
                 Write-Error -Message $_.ToString()
             }
