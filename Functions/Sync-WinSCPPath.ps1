@@ -71,6 +71,7 @@
 
                 continue
             }
+        }
 
         try {
             $WinSCPSession.SynchronizeDirectories($Mode, $LocalPath.FullName, $RemotePath, $Remove.IsPresent, $Mirror.IsPresent, $Criteria, $TransferOptions)

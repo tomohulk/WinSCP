@@ -161,7 +161,10 @@ PrivateData = @{
         IconUri = 'http://winscp.net/eng/images/og_logo_240x240.jpg'
 
         # ReleaseNotes of this module
-        ReleaseNotes = 'Added support for full and relitive paths: https://github.com/dotps1/WinSCP/issues/25'
+        ReleaseNotes = 'Attribute issue with -Credential Param in New-WinSCPSession:  https://github.com/dotps1/WinSCP/issues/26 < /br>
+        Convert New-WinSCPTransferOption -PreserveTimeStamp from type Switch to Bool:  https://github.com/dotps1/WinSCP/issues/28 < /br>
+        Fix -Path not taking String[] values:  https://github.com/dotps1/WinSCP/issues/30 < /br>
+        Remove source file check on Send/Receive/Move-WinSCPItem allowing for wildcards to work:  https://github.com/dotps1/WinSCP/issues/27'
 
     } # End of PSData hashtable
 
