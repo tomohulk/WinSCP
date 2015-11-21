@@ -10,14 +10,81 @@ Import-Module -Name .\WinSCP.psd1 -Force
 
 $ftp = "$pwd\Tests\Ftp"
 New-Item -Path "$ftp\TextFile.txt" -ItemType File -Value 'Hello World!' -Force | Out-Null
-New-Item -Path "$ftp\SubDirectory\SubDirectoryTextFile.txt" -ItemType File -Value 'Hellow World!' -Force | Out-Null
+New-Item -Path "$ftp\SubDirectory\SubDirectoryTextFile.txt" -ItemType File -Value 'Hello World!' -Force | Out-Null
 
 Describe 'Move-WinSCPItem' {
+    Context "New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Move-WinSCPItem -Path '/TextFile.txt' -Destination './SubDirectory'" {
+        $results = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | 
+            Move-WinSCPItem -Path '/TextFile.txt' -Destination './SubDirectory'
 
+        It 'Results of Move-WinSCPItem should be null, -PassThru switch not used.' {
+            $results | Should BeNullOrEmpty
+        }
+
+        It 'TextFile.txt should not exist in root.' {
+            Test-Path -Path "$ftp\TextFile.txt" | Should Be $false
+        }
+
+        It 'TextFile.txt should exsist in /root/SubDirectory' {
+            Test-Path -Path "$ftp\SubDirectory\TextFile.txt" | Should Be $true
+        }
+
+        It 'WinSCP process should not exist.' {
+            Get-Process | Where-Object { $_.Name -eq 'WinSCP' } | Should BeNullOrEmpty
+        }
+
+        Move-Item -Path "$ftp\SubDirectory\TextFile.txt" -Destination $ftp
+    }
 
     Context "New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Move-WinSCPItem -Path '/TextFile.txt' -Destination '/SubDirectory'" {
         $results = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | 
             Move-WinSCPItem -Path '/TextFile.txt' -Destination '/SubDirectory'
+
+        It 'Results of Move-WinSCPItem should be null, -PassThru switch not used.' {
+            $results | Should BeNullOrEmpty
+        }
+
+        It 'TextFile.txt should not exist in root.' {
+            Test-Path -Path "$ftp\TextFile.txt" | Should Be $false
+        }
+
+        It 'TextFile.txt should exsist in /root/SubDirectory' {
+            Test-Path -Path "$ftp\SubDirectory\TextFile.txt" | Should Be $true
+        }
+
+        It 'WinSCP process should not exist.' {
+            Get-Process | Where-Object { $_.Name -eq 'WinSCP' } | Should BeNullOrEmpty
+        }
+
+        Move-Item -Path "$ftp\SubDirectory\TextFile.txt" -Destination $ftp
+    }
+
+    Context "New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Move-WinSCPItem -Path '/TextFile.txt' -Destination '/SubDirectory/'" {
+        $results = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | 
+            Move-WinSCPItem -Path '/TextFile.txt' -Destination '/SubDirectory/'
+
+        It 'Results of Move-WinSCPItem should be null, -PassThru switch not used.' {
+            $results | Should BeNullOrEmpty
+        }
+
+        It 'TextFile.txt should not exist in root.' {
+            Test-Path -Path "$ftp\TextFile.txt" | Should Be $false
+        }
+
+        It 'TextFile.txt should exsist in /root/SubDirectory' {
+            Test-Path -Path "$ftp\SubDirectory\TextFile.txt" | Should Be $true
+        }
+
+        It 'WinSCP process should not exist.' {
+            Get-Process | Where-Object { $_.Name -eq 'WinSCP' } | Should BeNullOrEmpty
+        }
+
+        Move-Item -Path "$ftp\SubDirectory\TextFile.txt" -Destination $ftp
+    }
+
+    Context "New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Move-WinSCPItem -Path '/TextFile.txt' -Destination './SubDirectory/'" {
+        $results = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | 
+            Move-WinSCPItem -Path '/TextFile.txt' -Destination './SubDirectory/'
 
         It 'Results of Move-WinSCPItem should be null, -PassThru switch not used.' {
             $results | Should BeNullOrEmpty

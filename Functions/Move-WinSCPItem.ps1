@@ -59,7 +59,7 @@
             }
 
             try {
-                $WinSCPSession.MoveFile($item, $Destination)
+                $WinSCPSession.MoveFile($item.TrimEnd('/'), $Destination)
 
                 if ($PassThru.IsPresent) {
                     Get-WinSCPItem -WinSCPSession $WinSCPSession -Path (Join-Path -Path $Destination -ChildPath (Split-Path -Path $item -Leaf))

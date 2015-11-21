@@ -14,11 +14,11 @@
 
     ./
 .EXAMPLE
-    PS C:\> Format-WinSCPPathString -Path 'Top Folder\Middle Folder'
+    Format-WinSCPPathString -Path 'Top Folder\Middle Folder'
 
     /Top Folder/Middle Folder/
 .EXAMPLE
-    PS C:\> Format-WinSCPPathString -Path '.\path\subpath\file.txt'
+    Format-WinSCPPathString -Path '.\path\subpath\file.txt'
 
     ./path/subpath/file.txt
 .LINK
@@ -33,23 +33,29 @@ Function Format-WinSCPPathString {
         [Parameter(
             Mandatory = $true
         )]
-        [String]
+        [String[]]
         $Path
     )
 
-    if ($Path.Contains('\')) {
-        $Path = $Path.Replace('\','/')
-    }
+    Process {
+        foreach ($item in $Path) {
+            if ($item.Contains('\')) {
+                $item = $item.Replace('\','/')
+            }
 
-    if ($Path.StartsWith('.')) {
-        if ($Path.ToCharArray()[1] -ne '/') {
-            $Path = $Path.Insert(1, '/')
-        }
-    } else {
-        if ($Path.StartsWith('/') -and $Path.EndsWith('/') -and $Path.Length -gt 1) {
-            $Path = $Path.TrimStart('/')
+            if ($item.StartsWith('.')) {
+                $item = $item.TrimStart('.')
+            }
+
+            if (-not $item.EndsWith('/')) {
+                $item = "$item/"
+            }
+
+            if ($item.StartsWith('/') -and $item.Length -gt 1) {
+                $item = $item.TrimStart('/')
+            }
+
+            $item
         }
     }
-
-    return $Path
 }
