@@ -8,7 +8,7 @@ This module can be installed from the [PowerShellGet Gallery](https://www.powers
 Install-Module -Name WinSCP
 ```
 
-I will no longer be supporting Chocolatey or PSGet for module repos; mainly because i feel the PowerShellGallery is working very well, and Chocolatey takes months to approve packages.  I apologize for any trouble this causes.
+I will no longer be supporting Chocolatey or PSGet for module repos; mainly because I feel the PowerShellGallery is working very well, and Chocolatey takes months to approve packages.  I apologize for any trouble this causes.
 
 ## WinSCP Cmdlets
 

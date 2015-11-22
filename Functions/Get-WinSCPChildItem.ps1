@@ -50,7 +50,9 @@
                     $WinSCPSession.GetFileInfo((Format-WinSCPPathString -Path (Join-Path -Path $item -ChildPath $file)))
                 }
 
-                $items | Where-Object { $_.Name -like $Filter }
+                $items | Where-Object { 
+                    $_.Name -like $Filter 
+                }
 
                 if ($Recurse.IsPresent) {
                     foreach ($directory in ($items | Where-Object { $_.IsDirectory }).Name) {
