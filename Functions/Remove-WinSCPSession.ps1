@@ -13,6 +13,9 @@
 
     try {
         $WinSCPSession.Dispose()
+        Get-Command -Module WinSCP -ParameterName WinSCPSession | ForEach-Object {
+            $Global:PSDefaultParameterValues.Remove("$($_.Name):WinSCPSession")
+        }
     } catch {
         Write-Error $_.ToString()
     }
