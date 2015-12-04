@@ -5,7 +5,35 @@ Import-Module -Name .\WinSCP.psd1 -Force
 
 Get-Process | Where-Object { $_.Name -eq 'WinSCP' } | Stop-Process -Force
 
+$ftp = "$pwd\Tests\Ftp"
+New-Item -Path $ftp -ItemType Directory -Force | Out-Null
+
+$local = "$pwd\Tests\Local"
+New-Item -Path "$local\TextFile.txt" -ItemType File -Value 'Hello World!' -Force | Out-Null
+New-Item -Path "$local\SubDirectory\SubDirectoryTextFile.txt" -ItemType File -Value 'Hellow World!' -Force | Out-Null
+
 Describe 'Send-WinSCPItem' {
+    $paths = @(
+        'TextFile.txt',
+        'TextFile.txt',
+        '/TextFile.txt',
+        '/TextFile.txt/',
+        './TextFile.txt',
+        './TextFile.txt/'
+    )
+
+    foreach ($path in $paths) {
+        Context "`New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPItem -Path '$path'" {
+            $results = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Send-WinSCPItem -Path "$local\TextFile.txt" -Destination $path
+
+            It 'Transfer should be succsessful.' {
+                $results.IsSuccess | Should Be $true
+            }
+
+            Remove-Item -Path "$ftp\*" -Force -Recurse
+        }
+    }
+
     Context "Invoke-ScriptAnalyzer -Path $(Resolve-Path -Path (Get-Location))\Functions\Send-WinSCPItem.ps1." {
         $results = Invoke-ScriptAnalyzer -Path .\Functions\Send-WinSCPItem.ps1
 
@@ -15,4 +43,6 @@ Describe 'Send-WinSCPItem' {
     }
 }
 
+Remove-Item -Path $ftp -Recurse -Force -Confirm:$false
+Remove-Item -Path $local -Recurse -Force -Confirm:$false
 Remove-Module -Name WinSCP -Force

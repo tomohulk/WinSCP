@@ -41,19 +41,7 @@ Function Format-WinSCPPathString {
     Process {
         foreach ($item in $Path) {
             if ($item.Contains('\')) {
-                $item = $item.Replace('\','/')
-            }
-
-            if ($item.StartsWith('.')) {
-                $item = $item.TrimStart('.')
-            }
-
-            if (-not $item.EndsWith('/')) {
-                $item = "$item/"
-            }
-
-            if ($item.StartsWith('/') -and $item.Length -gt 1) {
-                $item = $item.TrimStart('/')
+                $item = $item.Replace('\', '/')
             }
 
             $item

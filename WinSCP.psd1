@@ -12,7 +12,7 @@
 RootModule = 'WinSCP'
 
 # Version number of this module.
-ModuleVersion = '5.7.6.0'
+ModuleVersion = '5.7.6.1'
 
 # ID used to uniquely identify this module
 GUID = '06e0af4e-779b-48f4-939f-c90b8ec950e6'
@@ -161,10 +161,7 @@ PrivateData = @{
         IconUri = 'http://winscp.net/eng/images/og_logo_240x240.jpg'
 
         # ReleaseNotes of this module
-        ReleaseNotes = 'Attribute issue with -Credential Param in New-WinSCPSession:  https://github.com/dotps1/WinSCP/issues/26 < /br>
-        Convert New-WinSCPTransferOption -PreserveTimeStamp from type Switch to Bool:  https://github.com/dotps1/WinSCP/issues/28 < /br>
-        Fix -Path not taking String[] values:  https://github.com/dotps1/WinSCP/issues/30 < /br>
-        Remove source file check on Send/Receive/Move-WinSCPItem allowing for wildcards to work:  https://github.com/dotps1/WinSCP/issues/27'
+        ReleaseNotes = 'Added default Global Parameter of the WinSCPSession, eliminating the -WinSCPSession requirement on cmdlets.  Bug Fix #32 https://github.com/dotps1/WinSCP/issues/32 simplified the path formating issue.'
 
     } # End of PSData hashtable
 
