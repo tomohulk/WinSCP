@@ -56,7 +56,9 @@
         foreach ($item in (Format-WinSCPPathString -Path $($Path))) {
             try {
                 if (-not ($Destination.EndsWith($item))) {
-                    $Destination += '/'
+                    if (-not ($Destination.EndsWith('/'))) {
+                        $Destination += '/'
+                    }
                 }
 
                 $WinSCPSession.MoveFile($item.TrimEnd('/'), $Destination)
