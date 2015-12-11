@@ -11,8 +11,10 @@ New-Item -Path "$ftp\SubDirectory\SubDirectoryTextFile.txt" -ItemType File -Valu
 $temp = New-Item "$pwd\Tests\Temp" -ItemType Directory -Force
 
 Describe 'Receive-WinSCPItem' {
-    Context "New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Receive-WinSCPItem -Path '/TextFile.txt -Destination $($temp.FullName)" {
-        $results = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Receive-WinSCPItem -Path '/TextFile.txt' -Destination $temp.FullName
+    $credential = (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString))
+
+    Context "New-WinSCPSession -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp | Receive-WinSCPItem -Path '/TextFile.txt -Destination $($temp.FullName)" {
+        $results = New-WinSCPSession -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp | Receive-WinSCPItem -Path '/TextFile.txt' -Destination $temp.FullName
 
         It 'Results of Get-WinSCPItem should not be null.' {
             $results | Should Not Be Null

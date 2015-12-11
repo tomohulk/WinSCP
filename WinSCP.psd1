@@ -161,7 +161,7 @@ PrivateData = @{
         IconUri = 'http://winscp.net/eng/images/og_logo_240x240.jpg'
 
         # ReleaseNotes of this module
-        ReleaseNotes = 'Added default Global Parameter of the WinSCPSession, eliminating the -WinSCPSession requirement on cmdlets.  Bug Fix #32 https://github.com/dotps1/WinSCP/issues/32 simplified the path formating issue.'
+        ReleaseNotes = 'Bug Fix Issue #33, New-WinSCPItem fails when creating directories.  https://github.com/dotps1/WinSCP/issues/33'
 
     } # End of PSData hashtable
 

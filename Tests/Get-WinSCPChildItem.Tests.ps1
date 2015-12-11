@@ -10,8 +10,10 @@ New-Item -Path "$ftp\TextFile.txt" -ItemType File -Value 'Hello World!' -Force |
 New-Item -Path "$ftp\SubDirectory\SubDirectoryTextFile.txt" -ItemType File -Value 'Hello World!' -Force | Out-Null
 
 Describe 'Get-WinSCPChildItem' {
-    Context "New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem" {
-        $results = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem
+    $credential = (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString))
+
+    Context "New-WinSCPSession -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem" {
+        $results = New-WinSCPSession -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem
 
         It 'Results of Get-WinSCPChildItem should not be null.' {
             $results | Should Not Be Null
@@ -26,8 +28,8 @@ Describe 'Get-WinSCPChildItem' {
         }
     }
 
-    Context "New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Recurse" {
-        $results = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Recurse
+    Context "New-WinSCPSession -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Recurse" {
+        $results = New-WinSCPSession -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Recurse
 
         It 'Results of Get-WinSCPChildItem should not be null.' {
             $results | Should Not Be Null
@@ -42,8 +44,8 @@ Describe 'Get-WinSCPChildItem' {
         }
     }
 
-    Context "New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Recurse -Filter '*.txt'" {
-        $results = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Recurse -Filter '*.txt'
+    Context "New-WinSCPSession -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Recurse -Filter '*.txt'" {
+        $results = New-WinSCPSession -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Recurse -Filter '*.txt'
 
         It 'Results of Get-WinSCPChildItem should not be null.' {
             $results | Should Not Be Null
@@ -65,8 +67,8 @@ Describe 'Get-WinSCPChildItem' {
     )
 
     foreach ($path in $paths) {
-        Context "New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Path '$path'" {
-            $results = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Path $path
+        Context "New-WinSCPSession -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Path '$path'" {
+            $results = New-WinSCPSession -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Path $path
 
             It 'Results of Get-WinSCPChildItem should not be null.' {
                 $results | Should Not Be Null
@@ -82,8 +84,8 @@ Describe 'Get-WinSCPChildItem' {
         }
     }
 
-    Context "`$session = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp; Get-WinSCPChildItem -WinSCPSession `$session -Recurse -Filter '*.txt'" {
-        $session = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp
+    Context "`$session = New-WinSCPSession -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp; Get-WinSCPChildItem -WinSCPSession `$session -Recurse -Filter '*.txt'" {
+        $session = New-WinSCPSession -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp
         $results = Get-WinSCPChildItem -WinSCPSession $session -Recurse -Filter '*.txt'
         
         It 'WinSCP Session should be open.' {
@@ -104,9 +106,10 @@ Describe 'Get-WinSCPChildItem' {
         }
     }
 
-    Context "New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Path '/InvalidPath'" {
+    Context "New-WinSCPSession -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Path '/InvalidPath'" {
         It 'Results of Get-WinSCPChildItem should Write-Error file not found.' {
-            New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Path '/InvalidPath' -ErrorVariable e -ErrorAction SilentlyContinue
+            New-WinSCPSession -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Path '/InvalidPath' -ErrorVariable e -ErrorAction SilentlyContinue
+            
             $e | Should Not BeNullOrEmpty
         }
     }

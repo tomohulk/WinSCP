@@ -13,6 +13,8 @@ New-Item -Path "$local\TextFile.txt" -ItemType File -Value 'Hello World!' -Force
 New-Item -Path "$local\SubDirectory\SubDirectoryTextFile.txt" -ItemType File -Value 'Hellow World!' -Force | Out-Null
 
 Describe 'Send-WinSCPItem' {
+    $credential = (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString))
+
     $paths = @(
         'TextFile.txt',
         'TextFile.txt',
@@ -23,8 +25,8 @@ Describe 'Send-WinSCPItem' {
     )
 
     foreach ($path in $paths) {
-        Context "`New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPItem -Path '$path'" {
-            $results = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Send-WinSCPItem -Path "$local\TextFile.txt" -Destination $path
+        Context "`New-WinSCPSession -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPItem -Path '$path'" {
+            $results = New-WinSCPSession -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp | Send-WinSCPItem -Path "$local\TextFile.txt" -Destination $path
 
             It 'Transfer should be succsessful.' {
                 $results.IsSuccess | Should Be $true

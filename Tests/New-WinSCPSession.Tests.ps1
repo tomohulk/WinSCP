@@ -6,8 +6,10 @@ Import-Module -Name .\WinSCP.psd1 -Force
 Get-Process | Where-Object { $_.Name -eq 'WinSCP' } | Stop-Process -Force
 
 Describe 'New-WinSCPSession' {
-    Context "New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp" {
-        $session = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp
+    $credential = (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString))
+
+    Context "New-WinSCPSession -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp" {
+        $session = New-WinSCPSession -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp
 
         It 'Session should be of type WinSCP.Session.' {
             $session.GetType() | Should Be WinSCP.Session
@@ -27,8 +29,8 @@ Describe 'New-WinSCPSession' {
         }
     }
 
-    Context "New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp -SessionLogPath $env:TEMP\Session.log -DebugLogPath $env:TEMP\Debug.log" {
-        $session = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp -SessionLogPath "$env:TEMP\Session.log" -DebugLogPath "$env:TEMP\Debug.log"
+    Context "New-WinSCPSession -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp -SessionLogPath $env:TEMP\Session.log -DebugLogPath $env:TEMP\Debug.log" {
+        $session = New-WinSCPSession -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp -SessionLogPath "$env:TEMP\Session.log" -DebugLogPath "$env:TEMP\Debug.log"
 
         It 'Session should be of type WinSCP.Session.' {
             $session.GetType() | Should Be WinSCP.Session

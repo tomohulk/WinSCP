@@ -10,6 +10,8 @@ New-Item -Path "$ftp\TextFile.txt" -ItemType File -Value 'Hello World!' -Force |
 New-Item -Path "$ftp\SubDirectory\SubDirectoryTextFile.txt" -ItemType File -Value 'Hello World!' -Force | Out-Null
 
 Describe 'Move-WinSCPItem' {
+    $credential = (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString))
+
     $destinations = @(
         'SubDirectory',
         'SubDirectory/'
@@ -20,9 +22,8 @@ Describe 'Move-WinSCPItem' {
     )
     
     foreach ($destination in $destinations) {
-        Context "New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Move-WinSCPItem -Path '/TextFile.txt' -Destination '$destination'" {
-            $results = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | 
-                Move-WinSCPItem -Path '/TextFile.txt' -Destination $destination
+        Context "New-WinSCPSession -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp | Move-WinSCPItem -Path '/TextFile.txt' -Destination '$destination'" {
+            $results = New-WinSCPSession -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp | Move-WinSCPItem -Path '/TextFile.txt' -Destination $destination
 
             It 'Results of Move-WinSCPItem should be null, -PassThru switch not used.' {
                 $results | Should BeNullOrEmpty
@@ -54,9 +55,8 @@ Describe 'Move-WinSCPItem' {
     )
 
     foreach ($file in $files) {
-        Context "New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Move-WinSCPItem -Path '$file' -Destination './SubDirectory'" {
-            $results = New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | 
-                Move-WinSCPItem -Path $file -Destination './SubDirectory'
+        Context "New-WinSCPSession -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp | Move-WinSCPItem -Path '$file' -Destination './SubDirectory'" {
+            $results = New-WinSCPSession -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp | Move-WinSCPItem -Path $file -Destination './SubDirectory'
 
             It 'Results of Move-WinSCPItem should be null, -PassThru switch not used.' {
                 $results | Should BeNullOrEmpty
@@ -78,10 +78,10 @@ Describe 'Move-WinSCPItem' {
         }
     }
 
-    Context "New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Move-WinSCPItem -Path '/TextFile.txt' -Destination '/InvalidSubDirectory'" {
+    Context "New-WinSCPSession -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp | Move-WinSCPItem -Path '/TextFile.txt' -Destination '/InvalidSubDirectory'" {
         It 'Results of Move-WinSCPItem should throw path not found.' {
-            New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | 
-                Move-WinSCPItem -Path '/TextFile.txt' -Destination '/InvalidSubDirectory' -ErrorVariable e -ErrorAction SilentlyContinue
+            New-WinSCPSession -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp | Move-WinSCPItem -Path '/TextFile.txt' -Destination '/InvalidSubDirectory' -ErrorVariable e -ErrorAction SilentlyContinue
+            
             $e.Count | Should Not Be 0
             $e.Exception.Message | Should Be 'Could not find a part of the path.'
         }
