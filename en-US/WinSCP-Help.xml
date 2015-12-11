@@ -88,8 +88,7 @@
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-Represents text as a series of Unicode characters.</maml:para>
+				<maml:para>Represents text as a series of Unicode characters.</maml:para>
 			</maml:description>
 		</command:inputType>
 	</command:inputTypes>
@@ -101,8 +100,7 @@ Represents text as a series of Unicode characters.</maml:para>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-Represents text as a series of Unicode characters.</maml:para>
+				<maml:para>Represents text as a series of Unicode characters.</maml:para>
 			</maml:description>
 		</command:returnValue>
 	</command:returnValues>
@@ -321,8 +319,7 @@ Transfers                    Failures IsSuccess
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
+				<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 			</maml:description>
 		</command:inputType>
 		<command:inputType>
@@ -332,7 +329,8 @@ It represents a session and provides methods for manipulating remote files over 
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>Represents text as a series of Unicode characters.</maml:para>
+				<maml:para>
+Represents text as a series of Unicode characters.</maml:para>
 			</maml:description>
 		</command:inputType>
 	</command:inputTypes>
@@ -344,8 +342,7 @@ It represents a session and provides methods for manipulating remote files over 
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-Provides methods for creating, manipulating, searching, and sorting arrays, thereby serving as the base class for all arrays in the common language runtime.</maml:para>
+				<maml:para>Provides methods for creating, manipulating, searching, and sorting arrays, thereby serving as the base class for all arrays in the common language runtime.</maml:para>
 			</maml:description>
 		</command:returnValue>
 	</command:returnValues>
@@ -560,8 +557,7 @@ FileType             LastWriteTime     Length Name
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
+				<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 			</maml:description>
 		</command:inputType>
 		<command:inputType>
@@ -571,7 +567,8 @@ It represents a session and provides methods for manipulating remote files over 
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>Represents text as a series of Unicode characters.</maml:para>
+				<maml:para>
+Represents text as a series of Unicode characters.</maml:para>
 			</maml:description>
 		</command:inputType>
 	</command:inputTypes>
@@ -583,8 +580,7 @@ It represents a session and provides methods for manipulating remote files over 
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-Represents data about remote file.</maml:para>
+				<maml:para>Represents data about remote file.</maml:para>
 			</maml:description>
 		</command:returnValue>
 	</command:returnValues>
@@ -790,8 +786,7 @@ D             1/1/2015 12:00:00 AM          0 /rdir/rSubDir</dev:code>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
+				<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 			</maml:description>
 		</command:inputType>
 		<command:inputType>
@@ -801,7 +796,8 @@ It represents a session and provides methods for manipulating remote files over 
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>Represents text as a series of Unicode characters.</maml:para>
+				<maml:para>
+Represents text as a series of Unicode characters.</maml:para>
 			</maml:description>
 		</command:inputType>
 	</command:inputTypes>
@@ -813,8 +809,7 @@ It represents a session and provides methods for manipulating remote files over 
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-Provides methods for creating, manipulating, searching, and sorting arrays, thereby serving as the base class for all arrays in the common language runtime.</maml:para>
+				<maml:para>Provides methods for creating, manipulating, searching, and sorting arrays, thereby serving as the base class for all arrays in the common language runtime.</maml:para>
 			</maml:description>
 		</command:returnValue>
 	</command:returnValues>
@@ -967,8 +962,7 @@ Provides methods for creating, manipulating, searching, and sorting arrays, ther
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
+				<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 			</maml:description>
 		</command:inputType>
 		<command:inputType>
@@ -978,7 +972,8 @@ It represents a session and provides methods for manipulating remote files over 
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>Represents text as a series of Unicode characters.</maml:para>
+				<maml:para>
+Represents text as a series of Unicode characters.</maml:para>
 			</maml:description>
 		</command:inputType>
 	</command:inputTypes>
@@ -990,8 +985,7 @@ It represents a session and provides methods for manipulating remote files over 
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-Represents results of Session.ExecuteCommand.</maml:para>
+				<maml:para>Represents results of Session.ExecuteCommand.</maml:para>
 			</maml:description>
 		</command:returnValue>
 	</command:returnValues>
@@ -1203,8 +1197,7 @@ PS C:\&gt; Invoke-WinSCPCommand -WinSCPSession $session -Command (&quot;mysqldum
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
+				<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 			</maml:description>
 		</command:inputType>
 		<command:inputType>
@@ -1214,7 +1207,8 @@ It represents a session and provides methods for manipulating remote files over 
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>Represents text as a series of Unicode characters.</maml:para>
+				<maml:para>
+Represents text as a series of Unicode characters.</maml:para>
 			</maml:description>
 		</command:inputType>
 	</command:inputTypes>
@@ -1226,8 +1220,7 @@ It represents a session and provides methods for manipulating remote files over 
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-Specifies a return value type for a method that does not return a value.</maml:para>
+				<maml:para>Specifies a return value type for a method that does not return a value.</maml:para>
 			</maml:description>
 		</command:returnValue>
 	</command:returnValues>
@@ -1356,6 +1349,13 @@ D             1/1/2015 12:00:00 AM          0 rFile.txt</dev:code>
 				<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+				<maml:name>Force</maml:name>
+				<maml:description>
+					<maml:para>Will overwrite and existing item of the same name.</maml:para>
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+			</command:parameter>
+			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 				<maml:name>InformationAction</maml:name>
 				<maml:description>
 					<maml:para />
@@ -1368,6 +1368,20 @@ D             1/1/2015 12:00:00 AM          0 rFile.txt</dev:code>
 					<maml:para />
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+			</command:parameter>
+			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+				<maml:name>WhatIf</maml:name>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+			</command:parameter>
+			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+				<maml:name>Confirm</maml:name>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			</command:parameter>
 		</command:syntaxItem>
 	</command:syntax>
@@ -1433,6 +1447,18 @@ D             1/1/2015 12:00:00 AM          0 rFile.txt</dev:code>
 			<dev:defaultValue></dev:defaultValue>
 		</command:parameter>
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+			<maml:name>Force</maml:name>
+			<maml:description>
+				<maml:para>Will overwrite and existing item of the same name.</maml:para>
+			</maml:description>
+			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+			<dev:type>
+				<maml:name>SwitchParameter</maml:name>
+				<maml:uri/>
+			</dev:type>
+			<dev:defaultValue></dev:defaultValue>
+		</command:parameter>
+		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 			<maml:name>InformationAction</maml:name>
 			<maml:description>
 				<maml:para />
@@ -1456,6 +1482,30 @@ D             1/1/2015 12:00:00 AM          0 rFile.txt</dev:code>
 			</dev:type>
 			<dev:defaultValue></dev:defaultValue>
 		</command:parameter>
+		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+			<maml:name>WhatIf</maml:name>
+			<maml:description>
+				<maml:para />
+			</maml:description>
+			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+			<dev:type>
+				<maml:name>SwitchParameter</maml:name>
+				<maml:uri/>
+			</dev:type>
+			<dev:defaultValue></dev:defaultValue>
+		</command:parameter>
+		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+			<maml:name>Confirm</maml:name>
+			<maml:description>
+				<maml:para />
+			</maml:description>
+			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+			<dev:type>
+				<maml:name>SwitchParameter</maml:name>
+				<maml:uri/>
+			</dev:type>
+			<dev:defaultValue></dev:defaultValue>
+		</command:parameter>
 	</command:parameters>
 	<command:inputTypes>
 		<command:inputType>
@@ -1465,8 +1515,7 @@ D             1/1/2015 12:00:00 AM          0 rFile.txt</dev:code>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
+				<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 			</maml:description>
 		</command:inputType>
 		<command:inputType>
@@ -1476,7 +1525,8 @@ It represents a session and provides methods for manipulating remote files over 
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>Represents text as a series of Unicode characters.</maml:para>
+				<maml:para>
+Represents text as a series of Unicode characters.</maml:para>
 			</maml:description>
 		</command:inputType>
 	</command:inputTypes>
@@ -1488,8 +1538,7 @@ It represents a session and provides methods for manipulating remote files over 
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-Represents data about remote file.</maml:para>
+				<maml:para>Represents data about remote file.</maml:para>
 			</maml:description>
 		</command:returnValue>
 	</command:returnValues>
@@ -1707,6 +1756,20 @@ FileType             LastWriteTime     Length Name
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			</command:parameter>
+			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+				<maml:name>WhatIf</maml:name>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+			</command:parameter>
+			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+				<maml:name>Confirm</maml:name>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+			</command:parameter>
 		</command:syntaxItem>
 	</command:syntax>
 	<command:parameters>
@@ -1914,6 +1977,30 @@ FileType             LastWriteTime     Length Name
 			</dev:type>
 			<dev:defaultValue></dev:defaultValue>
 		</command:parameter>
+		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+			<maml:name>WhatIf</maml:name>
+			<maml:description>
+				<maml:para />
+			</maml:description>
+			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+			<dev:type>
+				<maml:name>SwitchParameter</maml:name>
+				<maml:uri/>
+			</dev:type>
+			<dev:defaultValue></dev:defaultValue>
+		</command:parameter>
+		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+			<maml:name>Confirm</maml:name>
+			<maml:description>
+				<maml:para />
+			</maml:description>
+			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+			<dev:type>
+				<maml:name>SwitchParameter</maml:name>
+				<maml:uri/>
+			</dev:type>
+			<dev:defaultValue></dev:defaultValue>
+		</command:parameter>
 	</command:parameters>
 	<command:inputTypes>
 		<command:inputType>
@@ -1936,8 +2023,7 @@ FileType             LastWriteTime     Length Name
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-Represents *nix-style remote file permissions.</maml:para>
+				<maml:para>Represents *nix-style remote file permissions.</maml:para>
 			</maml:description>
 		</command:returnValue>
 	</command:returnValues>
@@ -2208,6 +2294,20 @@ SetUid       : False</dev:code>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			</command:parameter>
+			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+				<maml:name>WhatIf</maml:name>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+			</command:parameter>
+			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+				<maml:name>Confirm</maml:name>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+			</command:parameter>
 		</command:syntaxItem>
 	</command:syntax>
 	<command:parameters>
@@ -2475,6 +2575,30 @@ SetUid       : False</dev:code>
 			</dev:type>
 			<dev:defaultValue></dev:defaultValue>
 		</command:parameter>
+		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+			<maml:name>WhatIf</maml:name>
+			<maml:description>
+				<maml:para />
+			</maml:description>
+			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+			<dev:type>
+				<maml:name>SwitchParameter</maml:name>
+				<maml:uri/>
+			</dev:type>
+			<dev:defaultValue></dev:defaultValue>
+		</command:parameter>
+		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+			<maml:name>Confirm</maml:name>
+			<maml:description>
+				<maml:para />
+			</maml:description>
+			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+			<dev:type>
+				<maml:name>SwitchParameter</maml:name>
+				<maml:uri/>
+			</dev:type>
+			<dev:defaultValue></dev:defaultValue>
+		</command:parameter>
 	</command:parameters>
 	<command:inputTypes>
 		<command:inputType>
@@ -2484,8 +2608,7 @@ SetUid       : False</dev:code>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-Represents a set of security credentials, such as a user name and a password.</maml:para>
+				<maml:para>Represents a set of security credentials, such as a user name and a password.</maml:para>
 			</maml:description>
 		</command:inputType>
 		<command:inputType>
@@ -2495,7 +2618,8 @@ Represents a set of security credentials, such as a user name and a password.</m
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>Represents text as a series of Unicode characters.</maml:para>
+				<maml:para>
+Represents text as a series of Unicode characters.</maml:para>
 			</maml:description>
 		</command:inputType>
 	</command:inputTypes>
@@ -2507,8 +2631,7 @@ Represents a set of security credentials, such as a user name and a password.</m
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
+				<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 			</maml:description>
 		</command:returnValue>
 	</command:returnValues>
@@ -2654,6 +2777,20 @@ UnderlyingSystemType          : WinSCP.Session</dev:code>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 			</command:parameter>
+			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+				<maml:name>WhatIf</maml:name>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+			</command:parameter>
+			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+				<maml:name>Confirm</maml:name>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+			</command:parameter>
 		</command:syntaxItem>
 	</command:syntax>
 	<command:parameters>
@@ -2765,6 +2902,30 @@ UnderlyingSystemType          : WinSCP.Session</dev:code>
 			</dev:type>
 			<dev:defaultValue></dev:defaultValue>
 		</command:parameter>
+		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+			<maml:name>WhatIf</maml:name>
+			<maml:description>
+				<maml:para />
+			</maml:description>
+			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+			<dev:type>
+				<maml:name>SwitchParameter</maml:name>
+				<maml:uri/>
+			</dev:type>
+			<dev:defaultValue></dev:defaultValue>
+		</command:parameter>
+		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+			<maml:name>Confirm</maml:name>
+			<maml:description>
+				<maml:para />
+			</maml:description>
+			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+			<dev:type>
+				<maml:name>SwitchParameter</maml:name>
+				<maml:uri/>
+			</dev:type>
+			<dev:defaultValue></dev:defaultValue>
+		</command:parameter>
 	</command:parameters>
 	<command:inputTypes>
 		<command:inputType>
@@ -2787,8 +2948,7 @@ UnderlyingSystemType          : WinSCP.Session</dev:code>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-Defines options for file transfers.</maml:para>
+				<maml:para>Defines options for file transfers.</maml:para>
 			</maml:description>
 		</command:returnValue>
 	</command:returnValues>
@@ -3032,8 +3192,7 @@ SpeedLimit        : 0</dev:code>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
+				<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 			</maml:description>
 		</command:inputType>
 		<command:inputType>
@@ -3043,7 +3202,8 @@ It represents a session and provides methods for manipulating remote files over 
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>Represents text as a series of Unicode characters.</maml:para>
+				<maml:para>
+Represents text as a series of Unicode characters.</maml:para>
 			</maml:description>
 		</command:inputType>
 	</command:inputTypes>
@@ -3055,8 +3215,7 @@ It represents a session and provides methods for manipulating remote files over 
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-Represents results of transfer operation.</maml:para>
+				<maml:para>Represents results of transfer operation.</maml:para>
 			</maml:description>
 		</command:returnValue>
 	</command:returnValues>
@@ -3281,8 +3440,7 @@ Transfers         Failures IsSuccess
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
+				<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 			</maml:description>
 		</command:inputType>
 		<command:inputType>
@@ -3292,7 +3450,8 @@ It represents a session and provides methods for manipulating remote files over 
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>Represents text as a series of Unicode characters.</maml:para>
+				<maml:para>
+Represents text as a series of Unicode characters.</maml:para>
 			</maml:description>
 		</command:inputType>
 	</command:inputTypes>
@@ -3304,8 +3463,7 @@ It represents a session and provides methods for manipulating remote files over 
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-Specifies a return value type for a method that does not return a value.</maml:para>
+				<maml:para>Specifies a return value type for a method that does not return a value.</maml:para>
 			</maml:description>
 		</command:returnValue>
 	</command:returnValues>
@@ -3461,8 +3619,7 @@ PS C:\&gt; Remove-WinSCPItem -WinSCPSession $session -Path &quot;/rDir/rFile.txt
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
+				<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 			</maml:description>
 		</command:inputType>
 	</command:inputTypes>
@@ -3474,8 +3631,7 @@ It represents a session and provides methods for manipulating remote files over 
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-Specifies a return value type for a method that does not return a value.</maml:para>
+				<maml:para>Specifies a return value type for a method that does not return a value.</maml:para>
 			</maml:description>
 		</command:returnValue>
 	</command:returnValues>
@@ -3687,8 +3843,7 @@ PS C:\&gt; Remove-WinSCPSession -WinSCPSession $session</dev:code>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
+				<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 			</maml:description>
 		</command:inputType>
 	</command:inputTypes>
@@ -3700,8 +3855,7 @@ It represents a session and provides methods for manipulating remote files over 
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-Specifies a return value type for a method that does not return a value.</maml:para>
+				<maml:para>Specifies a return value type for a method that does not return a value.</maml:para>
 			</maml:description>
 		</command:returnValue>
 		<command:returnValue>
@@ -3950,8 +4104,7 @@ D             1/1/2015 12:00:00 AM          0 /rNewFile.txt</dev:code>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
+				<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 			</maml:description>
 		</command:inputType>
 		<command:inputType>
@@ -3961,7 +4114,8 @@ It represents a session and provides methods for manipulating remote files over 
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>Represents text as a series of Unicode characters.</maml:para>
+				<maml:para>
+Represents text as a series of Unicode characters.</maml:para>
 			</maml:description>
 		</command:inputType>
 	</command:inputTypes>
@@ -3973,8 +4127,7 @@ It represents a session and provides methods for manipulating remote files over 
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-Represents results of transfer operation.</maml:para>
+				<maml:para>Represents results of transfer operation.</maml:para>
 			</maml:description>
 		</command:returnValue>
 	</command:returnValues>
@@ -4069,9 +4222,48 @@ Transfers           Failures IsSuccess
 	<command:syntax>
 		<command:syntaxItem>
 			<maml:name>Start-WinSCPConsole</maml:name>
+			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+				<maml:name>InformationAction</maml:name>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+				<command:parameterValue required="true" variableLength="false">ActionPreference</command:parameterValue>
+			</command:parameter>
+			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+				<maml:name>InformationVariable</maml:name>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+				<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+			</command:parameter>
 		</command:syntaxItem>
 	</command:syntax>
-	<command:parameters>	</command:parameters>
+	<command:parameters>
+		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+			<maml:name>InformationAction</maml:name>
+			<maml:description>
+				<maml:para />
+			</maml:description>
+			<command:parameterValue required="true" variableLength="false">ActionPreference</command:parameterValue>
+			<dev:type>
+				<maml:name>ActionPreference</maml:name>
+				<maml:uri/>
+			</dev:type>
+			<dev:defaultValue></dev:defaultValue>
+		</command:parameter>
+		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+			<maml:name>InformationVariable</maml:name>
+			<maml:description>
+				<maml:para />
+			</maml:description>
+			<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+			<dev:type>
+				<maml:name>String</maml:name>
+				<maml:uri/>
+			</dev:type>
+			<dev:defaultValue></dev:defaultValue>
+		</command:parameter>
+	</command:parameters>
 	<command:inputTypes>
 		<command:inputType>
 			<dev:type>
@@ -4080,8 +4272,7 @@ Transfers           Failures IsSuccess
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-Specifies a return value type for a method that does not return a value.</maml:para>
+				<maml:para>Specifies a return value type for a method that does not return a value.</maml:para>
 			</maml:description>
 		</command:inputType>
 	</command:inputTypes>
@@ -4093,8 +4284,7 @@ Specifies a return value type for a method that does not return a value.</maml:p
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-Specifies a return value type for a method that does not return a value.</maml:para>
+				<maml:para>Specifies a return value type for a method that does not return a value.</maml:para>
 			</maml:description>
 		</command:returnValue>
 	</command:returnValues>
@@ -4357,8 +4547,7 @@ Specifies a return value type for a method that does not return a value.</maml:p
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
+				<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 			</maml:description>
 		</command:inputType>
 	</command:inputTypes>
@@ -4370,8 +4559,7 @@ It represents a session and provides methods for manipulating remote files over 
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-Represents results of synchronization.</maml:para>
+				<maml:para>Represents results of synchronization.</maml:para>
 			</maml:description>
 		</command:returnValue>
 	</command:returnValues>
@@ -4558,8 +4746,7 @@ IsSuccess : True</dev:code>
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
+				<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 			</maml:description>
 		</command:inputType>
 		<command:inputType>
@@ -4569,7 +4756,8 @@ It represents a session and provides methods for manipulating remote files over 
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>Represents text as a series of Unicode characters.</maml:para>
+				<maml:para>
+Represents text as a series of Unicode characters.</maml:para>
 			</maml:description>
 		</command:inputType>
 	</command:inputTypes>
@@ -4581,8 +4769,7 @@ It represents a session and provides methods for manipulating remote files over 
 				<maml:description/>
 			</dev:type>
 			<maml:description>
-				<maml:para>
-Represents a Boolean (true or false) value.</maml:para>
+				<maml:para>Represents a Boolean (true or false) value.</maml:para>
 			</maml:description>
 		</command:returnValue>
 	</command:returnValues>

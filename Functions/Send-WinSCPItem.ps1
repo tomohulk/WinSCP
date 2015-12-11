@@ -1,4 +1,7 @@
 ﻿Function Send-WinSCPItem {
+    [CmdletBinding(
+        HelpUri = 'https://github.com/dotps1/WinSCP/wiki/Send-WinSCPItem'
+    )]
     [OutputType(
         [WinSCP.TransferOperationResult]
     )]

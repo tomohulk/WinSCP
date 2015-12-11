@@ -1,4 +1,8 @@
 ﻿Function New-WinSCPItem {
+    [CmdletBinding(
+        SupportsShouldProcess = $true,
+        HelpUri = 'https://github.com/dotps1/WinSCP/wiki/New-WinSCPItem'
+    )]
     [OutputType(
         [WinSCP.RemoteFileInfo]
     )]
@@ -36,7 +40,11 @@
 
         [Parameter()]
         [String]
-        $Value = $null
+        $Value = $null,
+
+        [Parameter()]
+        [Switch]
+        $Force
     )
 
     Begin {
@@ -44,27 +52,36 @@
     }
 
     Process {
-        foreach($item in (Format-WinSCPPathString -Path $($Path))) {
-            if (-not ($PSBoundParameters.ContainsKey('Name'))) {
-                $Name = Split-Path -Path $item -Leaf
-                $item = Format-WinSCPPathString -Path (Split-Path -Path $item -Parent)
+        foreach ($item in (Format-WinSCPPathString -Path $($Path))) {
+            if ($PSBoundParameters.ContainsKey('Name')) {
+                $item = Format-WinSCPPathString -Path $(Join-Path -Path $item -ChildPath $Name)
             }
+
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path (Split-Path -Path $item -Parent))) {
+                Write-Error -Message "Could not find a part of the path '$item'"
+
+                continue
+            }
+
+            if ((Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $item) -and -not $Force.IsPresent) {
+                Write-Error -Message "An item with the spcified name '$item' already exists."
+
+                continue
+            } 
 
             try {
                 $newItemParams = @{
                     Path = $env:TEMP
-                    Name = $Name
+                    Name = (Split-Path -Path $item -Leaf)
                     ItemType = $ItemType
                     Value = $Value
                     Force = $true
                 }
 
-                $resutls = $WinSCPSession.PutFiles((New-Item @newItemParams).FullName, $item, $true)
+                if ($PSCmdlet.ShouldProcess($item)) {
+                    $WinSCPSession.PutFiles((New-Item @newItemParams).FullName, $item, $true)
 
-                if ($resutls.Transfers) {
-                    Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $resutls.Transfers.Destination
-                } else {
-                    Get-WinSCPItem -WinSCPSession $WinSCPSession -Path (Format-WinSCPPathString -Path (Join-Path -Path $item -ChildPath $Name))
+                    Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $item
                 }
             } catch {
                 Write-Error -Message $_.ToString()

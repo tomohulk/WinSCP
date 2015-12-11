@@ -1,4 +1,8 @@
-﻿Function New-WinSCPTransferOption {    
+﻿Function New-WinSCPTransferOption {
+    [CmdletBinding(
+        SupportsShouldProcess = $true,
+        HelpUri = 'https://github.com/dotps1/WinSCP/wiki/New-WinSCPTransferOption'
+    )]
     [OutputType(
         [WinSCP.TransferOptions]
     )]
@@ -36,15 +40,17 @@
     Begin {
         $transferOptions = New-Object -TypeName WinSCP.TransferOptions
 
-        foreach ($key in $PSBoundParameters.Keys) {
-            try {
-                if ($key -eq 'State' -or $key -eq 'Threshold') {
-                    $transferOptions.ResumeSupport.$($key) = $PSBoundParameters.$($key)
-                } else {
-                    $transferOptions.$($key) = $PSBoundParameters.$($key)
+        if ($PSCmdlet.ShouldProcess($transferOptions)) {
+            foreach ($key in $PSBoundParameters.Keys) {
+                try {
+                    if ($key -eq 'State' -or $key -eq 'Threshold') {
+                        $transferOptions.ResumeSupport.$($key) = $PSBoundParameters.$($key)
+                    } else {
+                        $transferOptions.$($key) = $PSBoundParameters.$($key)
+                    }
+                } catch {
+                    Write-Error -Message $_.ToString()
                 }
-            } catch {
-                Write-Error -Message $_.ToString()
             }
         }
     }

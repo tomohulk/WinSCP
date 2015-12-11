@@ -1,4 +1,7 @@
-﻿Function Remove-WinSCPSession {    
+﻿Function Remove-WinSCPSession {
+    [CmdletBinding(
+        HelpUri = 'https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPSession'
+    )]
     [OutputType([
         Void]
     )]

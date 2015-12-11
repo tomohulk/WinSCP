@@ -1,4 +1,7 @@
 ﻿Function Move-WinSCPItem {
+    [CmdletBinding(
+        HelpUri = 'https://github.com/dotps1/WinSCP/wiki/Move-WinSCPItem'
+    )]
     [OutputType(
         [Void]
     )]

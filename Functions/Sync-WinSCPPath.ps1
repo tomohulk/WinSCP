@@ -1,4 +1,7 @@
 ﻿Function Sync-WinSCPPath {
+    [CmdletBinding(
+        HelpUri = 'https://github.com/dotps1/WinSCP/wiki/Sync-WinSCPPath'
+    )]
     [OutputType(
         [WinSCP.SynchronizationResult]
     )]

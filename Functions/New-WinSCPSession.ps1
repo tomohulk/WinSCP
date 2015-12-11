@@ -1,4 +1,8 @@
 ﻿Function New-WinSCPSession {
+    [CmdletBinding(
+        SupportsShouldProcess = $true,
+        HelpUri = 'https://github.com/dotps1/WinSCP/wiki/New-WinSCPSession'
+    )]
     [OutputType(
         [WinSCP.Session]
     )]
@@ -164,21 +168,23 @@
 		return $null
     }
 
-	try {
-	    # Open the WinSCP.Session object using the WinSCP.SessionOptions object.
-        $session.Open($sessionOptions)
+    if ($PSCmdlet.ShouldProcess($session)) {
+	    try {
+	        # Open the WinSCP.Session object using the WinSCP.SessionOptions object.
+            $session.Open($sessionOptions)
 
-        # Set the default -WinSCPSession Parameter Value for other cmdlets.
-        Get-Command -Module WinSCP -ParameterName WinSCPSession | ForEach-Object {
-            $Global:PSDefaultParameterValues.Remove("$($_.Name):WinSCPSession")
-            $Global:PSDefaultParameterValues.Add("$($_.Name):WinSCPSession", $session)
-        }
+            # Set the default -WinSCPSession Parameter Value for other cmdlets.
+            Get-Command -Module WinSCP -ParameterName WinSCPSession | ForEach-Object {
+                $Global:PSDefaultParameterValues.Remove("$($_.Name):WinSCPSession")
+                $Global:PSDefaultParameterValues.Add("$($_.Name):WinSCPSession", $session)
+            }
 
-        # Return the WinSCP.Session object.
-        return $session
-	} catch {
-	    Write-Error -Message $_.ToString()
-        $session.Dispose()
-		return $null
-	}
+            # Return the WinSCP.Session object.
+            return $session
+	    } catch {
+	        Write-Error -Message $_.ToString()
+            $session.Dispose()
+		    return $null
+	    }
+    }
 }

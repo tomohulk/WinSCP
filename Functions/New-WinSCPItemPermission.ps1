@@ -1,4 +1,8 @@
 Function New-WinSCPItemPermission {
+    [CmdletBinding(
+        SupportsShouldProcess = $true,
+        HelpUri = 'https://github.com/dotps1/WinSCP/wiki/New-WinSCPItemPermission'
+    )]
     [OutputType(
         [WinSCP.FilePermissions]
     )]
@@ -68,11 +72,13 @@ Function New-WinSCPItemPermission {
     Begin {
         $filePermmisions = New-Object -TypeName WinSCP.FilePermissions
 
-        foreach ($key in $PSBoundParameters.Keys) {
-            try {
-                $filePermmisions.$($key) = $PSBoundParameters.$($key)
-            } catch {
-                Write-Error -Message $_.ToString()
+        if ($PSCmdlet.ShouldProcess($filePermmisions)) {
+            foreach ($key in $PSBoundParameters.Keys) {
+                try {
+                    $filePermmisions.$($key) = $PSBoundParameters.$($key)
+                } catch {
+                    Write-Error -Message $_.ToString()
+                }
             }
         }
     }

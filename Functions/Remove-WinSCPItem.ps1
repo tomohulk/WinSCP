@@ -1,7 +1,8 @@
 ﻿Function Remove-WinSCPItem {    
     [CmdletBinding(
         SupportsShouldProcess = $true,
-        ConfirmImpact = 'High'
+        ConfirmImpact = 'High',
+        HelpUri = 'https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPItem'
     )]
     [OutputType(
         [Void]
