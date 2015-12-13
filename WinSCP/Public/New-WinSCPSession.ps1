@@ -125,7 +125,9 @@
 
     # Create WinSCP.Session and WinSCP.SessionOptions Objects, parameter values will be assigned to matching object properties.
     $sessionOptions = New-Object -TypeName WinSCP.SessionOptions
-    $session = New-Object -TypeName WinSCP.Session
+    $session = New-Object -TypeName WinSCP.Session -Property @{
+        ExecutablePath = "$PSScriptRoot\..\bin\winscp.exe"
+    }
 
     # Convert PSCredential Object to match names of the WinSCP.SessionOptions Object.
     $PSBoundParameters.Add('UserName', $Credential.UserName)

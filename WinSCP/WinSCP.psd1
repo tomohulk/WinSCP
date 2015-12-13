@@ -52,7 +52,7 @@ DotNetFrameworkVersion = '4.5'
 
 # Assemblies that must be loaded prior to importing this module
 RequiredAssemblies = @(
-    'NeededAssemblies\WinSCPNet.dll'
+    'lib\WinSCPNet.dll'
 )
 
 # Script files (.ps1) that are run in the caller's environment prior to importing this module.
@@ -106,37 +106,34 @@ FormatsToProcess = @(
 
 # List of all files packaged with this module
 FileList = @(
-    'LICENSE.md',
-    'README.md',
     'WinSCP.format.ps1xml',
     'WinSCP.psd1',
     'WinSCP.psm1',
+    'bin\WinSCP.exe',
     'en-US\about_WinSCP.help.txt',
+    'en-US\license-dotnet.txt',
+    'en-US\license-winscp.txt',
+    'en-US\license-winscp-powershell.txt',
     'en-US\WinSCP-Help.xml'
-    'Functions\_Helper.Format-WinSCPPathString.ps1',
-    'Functions\ConvertTo-WinSCPEscapedString.ps1',
-    'Functions\Get-WinSCPChildItem.ps1',
-    'Functions\Get-WinSCPFileChecksum.ps1',
-    'Functions\Invoke-WinSCPCommand.ps1',
-    'Functions\Move-WinSCPItem.ps1',
-    'Functions\New-WinSCPItemPermission.ps1'
-    'Functions\New-WinSCPItem.ps1',
-    'Functions\New-WinSCPTransferOption.ps1',
-    'Functions\New-WinSCPSession.ps1',
-    'Functions\Receive-WinSCPItem.ps1',
-    'Functions\Remove-WinSCPItem.ps1',
-    'Functions\Remove-WinSCPSession.ps1',
-    'Functions\Rename-WinSCPItem.ps1',
-    'Functions\Send-WinSCPItem.ps1',
-    'Functions\Start-WinSCPConsole.ps1',
-    'Functions\Sync-WinSCPDirectory.ps1',
-    'Functions\Test-WinSCPPath.ps1',
-    'NeededAssemblies\license.txt',
-    'NeededAssemblies\license-dotnet.txt',
-    'NeededAssemblies\readme.txt',
-    'NeededAssemblies\readme_automation.txt',
-    'NeededAssemblies\WinSCP.exe',
-    'NeededAssemblies\WinSCPnet.dll'
+    'lib\WinSCPnet.dll'
+    'Public\ConvertTo-WinSCPEscapedString.ps1',
+    'Public\Get-WinSCPChildItem.ps1',
+    'Public\Get-WinSCPFileChecksum.ps1',
+    'Public\Invoke-WinSCPCommand.ps1',
+    'Public\Move-WinSCPItem.ps1',
+    'Public\New-WinSCPItemPermission.ps1'
+    'Public\New-WinSCPItem.ps1',
+    'Public\New-WinSCPTransferOption.ps1',
+    'Public\New-WinSCPSession.ps1',
+    'Public\Receive-WinSCPItem.ps1',
+    'Public\Remove-WinSCPItem.ps1',
+    'Public\Remove-WinSCPSession.ps1',
+    'Public\Rename-WinSCPItem.ps1',
+    'Public\Send-WinSCPItem.ps1',
+    'Public\Start-WinSCPConsole.ps1',
+    'Public\Sync-WinSCPDirectory.ps1',
+    'Public\Test-WinSCPPath.ps1',
+    'Private\Format-WinSCPPathString.ps1'
 )
 
 # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.

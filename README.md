@@ -58,7 +58,6 @@ New-WinSCPSession -Credential (Get-Credential) -HostName $env:COMPUTERNAME -Prot
 ```
 
 This is still a very beta version, with most of the functionality available with WinSCP, I intend on developing this extensively.  
-I have included the WinSCPnet.dll in the _NeededAssemblies_ folder.
 
 Check back regularly for updates.
 
