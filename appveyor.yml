@@ -1,10 +1,10 @@
-version: 5.7.6.{build}
 os: Unstable
+skip_commits:
+  message: /updated readme.*/
 install:
-- cmd: >-
-    cinst filezilla.server -y
-
-    powershell.exe -command "& { Install-Module -Name PSScriptAnalyzer -Force -Confirm:$false; Install-Module -Name Pester -Force -Confirm:$false }
+  - cmd: cinst filezilla.server -y
+  - ps: Install-Module -Name PSScriptAnalyzer -Force -Confirm:$false
+  - ps: Install-Module -Name Pester -Force -Confirm:$false
 build: off
 test_script:
 - ps: . .\Tests\appveyor.pester.ps1
