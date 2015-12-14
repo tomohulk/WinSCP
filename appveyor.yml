@@ -1,0 +1,17 @@
+# version: 5.7.6.{build}
+os: Unstable
+
+# Skip on updates to the readme.
+# We can force this by adding [skip ci] or [ci skip] anywhere in commit message 
+skip_commits
+	message: /updated readme.*/
+	
+install:
+- cmd: >-
+	cinst filezilla.server -y
+	powershell.exe -command "& { Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -Confirm:$false | Out-Null; Install-Module -Name PSScriptAnalyzer -Force -Confirm:$false; Install-Module -Name Pester -Force -Confirm:$false }
+	
+build: false
+
+test_script:
+- ps: . .\Tests\appveyor.pester.ps1
