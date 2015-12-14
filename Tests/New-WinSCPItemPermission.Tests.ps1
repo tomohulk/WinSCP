@@ -1,8 +1,5 @@
 #requires -Modules Pester,PSScriptAnalyzer
 
-Set-Location -Path "$env:USERPROFILE\Documents\GitHub\WinSCP"
-Import-Module -Name .\WinSCP\WinSCP.psd1 -Force
-
 Get-Process | Where-Object { $_.Name -eq 'WinSCP' } | Stop-Process -Force
 
 Describe 'New-WinSCPItemPermission' {

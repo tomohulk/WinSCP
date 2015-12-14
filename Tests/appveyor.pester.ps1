@@ -5,6 +5,8 @@ $timestamp = Get-Date -uformat "%Y%m%d-%H%M%S"
 $psVersion = $PSVersionTable.PSVersion.Major
 $results = "Results_PS${psVersion}_${timestamp}.xml"
 
+Import-Module -Name .\WinSCP\WinSCP.psd1 -Force
+
 Invoke-Pester -Path '.\Tests' -OutputFormat NUnitXml -OutputFile ".\$results"
 
 (New-Object -TypeName System.Net.WebClient).UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", ".\$results")

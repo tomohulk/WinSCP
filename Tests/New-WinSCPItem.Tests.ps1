@@ -1,15 +1,11 @@
 #requires -Modules Pester,PSScriptAnalyzer
 
-Set-Location -Path "$env:USERPROFILE\Documents\GitHub\WinSCP"
-Import-Module -Name .\WinSCP\WinSCP.psd1 -Force
-
 Get-Process | Where-Object { $_.Name -eq 'WinSCP' } | Stop-Process -Force
 
-$ftp = "$pwd\Tests\Ftp"
-New-Item -Path "$ftp"-ItemType Directory -Force | Out-Null
+$ftp = "$env:SystemDrive\temp\ftproot"
 
 Describe 'New-WinSCPItem' {
-    $credential = (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString))
+    $credential = (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList 'filezilla', (ConvertTo-SecureString -AsPlainText 'filezilla' -Force))
 
     Context "New-WinSCPSession -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp | New-WinSCPItem -Name 'TestFolder' -ItemType Directory" {
         $results = New-WinSCPSession -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp | New-WinSCPItem -Name 'TestFolder' -ItemType Directory
