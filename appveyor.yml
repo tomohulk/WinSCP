@@ -4,7 +4,7 @@ install:
 - cmd: >-
     cinst filezilla.server -y
 
-    powershell.exe -command "& { Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -Confirm:$false | Out-Null; Install-Module -Name PSScriptAnalyzer -Force -Confirm:$false; Install-Module -Name Pester -Force -Confirm:$false }
+    powershell.exe -command "& { Install-Module -Name PSScriptAnalyzer -Force -Confirm:$false; Install-Module -Name Pester -Force -Confirm:$false }
 build: off
 test_script:
 - ps: . .\Tests\appveyor.pester.ps1
