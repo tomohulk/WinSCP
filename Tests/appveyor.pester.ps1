@@ -9,7 +9,7 @@ try {
     Import-Module -Name PSScriptAnalyzer -Force -ErrorAction Stop
     Import-Module -Name .\WinSCP\WinSCP.psd1 -Force -ErrorAction Stop
 
-    Invoke-Pester -Path '.\Tests' -OutputFormat NUnitXml -OutputFile ".\Tests" -PassThru -ErrorAction Stop | 
+    Invoke-Pester -Path '.\Tests' -OutputFormat NUnitXml -OutputFile "$pwd\Tests" -PassThru -ErrorAction Stop | 
         Export-Clixml -Path .\$resultsFile
 
     (New-Object -TypeName System.Net.WebClient).UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", ".\$resultsFile")

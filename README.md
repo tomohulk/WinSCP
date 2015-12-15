@@ -1,5 +1,7 @@
 # WinSCP PowerShell Module Wrapper
 
+[![Build status](https://ci.appveyor.com/api/projects/status/r5mek4vvjfcswdtg?svg=true)](https://ci.appveyor.com/project/dotps1/winscp)
+
 ## Use at your own risk.
 
 This module can be installed from the [PowerShellGet Gallery](https://www.powershellgallery.com/packages/WinSCP/),  You need [WMF 5](https://www.microsoft.com/en-us/download/details.aspx?id=44987) to use this feature.
