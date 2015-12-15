@@ -22,15 +22,17 @@
       <h1>
 <a id="winscp-powershell-module-wrapper" class="anchor" href="#winscp-powershell-module-wrapper" aria-hidden="true"><span class="octicon octicon-link"></span></a>WinSCP PowerShell Module Wrapper</h1>
 
+<p><a href="https://ci.appveyor.com/project/dotps1/winscp"><img src="https://ci.appveyor.com/api/projects/status/r5mek4vvjfcswdtg?svg=true" alt="Build status"></a></p>
+
 <h2>
 <a id="use-at-your-own-risk" class="anchor" href="#use-at-your-own-risk" aria-hidden="true"><span class="octicon octicon-link"></span></a>Use at your own risk.</h2>
 
 <p>This module can be installed from the <a href="https://www.powershellgallery.com/packages/WinSCP/">PowerShellGet Gallery</a>,  You need <a href="https://www.microsoft.com/en-us/download/details.aspx?id=44987">WMF 5</a> to use this feature.</p>
 
-<div class="highlight highlight-PowerShell"><pre><span class="pl-c"># To install WinSCP, run the following command in the PowerShell prompt in Administrator mode:</span>
+<div class="highlight highlight-source-powershell"><pre><span class="pl-c"># To install WinSCP, run the following command in the PowerShell prompt in Administrator mode:</span>
 <span class="pl-c1">Install-Module</span> <span class="pl-k">-</span>Name WinSCP</pre></div>
 
-<p>I will no longer be supporting Chocolatey or PSGet for module repos; mainly because i feel the PowerShellGallery is working very well, and Chocolatey takes months to approve packages.  I apologize for any trouble this causes.</p>
+<p>I will no longer be supporting Chocolatey or PSGet for module repos; mainly because I feel the PowerShellGallery is working very well, and Chocolatey takes months to approve packages.  I apologize for any trouble this causes.</p>
 
 <h2>
 <a id="winscp-cmdlets" class="anchor" href="#winscp-cmdlets" aria-hidden="true"><span class="octicon octicon-link"></span></a>WinSCP Cmdlets</h2>
@@ -61,7 +63,7 @@
 
 <p>Example 1:</p>
 
-<div class="highlight highlight-PowerShell"><pre><span class="pl-c"># Capture credentials.</span>
+<div class="highlight highlight-source-powershell"><pre><span class="pl-c"># Capture credentials.</span>
 <span class="pl-k">$</span><span class="pl-smi">credential</span> <span class="pl-k">=</span> <span class="pl-c1">Get-Credential</span>
 <span class="pl-c"># Create new WinSCP session using captured credentials.</span>
 <span class="pl-k">$</span><span class="pl-smi">session</span> <span class="pl-k">=</span> <span class="pl-c1">New-WinSCPSession</span> <span class="pl-k">-</span>Credential <span class="pl-k">$</span><span class="pl-smi">credential</span> <span class="pl-k">-</span>HostName <span class="pl-k">$</span><span class="pl-c1">env:</span><span class="pl-smi">COMPUTERNAME</span> <span class="pl-k">-</span>Protocol Ftp
@@ -74,13 +76,12 @@
 
 <p>Example 2:</p>
 
-<div class="highlight highlight-PowerShell"><pre><span class="pl-c"># Create session, download a file, and close the session in one line.</span>
+<div class="highlight highlight-source-powershell"><pre><span class="pl-c"># Create session, download a file, and close the session in one line.</span>
 <span class="pl-c"># If the WinSCP.Session Object is passed through the pipeline it will be auto-closed upon the completion of that command.</span>
 <span class="pl-c"># To avoid this behavior, set the WinSCP.Session object value to variable to be reused.</span>
 <span class="pl-c1">New-WinSCPSession</span> <span class="pl-k">-</span>Credential <span class="pl-k">(</span><span class="pl-c1">Get-Credential</span><span class="pl-k">)</span> <span class="pl-k">-</span>HostName <span class="pl-k">$</span><span class="pl-c1">env:</span><span class="pl-smi">COMPUTERNAME</span> <span class="pl-k">-</span>Protocol Ftp <span class="pl-k">|</span> <span class="pl-c1">Receive-WinSCPItem</span> <span class="pl-k">-</span>Path <span class="pl-s">'./file.txt'</span> <span class="pl-k">-</span>Destination <span class="pl-s">'C:\folder\'</span></pre></div>
 
-<p>This is still a very beta version, with most of the functionality available with WinSCP, I intend on developing this extensively.<br>
-I have included the WinSCPnet.dll in the <em>NeededAssemblies</em> folder.</p>
+<p>This is still a very beta version, with most of the functionality available with WinSCP, I intend on developing this extensively.  </p>
 
 <p>Check back regularly for updates.</p>
 
