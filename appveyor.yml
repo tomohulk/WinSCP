@@ -3,8 +3,10 @@ skip_commits:
   message: /updated readme.*/
 install:
   - cmd: cinst filezilla.server -y
-  - cmd: cinst pester -y
-  - ps: Install-Module -Name PSScriptAnalyzer -Confirm:$false -Force
+  
+  - ps: Import-Module -Name PowerShellGet -Force
+  - ps: PowerShellGet\Install-Module -Name Pester -Confirm:$false -Force
+  - ps: PowerShellGet\Install-Module -Name PSScriptAnalyzer -Confirm:$false -Force
 build: off
 test_script:
   - ps: . .\Tests\appveyor.pester.ps1
