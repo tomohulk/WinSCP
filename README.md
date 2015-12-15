@@ -1,6 +1,6 @@
 # WinSCP PowerShell Module Wrapper
 
-[![Build status](https://ci.appveyor.com/api/projects/status/r5mek4vvjfcswdtg?svg=true)](https://ci.appveyor.com/project/dotps1/winscp)
+[![Build status](https://ci.appveyor.com/api/projects/status/dgoq6w2xsfh52m6h?svg=true)](https://ci.appveyor.com/project/dotps1/winscp)
 
 ## Use at your own risk.
 
