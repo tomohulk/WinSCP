@@ -19,5 +19,3 @@ Describe 'ConvertTo-WinSCPEscapedString' {
         }
     }
 }
-
-Remove-Module -Name WinSCP -Force

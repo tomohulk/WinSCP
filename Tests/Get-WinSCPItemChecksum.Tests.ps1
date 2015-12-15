@@ -11,5 +11,3 @@ Describe 'Get-WinSCPItemChecksum' {
         }
     }
 }
-
-Remove-Module -Name WinSCP -Force

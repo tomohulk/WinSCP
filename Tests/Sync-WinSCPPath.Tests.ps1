@@ -11,5 +11,3 @@ Describe 'Sync-WinSCPPath' {
         }
     }
 }
-
-Remove-Module -Name WinSCP -Force

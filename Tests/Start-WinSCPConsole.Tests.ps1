@@ -11,5 +11,3 @@ Describe 'Start-WinSCPConsole' {
         }
     }
 }
-
-Remove-Module -Name WinSCP -Force

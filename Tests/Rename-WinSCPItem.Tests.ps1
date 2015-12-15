@@ -11,5 +11,3 @@ Describe 'Rename-WinSCPItem' {
         }
     }
 }
-
-Remove-Module -Name WinSCP -Force

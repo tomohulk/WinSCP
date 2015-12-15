@@ -11,5 +11,3 @@ Describe 'Invoke-WinSCPCommand' {
         }
     }
 }
-
-Remove-Module -Name WinSCP -Force

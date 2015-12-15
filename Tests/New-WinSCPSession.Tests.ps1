@@ -61,5 +61,3 @@ Describe 'New-WinSCPSession' {
         }
     }
 }
-
-Remove-Module -Name WinSCP -Force

@@ -11,5 +11,3 @@ Describe 'New-WinSCPTransferOption' {
         }
     }
 }
-
-Remove-Module -Name WinSCP -Force

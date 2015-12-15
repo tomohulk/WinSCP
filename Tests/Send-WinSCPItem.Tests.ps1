@@ -44,4 +44,3 @@ Describe 'Send-WinSCPItem' {
 
 Remove-Item -Path $ftp -Recurse -Force -Confirm:$false
 Remove-Item -Path $local -Recurse -Force -Confirm:$false
-Remove-Module -Name WinSCP -Force

@@ -11,5 +11,3 @@ Describe 'New-WinSCPItemPermission' {
         }
     }
 }
-
-Remove-Module -Name WinSCP -Force

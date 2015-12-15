@@ -11,5 +11,3 @@ Describe 'Remove-WinSCPSession' {
         }
     }
 }
-
-Remove-Module -Name WinSCP -Force

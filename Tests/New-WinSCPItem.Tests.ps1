@@ -144,4 +144,3 @@ Describe 'New-WinSCPItem' {
 }
 
 Remove-Item -Path $ftp -Recurse -Force -Confirm:$false
-Remove-Module -Name WinSCP -Force

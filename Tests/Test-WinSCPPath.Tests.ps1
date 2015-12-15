@@ -11,5 +11,3 @@ Describe 'Test-WinSCPPath' {
         }
     }
 }
-
-Remove-Module -Name WinSCP -Force
