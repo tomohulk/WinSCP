@@ -9,12 +9,12 @@ try {
     Import-Module -Name PSScriptAnalyzer -Force -ErrorAction Stop
     Import-Module -Name .\WinSCP\WinSCP.psd1 -Force -ErrorAction Stop
 
-    Invoke-Pester -Path '.\Tests' -OutputFormat NUnitXml -OutputFile "$pwd\Tests" -PassThru -ErrorAction Stop | 
-        Export-Clixml -Path .\$resultsFile
+    Invoke-Pester -Path '.\Tests' -OutputFormat NUnitXml -OutputFile ".\$resultsFile" -PassThru -ErrorAction Stop | 
+        Export-Clixml -Path ".\Pester$resultsFile"
 
     (New-Object -TypeName System.Net.WebClient).UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", ".\$resultsFile")
     
-    if ((Import-Clixml -Path .\$resultsFile -ErrorAction Stop | Select-Object -ExpandProperty FailedCount | Measure-Object -Sum | Select-Object -ExpandProperty Sum) -gt 0) {
+    if ((Import-Clixml -Path ".\Pester$resultsFile" -ErrorAction Stop | Select-Object -ExpandProperty FailedCount | Measure-Object -Sum | Select-Object -ExpandProperty Sum) -gt 0) {
         throw "Build failed."
     }
 } catch {
