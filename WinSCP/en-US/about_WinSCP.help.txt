@@ -5,7 +5,8 @@ Short Description
 	PowerShell Module Wrapper for use with the WinSCP.exe and WinSCPnet.dll.
 	
 Long Description
-	The  developers of the WinSCP have exposed most if not all available methods and properties of the program to .net and COM, this is a set of PowerShell Cmdlets to sit on top of that assembly to allow for easy automation and a native PowerShell 'Feel' of WinSCP with PowerShell.
+	The developers of the WinSCP have exposed most if not all available methods and properties of the program to .net and COM, 
+	this is a set of PowerShell Cmdlets to sit on top of that assembly to allow for easy automation and a native PowerShell 'feel' of WinSCP with PowerShell.
 	
 Examples
 	# Create a PSCredenital Object to authenticate with.

@@ -6,11 +6,12 @@
 
 This module can be installed from the [PowerShellGet Gallery](https://www.powershellgallery.com/packages/WinSCP/),  You need [WMF 5](https://www.microsoft.com/en-us/download/details.aspx?id=44987) to use this feature.
 ```PowerShell
-# To install WinSCP, run the following command in the PowerShell prompt in Administrator mode:
+# Inspect
+Save-Module -Name WinSCP -Path <Path>
+
+# Install
 Install-Module -Name WinSCP
 ```
-
-I will no longer be supporting Chocolatey or PSGet for module repos; mainly because I feel the PowerShellGallery is working very well, and Chocolatey takes months to approve packages.  I apologize for any trouble this causes.
 
 ## WinSCP Cmdlets
 
@@ -41,27 +42,32 @@ Example 1:
 ```PowerShell
 # Capture credentials.
 $credential = Get-Credential
+
 # Create new WinSCP session using captured credentials.
-$session = New-WinSCPSession -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp
+# New-WinSCPSession sets the PSDefaultParameterValue of the WinSCPSession parameter for all other cmdlets to this WinSCP.Session object.
+# You can set it to a variable if you would like, but it is only necassary if you will have more then one session open at a time.
+New-WinSCPSession -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp
+
 # Use that session to create a new Directory.
-New-WinSCPItem -WinSCPSession $session -Path './remoteDirectory' -ItemType Directory
+New-WinSCPItem -Path './remoteDirectory' -ItemType Directory
+
 # Upload a file to the directory.
-Send-WinSCPItem -WinSCPSession $session -Path 'C:\localDirectory\localFile.txt' -Destination '/remoteDirectory/'
+Send-WinSCPItem -Path 'C:\localDirectory\localFile.txt' -Destination '/remoteDirectory/'
+
 # Close the session object.
-Remove-WinSCPSession -WinSCPSession $session
+Remove-WinSCPSession
 ```
 
 Example 2:
 ```PowerShell
 # Create session, download a file, and close the session in one line.
 # If the WinSCP.Session Object is passed through the pipeline it will be auto-closed upon the completion of that command.
-# To avoid this behavior, set the WinSCP.Session object value to variable to be reused.
 New-WinSCPSession -Credential (Get-Credential) -HostName $env:COMPUTERNAME -Protocol Ftp | Receive-WinSCPItem -Path './file.txt' -Destination 'C:\folder\'
 ```
 
-This is still a very beta version, with most of the functionality available with WinSCP, I intend on developing this extensively.  
+This is still a beta version, with most of the functionality available with WinSCP, I intend on developing this extensively.  
 
 Check back regularly for updates.
 
 
-this project is licensed with GNU GENERAL PUBLIC LICENSE.
+This project is licensed with GNU GENERAL PUBLIC LICENSE.
