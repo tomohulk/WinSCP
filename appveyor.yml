@@ -1,4 +1,8 @@
+# http://www.appveyor.com/docs/appveyor-yml
+
 os: Unstable
+# Skip on updates to the readme.
+# We can force this by adding [skip ci] or [ci skip] anywhere in commit message.
 skip_commits:
   message: /updated readme.*/
 install:
