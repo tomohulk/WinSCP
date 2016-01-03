@@ -24,12 +24,20 @@
         [Parameter(
             ValueFromPipelineByPropertyName = $true
         )]
-        [String[]]
+        [String]
         $Path = '/',
 
         [Parameter()]
         [String]
         $Filter = '*',
+
+        [Parameter()]
+        [String[]]
+        $Include = $null,
+
+        [Parameter()]
+        [String[]]
+        $Exclude = $null,
 
         [Parameter()]
         [Switch]
@@ -41,30 +49,29 @@
     }
 
     Process {
-        foreach ($item in (Format-WinSCPPathString -Path $($Path))) {
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $item)) {
-                Write-Error -Message "Cannot find path: $item because it does not exist."
+        $Path = Format-WinSCPPathString -Path $($Path)
+        if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $Path)) {
+            Write-Error -Message "Cannot find path: $item because it does not exist."
 
-                continue
+            continue
+        }
+
+        try {
+            $items = foreach ($file in ($WinSCPSession.ListDirectory($Path).Files | Where-Object { $_.Name -ne '..' })) {
+                $WinSCPSession.GetFileInfo((Format-WinSCPPathString -Path (Join-Path -Path $Path -ChildPath $file)))
             }
 
-            try {
-                $items = foreach ($file in ($WinSCPSession.ListDirectory($item).Files | Where-Object { $_.Name -ne '..' })) {
-                    $WinSCPSession.GetFileInfo((Format-WinSCPPathString -Path (Join-Path -Path $item -ChildPath $file)))
-                }
-
-                $items | Where-Object { 
-                    $_.Name -like $Filter 
-                }
-
-                if ($Recurse.IsPresent) {
-                    foreach ($directory in ($items | Where-Object { $_.IsDirectory }).Name) {
-                        Get-WinSCPChildItem -WinSCPSession $WinSCPSession -Path (Format-WinSCPPathString -Path (Join-Path -Path $item -ChildPath $directory)) -Recurse -Filter $Filter
-                    }
-                }
-            } catch {
-                Write-Error -Message $_.ToString()
+            $items | Where-Object { 
+                $_.Name -like $Filter
             }
+
+            if ($Recurse.IsPresent) {
+                foreach ($directory in ($items | Where-Object { $_.IsDirectory }).Name) {
+                    Get-WinSCPChildItem -WinSCPSession $WinSCPSession -Path (Format-WinSCPPathString -Path (Join-Path -Path $Path -ChildPath $directory)) -Recurse -Filter $Filter
+                }
+            }
+        } catch {
+            Write-Error -Message $_.ToString()
         }
     }
 

@@ -10,7 +10,7 @@
             <GroupBy>
 				<Label>Directory</Label>
 				<ScriptBlock>
-					$_.Name.SubString(0, $_.Name.LastIndexOf('/') + 1)
+                    (Split-Path -Path $_.FullName -Parent).Replace('\','/')
 				</ScriptBlock>
             </GroupBy>
             <TableControl>
@@ -49,7 +49,7 @@
                             </TableColumnItem>
                             <TableColumnItem>
 								<ScriptBlock>
-									$_.Name.SubString($_.Name.LastIndexOf('/') + 1)
+									$_.Name
 								</ScriptBlock>
                             </TableColumnItem>
                         </TableColumnItems>
