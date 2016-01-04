@@ -61,5 +61,62 @@
                 </TableRowEntries>
             </TableControl>
         </View>
+		<View>
+		<Name>DefaultView</Name>
+            <ViewSelectedBy>
+                <TypeName>WinSCP.TransferOperationResult</TypeName>
+            </ViewSelectedBy>
+			<GroupBy>
+				<Label>Destination</Label>
+				<ScriptBlock>
+					if ($_.Transfers.Destination.StartsWith('/')) {
+						".$((Split-Path -Path $_.Transfers.Destination -Parent).Replace('\','/'))"
+					} else {
+						Split-Path -Path $_.Transfers.Destination -Parent
+					}
+				</ScriptBlock>
+            </GroupBy>
+            <TableControl>
+                <TableHeaders>
+                   <TableColumnHeader>
+                      <Label>IsSuccess</Label>
+                      <Width>9</Width>
+                      <Alignment>left</Alignment>
+                   </TableColumnHeader>
+				   <TableColumnHeader>
+                        <Label>Removal</Label>
+                        <Width>10</Width>
+                        <Alignment>right</Alignment>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>FileName</Label>
+                    </TableColumnHeader>
+                </TableHeaders>
+                <TableRowEntries>
+                    <TableRowEntry>
+                        <Wrap/>
+                        <TableColumnItems>
+                            <TableColumnItem>
+                                <PropertyName>IsSuccess</PropertyName>
+                            </TableColumnItem>
+							<TableColumnItem>
+                                <ScriptBlock>
+									if ($_.Transfers.Removal) {
+										$true -as [String]
+									} else {
+										$false -as [String]
+									}
+								</ScriptBlock>
+                            </TableColumnItem>
+                            <TableColumnItem>
+								<ScriptBlock>
+									Split-Path -Path $_.Transfers.FileName -Leaf
+								</ScriptBlock>
+                            </TableColumnItem>
+                        </TableColumnItems>
+                    </TableRowEntry>
+                </TableRowEntries>
+            </TableControl>
+		</View>
     </ViewDefinitions>
 </Configuration>

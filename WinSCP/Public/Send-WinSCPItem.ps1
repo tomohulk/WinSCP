@@ -53,6 +53,12 @@
                 continue
             }
 
+            if (-not ($Destination.EndsWith('/'))) {
+                if ((Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $Destination).IsDirectory) {
+                    $Destination += '/'
+                }
+            }
+
             try {
                 $WinSCPSession.PutFiles($item, (Format-WinSCPPathString -Path $($Destination)), $Remove.IsPresent, $TransferOptions)
             } catch {
