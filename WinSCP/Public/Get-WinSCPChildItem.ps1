@@ -29,7 +29,7 @@
 
         [Parameter()]
         [String]
-        $Filter = '*',
+        $Filter = $null,
 
         [Parameter()]
         [Switch]
@@ -50,19 +50,15 @@
             }
 
             try {
-                $items = $WinSCPSession.EnumerateRemoteFiles(
-                    $item, $null, ([WinSCP.EnumerationOptions]::None -bor [WinSCP.EnumerationOptions]::MatchDirectories)
-                )
-
-                $items | Where-Object {
-                    $_.Name -like $Filter
-                } | Sort-Object -Property IsDirectory -Descending:$false | Sort-Object -Property Name
-
                 if ($Recurse.IsPresent) {
-                    foreach ($container in ($items | Where-Object { $_.IsDirectory })) {
-                        Get-WinSCPChildItem -WinSCPSession $WinSCPSession -Path $container.FullName -Filter $Filter -Recurse 
-                    }
+                    $enumerationOptions = ([WinSCP.EnumerationOptions]::AllDirectories -bor [WinSCP.EnumerationOptions]::MatchDirectories)
+                } else {
+                    $enumerationOptions = ([WinSCP.EnumerationOptions]::None -bor [WinSCP.EnumerationOptions]::MatchDirectories)
                 }
+
+                $WinSCPSession.EnumerateRemoteFiles(
+                    $item, $Filter, $enumerationOptions
+                ) | Sort-Object -Property IsDirectory -Descending:$false | Sort-Object -Property @{ Expression = { Split-Path $_.FullName } }, Name
             } catch {
                 Write-Error -Message $_.ToString()
             }
