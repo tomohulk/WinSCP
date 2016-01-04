@@ -10,7 +10,11 @@
             <GroupBy>
 				<Label>Directory</Label>
 				<ScriptBlock>
-                    ".$((Split-Path -Path $_.FullName -Parent).Replace('\','/'))"
+                    if ($_.FullName -eq '/') {
+                        './'
+                    } else {
+                        ".$((Split-Path -Path $_.FullName -Parent).Replace('\','/'))"
+                    }
 				</ScriptBlock>
             </GroupBy>
             <TableControl>

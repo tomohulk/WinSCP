@@ -158,7 +158,7 @@ PrivateData = @{
         IconUri = 'http://winscp.net/eng/images/og_logo_240x240.jpg'
 
         # ReleaseNotes of this module
-        ReleaseNotes = 'Update WinSCP Core to 5.8.  Impliment new EnumerateRemoteFiles method in Get-WinSCPChildItem cmdlet.'
+        ReleaseNotes = 'Update WinSCP Core to 5.8.  Implimented new EnumerateRemoteFiles method in Get-WinSCPChildItem cmdlet which has a major performance boost when using -Recurse.  Added -Directory and -File parameters to Get-WinSCPChildItem.  Added OverwriteMode Parameter to New-WinSCPTranferOption cmdlet.'
 
     } # End of PSData hashtable
 

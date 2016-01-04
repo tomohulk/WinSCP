@@ -33,8 +33,15 @@
 
         [Parameter()]
         [Switch]
-        $Recurse
+        $Recurse,
 
+        [Parameter()]
+        [Switch]
+        $Directory,
+
+        [Parameter()]
+        [Switch]
+        $File
     )
 
     Begin {
@@ -56,9 +63,21 @@
                     $enumerationOptions = ([WinSCP.EnumerationOptions]::None -bor [WinSCP.EnumerationOptions]::MatchDirectories)
                 }
 
-                $WinSCPSession.EnumerateRemoteFiles(
+                $items = $WinSCPSession.EnumerateRemoteFiles(
                     $item, $Filter, $enumerationOptions
                 ) | Sort-Object -Property IsDirectory -Descending:$false | Sort-Object -Property @{ Expression = { Split-Path $_.FullName } }, Name
+
+                if ($Directory.IsPresent -and -not $File.IsPresent) {
+                    $items | Where-Object {
+                        $_.IsDirectory -eq $true
+                    }
+                } elseif ($File.IsPresent -and -not $Directory.IsPresent) {
+                    $items | Where-Object {
+                        $_.IsDirectory -eq $false
+                    }
+                } else {
+                    $items
+                }
             } catch {
                 Write-Error -Message $_.ToString()
             }

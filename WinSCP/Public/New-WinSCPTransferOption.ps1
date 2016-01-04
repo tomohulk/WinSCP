@@ -17,6 +17,10 @@
         $FilePermissions = $null,
 
         [Parameter()]
+        [WinSCP.OverwriteMode]
+        $OverwriteMode = (New-Object -TypeName WinSCP.OverwriteMode),
+
+        [Parameter()]
         [Bool]
         $PreserveTimestamp = $true,
 
