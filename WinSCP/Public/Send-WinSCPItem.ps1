@@ -54,7 +54,7 @@
             }
 
             if (-not ($Destination.EndsWith('/'))) {
-                if ((Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $Destination).IsDirectory) {
+                if ((Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $Destination -ErrorAction SilentlyContinue).IsDirectory) {
                     $Destination += '/'
                 }
             }
