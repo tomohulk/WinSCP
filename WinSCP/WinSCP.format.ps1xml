@@ -10,14 +10,14 @@
             <GroupBy>
 				<Label>Directory</Label>
 				<ScriptBlock>
-                    (Split-Path -Path $_.FullName -Parent).Replace('\','/')
+                    ".$((Split-Path -Path $_.FullName -Parent).Replace('\','/'))"
 				</ScriptBlock>
             </GroupBy>
             <TableControl>
                 <TableHeaders>
                    <TableColumnHeader>
-                      <Label>FileType</Label>
-                      <Width>8</Width>
+                      <Label>Mode</Label>
+                      <Width>9</Width>
                       <Alignment>left</Alignment>
                    </TableColumnHeader>
                     <TableColumnHeader>
@@ -39,7 +39,7 @@
                         <Wrap/>
                         <TableColumnItems>
                             <TableColumnItem>
-                                <PropertyName>FileType</PropertyName>
+                                <PropertyName>FilePermissions</PropertyName>
                             </TableColumnItem>
                             <TableColumnItem>
 								<PropertyName>LastWriteTime</PropertyName>
