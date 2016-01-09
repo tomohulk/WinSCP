@@ -41,6 +41,10 @@
 
         [Parameter()]
         [Switch]
+        $Name,
+
+        [Parameter()]
+        [Switch]
         $Directory,
 
         [Parameter()]
@@ -82,16 +86,20 @@
                 }
 
                 if ($Directory.IsPresent -and -not $File.IsPresent) {
-                    $items | Where-Object {
+                    $items = $items | Where-Object {
                         $_.IsDirectory -eq $true
                     }
                 } elseif ($File.IsPresent -and -not $Directory.IsPresent) {
-                    $items | Where-Object {
+                    $items = $items | Where-Object {
                         $_.IsDirectory -eq $false
                     }
-                } else {
-                    $items
                 }
+
+                if ($Name.IsPresent) {
+                    $items = $items | Select-Object -ExpandProperty Name
+                }
+
+                $items
             } catch {
                 Write-Error -Message $_.ToString()
             }
