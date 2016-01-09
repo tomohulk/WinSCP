@@ -36,6 +36,10 @@
         $Recurse,
 
         [Parameter()]
+        [Int]
+        $Depth = $null,
+
+        [Parameter()]
         [Switch]
         $Directory,
 
@@ -56,6 +60,10 @@
                 continue
             }
 
+            if ($PSBoundParameters.ContainsKey('Depth') -and -not $Recurse.IsPresent) {
+                $Recurse = $true
+            }
+
             try {
                 if ($Recurse.IsPresent) {
                     $enumerationOptions = ([WinSCP.EnumerationOptions]::AllDirectories -bor [WinSCP.EnumerationOptions]::MatchDirectories)
@@ -66,6 +74,12 @@
                 $items = $WinSCPSession.EnumerateRemoteFiles(
                     $item, $Filter, $enumerationOptions
                 ) | Sort-Object -Property IsDirectory -Descending:$false | Sort-Object -Property @{ Expression = { Split-Path $_.FullName } }, Name
+
+                if ($PSBoundParameters.ContainsKey('Depth')) {
+                    $items = $items | Where-Object {
+                        ($_.FullName.SubString(0, $_.FullName.LastIndexOf([System.IO.Path]::AltDirectorySeparatorChar)).Split([System.IO.Path]::AltDirectorySeparatorChar).Count - 1) -le $Depth
+                    }
+                }
 
                 if ($Directory.IsPresent -and -not $File.IsPresent) {
                     $items | Where-Object {

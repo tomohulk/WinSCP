@@ -160,10 +160,11 @@ PrivateData = @{
         # ReleaseNotes of this module
         ReleaseNotes = 'Update WinSCP Core to 5.8.  ' + 
             'Implimented new EnumerateRemoteFiles method in Get-WinSCPChildItem cmdlet which has a major performance boost when using -Recurse.  ' + 
-            'Added -Directory and -File parameters to Get-WinSCPChildItem.  Added OverwriteMode Parameter to New-WinSCPTranferOption cmdlet.  ' +
+            'Added -Directory and -File parameters to Get-WinSCPChildItem.  ' +
+            'Added -Depth parameter to Get-WinSCPChildItem.  ' +
+            'Added OverwriteMode Parameter to New-WinSCPTranferOption cmdlet.  ' +
             'Added format output to WinSCP.TransferOperationResults.  ' +
             'Fixed trailing backslash issue with Send-WinSCPItem.'
-
     } # End of PSData hashtable
 
 } # End of PrivateData hashtable
