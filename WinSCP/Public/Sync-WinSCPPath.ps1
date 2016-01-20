@@ -21,9 +21,11 @@
         [WinSCP.Session]
         $WinSCPSession,
 
-        [Parameter()]
+        [Parameter(
+            Mandatory = $true
+        )]
         [WinSCP.SynchronizationMode]
-        $Mode = (New-Object -TypeName WinSCP.SyncronizationMode),
+        $Mode,
 
         [Parameter()]
         [String]
@@ -62,22 +64,22 @@
             continue
         }
 
-        if (-not (Test-Path -Path $LocalPath)) {
-            Write-Error -Message "Cannot find path: $LocalPath because it does not exist."
+        try {
+            $localPathInfo = Get-Item -Path $LocalPath -ErrorAction Stop
 
-            continue
-        } else {
-            $LocalPath = Get-Item -Path $LocalPath
-
-            if (-not ($LocalPath.PSIsContainer)){
-                Write-Error -Message "$LocalPath must be a directory."
+            if (-not ($localPathInfo.PSIsContainer)){
+                Write-Error -Message "$($localPathInfo.FullName) must be a directory."
 
                 continue
             }
+        } catch {
+            Write-Error -Message "Cannot find path: $LocalPath because it does not exist."
+
+            continue
         }
 
         try {
-            $WinSCPSession.SynchronizeDirectories($Mode, $LocalPath.FullName, $RemotePath, $Remove.IsPresent, $Mirror.IsPresent, $Criteria, $TransferOptions)
+            $WinSCPSession.SynchronizeDirectories($Mode, $localPathInfo.FullName, $RemotePath, $Remove.IsPresent, $Mirror.IsPresent, $Criteria, $TransferOptions)
         } catch {
             Write-Error -Message $_.ToString()
         }

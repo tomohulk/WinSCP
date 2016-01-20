@@ -12,7 +12,7 @@
 RootModule = 'WinSCP'
 
 # Version number of this module.
-ModuleVersion = '5.7.6.2'
+ModuleVersion = '5.7.6.3'
 
 # ID used to uniquely identify this module
 GUID = '06e0af4e-779b-48f4-939f-c90b8ec950e6'
@@ -158,7 +158,7 @@ PrivateData = @{
         IconUri = 'http://winscp.net/eng/images/og_logo_240x240.jpg'
 
         # ReleaseNotes of this module
-        ReleaseNotes = 'Bug Fix Issue #33, New-WinSCPItem fails when creating directories.  https://github.com/dotps1/WinSCP/issues/33'
+        ReleaseNotes = 'Bug Fix Issue #35, corrected -LocalPath always says not a directory even when it is.  https://github.com/dotps1/WinSCP/issues/35'
 
     } # End of PSData hashtable
 
