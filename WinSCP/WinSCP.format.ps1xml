@@ -61,8 +61,47 @@
                 </TableRowEntries>
             </TableControl>
         </View>
+        <View>
+            <Name>DefaultView</Name>
+            <ViewSelectedBy>
+                <TypeName>WinSCP.Session</TypeName>
+            </ViewSelectedBy>
+            <TableControl>
+                <TableHeaders>
+                   <TableColumnHeader>
+                      <Label>Opened</Label>
+                      <Width>9</Width>
+                      <Alignment>left</Alignment>
+                   </TableColumnHeader>
+				   <TableColumnHeader>
+                        <Label>Timeout</Label>
+                        <Width>10</Width>
+                        <Alignment>right</Alignment>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>HomePath</Label>
+                    </TableColumnHeader>
+                </TableHeaders>
+                <TableRowEntries>
+                    <TableRowEntry>
+                        <Wrap/>
+                        <TableColumnItems>
+                            <TableColumnItem>
+                                <PropertyName>Opened</PropertyName>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <PropertyName>Timeout</PropertyName>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <PropertyName>HomePath</PropertyName>
+                            </TableColumnItem>
+                        </TableColumnItems>
+                    </TableRowEntry>
+                </TableRowEntries>
+            </TableControl>
+        </View>
 		<View>
-		<Name>DefaultView</Name>
+		    <Name>DefaultView</Name>
             <ViewSelectedBy>
                 <TypeName>WinSCP.TransferOperationResult</TypeName>
             </ViewSelectedBy>

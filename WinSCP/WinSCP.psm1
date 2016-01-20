@@ -8,3 +8,6 @@ foreach ($path in $paths) {
 	    . $_.ProviderPath 
     }
 }
+
+New-Alias -Name 'Enter-WinSCPSession' -Value 'New-WinSCPSession'
+New-Alias -Name 'Exit-WinSCPSession' -Value 'Remove-WinSCPSession'

@@ -165,7 +165,10 @@ PrivateData = @{
             'Added -Name parameter to Get-WinSCPChildItem.  ' +
             'Added OverwriteMode Parameter to New-WinSCPTranferOption cmdlet.  ' +
             'Added format output to WinSCP.TransferOperationResults.  ' +
-            'Fixed trailing backslash issue with Send-WinSCPItem.'
+            'Added format output to WinSCP.Session.  ' +
+            'Fixed trailing backslash issue with Send-WinSCPItem.'  +
+            'Added alias Enter-WinSCPSession for New-WinSCPSession.  ' +
+            'Added alias Exit-WinSCPSession for Remove-WinSCPSession.'
     } # End of PSData hashtable
 
 } # End of PrivateData hashtable
