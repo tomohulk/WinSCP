@@ -4,10 +4,8 @@ os: Unstable
 skip_commits:
   message: /updated readme.*/
 install:
-  - cmd: cinst filezilla.server -y
-  - ps: Get-NetFirewallProfile | Set-NetFirewallProfile –Enabled False
-  - ps: Install-Module -Name Pester -Confirm:$false -Force -ErrorAction SilentlyContinue
-  - ps: Install-Module -Name PSScriptAnalyzer -Confirm:$false -Force -ErrorAction SilentlyContinue
+  - cmd: cinst filezilla.server -y  
+  - ps: Copy-Item -Path .\Tests\Requires\* -Destination $env:ProgramFiles\WindowsPowerShell\Modules -Force
 build: off
 test_script:
   - ps: . .\Tests\appveyor.pester.ps1
