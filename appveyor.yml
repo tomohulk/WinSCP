@@ -4,7 +4,8 @@ os: WMF 5
 skip_commits:
   message: /updated readme.*/
 install:
-  - cmd: cinst filezilla.server -y  
+  - cmd: cinst filezilla.server -y
+  - ps: Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Confirm:$false -Force -ErrorAction Stop
   - ps: Install-Module -Name Pester -Confirm:$false -Force -ErrorAction SilentlyContinue
   - ps: Install-Module -Name PSScriptAnalyzer -Confirm:$false -Force -ErrorAction SilentlyContinue
 build: off
