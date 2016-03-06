@@ -1,9 +1,10 @@
+#http://www.appveyor.com/docs/appveyor-yml
+version: 5.7.7.{build}
 os: Unstable
 skip_commits:
   message: /updated readme.*/
 install:
   - cmd: cinst filezilla.server -y
-
   - ps: Install-Module -Name Pester -Confirm:$false -Force -ErrorAction SilentlyContinue
   - ps: Install-Module -Name PSScriptAnalyzer -Confirm:$false -Force -ErrorAction SilentlyContinue
 build: off
