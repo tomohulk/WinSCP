@@ -44,7 +44,11 @@
 
         [Parameter()]
         [Switch]
-        $Force
+        $Force,
+
+        [Parameter()]
+        [WinSCP.TransferOptions]
+        $TransferOptions = (New-Object -TypeName WinSCP.TransferOptions)
     )
 
     Begin {
@@ -79,7 +83,7 @@
                 }
 
                 if ($PSCmdlet.ShouldProcess($item)) {
-                    $WinSCPSession.PutFiles((New-Item @newItemParams).FullName, $item, $true)
+                    $WinSCPSession.PutFiles((New-Item @newItemParams).FullName, $item, $true, $TransferOptions)
 
                     Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $item
                 }
