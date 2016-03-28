@@ -13,7 +13,8 @@ gems: [jekyll-paginate]
 #port: 3000
 safe: true
 
-# edit here to achieve your personal greatness
+# url for publishing http://dotps1.github.io/WinSCP
+# url for testing http://localhost:4000
 url: http://dotps1.github.io/WinSCP
 baseurl: ""
 title: WinSCP
