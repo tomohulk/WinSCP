@@ -11,7 +11,7 @@ Shows the contents of a remote directory.
 
 #### **Syntax**
 
-```PowerShell
+```powershell
 Get-WinSCPChildItem [-WinSCPSession] <Session> [[-Path] <String[]>] [[-Filter] <String>] [-Recurse] [<CommonParameters>]
 ```
 
@@ -99,7 +99,7 @@ If the WinSCPSession is piped into this command, the connection will be closed a
 
 #### **Example 1**
 
-```PowerShell
+```powershell
 PS C:\> New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Path '/rDir/'
 
    Directory: /rDir
@@ -112,7 +112,7 @@ D             1/1/2015 12:00:00 AM          0 rSubDir
 
 #### **Example 2**
 
-```PowerShell
+```powershell
 PS C:\> $credential = Get-Credential
 PS C:\> $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
 Get-WinSCPChildItem -WinSCPSession $session -Path '/rDir/' -Recurse

@@ -11,7 +11,7 @@ Defines information to allow an automatic connection and authentication of the s
 
 #### **Syntax**
 
-```PowerShell
+```powershell
 New-WinSCPSession [[-Credential] <PSCredential>] [[-FtpMode] <FtpMode>] [[-FtpSecure] <FtpSecure>] [-GiveUpSecurityAndAcceptAnySshHostKey] [-GiveUpSecureityAndAcceptAnyTlsHostCertificate] [-HostName] <String> [[-PortNumber] <Int32>] [[-Protocol] <Protocol>] [[-SshHostKeyFingerprint] <String[]>] [[-SshPrivateKeyPath] <String>] [[-SshPrivateKeySecurePassphrase] <SecureString>] [[-TlsHostCertificateFingerprint] <String>] [[-Timeout] <TimeSpan>] [-WebdavSecure] [[-WebdavRoot] <String>] [[-RawSetting] <Hashtable>] [[-DebugLogPath] <String>] [[-SessionLogPath] <String>] [[-ReconnectTime] <TimeSpan>] [[-FileTransferProgress] <ScriptBlock>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -265,7 +265,7 @@ This cmdlet supports the common parameters: Verbose, Debug, ErrorAction, ErrorVa
 
 [WinSCP.Session](http://winscp.net/eng/docs/library_session)
 
-* It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.
+* Represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.
 
 ---
 
@@ -277,7 +277,7 @@ This function is used to open a WinSCP Session to be used with most other cmdlet
 
 #### **Example 1**
 
-```PowerShell
+```powershell
 PS C:\> New-WinSCPSession -HostName $env:COMPUTERNAME -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -Protocol Ftp
 
 ExecutablePath                : 

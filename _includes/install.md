@@ -1,4 +1,4 @@
-```PowerShell
+```powershell
 # Inspect
 Save-Module -Name WinSCP -Path <Path>
 
