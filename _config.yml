@@ -14,8 +14,8 @@ gems: [jekyll-paginate]
 safe: true
 
 # edit here to achieve your personal greatness
-url: http://dotps1.github.io/
-baseurl: "WinSCP/"
+url: http://dotps1.github.io/WinSCP/
+baseurl: ""
 title: WinSCP
 author: Thomas Malkewitz
 description: WinSCP PowerShell Wrapper Module.
