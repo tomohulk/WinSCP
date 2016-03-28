@@ -13,9 +13,10 @@ gems: [jekyll-paginate]
 #port: 3000
 safe: true
 
-# url for publishing http://dotps1.github.io/WinSCP
-# url for testing http://localhost:4000
+# Prod
 url: http://dotps1.github.io/WinSCP
+# Dev
+#url: http://localhost:4000
 baseurl: ""
 title: WinSCP
 author: Thomas Malkewitz

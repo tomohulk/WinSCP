@@ -27,12 +27,12 @@ Displays the contents within a remote directory, including other directories and
 
 [WinSCPSession \<WinSCP.Session\>](http://winscp.net/eng/docs/library_session)
 
-A valid open WinSCP.Session, returned from [New-WinSCPSession]({{ site.url }}/New-WinSCPSession.html).
+A valid open WinSCP Session, returned from [New-WinSCPSession]({{ site.url }}/New-WinSCPSession.html).
 
 * Required: True
 * Position: 0
 * Default Value:
-* Accept Pipeline input: True (ByValue)
+* Accept Pipeline Input: True (ByValue)
 * Accept Wildcard Charcters: False
 
 [Path \<String\[\]\>](http://winscp.net/eng/docs/library_session_getfileinfo)
@@ -42,7 +42,7 @@ Specifies a path to one or more locations. Wildcards are permitted. The default 
 * Required: False
 * Position: 1
 * Default Value:
-* Accept Pipeline input: True (ByPropertyName)
+* Accept Pipeline Input: True (ByPropertyName)
 * Accept Wildcard Charcters: False
 
 [Filter \<String\>](http://winscp.net/eng/docs/operation_mask)
@@ -52,7 +52,7 @@ Filter to be applied to returned objects.
 * Required: False
 * Position: 2
 * Default Value:
-* Accept Pipeline input: False
+* Accept Pipeline Input: False
 * Accept Wildcard Charcters: False
 
 [Recurse \<SwitchParameter\>](https://msdn.microsoft.com/en-us/library/system.management.automation.switchparameter(v=vs.85).aspx)
@@ -62,7 +62,7 @@ Return items from all subdirectories.
 * Required: False
 * Position: 3
 * Default Value:
-* Accept Pipeline input: False
+* Accept Pipeline Input: False
 * Accept Wildcard Charcters: False
 
 [CommonParameters \<CommonParameters\>](http://go.microsoft.com/fwlink/?LinkID=113216)
