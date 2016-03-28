@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "New-WinSCPSession"
+synopsis: "Defines information to allow an automatic connection and authentication of the session."
 ---
 
 #### **Synopsis**

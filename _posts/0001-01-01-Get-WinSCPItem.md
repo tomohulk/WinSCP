@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Get-WinSCPItem"
+synopsis: "Retrieves information about a File or Directory from an active WinSCP Session."
 ---
 
 #### **Synopsis**

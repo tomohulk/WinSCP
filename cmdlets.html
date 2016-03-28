@@ -10,13 +10,9 @@ title: WinSCP Cmdlets
         <hr />
         {% assign sorted_posts = site.posts | sort: 'title' %}
 		{% for post in sorted_posts %}
-			<div class="row">
-				 <div class="col-sm-8 col-md-8 col-lg-8">
-					 <h5 style="text-align: left">
-					 	<strong><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a></strong>
-					 </h5>
-				 </div>
-			</div>
+            <h5>
+                <i class="fa fa-cog"></i>&nbsp;&nbsp;<strong><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a></strong> - {{ post.synopsis }}
+            </h5>
 	    {% endfor %}
 	</div>
   </div>

@@ -1,11 +1,12 @@
 ---
 layout: post
 title: "Send-WinSCPItem"
+synopsis: "Send objects to an active WinSCP Session."
 ---
 
 #### **Synopsis**
 
-Send file(s) to an active WinSCP Session.
+Send objects to an active WinSCP Session.
 
 ---
 
@@ -19,7 +20,7 @@ Send-WinSCPItem [-WinSCPSession] <Session> [-Path] <String[]> [[-Destination] <S
 
 #### **Description**
 
-After creating a valid WinSCP Session, this function can be used to send file(s) or folders to the remote host.
+After creating a valid WinSCP Session, this function can be used to send files or folders to the remote host, as well as delete the source files after completion.
 
 ---
 
