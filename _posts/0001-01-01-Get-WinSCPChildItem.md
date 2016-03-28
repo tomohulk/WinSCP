@@ -43,7 +43,7 @@ Specifies a path to one or more locations. Wildcards are permitted. The default 
 * Position: 1
 * Default Value:
 * Accept Pipeline Input: True (ByPropertyName)
-* Accept Wildcard Charcters: False
+* Accept Wildcard Characters: False
 
 [Filter \<String\>](http://winscp.net/eng/docs/operation_mask)
 
@@ -53,17 +53,17 @@ Filter to be applied to returned objects.
 * Position: 2
 * Default Value:
 * Accept Pipeline Input: False
-* Accept Wildcard Charcters: False
+* Accept Wildcard Characters: False
 
 [Recurse \<SwitchParameter\>](https://msdn.microsoft.com/en-us/library/system.management.automation.switchparameter(v=vs.85).aspx)
 
-Return items from all subdirectories.
+Return items from all sub directories.
 
 * Required: False
 * Position: 3
 * Default Value:
 * Accept Pipeline Input: False
-* Accept Wildcard Charcters: False
+* Accept Wildcard Characters: False
 
 [CommonParameters \<CommonParameters\>](http://go.microsoft.com/fwlink/?LinkID=113216)
 

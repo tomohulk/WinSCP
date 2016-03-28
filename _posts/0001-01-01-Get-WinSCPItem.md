@@ -33,7 +33,7 @@ A valid open WinSCP Session, returned from [New-WinSCPSession]({{ site.url }}/Ne
 * Position: 0
 * Default Value:
 * Accept Pipeline Input: True (ByValue)
-* Accept Wildcard Charcters: False
+* Accept Wildcard Characters: False
 
 [Path \<String\[\]\>](http://winscp.net/eng/docs/library_session_getfileinfo)
 
@@ -43,7 +43,7 @@ Specifies a path to one or more locations. Wildcards are permitted. The default 
 * Position: 1
 * Default Value:
 * Accept Pipeline Input: True (ByPropertyName)
-* Accept Wildcard Charcters: False
+* Accept Wildcard Characters: True
 
 [Filter \<String\>](http://winscp.net/eng/docs/operation_mask)
 
@@ -53,7 +53,7 @@ Filter to be applied to returned objects.
 * Position: 2
 * Default Value:
 * Accept Pipeline Input: False
-* Accept Wildcard Charcters: False
+* Accept Wildcard Characters: True
 
 [CommonParameters \<CommonParameters\>](http://go.microsoft.com/fwlink/?LinkID=113216)
 

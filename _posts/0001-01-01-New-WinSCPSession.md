@@ -33,7 +33,7 @@ PSCredential object used for authentication.
 * Position: 0
 * Default Value:
 * Accept Pipeline input: True (ByValue)
-* Accept Wildcard Charcters: False
+* Accept Wildcard Characters: False
 
 
 [FtpMode \<WinSCP.FtpMode\>](http://winscp.net/eng/docs/ftp_modes)
@@ -44,7 +44,7 @@ Possible values are FtpMode.Passive (default) and FtpMode.Active.
 * Position: 1
 * Default Value: \[WinSCP.FtpMode\]::Passive
 * Accept Pipeline Input: False
-* Accept Wildcard Charcters: False
+* Accept Wildcard Characters: False
 
 
 [FtpSecure \<WinSCP.FtpSecure\>](http://winscp.net/eng/docs/ftps#methods)
@@ -88,7 +88,7 @@ Name of the host to connect to. Mandatory property.
 * Position: 3
 * Default Value:
 * Accept Pipeline Input: False
-* Accept Wildcard Input: False
+* Accept Wildcard Characters: False
 
 
 [PortNumber \<Int32\>](https://msdn.microsoft.com/en-us/library/system.int32(v=vs.110).aspx)
@@ -99,7 +99,7 @@ Port number to connect to. Keep default 0 to use the default port for the protoc
 * Position: 4
 * Default Value: 0
 * Accept Pipeline Input: False
-* Accept Wildcard Input: False
+* Accept Wildcard Characters: False
 
 
 [Protocol \<WinSCP.Protocol\>](http://winscp.net/eng/docs/library_sessionoptions)
@@ -110,7 +110,7 @@ Protocol to use for the session. Possible values are Protocol.Sftp (default), Pr
 * Position: 5
 * Default Value: \[WinSCP.Protocol\]::Sftp
 * Accept Pipeline Input: False
-* Accept Wildcard Input: False
+* Accept Wildcard Characters: False
  
  
 [SshHostKeyFingerprint \<String\[\]\>](http://winscp.net/eng/docs/ssh_verifying_the_host_key)
@@ -121,7 +121,7 @@ Fingerprint of SSH server host key (or several alternative fingerprints separate
 * Position: 6
 * Default Value:
 * Accept Pipeline Input: True (ByPropertyName)
-* Accept Wildcard Input: False
+* Accept Wildcard Characters: False
  
   
 [SshPrivateKeyPath \<String\>](http://winscp.net/eng/docs/public_key#private)
@@ -132,7 +132,7 @@ Full path to private key file.
 * Position: 7
 * Default Value:
 * Accept Pipeline Input: False
-* Accept Wildcard Input: False
+* Accept Wildcard Characters: False
  
  
 [SshPrivateKeySecurePassphrase \<SecureString\>](https://msdn.microsoft.com/en-us/library/system.security.securestring(v=vs.110).aspx)
@@ -143,7 +143,7 @@ Passphrase for encrypted private keys.
 * Position: 8
 * Default Value:
 * Accept Pipeline Input: False
-* Accept Wildcard Input: False
+* Accept Wildcard Characters: False
  
  
 [TlsHostCertificateFingerprint \<String\>](http://winscp.net/eng/docs/tls#certificate)
@@ -154,7 +154,7 @@ Fingerprint of FTPS/WebDAVS server TLS/SSL certificate to be automatically accep
 * Position: 9
 * Default Value:
 * Accept Pipeline Input: False
-* Accept Wildcard Input: False
+* Accept Wildcard Characters: False
  
  
 [Timeout \<TimeSpan\>](https://msdn.microsoft.com/en-us/library/system.timespan(v=vs.110).aspx)
@@ -165,7 +165,7 @@ Server response timeout. Defaults to 15 seconds.
 * Position: 10
 * Default Value: 15 Seconds
 * Accept Pipeline Input: False
-* Accept Wildcard Input: False
+* Accept Wildcard Characters: False
 
 
 [WebdavSecure \<SwitchParameter\>](http://winscp.net/eng/docs/library_sessionoptions)
@@ -176,7 +176,7 @@ Use WebDAVS (WebDAV over TLS/SSL), instead of WebDAV.
 * Position: Named
 * Default Value:
 * Accept Pipeline Input: False
-* Accept Wildcard Input: False
+* Accept Wildcard Characters: False
 
 
 [WebdavRoot \<String\>](http://winscp.net/eng/docs/library_sessionoptions)
@@ -187,7 +187,7 @@ WebDAV root path.
 * Position: 11
 * Default Value:
 * Accept Pipeline Input: False
-* Accept Wildcard Input: False
+* Accept Wildcard Characters: False
 
 
 [RawSetting \<HashTable\>](http://winscp.net/eng/docs/library_sessionoptions_addrawsettings)
@@ -198,7 +198,7 @@ A Hashtable of Settings and Values to add to the WinSCP.SessionOptions Object.
 * Position: 12
 * Default Value:
 * Accept Pipeline Input: False
-* Accept Wildcard Input: False
+* Accept Wildcard Characters: False
 
 
 [DebugLogPath \<String\>](http://winscp.net/eng/docs/library_session)
@@ -209,7 +209,7 @@ Path to store assembly debug log to. Default null means, no debug log file is cr
 * Position: 13
 * Default Value:
 * Accept Pipeline Input: False
-* Accept Wildcard Input: False
+* Accept Wildcard Characters: False
 
 
 [SessionLogPath \<String\>](http://winscp.net/eng/docs/library_session)
@@ -220,7 +220,7 @@ Path to store session log file to. Default null means, no session log file is cr
 * Position: 14
 * Default Value:
 * Accept Pipeline Input: False
-* Accept Wildcard Input: False
+* Accept Wildcard Characters: False
 
 [ReconnectTime \<TimeSpan\>](https://social.msdn.microsoft.com/Search/en-US?query=TimeSpan&pgArea=header&emptyWatermark=true&ac=4)
 
@@ -230,7 +230,7 @@ Sets time limit in seconds to try reconnecting broken sessions. Default is 120 s
 * Position: 15
 * Default Value: 120 Seconds
 * Accept Pipeline Input: False
-* Accept Wildcard Input: False
+* Accept Wildcard Characters: False
 
 [FileTransferProgress \<ScriptBlock\>](https://msdn.microsoft.com/en-us/library/system.management.automation.scriptblock(v=vs.85).aspx)
 
@@ -240,7 +240,7 @@ Adds the ability to run a script block for each file transfer.  Use this for pro
 * Position: 16
 * Default Value:
 * Accept Pipeline Input: False
-* Accept Wildcard Input: False
+* Accept Wildcard Characters: False
 
 [CommonParameters \<CommonParameters\>](http://go.microsoft.com/fwlink/?LinkID=113216)
 
