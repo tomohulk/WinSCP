@@ -14,9 +14,9 @@ gems: [jekyll-paginate]
 safe: true
 
 # Prod
-url: http://dotps1.github.io/WinSCP
+#url: http://dotps1.github.io/WinSCP
 # Dev
-#url: http://localhost:4000
+url: http://localhost:4000
 baseurl: ""
 title: WinSCP
 author: Thomas Malkewitz

@@ -6,7 +6,7 @@ synopsis: "Send objects to an active WinSCP Session."
 
 #### **Synopsis**
 
-Send objects to an active WinSCP Session.
+{{ page.synopsis }}
 
 ---
 

@@ -6,7 +6,7 @@ synopsis: "Shows the contents of a remote directory."
 
 #### **Synopsis**
 
-Shows the contents of a remote directory.
+{{ page.synopsis }}
 
 ---
 

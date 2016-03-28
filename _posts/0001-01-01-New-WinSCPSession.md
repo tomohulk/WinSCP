@@ -6,7 +6,7 @@ synopsis: "Defines information to allow an automatic connection and authenticati
 
 #### **Synopsis**
 
-Defines information to allow an automatic connection and authentication of the session.
+{{ page.synopsis }}
 
 ---
 

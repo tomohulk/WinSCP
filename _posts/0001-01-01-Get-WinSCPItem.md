@@ -6,7 +6,7 @@ synopsis: "Retrieves information about a File or Directory from an active WinSCP
 
 #### **Synopsis**
 
-Retrieves information about a File or Directory from an active WinSCP Session.
+{{ page.synopsis }}
 
 ---
 
