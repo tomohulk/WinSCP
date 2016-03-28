@@ -1,106 +1,16 @@
-<!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="UTF-8">
-    <title>WinSCP by dotps1</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-  </head>
-  <body>
-    <section class="page-header">
-      <h1 class="project-name">WinSCP</h1>
-      <h2 class="project-tagline">Use PowerShell for WinSCP Tasks!</h2>
-      <a href="https://github.com/dotps1/WinSCP" class="btn">View on GitHub</a>
-      <a href="https://github.com/dotps1/WinSCP/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/dotps1/WinSCP/tarball/master" class="btn">Download .tar.gz</a>
-    </section>
+---
+layout: page
+title: WinSCP
+---
 
-    <section class="main-content">
-      <h1>
-<a id="winscp-powershell-module-wrapper" class="anchor" href="#winscp-powershell-module-wrapper" aria-hidden="true"><span class="octicon octicon-link"></span></a>WinSCP PowerShell Module Wrapper</h1>
-
-<p><a href="https://ci.appveyor.com/project/dotps1/winscp"><img src="https://ci.appveyor.com/api/projects/status/dgoq6w2xsfh52m6h?svg=true" alt="Build status"></a></p>
-
-<h2>
-<a id="use-at-your-own-risk" class="anchor" href="#use-at-your-own-risk" aria-hidden="true"><span class="octicon octicon-link"></span></a>Use at your own risk.</h2>
-
-<p>This module can be installed from the <a href="https://www.powershellgallery.com/packages/WinSCP/">PowerShellGet Gallery</a>,  You need <a href="https://www.microsoft.com/en-us/download/details.aspx?id=44987">WMF 5</a> to use this feature.</p>
-
-<div class="highlight highlight-source-powershell"><pre><span class="pl-c"># Inspect</span>
-<span class="pl-c1">Save-Module</span> <span class="pl-k">-</span>Name WinSCP <span class="pl-k">-</span>Path <span class="pl-k">&lt;</span>Path<span class="pl-k">&gt;</span>
-
-<span class="pl-c"># Install</span>
-<span class="pl-c1">Install-Module</span> <span class="pl-k">-</span>Name WinSCP</pre></div>
-
-<h2>
-<a id="winscp-cmdlets" class="anchor" href="#winscp-cmdlets" aria-hidden="true"><span class="octicon octicon-link"></span></a>WinSCP Cmdlets</h2>
-
-<ul>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/ConvertTo-WinSCPEscapedString">ConvertTo-WinSCPEscapedString</a></li>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/Get-WinSCPChildItem">Get-WinSCPChildItem</a></li>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/Get-WinSCPItem">Get-WinSCPItem</a></li>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/Get-WinSCPFileChecksum">Get-WinSCPFileChecksum</a></li>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/Invoke-WinSCPCommand">Invoke-WinSCPCommand</a></li>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/Move-WinSCPItem">Move-WinSCPItem</a></li>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/New-WinSCPItem">New-WinSCPItem</a></li>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/New-WinSCPItemPermission">New-WinSCPItemPermission</a></li>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/New-WinSCPSession">New-WinSCPSession</a></li>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/New-WinSCPTransferOption">New-WinSCPTransferOption</a></li>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/Receive-WinSCPItem">Receive-WinSCPItem</a></li>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPItem">Remove-WinSCPItem</a></li>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPSession">Remove-WinSCPSession</a></li>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/Rename-WinSCPItem">Rename-WinSCPItem</a></li>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/Send-WinSCPItem">Send-WinSCPItem</a></li>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/Start-WinSCPConsole">Start-WinSCPConsole</a></li>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/Sync-WinSCPPath">Sync-WinSCPPath</a></li>
-<li><a href="https://github.com/dotps1/WinSCP/wiki/Test-WinSCPPath">Test-WinSCPPath</a></li>
-</ul>
-
-<h2>
-<a id="examples" class="anchor" href="#examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Examples</h2>
-
-<p>Example 1:</p>
-
-<div class="highlight highlight-source-powershell"><pre><span class="pl-c"># Capture credentials.</span>
-<span class="pl-k">$</span><span class="pl-smi">credential</span> <span class="pl-k">=</span> <span class="pl-c1">Get-Credential</span>
-
-<span class="pl-c"># Create new WinSCP session using captured credentials.</span>
-<span class="pl-c"># New-WinSCPSession sets the PSDefaultParameterValue of the WinSCPSession parameter for all other cmdlets to this WinSCP.Session object.</span>
-<span class="pl-c"># You can set it to a variable if you would like, but it is only necassary if you will have more then one session open at a time.</span>
-<span class="pl-c1">New-WinSCPSession</span> <span class="pl-k">-</span>Credential <span class="pl-k">$</span><span class="pl-smi">credential</span> <span class="pl-k">-</span>HostName <span class="pl-k">$</span><span class="pl-c1">env:</span><span class="pl-smi">COMPUTERNAME</span> <span class="pl-k">-</span>Protocol Ftp
-
-<span class="pl-c"># Use that session to create a new Directory.</span>
-<span class="pl-c1">New-WinSCPItem</span> <span class="pl-k">-</span>Path <span class="pl-s">'./remoteDirectory'</span> <span class="pl-k">-</span>ItemType Directory
-
-<span class="pl-c"># Upload a file to the directory.</span>
-<span class="pl-c1">Send-WinSCPItem</span> <span class="pl-k">-</span>Path <span class="pl-s">'C:\localDirectory\localFile.txt'</span> <span class="pl-k">-</span>Destination <span class="pl-s">'/remoteDirectory/'</span>
-
-<span class="pl-c"># Close the session object.</span>
-<span class="pl-c1">Remove-WinSCPSession</span></pre></div>
-
-<p>Example 2:</p>
-
-<div class="highlight highlight-source-powershell"><pre><span class="pl-c"># Create session, download a file, and close the session in one line.</span>
-<span class="pl-c"># If the WinSCP.Session Object is passed through the pipeline it will be auto-closed upon the completion of that command.</span>
-<span class="pl-c1">New-WinSCPSession</span> <span class="pl-k">-</span>Credential <span class="pl-k">(</span><span class="pl-c1">Get-Credential</span><span class="pl-k">)</span> <span class="pl-k">-</span>HostName <span class="pl-k">$</span><span class="pl-c1">env:</span><span class="pl-smi">COMPUTERNAME</span> <span class="pl-k">-</span>Protocol Ftp <span class="pl-k">|</span> <span class="pl-c1">Receive-WinSCPItem</span> <span class="pl-k">-</span>Path <span class="pl-s">'./file.txt'</span> <span class="pl-k">-</span>Destination <span class="pl-s">'C:\folder\'</span></pre></div>
-
-<p>This is still a beta version, with most of the functionality available with WinSCP, I intend on developing this extensively.  </p>
-
-<p>Check back regularly for updates.</p>
-
-<p>This project is licensed with GNU GENERAL PUBLIC LICENSE.</p>
-
-      <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/dotps1/WinSCP">WinSCP</a> is maintained by <a href="https://github.com/dotps1">dotps1</a>.</span>
-
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
-      </footer>
-
-    </section>
-
-  
-  </body>
-</html>
+<section id="WinSCP">
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-body">
+        {% capture my_include %}{% include WinSCP.md %}{% endcapture %}
+        {{ my_include | markdownify }}
+        <span style="text-align: center"> {% include share.html %} </span>
+    </div>
+  </div>
+</div>
+</section>

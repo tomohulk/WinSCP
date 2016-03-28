@@ -1,0 +1,28 @@
+# top level stuff you probably don't need to touch
+highlighter: rouge
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  hard_wrap: false
+rdiscount:
+  extensions: [smart]
+permalink: /:title.html
+paginate: 5
+gems: [jekyll-paginate]
+#port: 3000
+safe: true
+
+url: http://dotps1.github.io/WinSCP
+baseurl: ""
+title: dotps1
+author: Thomas Malkewitz
+description: WinSCP PowerShell Wrapper Module.
+avatar: profile.png
+email: dotps1@outlook.com
+github: dotps1
+twitter: dotps1
+linkedin: thomas-malkewitz-593a645
+stackoverflow: users/691551/dotps1
+#disqus: username
+#google_analytics: UA-69391421-1
