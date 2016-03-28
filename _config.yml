@@ -13,16 +13,11 @@ gems: [jekyll-paginate]
 #port: 3000
 safe: true
 
+# edit here to achieve your personal greatness
 url: http://dotps1.github.io/WinSCP
 baseurl: ""
-title: dotps1
+title: WinSCP
 author: Thomas Malkewitz
 description: WinSCP PowerShell Wrapper Module.
-avatar: profile.png
-email: dotps1@outlook.com
-github: dotps1
-twitter: dotps1
-linkedin: thomas-malkewitz-593a645
-stackoverflow: users/691551/dotps1
 #disqus: username
 #google_analytics: UA-69391421-1

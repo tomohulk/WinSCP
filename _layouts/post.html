@@ -1,0 +1,21 @@
+---
+layout: layout
+---
+
+<div class="container">
+	<div class="blog-post">
+		<h3>
+		  <strong><a href="{{ page.url }}">{{ page.title }}</a></strong>
+		</h3>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="blogpost">
+			  {{ content }}
+              <span style="text-align: center"> {% include share.html %} </span>
+			   <hr>
+			</div>
+		</div>
+	</div>
+	{% include disqus.html %}
+</div>
