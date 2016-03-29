@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Test-WinSCPPath"
-synopsis: "Test if a remote object exists."
+title: "Invoke-WinSCPCommand"
+synopsis: "Invokes a command on an Active WinSCP Session."
 ---
 
 #### **Synopsis**
@@ -13,14 +13,14 @@ synopsis: "Test if a remote object exists."
 #### **Syntax**
 
 ```powershell
-Test-WinSCPPath [-WinSCPSession] <Session> [-Path] <String[]> [<CommonParameters>]
+Invoke-WinSCPCommand [-WinSCPSession] <Session> [-Command] <String[]> [<CommonParameters>]
 ```
 
 ---
 
 #### **Description**
 
-After creating a valid WinSCP Session, this function can be used to test if a directory or file exists on the remote source.
+Invokes a command against the remote system hosting the FTP/SFTP Service.
 
 ---
 
@@ -36,15 +36,15 @@ A valid open WinSCP Session, returned from [New-WinSCPSession]({{ site.url }}/Ne
 * Accept Pipeline Input: True (ByValue)
 * Accept Wildcard Characters: False
 
-[Path \<String\[\]\>](http://winscp.net/eng/docs/library_session_fileexists)
+[Command \<String\[\]\>](http://winscp.net/eng/docs/library_commandexecutionresult)
 
-Full path to the remote object.
+Command to execute.
 
 * Required: True
 * Position: 1
-* Default Value: 
+* Default Value:
 * Accept Pipeline Input: True (ByPropertyName)
-* Accept Wildcard Characters: True
+* Accept Wildcard Characters: False
 
 [CommonParameters \<CommonParameters\>](http://go.microsoft.com/fwlink/?LinkID=113216)
 
@@ -58,7 +58,7 @@ This cmdlet supports the common parameters: Verbose, Debug, ErrorAction, ErrorVa
 
 * Represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.
 
-[System.String](https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx)
+[String](https://msdn.microsoft.com/en-us/library/system.string(v=vs.110).aspx)
 
 * Represents text as a series of Unicode characters.
 
@@ -66,9 +66,9 @@ This cmdlet supports the common parameters: Verbose, Debug, ErrorAction, ErrorVa
 
 #### **Outputs**
 
-[System.Boolean](https://msdn.microsoft.com/en-us/library/system.boolean(v=vs.110).aspx)
+[WinSCP.CommandExecutionResult](http://winscp.net/eng/docs/library_commandexecutionresult)
 
-* Represents a Boolean (true or false) value.
+* Represents results of Session.ExecuteCommand.
 
 ---
 
@@ -81,17 +81,7 @@ If the WinSCPSession is piped into this command, the connection will be closed a
 #### **Example 1**
 
 ```powershell
-PS C:\> New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Test-WinSCPPath -Path '/rDir/rSubDir'
-
-True
-```
-
-#### **Example 2**
-
-```powershell
 PS C:\> $credential = Get-Credential
 PS C:\> $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
-PS C:\> Test-WinSCPPath -WinSCPSession $session -Path '/rDir/NoPath'
-
-False
+PS C:\> Invoke-WinSCPCommand -WinSCPSession $session -Command ("mysqldump --opt -u {0} --password={1} --all-databases | gzip > {2}" -f $dbUsername, $dbPassword, $tempFilePath)
 ```

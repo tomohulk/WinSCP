@@ -279,7 +279,7 @@ This function is used to open a WinSCP Session to be used with most other cmdlet
 #### **Example 1**
 
 ```powershell
-PS C:\> New-WinSCPSession -HostName $env:COMPUTERNAME -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -Protocol Ftp
+PS C:\> New-WinSCPSession -HostName $env:COMPUTERNAME -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -Protocol Ftp
 
 ExecutablePath                : 
 AdditionalExecutableArguments : 

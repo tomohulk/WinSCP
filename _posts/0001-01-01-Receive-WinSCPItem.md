@@ -111,7 +111,7 @@ If the WinSCPSession is piped into this command, the connection will be closed a
 #### **Example 1**
 
 ```powershell
-PS C:\> New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Receive-WinSCPItem -Path '/rDir/rFile.txt' -Destination 'C:\lDir\lFile.txt'
+PS C:\> New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Receive-WinSCPItem -Path '/rDir/rFile.txt' -Destination 'C:\lDir\lFile.txt'
 
 Transfers         Failures IsSuccess
 ---------         -------- ---------

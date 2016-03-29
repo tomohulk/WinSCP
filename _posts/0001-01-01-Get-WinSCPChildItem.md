@@ -101,7 +101,7 @@ If the WinSCPSession is piped into this command, the connection will be closed a
 #### **Example 1**
 
 ```powershell
-PS C:\> New-WinSCPSession -Credential (New-Object -TypeName System.Managemnet.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Path '/rDir/'
+PS C:\> New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPChildItem -Path '/rDir/'
 
    Directory: /rDir
 
@@ -116,7 +116,7 @@ D             1/1/2015 12:00:00 AM          0 rSubDir
 ```powershell
 PS C:\> $credential = Get-Credential
 PS C:\> $session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
-Get-WinSCPChildItem -WinSCPSession $session -Path '/rDir/' -Recurse
+PS C:\> Get-WinSCPChildItem -WinSCPSession $session -Path '/rDir/' -Recurse
 
    Directory: /rDir
 
