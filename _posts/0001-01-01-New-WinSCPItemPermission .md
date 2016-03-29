@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "New-WinSCPItemPermission "
-synopsis: "Represents *nix-style remote file permissions."
+synopsis: "Represents nix-style remote file permissions."
 ---
 
 #### **Synopsis**
