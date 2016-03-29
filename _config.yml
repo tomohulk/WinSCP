@@ -1,4 +1,3 @@
-# top level stuff you probably don't need to touch
 highlighter: rouge
 markdown: kramdown
 kramdown:
@@ -22,4 +21,4 @@ title: WinSCP
 author: Thomas Malkewitz
 description: WinSCP PowerShell Wrapper Module.
 #disqus: username
-#google_analytics: UA-69391421-1
+#google_analytics:
