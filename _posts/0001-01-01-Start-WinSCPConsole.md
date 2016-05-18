@@ -4,6 +4,8 @@ title: "Start-WinSCPConsole"
 synopsis: "Opens a new instance of the WinSCP CLI."
 ---
 
+---
+
 #### **Synopsis**
 
 {{ page.synopsis }}

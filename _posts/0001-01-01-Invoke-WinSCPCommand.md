@@ -4,6 +4,8 @@ title: "Invoke-WinSCPCommand"
 synopsis: "Invokes a command on an Active WinSCP Session."
 ---
 
+---
+
 #### **Synopsis**
 
 {{ page.synopsis }}

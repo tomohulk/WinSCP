@@ -4,6 +4,8 @@ title: "Test-WinSCPPath"
 synopsis: "Test if a remote object exists."
 ---
 
+---
+
 #### **Synopsis**
 
 {{ page.synopsis }}

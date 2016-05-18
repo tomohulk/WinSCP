@@ -4,6 +4,8 @@ title: "New-WinSCPItemPermission "
 synopsis: "Represents nix-style remote file permissions."
 ---
 
+---
+
 #### **Synopsis**
 
 {{ page.synopsis }}

@@ -4,6 +4,8 @@ title: "Sync-WinSCPPath"
 synopsis: "Synchronizes directories with an active WinSCP Session."
 ---
 
+---
+
 #### **Synopsis**
 
 {{ page.synopsis }}

@@ -4,6 +4,8 @@ title: "Move-WinSCPItem"
 synopsis: "Moves an object from one location to another from an active WinSCP Session."
 ---
 
+---
+
 #### **Synopsis**
 
 {{ page.synopsis }}

@@ -4,6 +4,8 @@ title: "Rename-WinSCPItem"
 synopsis: "Renames a remote object."
 ---
 
+---
+
 #### **Synopsis**
 
 {{ page.synopsis }}

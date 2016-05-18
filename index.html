@@ -5,8 +5,8 @@ layout: home
 <section id="about">
     <div class="container">
         <div class="title">
-            <h3><strong>WinSCP</strong></h3>
-            <h5>WinSCP PowerShell Wrapper Module</h5>
+            <h1><strong><a href="{{ site.url}}">{{ site.title }}</a></strong></h1>
+            <h5>{{ site.description }}</h5>
             {% capture build_status %}{% include appveyor.md %}{% endcapture %}
             {{ build_status | markdownify }}
         </div>

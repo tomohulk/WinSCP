@@ -4,6 +4,8 @@ title: "Remove-WinSCPSession"
 synopsis: "Closes and disposes a WinSCP Session Object."
 ---
 
+---
+
 #### **Synopsis**
 
 {{ page.synopsis }}

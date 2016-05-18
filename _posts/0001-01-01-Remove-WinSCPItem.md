@@ -4,6 +4,8 @@ title: "Remove-WinSCPItem"
 synopsis: "Removes an object from an active WinSCP Session."
 ---
 
+---
+
 #### **Synopsis**
 
 {{ page.synopsis }}

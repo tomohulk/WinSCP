@@ -4,6 +4,8 @@ title: "Send-WinSCPItem"
 synopsis: "Send objects to an active WinSCP Session."
 ---
 
+---
+
 #### **Synopsis**
 
 {{ page.synopsis }}

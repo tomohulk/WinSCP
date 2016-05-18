@@ -4,6 +4,8 @@ title: "New-WinSCPTransferOption"
 synopsis: "Sets options for object transfers."
 ---
 
+---
+
 #### **Synopsis**
 
 {{ page.synopsis }}

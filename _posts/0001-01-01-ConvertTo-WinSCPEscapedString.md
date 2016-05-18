@@ -4,6 +4,8 @@ title: "ConvertTo-WinSCPEscapedString"
 synopsis: "Converts the special characters in string."
 ---
 
+---
+
 #### **Synopsis**
 
 {{ page.synopsis }}

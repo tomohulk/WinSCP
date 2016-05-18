@@ -4,6 +4,8 @@ title: "New-WinSCPItem"
 synopsis: "Creates a new object in an active WinSCP Session."
 ---
 
+---
+
 #### **Synopsis**
 
 {{ page.synopsis }}

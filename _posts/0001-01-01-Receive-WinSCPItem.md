@@ -4,6 +4,8 @@ title: "Receive-WinSCPItem"
 synopsis: "Receives objects from an active WinSCP Session."
 ---
 
+---
+
 #### **Synopsis**
 
 {{ page.synopsis }}
