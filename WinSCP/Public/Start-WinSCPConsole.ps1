@@ -8,8 +8,8 @@
 
     Param()
 
-    $process = "$(Split-Path -Path $MyInvocation.MyCommand.Module.Path)\NeededAssemblies\WinSCP.exe"
+    $process = "$PSScriptRoot\..\bin\WinSCP.exe"
     $args = '/Console'
-
+    Write-Verbose "Command: Start-Process -FilePath $process -ArgumentList $args -Wait"
     Start-Process -FilePath $process -ArgumentList $args -Wait
 }
