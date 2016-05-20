@@ -1,13 +1,11 @@
-# http://www.appveyor.com/docs/appveyor-yml
-
-os: Unstable
-# Skip on updates to the readme.
-# We can force this by adding [skip ci] or [ci skip] anywhere in commit message.
+#http://www.appveyor.com/docs/appveyor-yml
+version: 5.8.2.1
+os: WMF 5
 skip_commits:
   message: /updated readme.*/
 install:
   - cmd: cinst filezilla.server -y
-
+  - ps: Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Confirm:$false -Force -ErrorAction Stop
   - ps: Install-Module -Name Pester -Confirm:$false -Force -ErrorAction SilentlyContinue
   - ps: Install-Module -Name PSScriptAnalyzer -Confirm:$false -Force -ErrorAction SilentlyContinue
 build: off
