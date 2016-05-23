@@ -12,7 +12,7 @@
 RootModule = 'WinSCP'
 
 # Version number of this module.
-ModuleVersion = '5.8.2.1'
+ModuleVersion = '5.8.3.0'
 
 # ID used to uniquely identify this module
 GUID = '06e0af4e-779b-48f4-939f-c90b8ec950e6'
@@ -70,24 +70,24 @@ FormatsToProcess = @(
 # NestedModules = @()
 
 # Functions to export from this module
-    FunctionsToExport = 'ConvertTo-WinSCPEscapedString',
-                        'Get-WinSCPChildItem',
-                        'Get-WinSCPItem',
-                        'Get-WinSCPItemChecksum',
-                        'Invoke-WinSCPCommand',
-                        'Move-WinSCPItem',
-                        'New-WinSCPItem',
-                        'New-WinSCPItemPermission',
-                        'New-WinSCPSession',
-                        'New-WinSCPTransferOption',
-                        'Receive-WinSCPItem',
-                        'Remove-WinSCPItem',
-                        'Remove-WinSCPSession',
-                        'Rename-WinSCPItem',
-                        'Send-WinSCPItem',
-                        'Start-WinSCPConsole',
-                        'Sync-WinSCPPath',
-                        'Test-WinSCPPath'
+FunctionsToExport = 'ConvertTo-WinSCPEscapedString',
+    'Get-WinSCPChildItem',
+    'Get-WinSCPItem',
+    'Get-WinSCPItemChecksum',
+    'Invoke-WinSCPCommand',
+    'Move-WinSCPItem',
+    'New-WinSCPItem',
+    'New-WinSCPItemPermission',
+    'New-WinSCPSession',
+    'New-WinSCPTransferOption',
+    'Receive-WinSCPItem',
+    'Remove-WinSCPItem',
+    'Remove-WinSCPSession',
+    'Rename-WinSCPItem',
+    'Send-WinSCPItem',
+    'Start-WinSCPConsole',
+    'Sync-WinSCPPath',
+    'Test-WinSCPPath'
 
 # Cmdlets to export from this module
 # CmdletsToExport = '*'
@@ -158,7 +158,7 @@ PrivateData = @{
         IconUri = 'http://winscp.net/eng/images/og_logo_240x240.jpg'
 
         # ReleaseNotes of this module
-        ReleaseNotes = 'Update WinSCP Core to 5.8.2.  ' + 
+        ReleaseNotes = 'Update WinSCP Core to 5.8.3.  ' + 
             'Implimented new EnumerateRemoteFiles method in Get-WinSCPChildItem cmdlet which has a major performance boost when using -Recurse.  ' + 
             'Added -Directory and -File parameters to Get-WinSCPChildItem.  ' +
             'Added -Depth parameter to Get-WinSCPChildItem.  ' +
@@ -166,10 +166,11 @@ PrivateData = @{
             'Added OverwriteMode parameter to New-WinSCPTranferOption cmdlet.  ' +
             'Added format output to WinSCP.TransferOperationResults.  ' +
             'Added format output to WinSCP.Session.  ' +
-            'Fixed trailing backslash issue with Send-WinSCPItem.'  +
+            'Fixed trailing backslash issue with Send-WinSCPItem.  '  +
             'Added alias Enter-WinSCPSession for New-WinSCPSession.  ' +
             'Added alias Exit-WinSCPSession for Remove-WinSCPSession.  ' +
-            'Added TransferOptions parameter to New-WinSCPItem.'
+            'Added TransferOptions parameter to New-WinSCPItem.  ' +
+            'Fixed Incorrect path to WinSCP.exe used in Start-WinSCPConsole.'
     } # End of PSData hashtable
 
 } # End of PrivateData hashtable
