@@ -133,6 +133,11 @@
     $PSBoundParameters.Add('UserName', $Credential.UserName)
     $PSBoundParameters.Add('SecurePassword', $Credential.Password)
 
+    # Resolve Full Path, WinSCP.exe does not like dot sourced path for the Certificate.
+    if (-not [String]::IsNullOrEmpty($SshPrivateKeyPath)) {
+        $PSBoundParameters.SshPrivateKeyPath = (Resolve-Path -Path $SshPrivateKeyPath).Path
+    }
+
     # Convert SshPrivateKeySecurePasspahrase to plain text and set it to the corresponding SessionOptions property.
     if ($SshPrivateKeySecurePassphrase -ne $null) {
 		try {

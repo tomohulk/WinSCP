@@ -12,7 +12,7 @@
 RootModule = 'WinSCP'
 
 # Version number of this module.
-ModuleVersion = '5.7.7.14'
+ModuleVersion = '5.7.7.15'
 
 # ID used to uniquely identify this module
 GUID = '06e0af4e-779b-48f4-939f-c90b8ec950e6'
@@ -158,7 +158,7 @@ PrivateData = @{
         IconUri = 'http://winscp.net/eng/images/og_logo_240x240.jpg'
 
         # ReleaseNotes of this module
-        ReleaseNotes = 'Fixed incorrect path in Start-WinSCPConsole.  Thanks to hvveen.  https://github.com/dotps1/WinSCP/pull/37'
+        ReleaseNotes = 'Fixed dot sourcing issue with SshPrivateKeyPath param in New-WinSCPSession.  https://github.com/dotps1/WinSCP/issues/38'
 
     } # End of PSData hashtable
 
