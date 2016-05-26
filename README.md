@@ -22,7 +22,7 @@ Install-Module -Name WinSCP
 * [Invoke-WinSCPCommand](http://dotps1.github.io/WinSCP/Invoke-WinSCPCommand.html)
 * [Move-WinSCPItem](http://dotps1.github.io/WinSCP/Move-WinSCPItem.html)
 * [New-WinSCPItem](http://dotps1.github.io/WinSCP/New-WinSCPItem.html)
-* [New-WinSCPItemPermission]http://dotps1.github.io/WinSCP/New-WinSCPItemPermission.html)
+* [New-WinSCPItemPermission](http://dotps1.github.io/WinSCP/New-WinSCPItemPermission.html)
 * [New-WinSCPSession](http://dotps1.github.io/WinSCP/New-WinSCPSession.html)
 * [New-WinSCPTransferOption](http://dotps1.github.io/WinSCP/New-WinSCPTransferOption.html)
 * [Receive-WinSCPItem](http://dotps1.github.io/WinSCP/Receive-WinSCPItem.html)
