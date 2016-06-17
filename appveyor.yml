@@ -1,8 +1,14 @@
-#http://www.appveyor.com/docs/appveyor-yml
+# http://www.appveyor.com/docs/appveyor-yml
 version: 5.8.4.0
 os: WMF 5
 skip_commits:
   message: /updated readme.*/
+branches:
+  only:
+    - master
+environment:
+  gallery_api_key: feZG1n6/I0hDzxw9VWtlUph94caZUYw3denU0TLudvgWX9cG/jkjDLOT8ixd02P4
+    secure:
 install:
   - cmd: cinst filezilla.server -y
   - ps: Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Confirm:$false -Force -ErrorAction Stop
