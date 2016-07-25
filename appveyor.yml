@@ -13,6 +13,6 @@ install:
 build: off
 test_script:
   - ps: . .\Tests\appveyor.pester.ps1
-  environment:
+environment:
   powershell_gallery_api_token:
     secure: feZG1n6/I0hDzxw9VWtlUph94caZUYw3denU0TLudvgWX9cG/jkjDLOT8ixd02P4
