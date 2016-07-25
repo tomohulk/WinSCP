@@ -12,7 +12,11 @@
 RootModule = 'WinSCP'
 
 # Version number of this module.
+<<<<<<< HEAD
 ModuleVersion = '5.9.0.0'
+=======
+ModuleVersion = '5.7.7.15'
+>>>>>>> master
 
 # ID used to uniquely identify this module
 GUID = '06e0af4e-779b-48f4-939f-c90b8ec950e6'
@@ -158,6 +162,7 @@ PrivateData = @{
         IconUri = 'http://winscp.net/eng/images/og_logo_240x240.jpg'
 
         # ReleaseNotes of this module
+<<<<<<< HEAD
         ReleaseNotes = 'Update WinSCP Core to 5.9.  ' + 
             'Implimented new EnumerateRemoteFiles method in Get-WinSCPChildItem cmdlet which has a major performance boost when using -Recurse.  ' + 
             'Added -Directory and -File parameters to Get-WinSCPChildItem.  ' +
@@ -171,6 +176,10 @@ PrivateData = @{
             'Added alias Exit-WinSCPSession for Remove-WinSCPSession.  ' +
             'Added TransferOptions parameter to New-WinSCPItem.  ' +
             'Fixed Incorrect path to WinSCP.exe used in Start-WinSCPConsole.'
+=======
+        ReleaseNotes = 'Fixed dot sourcing issue with SshPrivateKeyPath param in New-WinSCPSession.  https://github.com/dotps1/WinSCP/issues/38'
+
+>>>>>>> master
     } # End of PSData hashtable
 
 } # End of PrivateData hashtable
