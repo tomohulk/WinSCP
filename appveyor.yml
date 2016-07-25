@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 # http://www.appveyor.com/docs/appveyor-yml
 version: 5.9.0.0
-=======
-#http://www.appveyor.com/docs/appveyor-yml
-version: 5.7.7.15
->>>>>>> master
 os: WMF 5
 skip_commits:
   message: /updated readme.*/
