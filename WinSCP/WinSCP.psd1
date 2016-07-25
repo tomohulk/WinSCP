@@ -12,7 +12,7 @@
 RootModule = 'WinSCP'
 
 # Version number of this module.
-ModuleVersion = '5.8.4.0'
+ModuleVersion = '5.9.0.0'
 
 # ID used to uniquely identify this module
 GUID = '06e0af4e-779b-48f4-939f-c90b8ec950e6'
@@ -158,7 +158,7 @@ PrivateData = @{
         IconUri = 'http://winscp.net/eng/images/og_logo_240x240.jpg'
 
         # ReleaseNotes of this module
-        ReleaseNotes = 'Update WinSCP Core to 5.8.3.  ' + 
+        ReleaseNotes = 'Update WinSCP Core to 5.9.  ' + 
             'Implimented new EnumerateRemoteFiles method in Get-WinSCPChildItem cmdlet which has a major performance boost when using -Recurse.  ' + 
             'Added -Directory and -File parameters to Get-WinSCPChildItem.  ' +
             'Added -Depth parameter to Get-WinSCPChildItem.  ' +
