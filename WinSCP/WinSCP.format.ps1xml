@@ -10,14 +10,18 @@
             <GroupBy>
 				<Label>Directory</Label>
 				<ScriptBlock>
-					$_.Name.SubString(0, $_.Name.LastIndexOf('/') + 1)
+                    if ($_.FullName -eq '/') {
+                        './'
+                    } else {
+                        ".$((Split-Path -Path $_.FullName -Parent).Replace('\','/'))"
+                    }
 				</ScriptBlock>
             </GroupBy>
             <TableControl>
                 <TableHeaders>
                    <TableColumnHeader>
-                      <Label>FileType</Label>
-                      <Width>8</Width>
+                      <Label>Mode</Label>
+                      <Width>9</Width>
                       <Alignment>left</Alignment>
                    </TableColumnHeader>
                     <TableColumnHeader>
@@ -39,7 +43,7 @@
                         <Wrap/>
                         <TableColumnItems>
                             <TableColumnItem>
-                                <PropertyName>FileType</PropertyName>
+                                <PropertyName>FilePermissions</PropertyName>
                             </TableColumnItem>
                             <TableColumnItem>
 								<PropertyName>LastWriteTime</PropertyName>
@@ -49,7 +53,7 @@
                             </TableColumnItem>
                             <TableColumnItem>
 								<ScriptBlock>
-									$_.Name.SubString($_.Name.LastIndexOf('/') + 1)
+									$_.Name
 								</ScriptBlock>
                             </TableColumnItem>
                         </TableColumnItems>
@@ -57,5 +61,101 @@
                 </TableRowEntries>
             </TableControl>
         </View>
+        <View>
+            <Name>DefaultView</Name>
+            <ViewSelectedBy>
+                <TypeName>WinSCP.Session</TypeName>
+            </ViewSelectedBy>
+            <TableControl>
+                <TableHeaders>
+                   <TableColumnHeader>
+                      <Label>Opened</Label>
+                      <Width>9</Width>
+                      <Alignment>left</Alignment>
+                   </TableColumnHeader>
+				   <TableColumnHeader>
+                        <Label>Timeout</Label>
+                        <Width>10</Width>
+                        <Alignment>right</Alignment>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>HomePath</Label>
+                    </TableColumnHeader>
+                </TableHeaders>
+                <TableRowEntries>
+                    <TableRowEntry>
+                        <Wrap/>
+                        <TableColumnItems>
+                            <TableColumnItem>
+                                <PropertyName>Opened</PropertyName>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <PropertyName>Timeout</PropertyName>
+                            </TableColumnItem>
+                            <TableColumnItem>
+                                <PropertyName>HomePath</PropertyName>
+                            </TableColumnItem>
+                        </TableColumnItems>
+                    </TableRowEntry>
+                </TableRowEntries>
+            </TableControl>
+        </View>
+		<View>
+		    <Name>DefaultView</Name>
+            <ViewSelectedBy>
+                <TypeName>WinSCP.TransferOperationResult</TypeName>
+            </ViewSelectedBy>
+			<GroupBy>
+				<Label>Destination</Label>
+				<ScriptBlock>
+					if ($_.Transfers.Destination.StartsWith('/')) {
+						".$((Split-Path -Path $_.Transfers.Destination -Parent).Replace('\','/'))"
+					} else {
+						Split-Path -Path $_.Transfers.Destination -Parent
+					}
+				</ScriptBlock>
+            </GroupBy>
+            <TableControl>
+                <TableHeaders>
+                   <TableColumnHeader>
+                      <Label>IsSuccess</Label>
+                      <Width>9</Width>
+                      <Alignment>left</Alignment>
+                   </TableColumnHeader>
+				   <TableColumnHeader>
+                        <Label>Removal</Label>
+                        <Width>10</Width>
+                        <Alignment>right</Alignment>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>FileName</Label>
+                    </TableColumnHeader>
+                </TableHeaders>
+                <TableRowEntries>
+                    <TableRowEntry>
+                        <Wrap/>
+                        <TableColumnItems>
+                            <TableColumnItem>
+                                <PropertyName>IsSuccess</PropertyName>
+                            </TableColumnItem>
+							<TableColumnItem>
+                                <ScriptBlock>
+									if ($_.Transfers.Removal) {
+										$true -as [String]
+									} else {
+										$false -as [String]
+									}
+								</ScriptBlock>
+                            </TableColumnItem>
+                            <TableColumnItem>
+								<ScriptBlock>
+									Split-Path -Path $_.Transfers.FileName -Leaf
+								</ScriptBlock>
+                            </TableColumnItem>
+                        </TableColumnItems>
+                    </TableRowEntry>
+                </TableRowEntries>
+            </TableControl>
+		</View>
     </ViewDefinitions>
 </Configuration>

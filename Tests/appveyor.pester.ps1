@@ -1,12 +1,10 @@
-#requires -Modules Pester
+#requires -Modules Pester,PSScriptAnalyzer
 try {
     Set-Location -Path $env:APPVEYOR_BUILD_FOLDER -ErrorAction Stop
 
     $timestamp = Get-Date -uformat "%Y%m%d-%H%M%S"
     $resultsFile = "Results_${timestamp}.xml"
 
-    Import-Module -Name Pester -Force -ErrorAction Stop
-    Import-Module -Name PSScriptAnalyzer -Force -ErrorAction Stop
     Import-Module -Name .\WinSCP\WinSCP.psd1 -Force -ErrorAction Stop
 
     Invoke-Pester -Path '.\Tests' -OutputFormat NUnitXml -OutputFile ".\$resultsFile" -PassThru -ErrorAction Stop | 

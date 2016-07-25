@@ -33,7 +33,7 @@ Function Get-WinSCPItem {
     )
 
     Begin {
-        $sessionValueFromPipeLine = $PSBoundParameters.ContainsKey('WinSCPSession')
+        $sessionValueFromPipeline = $PSBoundParameters.ContainsKey('WinSCPSession')
     }
 
     Process {
@@ -57,7 +57,7 @@ Function Get-WinSCPItem {
     }
 
     End {
-        if (-not ($sessionValueFromPipeLine)) {
+        if (-not ($sessionValueFromPipeline)) {
             Remove-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }

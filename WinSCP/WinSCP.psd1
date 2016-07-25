@@ -12,7 +12,11 @@
 RootModule = 'WinSCP'
 
 # Version number of this module.
+<<<<<<< HEAD
+ModuleVersion = '5.9.0.0'
+=======
 ModuleVersion = '5.7.7.15'
+>>>>>>> master
 
 # ID used to uniquely identify this module
 GUID = '06e0af4e-779b-48f4-939f-c90b8ec950e6'
@@ -64,30 +68,30 @@ RequiredAssemblies = @(
 # Format files (.ps1xml) to be loaded when importing this module
 FormatsToProcess = @(
     'WinSCP.format.ps1xml'
-)
+)#>
 
 # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
 # NestedModules = @()
 
 # Functions to export from this module
-    FunctionsToExport = 'ConvertTo-WinSCPEscapedString',
-                        'Get-WinSCPChildItem',
-                        'Get-WinSCPItem',
-                        'Get-WinSCPItemChecksum',
-                        'Invoke-WinSCPCommand',
-                        'Move-WinSCPItem',
-                        'New-WinSCPItem',
-                        'New-WinSCPItemPermission',
-                        'New-WinSCPSession',
-                        'New-WinSCPTransferOption',
-                        'Receive-WinSCPItem',
-                        'Remove-WinSCPItem',
-                        'Remove-WinSCPSession',
-                        'Rename-WinSCPItem',
-                        'Send-WinSCPItem',
-                        'Start-WinSCPConsole',
-                        'Sync-WinSCPPath',
-                        'Test-WinSCPPath'
+FunctionsToExport = 'ConvertTo-WinSCPEscapedString',
+    'Get-WinSCPChildItem',
+    'Get-WinSCPItem',
+    'Get-WinSCPItemChecksum',
+    'Invoke-WinSCPCommand',
+    'Move-WinSCPItem',
+    'New-WinSCPItem',
+    'New-WinSCPItemPermission',
+    'New-WinSCPSession',
+    'New-WinSCPTransferOption',
+    'Receive-WinSCPItem',
+    'Remove-WinSCPItem',
+    'Remove-WinSCPSession',
+    'Rename-WinSCPItem',
+    'Send-WinSCPItem',
+    'Start-WinSCPConsole',
+    'Sync-WinSCPPath',
+    'Test-WinSCPPath'
 
 # Cmdlets to export from this module
 # CmdletsToExport = '*'
@@ -158,8 +162,24 @@ PrivateData = @{
         IconUri = 'http://winscp.net/eng/images/og_logo_240x240.jpg'
 
         # ReleaseNotes of this module
+<<<<<<< HEAD
+        ReleaseNotes = 'Update WinSCP Core to 5.9.  ' + 
+            'Implimented new EnumerateRemoteFiles method in Get-WinSCPChildItem cmdlet which has a major performance boost when using -Recurse.  ' + 
+            'Added -Directory and -File parameters to Get-WinSCPChildItem.  ' +
+            'Added -Depth parameter to Get-WinSCPChildItem.  ' +
+            'Added -Name parameter to Get-WinSCPChildItem.  ' +
+            'Added OverwriteMode parameter to New-WinSCPTranferOption cmdlet.  ' +
+            'Added format output to WinSCP.TransferOperationResults.  ' +
+            'Added format output to WinSCP.Session.  ' +
+            'Fixed trailing backslash issue with Send-WinSCPItem.  '  +
+            'Added alias Enter-WinSCPSession for New-WinSCPSession.  ' +
+            'Added alias Exit-WinSCPSession for Remove-WinSCPSession.  ' +
+            'Added TransferOptions parameter to New-WinSCPItem.  ' +
+            'Fixed Incorrect path to WinSCP.exe used in Start-WinSCPConsole.'
+=======
         ReleaseNotes = 'Fixed dot sourcing issue with SshPrivateKeyPath param in New-WinSCPSession.  https://github.com/dotps1/WinSCP/issues/38'
 
+>>>>>>> master
     } # End of PSData hashtable
 
 } # End of PrivateData hashtable

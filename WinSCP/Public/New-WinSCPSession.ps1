@@ -189,7 +189,7 @@
             # Return the WinSCP.Session object.
             return $session
 	    } catch {
-	        Write-Error -Message $_.ToString()
+	        $PSCmdlet.WriteError($_)
             $session.Dispose()
 		    return $null
 	    }
