@@ -6,15 +6,13 @@ skip_commits:
 branches:
   only:
     - master
-environment:
-  gallery_api_key: feZG1n6/I0hDzxw9VWtlUph94caZUYw3denU0TLudvgWX9cG/jkjDLOT8ixd02P4
-    secure:
 install:
   - cmd: cinst filezilla.server -y
-  - ps: Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Confirm:$false -Force -ErrorAction Stop
-  - ps: Install-Module -Name Pester -Confirm:$false -Force -ErrorAction SilentlyContinue
-  - ps: Install-Module -Name PSScriptAnalyzer -Confirm:$false -Force -ErrorAction SilentlyContinue
+  - ps: Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Confirm:$false -Force -ErrorAction Stop | Out-Null
+  - ps: Install-Module -Name Configuration, Pester, PSScriptAnalyzer -Confirm:$false -Force -ErrorAction SilentlyContinue | Out-Null
 build: off
 test_script:
   - ps: . .\Tests\appveyor.pester.ps1
-  
+  environment:
+  powershell_gallery_api_token:
+    secure: feZG1n6/I0hDzxw9VWtlUph94caZUYw3denU0TLudvgWX9cG/jkjDLOT8ixd02P4
