@@ -38,7 +38,9 @@
 
         [Parameter()]
         [WinSCP.TransferOptions]
-        $TransferOptions = (New-Object -TypeName WinSCP.TransferOptions)
+        $TransferOptions = (
+            New-Object -TypeName WinSCP.TransferOptions
+        )
     )
 
     Begin {
@@ -60,7 +62,16 @@
             }
 
             try {
-                $WinSCPSession.PutFiles($item, (Format-WinSCPPathString -Path $($Destination)), $Remove.IsPresent, $TransferOptions)
+                $result = $WinSCPSession.PutFiles(
+                    $item, (Format-WinSCPPathString -Path $($Destination)), $Remove.IsPresent, $TransferOptions
+                )
+
+                if ($result.IsSuccess) {
+                    Write-Output -InputObject $result
+                } else {
+                    $result.Failures[0] |
+                        Write-Error
+                }
             } catch {
                 Write-Error -Message $_.ToString()
             }

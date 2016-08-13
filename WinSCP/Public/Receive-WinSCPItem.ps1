@@ -7,7 +7,7 @@
     )]
 
     Param (
-        [Parameter(
+            [Parameter(
             Mandatory = $true,
             ValueFromPipeline = $true
         )]
@@ -38,7 +38,9 @@
 
         [Parameter()]
         [WinSCP.TransferOptions]
-        $TransferOptions = (New-Object -TypeName WinSCP.TransferOptions)
+        $TransferOptions = (
+            New-Object -TypeName WinSCP.TransferOptions
+        )
     )
 
     Begin {
@@ -52,7 +54,16 @@
     Process {
         foreach ($item in (Format-WinSCPPathString -Path $($Path))) {
             try {
-                $WinSCPSession.GetFiles($item, $Destination, $Remove.IsPresent, $TransferOptions)
+                $result = $WinSCPSession.GetFiles(
+                    $item, $Destination, $Remove.IsPresent, $TransferOptions
+                )
+
+                if ($result.IsSuccess) {
+                    Write-Output -InputObject $result
+                } else {
+                    $result.Failures[0] | 
+                        Write-Error
+                }
             } catch {
                 Write-Error -Message $_.ToString()
             }
