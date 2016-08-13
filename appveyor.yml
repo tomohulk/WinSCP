@@ -1,18 +1,19 @@
 # http://www.appveyor.com/docs/appveyor-yml
-version: 5.9.0.1
+
 os: WMF 5
 skip_commits:
   message: /updated readme.*/
-branches:
-  only:
-    - master
 install:
   - cmd: cinst filezilla.server -y
   - ps: Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Confirm:$false -Force -ErrorAction Stop | Out-Null
   - ps: Install-Module -Name Configuration, Pester, PSScriptAnalyzer -Confirm:$false -Force -ErrorAction SilentlyContinue | Out-Null
 build: off
 test_script:
-  - ps: . .\Tests\appveyor.pester.ps1
+  - ps: . .\Invoke-AppveyorBuild.ps1
 environment:
   powershell_gallery_api_token:
     secure: feZG1n6/I0hDzxw9VWtlUph94caZUYw3denU0TLudvgWX9cG/jkjDLOT8ixd02P4
+notifications:
+  - provider: Slack
+    incoming_webhook:
+      secure: AbntoBWt4UaZffU0mBhQjuXCQAIegqF1NtTVdnFyinHHS23C+b/r4/lWGDzneboipU5R9/6ti/x1p1ceodafH5iv+il9EyS87/M8TaE3hf8=
