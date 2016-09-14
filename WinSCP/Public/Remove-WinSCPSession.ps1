@@ -9,7 +9,8 @@
     Param (
         [Parameter(
             Mandatory = $true,
-            ValueFromPipeline = $true)]
+            ValueFromPipeline = $true
+        )]
         [WinSCP.Session]
         $WinSCPSession
     )
