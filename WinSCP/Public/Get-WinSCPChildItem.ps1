@@ -77,7 +77,9 @@
 
                 $items = $WinSCPSession.EnumerateRemoteFiles(
                     $item, $Filter, $enumerationOptions
-                ) | Sort-Object -Property IsDirectory -Descending:$false | Sort-Object -Property @{ Expression = { Split-Path $_.FullName } }, Name
+                ) | 
+                    Sort-Object -Property IsDirectory -Descending:$false | 
+                        Sort-Object -Property @{ Expression = { Split-Path $_.FullName } }, Name
 
                 if ($PSBoundParameters.ContainsKey('Depth')) {
                     $items = $items | Where-Object {
@@ -96,7 +98,8 @@
                 }
 
                 if ($Name.IsPresent) {
-                    $items = $items | Select-Object -ExpandProperty Name
+                    $items = $items | 
+                        Select-Object -ExpandProperty Name
                 }
 
                 Write-Output -InputObject $items

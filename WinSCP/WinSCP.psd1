@@ -114,8 +114,8 @@ FileList = @(
     "en-US\license-dotnet.txt",
     "en-US\license-winscp.txt",
     "en-US\license-winscp-powershell.txt",
-    "en-US\WinSCP-Help.xml"
-    "lib\WinSCPnet.dll"
+    "en-US\WinSCP-Help.xml",
+    "lib\WinSCPnet.dll",
     "Public\ConvertTo-WinSCPEscapedString.ps1",
     "Public\Get-WinSCPChildItem.ps1",
     "Public\Get-WinSCPFileChecksum.ps1",
