@@ -1,0 +1,95 @@
+[33mcommit 91847f254e9518ccb6e26ceec2377f0ac9eb35da[m
+Author: Thomas Malkewitz <Thomas Malkewitz>
+Date:   Sat Aug 13 14:10:34 2016 -0400
+
+    Added error check and error output for failed send receive items.  Issue #29.
+
+[1mdiff --git a/WinSCP/Public/Receive-WinSCPItem.ps1 b/WinSCP/Public/Receive-WinSCPItem.ps1[m
+[1mindex 751f7fe..fc185c0 100644[m
+[1m--- a/WinSCP/Public/Receive-WinSCPItem.ps1[m
+[1m+++ b/WinSCP/Public/Receive-WinSCPItem.ps1[m
+[36m@@ -7,7 +7,7 @@[m
+     )][m
+ [m
+     Param ([m
+[31m-        [Parameter([m
+[32m+[m[32m            [Parameter([m
+             Mandatory = $true,[m
+             ValueFromPipeline = $true[m
+         )][m
+[36m@@ -38,7 +38,9 @@[m
+ [m
+         [Parameter()][m
+         [WinSCP.TransferOptions][m
+[31m-        $TransferOptions = (New-Object -TypeName WinSCP.TransferOptions)[m
+[32m+[m[32m        $TransferOptions = ([m
+[32m+[m[32m            New-Object -TypeName WinSCP.TransferOptions[m
+[32m+[m[32m        )[m
+     )[m
+ [m
+     Begin {[m
+[36m@@ -52,7 +54,16 @@[m
+     Process {[m
+         foreach ($item in (Format-WinSCPPathString -Path $($Path))) {[m
+             try {[m
+[31m-                $WinSCPSession.GetFiles($item, $Destination, $Remove.IsPresent, $TransferOptions)[m
+[32m+[m[32m                $result = $WinSCPSession.GetFiles([m
+[32m+[m[32m                    $item, $Destination, $Remove.IsPresent, $TransferOptions[m
+[32m+[m[32m                )[m
+[32m+[m
+[32m+[m[32m                if ($result.IsSuccess) {[m
+[32m+[m[32m                    Write-Output -InputObject $result[m
+[32m+[m[32m                } else {[m
+[32m+[m[32m                    $result.Failures[0] |[m[41m [m
+[32m+[m[32m                        Write-Error[m
+[32m+[m[32m                }[m
+             } catch {[m
+                 Write-Error -Message $_.ToString()[m
+             }[m
+[36m@@ -64,4 +75,4 @@[m
+             Remove-WinSCPSession -WinSCPSession $WinSCPSession[m
+         }[m
+     }[m
+[31m-}[m
+\ No newline at end of file[m
+[32m+[m[32m}[m
+[1mdiff --git a/WinSCP/Public/Send-WinSCPItem.ps1 b/WinSCP/Public/Send-WinSCPItem.ps1[m
+[1mindex 0a129ef..e9b6406 100644[m
+[1m--- a/WinSCP/Public/Send-WinSCPItem.ps1[m
+[1m+++ b/WinSCP/Public/Send-WinSCPItem.ps1[m
+[36m@@ -38,7 +38,9 @@[m
+ [m
+         [Parameter()][m
+         [WinSCP.TransferOptions][m
+[31m-        $TransferOptions = (New-Object -TypeName WinSCP.TransferOptions)[m
+[32m+[m[32m        $TransferOptions = ([m
+[32m+[m[32m            New-Object -TypeName WinSCP.TransferOptions[m
+[32m+[m[32m        )[m
+     )[m
+ [m
+     Begin {[m
+[36m@@ -60,7 +62,16 @@[m
+             }[m
+ [m
+             try {[m
+[31m-                $WinSCPSession.PutFiles($item, (Format-WinSCPPathString -Path $($Destination)), $Remove.IsPresent, $TransferOptions)[m
+[32m+[m[32m                $result = $WinSCPSession.PutFiles([m
+[32m+[m[32m                    $item, (Format-WinSCPPathString -Path $($Destination)), $Remove.IsPresent, $TransferOptions[m
+[32m+[m[32m                )[m
+[32m+[m
+[32m+[m[32m                if ($result.IsSuccess) {[m
+[32m+[m[32m                    Write-Output -InputObject $result[m
+[32m+[m[32m                } else {[m
+[32m+[m[32m                    $result.Failures[0] |[m
+[32m+[m[32m                        Write-Error[m
+[32m+[m[32m                }[m
+             } catch {[m
+                 Write-Error -Message $_.ToString()[m
+             }[m
+[36m@@ -72,4 +83,4 @@[m
+             Remove-WinSCPSession -WinSCPSession $WinSCPSession[m
+         }[m
+     }[m
+[31m-}[m
+\ No newline at end of file[m
+[32m+[m[32m}[m

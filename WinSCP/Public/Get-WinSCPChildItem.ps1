@@ -43,11 +43,15 @@
         [Switch]
         $Name,
 
-        [Parameter()]
+        [Parameter(
+            ParameterSetName = "Directory"
+        )]
         [Switch]
         $Directory,
 
-        [Parameter()]
+        [Parameter(
+            ParameterSetName = "File"
+        )]
         [Switch]
         $File
     )
@@ -69,29 +73,40 @@
             }
 
             try {
-                if ($Recurse.IsPresent) {
-                    $enumerationOptions = ([WinSCP.EnumerationOptions]::AllDirectories -bor [WinSCP.EnumerationOptions]::MatchDirectories)
-                } else {
-                    $enumerationOptions = ([WinSCP.EnumerationOptions]::None -bor [WinSCP.EnumerationOptions]::MatchDirectories)
+                switch ($PSCmdlet.ParameterSetName) {
+                    Directory {
+                        if ($Recurse.IsPresent) {
+                            $enumerationOptions = [WinSCP.EnumerationOptions]::EnumerateDirectories -bxor [WinSCP.EnumerationOptions]::AllDirectories
+                        } else {
+                            $enumerationOptions = [WinSCP.EnumerationOptions]::EnumerateDirectories -band [WinSCP.EnumerationOptions]::AllDirectories
+                        }
+                    }
+
+                    File {
+                        if ($Recurse.IsPresent) {
+                            $enumerationOptions = [WinSCP.EnumerationOptions]::AllDirectories -bxor [WinSCP.EnumerationOptions]::None
+                        } else {
+                            $enumerationOptions = [WinSCP.EnumerationOptions]::None
+                        }
+                    }
+
+                    default {
+                        if ($Recurse.IsPresent) {
+                            $enumerationOptions = [WinSCP.EnumerationOptions]::AllDirectories -bxor [WinSCP.EnumerationOptions]::MatchDirectories
+                        }
+                    }
                 }
 
                 $items = $WinSCPSession.EnumerateRemoteFiles(
                     $item, $Filter, $enumerationOptions
-                ) | Sort-Object -Property IsDirectory -Descending:$false | Sort-Object -Property @{ Expression = { Split-Path $_.FullName } }, Name
+                ) | Sort-Object -Property IsDirectory -Descending:$false | 
+                    Sort-Object -Property @{ 
+                        Expression = { Split-Path $_.FullName } 
+                    }, Name
 
                 if ($PSBoundParameters.ContainsKey('Depth')) {
                     $items = $items | Where-Object {
                         ($_.FullName.SubString(0, $_.FullName.LastIndexOf([System.IO.Path]::AltDirectorySeparatorChar)).Split([System.IO.Path]::AltDirectorySeparatorChar).Count - 1) -le $Depth
-                    }
-                }
-
-                if ($Directory.IsPresent -and -not $File.IsPresent) {
-                    $items = $items | Where-Object {
-                        $_.IsDirectory -eq $true
-                    }
-                } elseif ($File.IsPresent -and -not $Directory.IsPresent) {
-                    $items = $items | Where-Object {
-                        $_.IsDirectory -eq $false
                     }
                 }
 
