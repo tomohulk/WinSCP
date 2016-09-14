@@ -118,7 +118,7 @@ FileList = @(
     "lib\WinSCPnet.dll",
     "Public\ConvertTo-WinSCPEscapedString.ps1",
     "Public\Get-WinSCPChildItem.ps1",
-    "Public\Get-WinSCPFileChecksum.ps1",
+    "Public\Get-WinSCPItemChecksum.ps1",
     "Public\Invoke-WinSCPCommand.ps1",
     "Public\Move-WinSCPItem.ps1",
     "Public\New-WinSCPItemPermission.ps1"
@@ -131,7 +131,7 @@ FileList = @(
     "Public\Rename-WinSCPItem.ps1",
     "Public\Send-WinSCPItem.ps1",
     "Public\Start-WinSCPConsole.ps1",
-    "Public\Sync-WinSCPDirectory.ps1",
+    "Public\Sync-WinSCPPath.ps1",
     "Public\Test-WinSCPPath.ps1",
     "Private\Format-WinSCPPathString.ps1"
 )
