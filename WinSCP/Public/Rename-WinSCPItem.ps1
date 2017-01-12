@@ -50,8 +50,8 @@
                 $NewName = $NewName.Substring($NewName.LastIndexOfAny('/\'))
             }
 
-            $newPath = "$($item.Name.Substring(0, $item.Name.LastIndexOf('/') + 1))$NewName"
-            $WinSCPSession.MoveFile($item.Name, $newPath)
+            $newPath = "$($item.FullName.Substring(0, $item.FullName.LastIndexOf('/') + 1))$NewName" 
+            $WinSCPSession.MoveFile($item.FullName, $newPath)
 
             if ($PassThru.IsPresent) {
                 Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $newPath
