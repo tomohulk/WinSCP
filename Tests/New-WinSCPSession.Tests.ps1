@@ -8,10 +8,6 @@ Describe 'New-WinSCPSession' {
     Context "New-WinSCPSession -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp" {
         $session = New-WinSCPSession -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp
 
-        It 'Session should be of type WinSCP.Session.' {
-            $session.GetType() | Should Be WinSCP.Session
-        }
-
         It 'Session should be open.' {
             $session.Opened | Should Be $true
         }
@@ -28,10 +24,6 @@ Describe 'New-WinSCPSession' {
 
     Context "New-WinSCPSession -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp -SessionLogPath $env:TEMP\Session.log -DebugLogPath $env:TEMP\Debug.log" {
         $session = New-WinSCPSession -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp -SessionLogPath "$env:TEMP\Session.log" -DebugLogPath "$env:TEMP\Debug.log"
-
-        It 'Session should be of type WinSCP.Session.' {
-            $session.GetType() | Should Be WinSCP.Session
-        }
 
         It 'Session should be open.' {
             $session.Opened | Should Be $true

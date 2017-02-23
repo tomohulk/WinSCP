@@ -15,7 +15,7 @@ Describe 'New-WinSCPItem' {
         }
 
         It 'Results of New-WinSCPItem should be success.' {
-            $results.IsSuccess | Should Be True
+            $results.IsSuccess | Should Be $true
         }
 
         It 'WinSCP process should not exist.' {
@@ -31,7 +31,7 @@ Describe 'New-WinSCPItem' {
         }
 
         It 'Results of New-WinSCPItem should be success.' {
-            $results.IsSuccess | Should Be True
+            $results.IsSuccess | Should Be $true
         }
 
         It 'WinSCP process should not exist.' {
@@ -47,7 +47,7 @@ Describe 'New-WinSCPItem' {
         }
 
         It 'Results of New-WinSCPItem should be success.' {
-            $results.IsSuccess | Should Be True
+            $results.IsSuccess | Should Be $true
         }
 
         It 'WinSCP process should not exist.' {
@@ -63,7 +63,7 @@ Describe 'New-WinSCPItem' {
         }
 
         It 'Results of New-WinSCPItem should be success.' {
-            $results.IsSuccess | Should Be True
+            $results.IsSuccess | Should Be $true
         }
 
         It 'WinSCP process should not exist.' {
@@ -78,7 +78,7 @@ Describe 'New-WinSCPItem' {
         }
 
         It 'Results of New-WinSCPItem should be success.' {
-            $results.IsSuccess | Should Be True
+            $results.IsSuccess | Should Be $true
         }
 
         It 'WinSCP process should not exist.' {
@@ -94,7 +94,7 @@ Describe 'New-WinSCPItem' {
         }
 
         It 'Results of New-WinSCPItem should be success.' {
-            $results.IsSuccess | Should Be True
+            $results.IsSuccess | Should Be $true
         }
 
         It 'WinSCP process should not exist.' {
@@ -110,7 +110,7 @@ Describe 'New-WinSCPItem' {
         }
 
         It 'Results of New-WinSCPItem should be success.' {
-            $results.IsSuccess | Should Be True
+            $results.IsSuccess | Should Be $true
         }
 
         It 'WinSCP process should not exist.' {
@@ -126,7 +126,7 @@ Describe 'New-WinSCPItem' {
         }
 
         It 'Results of New-WinSCPItem should be success.' {
-            $results.IsSuccess | Should Be True
+            $results.IsSuccess | Should Be $true
         }
 
         It 'WinSCP process should not exist.' {
