@@ -14,8 +14,12 @@ Describe 'New-WinSCPItem' {
             $results | Should Not Be Null
         }
 
-        It 'Results of New-WinSCPItem should be success.' {
-            $results.IsSuccess | Should Be $true
+        It 'Results should be of type WinSCP.RemoteFileInfo.' {
+            $results | Should BeOfType WinSCP.RemoteFileInfo
+        }
+
+        It 'RemoteFileInfo should contain a fullpath property that is not null.' {
+            $results.FullPath | Should Not Be Null
         }
 
         It 'WinSCP process should not exist.' {
@@ -30,8 +34,12 @@ Describe 'New-WinSCPItem' {
             $results | Should Not Be Null
         }
 
-        It 'Results of New-WinSCPItem should be success.' {
-            $results.IsSuccess | Should Be $true
+        It 'Results should be of type WinSCP.RemoteFileInfo.' {
+            $results | Should BeOfType WinSCP.RemoteFileInfo
+        }
+
+        It 'RemoteFileInfo should contain a fullpath property that is not null.' {
+            $results.FullPath | Should Not Be Null
         }
 
         It 'WinSCP process should not exist.' {
@@ -46,8 +54,12 @@ Describe 'New-WinSCPItem' {
             $results | Should Not Be Null
         }
 
-        It 'Results of New-WinSCPItem should be success.' {
-            $results.IsSuccess | Should Be $true
+        It 'Results should be of type WinSCP.RemoteFileInfo.' {
+            $results | Should BeOfType WinSCP.RemoteFileInfo
+        }
+
+        It 'RemoteFileInfo should contain a fullpath property that is not null.' {
+            $results.FullPath | Should Not Be Null
         }
 
         It 'WinSCP process should not exist.' {
@@ -62,8 +74,12 @@ Describe 'New-WinSCPItem' {
             $results | Should Not Be Null
         }
 
-        It 'Results of New-WinSCPItem should be success.' {
-            $results.IsSuccess | Should Be $true
+        It 'Results should be of type WinSCP.RemoteFileInfo.' {
+            $results | Should BeOfType WinSCP.RemoteFileInfo
+        }
+
+        It 'RemoteFileInfo should contain a fullpath property that is not null.' {
+            $results.FullPath | Should Not Be Null
         }
 
         It 'WinSCP process should not exist.' {
@@ -77,8 +93,12 @@ Describe 'New-WinSCPItem' {
             $results | Should Not Be Null
         }
 
-        It 'Results of New-WinSCPItem should be success.' {
-            $results.IsSuccess | Should Be $true
+        It 'Results should be of type WinSCP.RemoteFileInfo.' {
+            $results | Should BeOfType WinSCP.RemoteFileInfo
+        }
+
+        It 'RemoteFileInfo should contain a fullpath property that is not null.' {
+            $results.FullPath | Should Not Be Null
         }
 
         It 'WinSCP process should not exist.' {
@@ -93,8 +113,12 @@ Describe 'New-WinSCPItem' {
             $results | Should Not Be Null
         }
 
-        It 'Results of New-WinSCPItem should be success.' {
-            $results.IsSuccess | Should Be $true
+        It 'Results should be of type WinSCP.RemoteFileInfo.' {
+            $results | Should BeOfType WinSCP.RemoteFileInfo
+        }
+
+        It 'RemoteFileInfo should contain a fullpath property that is not null.' {
+            $results.FullPath | Should Not Be Null
         }
 
         It 'WinSCP process should not exist.' {
@@ -109,8 +133,12 @@ Describe 'New-WinSCPItem' {
             $results | Should Not Be Null
         }
 
-        It 'Results of New-WinSCPItem should be success.' {
-            $results.IsSuccess | Should Be $true
+        It 'Results should be of type WinSCP.RemoteFileInfo.' {
+            $results | Should BeOfType WinSCP.RemoteFileInfo
+        }
+
+        It 'RemoteFileInfo should contain a fullpath property that is not null.' {
+            $results.FullPath | Should Not Be Null
         }
 
         It 'WinSCP process should not exist.' {
@@ -125,8 +153,12 @@ Describe 'New-WinSCPItem' {
             $results | Should Not Be Null
         }
 
-        It 'Results of New-WinSCPItem should be success.' {
-            $results.IsSuccess | Should Be $true
+        It 'Results should be of type WinSCP.RemoteFileInfo.' {
+            $results | Should BeOfType WinSCP.RemoteFileInfo
+        }
+
+        It 'RemoteFileInfo should contain a fullpath property that is not null.' {
+            $results.FullPath | Should Not Be Null
         }
 
         It 'WinSCP process should not exist.' {
