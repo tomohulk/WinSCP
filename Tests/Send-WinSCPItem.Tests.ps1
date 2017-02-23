@@ -42,5 +42,5 @@ Describe 'Send-WinSCPItem' {
     }
 }
 
-Remove-Item -Path $ftp -Recurse -Force -Confirm:$false
-Remove-Item -Path $local -Recurse -Force -Confirm:$false
+Remove-Item -Path (Join-Path -Path $ftp -ChildPath *) -Recurse -Force -Confirm:$false
+Remove-Item -Path (Join-Path -Path $local -ChildPath *) -Recurse -Force -Confirm:$false

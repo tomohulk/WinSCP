@@ -83,9 +83,15 @@
                 }
 
                 if ($PSCmdlet.ShouldProcess($item)) {
-                    $WinSCPSession.PutFiles((New-Item @newItemParams).FullName, $item, $true, $TransferOptions)
+                    $result = $WinSCPSession.PutFiles((New-Item @newItemParams).FullName, $item, $true, $TransferOptions)
 
-                    Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $item
+                    if ($result.IsSuccess) {
+                        Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $item
+                    } else {
+                        Write-Error $result.Check()
+
+                        continue
+                    }
                 }
             } catch {
                 Write-Error -Message $_.ToString()

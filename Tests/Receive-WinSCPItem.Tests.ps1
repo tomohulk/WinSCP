@@ -41,5 +41,5 @@ Describe 'Receive-WinSCPItem' {
     }
 }
 
-Remove-Item -Path $ftp -Recurse -Force -Confirm:$false
-Remove-Item -Path $temp -Recurse -Force -Confirm:$false
+Remove-Item -Path (Join-Path -Path $ftp -ChildPath *) -Recurse -Force -Confirm:$false
+Remove-Item -Path (Join-Path -Path $temp -ChildPath *)-Recurse -Force -Confirm:$false

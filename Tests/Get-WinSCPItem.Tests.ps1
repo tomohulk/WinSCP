@@ -93,4 +93,4 @@ Describe 'Get-WinSCPItem' {
     }
 }
 
-Remove-Item -Path $ftp -Recurse -Force -Confirm:$false
+Remove-Item -Path (Join-Path -Path $ftp -ChildPath *) -Recurse -Force -Confirm:$false
