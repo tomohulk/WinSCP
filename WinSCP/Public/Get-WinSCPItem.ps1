@@ -1,29 +1,4 @@
 Function Get-WinSCPItem {
-<#
-.SYNOPSIS 
-Retrieves information about a File or Directory from an active WinSCP Session.
-.DESCRIPTION
-Retrieves Name, FileType, Length, LastWriteTime, FilePermissions, and IsDirectory Properties on an Item from an Active WinSCP Session.
-.PARAMETER WinSCPSession
-A valid open WinSCP Session, returned from New-WinSCPSession.
-.PARAMETER Path
-Specifies a path to one or more locations. Wildcards are permitted. The default location is the home directory of the user making the connection.
-.PARAMETER Filter
-Filter to be applied to returned objects.
-.PARAMETER CommonParameters
-This cmdlet supports the common parameters: Verbose, Debug, ErrorAction, ErrorVariable, WarningAction, WarningVariable, OutBuffer, PipelineVariable, and OutVariable.
-.NOTES
-If the WinSCPSession is piped into this command, the connection will be closed and the object will be disposed upon completion of the command.
-.LINK
-http://dotps1.github.io/WinSCP/Get-WinSCPItem.html
-.EXAMPLE   
-New-WinSCPSession -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $env:USERNAME, (New-Object -TypeName System.Security.SecureString)) -HostName $env:COMPUTERNAME -Protocol Ftp | Get-WinSCPItem -Path '/rDir/rSubDir'
-Copies all alerts from sqlserver2014a to sqlcluster, using Windows credentials. If alerts with the same name exist on sqlcluster, they will be skipped.
-.EXAMPLE   
-$credential = Get-Credential
-$session = New-WinSCPSession -Credential $credential -Hostname 'myftphost.org' -SshHostKeyFingerprint 'ssh-rsa 1024 xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx'
-Get-WinSCPItem -WinSCPSession $session -Path '/rDir/rSubDir'
-#>    
     [CmdletBinding(
         HelpUri = 'https://github.com/dotps1/WinSCP/wiki/Get-WinSCPItem'
     )]
