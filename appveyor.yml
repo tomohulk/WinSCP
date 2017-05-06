@@ -1,8 +1,12 @@
 # http://www.appveyor.com/docs/appveyor-yml
 
 os: WMF 5
+skip_tags: true
 skip_commits:
   message: /updated readme.*/
+only_commits:
+  /build/
+  dotps1@outlook.com
 install:
   - cmd: cinst filezilla.server -y
   - ps: Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Confirm:$false -Force -ErrorAction Stop | Out-Null
@@ -17,3 +21,4 @@ notifications:
   - provider: Slack
     incoming_webhook:
       secure: AbntoBWt4UaZffU0mBhQjuXCQAIegqF1NtTVdnFyinHHS23C+b/r4/lWGDzneboipU5R9/6ti/x1p1ceodafH5iv+il9EyS87/M8TaE3hf8=
+      
