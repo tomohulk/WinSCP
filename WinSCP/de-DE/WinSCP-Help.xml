@@ -2245,7 +2245,7 @@ SetUid       : False</dev:code>
 				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
-				<maml:name>GiveUpSecureityAndAcceptAnyTlsHostCertificate</maml:name>
+				<maml:name>GiveUpSecurityAndAcceptAnyTlsHostCertificate</maml:name>
 				<maml:description>
 					<maml:para>Give up security and accept any FTPS/WebDAVS server TLS/SSL certificate. To be used in exceptional situations only, when security is not required. When set, log files will include warning about insecure connection. To maintain security, use TlsHostCertificateFingerprint.</maml:para>
 				</maml:description>
@@ -2436,7 +2436,7 @@ SetUid       : False</dev:code>
 			<dev:defaultValue>False</dev:defaultValue>
 		</command:parameter>
 		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
-			<maml:name>GiveUpSecureityAndAcceptAnyTlsHostCertificate</maml:name>
+			<maml:name>GiveUpSecurityAndAcceptAnyTlsHostCertificate</maml:name>
 			<maml:description>
 				<maml:para>Give up security and accept any FTPS/WebDAVS server TLS/SSL certificate. To be used in exceptional situations only, when security is not required. When set, log files will include warning about insecure connection. To maintain security, use TlsHostCertificateFingerprint.</maml:para>
 			</maml:description>
