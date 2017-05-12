@@ -58,7 +58,7 @@
             if (Test-Path -Path $_) { 
                 return $true 
             } else { 
-                throw "$_ not found." 
+                throw "Unable to find part of Path: '$_'." 
             } 
         })]
         [String]
@@ -94,10 +94,10 @@
 
         [Parameter()]
         [ValidateScript({
-            if (Test-Path -Path (Split-Path -Path $_)) {
+            if (Test-Path -Path (Split-Path -Path $_ -Parent)) {
                 return $true
             } else {
-                throw "Path not found $(Split-Path -Path $_)."
+                throw "Path not found $(Split-Path -Path $_ -Parent)."
             } 
         })]
         [String]
@@ -105,10 +105,10 @@
 
         [Parameter()]
         [ValidateScript({
-            if (Test-Path -Path (Split-Path -Path $_)) {
+            if (Test-Path -Path (Split-Path -Path $_ -Parent)) {
                 return $true
             } else {
-                throw "Path not found $(Split-Path -Path $_)."
+                throw "Path not found $(Split-Path -Path $_ -Parent)."
             } 
         })]
         [String]
