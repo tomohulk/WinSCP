@@ -31,7 +31,7 @@
 
         [Parameter()]
         [Switch]
-        $GiveUpSecureityAndAcceptAnyTlsHostCertificate,
+        $GiveUpSecurityAndAcceptAnyTlsHostCertificate,
 
         [Parameter(
             Mandatory = $true
