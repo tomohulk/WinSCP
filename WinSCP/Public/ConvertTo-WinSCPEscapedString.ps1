@@ -24,11 +24,14 @@
     process {
         foreach ($fileMaskValue in $FileMask) {
             try {
-                $sessionObject.EscapeFileMask(
+                $output = $sessionObject.EscapeFileMask(
                     $fileMaskValue
                 )
+
+                Write-Output -InputObject $output
             } catch {
                 Write-Error -Message $_.ToString()
+                continue
             }
         }
     }

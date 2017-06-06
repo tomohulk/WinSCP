@@ -1,12 +1,14 @@
-﻿Function Get-WinSCPChildItem {
+﻿function Get-WinSCPChildItem {
+
     [CmdletBinding(
-        HelpUri = "https://dotps1.github.io/WinSCP/Get-WinSCPChildItem.html"
+        HelpUri = "https://dotps1.github.io/WinSCP/Get-WinSCPChildItem.html",
+        ParameterSetName = "__AllParameterSets"
     )]
     [OutputType(
         [Array]
     )]
 
-    Param (
+    param (
         [Parameter(
             Mandatory = $true,
             ValueFromPipeline = $true
@@ -15,7 +17,7 @@
             if ($_.Opened) { 
                 return $true 
             } else { 
-                throw 'The WinSCP Session is not in an Open state.'
+                throw "The WinSCP Session is not in an Open state."
             }
         })]
         [WinSCP.Session]
@@ -25,7 +27,7 @@
             ValueFromPipelineByPropertyName = $true
         )]
         [String[]]
-        $Path = '/',
+        $Path = "/",
 
         [Parameter()]
         [String]
@@ -43,58 +45,81 @@
         [Switch]
         $Name,
 
-        [Parameter()]
+        [Parameter(
+            ParameterSetName = "Directory"
+        )]
         [Switch]
         $Directory,
 
-        [Parameter()]
+        [Parameter(
+            ParameterSetName = "File"
+        )]
         [Switch]
         $File
     )
 
-    Begin {
-        $sessionValueFromPipeline = $PSBoundParameters.ContainsKey('WinSCPSession')
+    begin {
+        $sessionValueFromBoundParameter = $PSBoundParameters.ContainsKey(
+            "WinSCPSession"
+        )
     }
 
-    Process {
-        foreach ($item in (Format-WinSCPPathString -Path $($Path))) {
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $Path)) {
-                Write-Error -Message "Cannot find path: $item because it does not exist."
-
+    process {
+        foreach ($pathValue in (Format-WinSCPPathString -Path $($Path))) {
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $pathValue)) {
+                Write-Error -Message "Cannot find path '$pathValue' because it does not exist."
                 continue
             }
 
-            if ($PSBoundParameters.ContainsKey('Depth') -and -not $Recurse.IsPresent) {
-                $Recurse = $true
+            $depthParameterUsed = $PSBoundParameters.ContainsKey(
+                "Depth"
+            )
+
+            if ($depthParameterUsed -and -not $Recurse.IsPresent) {
+                $PSBoundParameters.Add(
+                    "Recurse", $true
+                )
+            }
+
+            if ($Recurse.IsPresent) {
+                $enumerationOptions = ([WinSCP.EnumerationOptions]::AllDirectories -bor [WinSCP.EnumerationOptions]::MatchDirectories)
+            } else {
+                $enumerationOptions = ([WinSCP.EnumerationOptions]::None -bor [WinSCP.EnumerationOptions]::MatchDirectories)
             }
 
             try {
-                if ($Recurse.IsPresent) {
-                    $enumerationOptions = ([WinSCP.EnumerationOptions]::AllDirectories -bor [WinSCP.EnumerationOptions]::MatchDirectories)
-                } else {
-                    $enumerationOptions = ([WinSCP.EnumerationOptions]::None -bor [WinSCP.EnumerationOptions]::MatchDirectories)
-                }
-
                 $items = $WinSCPSession.EnumerateRemoteFiles(
-                    $item, $Filter, $enumerationOptions
+                    $pathValue, $Filter, $enumerationOptions
                 ) | 
                     Sort-Object -Property IsDirectory -Descending:$false | 
                         Sort-Object -Property @{ Expression = { Split-Path $_.FullName } }, Name
 
-                if ($PSBoundParameters.ContainsKey('Depth')) {
-                    $items = $items | Where-Object {
-                        ($_.FullName.SubString(0, $_.FullName.LastIndexOf([System.IO.Path]::AltDirectorySeparatorChar)).Split([System.IO.Path]::AltDirectorySeparatorChar).Count - 1) -le $Depth
-                    }
+                if ($depthParameterUsed) {
+                    $items = $items.Where({
+                        ($_.FullName.SubString(
+                            0, $_.FullName.LastIndexOf(
+                                [System.IO.Path]::AltDirectorySeparatorChar
+                            )
+                        ).Split(
+                            [System.IO.Path]::AltDirectorySeparatorChar
+                        ).Count - 1) -le $Depth
+                    })
                 }
 
-                if ($Directory.IsPresent -and -not $File.IsPresent) {
-                    $items = $items | Where-Object {
-                        $_.IsDirectory -eq $true
+                switch ($PSCmdlet.ParameterSetName) {
+                    "Directory" {
+                        $items = $items | Where-Object {
+                            $_.IsDirectory -eq $true
+                        }
                     }
-                } elseif ($File.IsPresent -and -not $Directory.IsPresent) {
-                    $items = $items | Where-Object {
-                        $_.IsDirectory -eq $false
+
+                    "File" {
+                         $items = $items | Where-Object {
+                            $_.IsDirectory -eq $false
+                        }                       
                     }
+
+                    default { break }
                 }
 
                 if ($Name.IsPresent) {
@@ -109,8 +134,8 @@
         }
     }
 
-    End {
-        if (-not ($sessionValueFromPipeline)) {
+    end {
+        if (-not ($sessionValueFromBoundParameter)) {
             Remove-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
