@@ -53,12 +53,6 @@
         $File
     )
 
-    begin {
-        $sessionValueFromBoundParameter = $PSBoundParameters.ContainsKey(
-            "WinSCPSession"
-        )
-    }
-
     process {
         foreach ($pathValue in (Format-WinSCPPathString -Path $($Path))) {
             if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $pathValue)) {
@@ -77,17 +71,19 @@
             }
 
             if ($Recurse.IsPresent) {
-                $enumerationOptions = ([WinSCP.EnumerationOptions]::AllDirectories -bor [WinSCP.EnumerationOptions]::MatchDirectories)
+                $enumerationOptions = [WinSCP.EnumerationOptions]::AllDirectories -bor [WinSCP.EnumerationOptions]::MatchDirectories
             } else {
-                $enumerationOptions = ([WinSCP.EnumerationOptions]::None -bor [WinSCP.EnumerationOptions]::MatchDirectories)
+                $enumerationOptions = [WinSCP.EnumerationOptions]::None -bor [WinSCP.EnumerationOptions]::MatchDirectories
             }
 
             try {
                 $items = $WinSCPSession.EnumerateRemoteFiles(
                     $pathValue, $Filter, $enumerationOptions
-                ) | 
+                )
+
+                $items = $items |
                     Sort-Object -Property IsDirectory -Descending:$false | 
-                        Sort-Object -Property @{ Expression = { Split-Path $_.FullName } }, Name
+                        Sort-Object -Property @{ Expression = { Split-Path -Path $_.FullName } }, Name
 
                 if ($depthParameterUsed) {
                     $items = $items.Where({
@@ -102,14 +98,16 @@
                 }
 
                 if ($Directory.IsPresent -and -not $File.IsPresent) {
-                    $items = $items | Where-Object {
+                    $items = $items.Where({
                         $_.IsDirectory -eq $true
-                    }
+                    })
                 } elseif ($File.IsPresent -and -not $Directory.IsPresent) {
-                        $items = $items | Where-Object {
+                        $items = $items.Where({
                         $_.IsDirectory -eq $false
-                    }                       
+                    }) 
                 } else {
+                    # If both -Directory and -File is used, the loop stops and returns nothing.
+                    # This mimics the behavior of Get-ChildItem.
                     continue
                 }
 
@@ -122,12 +120,6 @@
             } catch {
                 Write-Error -Message $_.ToString()
             }
-        }
-    }
-
-    end {
-        if (-not ($sessionValueFromBoundParameter)) {
-            Remove-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }
