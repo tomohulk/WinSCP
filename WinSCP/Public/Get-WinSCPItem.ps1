@@ -1,6 +1,6 @@
 Function Get-WinSCPItem {
     [CmdletBinding(
-        HelpUri = 'https://github.com/dotps1/WinSCP/wiki/Get-WinSCPItem'
+        HelpUri = "https://dotps1.github.io/WinSCP/Get-WinSCPItem.html"
     )]
     [OutputType(
         [WinSCP.RemoteFileInfo]

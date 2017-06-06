@@ -1,6 +1,6 @@
 ﻿Function Invoke-WinSCPCommand {
     [CmdletBinding(
-        HelpUri = 'https://github.com/dotps1/WinSCP/wiki/Invoke-WinSCPCommand'
+        HelpUri = "https://dotps1.github.io/WinSCP/Invoke-WinSCPCommand.html"
     )]
     [OutputType(
         [WinSCP.CommandExecutionResult]

@@ -1,6 +1,6 @@
 ﻿Function Get-WinSCPChildItem {
     [CmdletBinding(
-        HelpUri = 'https://github.com/dotps1/WinSCP/wiki/Get-WinSCPChildItem'
+        HelpUri = "https://dotps1.github.io/WinSCP/Get-WinSCPChildItem.html"
     )]
     [OutputType(
         [Array]

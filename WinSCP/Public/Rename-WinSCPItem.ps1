@@ -1,6 +1,6 @@
 ﻿Function Rename-WinSCPItem {
     [CmdletBinding(
-        HelpUri = 'https://github.com/dotps1/WinSCP/wiki/Rename-WinSCPItem'
+        HelpUri = "https://dotps1.github.io/WinSCP/Rename-WinSCPItem.html"
     )]
     [OutputType(
         [Void]

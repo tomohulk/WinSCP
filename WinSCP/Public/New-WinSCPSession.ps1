@@ -1,7 +1,7 @@
 ﻿Function New-WinSCPSession {
     [CmdletBinding(
         SupportsShouldProcess = $true,
-        HelpUri = 'https://github.com/dotps1/WinSCP/wiki/New-WinSCPSession'
+        HelpUri = "https://dotps1.github.io/WinSCP/New-WinSCPSession.html"
     )]
     [OutputType(
         [WinSCP.Session]

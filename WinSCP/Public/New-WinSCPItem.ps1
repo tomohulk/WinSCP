@@ -1,7 +1,7 @@
 ﻿Function New-WinSCPItem {
     [CmdletBinding(
         SupportsShouldProcess = $true,
-        HelpUri = 'https://github.com/dotps1/WinSCP/wiki/New-WinSCPItem'
+        HelpUri = "https://dotps1.github.io/WinSCP/New-WinSCPItem.html"
     )]
     [OutputType(
         [WinSCP.RemoteFileInfo]

@@ -1,7 +1,7 @@
 Function New-WinSCPItemPermission {
     [CmdletBinding(
         SupportsShouldProcess = $true,
-        HelpUri = 'https://github.com/dotps1/WinSCP/wiki/New-WinSCPItemPermission'
+        HelpUri = "https://dotps1.github.io/WinSCP/New-WinSCPItemPermission.html"
     )]
     [OutputType(
         [WinSCP.FilePermissions]

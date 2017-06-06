@@ -1,7 +1,7 @@
 ﻿Function Start-WinSCPConsole {
     [CmdletBinding(
         ConfirmImpact = "None",
-        HelpUri = 'https://github.com/dotps1/WinSCP/wiki/Start-WinSCPConsole',
+        HelpUri = "https://dotps1.github.io/WinSCP/Start-WinSCPConsole.html",
         SupportsShouldProcess = $true
     )]
     [OutputType(
