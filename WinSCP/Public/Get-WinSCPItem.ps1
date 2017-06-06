@@ -1,4 +1,5 @@
-Function Get-WinSCPItem {
+function Get-WinSCPItem {
+
     [CmdletBinding(
         HelpUri = "https://dotps1.github.io/WinSCP/Get-WinSCPItem.html"
     )]
@@ -6,7 +7,7 @@ Function Get-WinSCPItem {
         [WinSCP.RemoteFileInfo]
     )]
     
-    Param (
+    param (
         [Parameter(
             Mandatory = $true,
             ValueFromPipeline = $true
@@ -15,7 +16,7 @@ Function Get-WinSCPItem {
             if ($_.Opened) { 
                 return $true 
             } else { 
-                throw 'The WinSCP Session is not in an Open state.'
+                throw "The WinSCP Session is not in an Open state."
             }
         })]
         [WinSCP.Session]
@@ -25,40 +26,38 @@ Function Get-WinSCPItem {
             ValueFromPipelineByPropertyName = $true
         )]
         [String[]]
-        $Path = '/',
+        $Path = "/",
 
         [Parameter()]
         [String]
-        $Filter = '*'
+        $Filter = [String]::Empty
     )
 
-    Begin {
-        $sessionValueFromPipeline = $PSBoundParameters.ContainsKey('WinSCPSession')
-    }
-
-    Process {
-        foreach ($item in (Format-WinSCPPathString -Path $($Path))) {
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $item)) {
-                Write-Error -Message "Cannot find path: $item because it does not exist."
-
+    process {
+        foreach ($pathValue in (Format-WinSCPPathString -Path $($Path))) {
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $pathValue)) {
+                Write-Error -Message "Cannot find path '$pathValue' because it does not exist."
                 continue
             }
 
-            if ($PSBoundParameters.ContainsKey('Filter')) {
-                Get-WinSCPChildItem -WinSCPSession $WinSCPSession -Path $item -Filter $Filter
+            $filterParameterUsed = $PSBoundParameters.ContainsKey(
+                "Filter"
+            )
+
+            if ($filterParameterUsed) {
+                Get-WinSCPChildItem -WinSCPSession $WinSCPSession -Path $pathValue -Filter $Filter
             } else {
                 try {
-                    $WinSCPSession.GetFileInfo($item)
+                    $output = $WinSCPSession.GetFileInfo(
+                        $pathValue
+                    )
+
+                    Write-Output -InputObject $output
                 } catch {
                     Write-Error -Message $_.ToString()
+                    continue
                 }
             }
-        }
-    }
-
-    End {
-        if (-not ($sessionValueFromPipeline)) {
-            Remove-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }
