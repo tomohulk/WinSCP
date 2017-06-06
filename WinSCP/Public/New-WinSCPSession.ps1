@@ -104,6 +104,13 @@
         $DebugLogPath = $null,
 
         [Parameter()]
+        [ValidateRange(
+            0,2
+        )]
+        [Int]
+        $DebugLogLevel = 0,
+
+        [Parameter()]
         [ValidateScript({
             if (Test-Path -Path (Split-Path -Path $_ -Parent)) {
                 return $true
