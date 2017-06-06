@@ -1,8 +1,7 @@
 ﻿function Get-WinSCPChildItem {
 
     [CmdletBinding(
-        HelpUri = "https://dotps1.github.io/WinSCP/Get-WinSCPChildItem.html",
-        ParameterSetName = "__AllParameterSets"
+        HelpUri = "https://dotps1.github.io/WinSCP/Get-WinSCPChildItem.html"
     )]
     [OutputType(
         [Array]
@@ -45,15 +44,11 @@
         [Switch]
         $Name,
 
-        [Parameter(
-            ParameterSetName = "Directory"
-        )]
+        [Parameter()]
         [Switch]
         $Directory,
 
-        [Parameter(
-            ParameterSetName = "File"
-        )]
+        [Parameter()]
         [Switch]
         $File
     )
@@ -106,20 +101,16 @@
                     })
                 }
 
-                switch ($PSCmdlet.ParameterSetName) {
-                    "Directory" {
+                if ($Directory.IsPresent -and -not $File.IsPresent) {
+                    $items = $items | Where-Object {
+                        $_.IsDirectory -eq $true
+                    }
+                } elseif ($File.IsPresent -and -not $Directory.IsPresent) {
                         $items = $items | Where-Object {
-                            $_.IsDirectory -eq $true
-                        }
-                    }
-
-                    "File" {
-                         $items = $items | Where-Object {
-                            $_.IsDirectory -eq $false
-                        }                       
-                    }
-
-                    default { break }
+                        $_.IsDirectory -eq $false
+                    }                       
+                } else {
+                    continue
                 }
 
                 if ($Name.IsPresent) {
