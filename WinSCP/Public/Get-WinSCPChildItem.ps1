@@ -65,9 +65,7 @@
             )
 
             if ($depthParameterUsed -and -not $Recurse.IsPresent) {
-                $PSBoundParameters.Add(
-                    "Recurse", $true
-                )
+                $Recurse = $true
             }
 
             if ($Recurse.IsPresent) {
@@ -97,7 +95,11 @@
                     })
                 }
 
-                if ($Directory.IsPresent -and -not $File.IsPresent) {
+                if ($Directory.IsPresent -and $File.IsPresent) {
+                    # If both -Directory and -File switches are used, exit the loop and return nothing.
+                    # This mimics the functionality of Get-ChildItem.
+                    continue
+                } elseif ($Directory.IsPresent -and -not $File.IsPresent) {
                     $items = $items.Where({
                         $_.IsDirectory -eq $true
                     })
@@ -105,10 +107,6 @@
                         $items = $items.Where({
                         $_.IsDirectory -eq $false
                     }) 
-                } else {
-                    # If both -Directory and -File is used, the loop stops and returns nothing.
-                    # This mimics the behavior of Get-ChildItem.
-                    continue
                 }
 
                 if ($Name.IsPresent) {
