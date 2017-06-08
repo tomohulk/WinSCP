@@ -15,10 +15,6 @@
         ),
 
         [Parameter()]
-        [PSCredential]
-        $ExecutableProcessCredential = [PSCredential]::Empty,
-
-        [Parameter()]
         [WinSCP.FtpMode]
         $FtpMode = (New-Object -TypeName WinSCP.FtpMode),
 
@@ -140,19 +136,6 @@
     $PSBoundParameters.Add(
         "SecurePassword", $Credential.Password
     )
-
-    # Set the process credentials.
-    $executableProcessCredentialUsed = $PSBoundParameters.ContainsKey(
-        "ExecutableProcessCredential"
-    )
-    if ($executableProcessCredentialUsed) {
-        $PSBoundParameters.Add(
-            "ExecutableProcessUserName", $ExecutableProcessCredential.UserName
-        )
-        $PSBoundParameters.Add(
-            "ExecutableProcessPassword", $ExecutableProcessCredential.Password
-        )
-    }
 
     # Resolve Full Path, WinSCP.exe does not like dot sourced path for the Certificate.
     $sshPrivateKeyPathUsed = $PSBoundParameters.ContainsKey(
