@@ -153,7 +153,10 @@
     }
 
     # Convert SshPrivateKeySecurePasspahrase to plain text and set it to the corresponding SessionOptions property.
-    if ($SshPrivateKeySecurePassphrase -ne $null) {
+    $sshPrivateKeySecurePassphraseUsed = $PSBoundParameters.ContainsKey(
+        "SshPrivateKeySecurePassphrase"
+    )
+    if ($sshPrivateKeySecurePassphraseUsed) {
 		try {
 			$sessionOptions.SshPrivateKeyPassphrase = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto(
                 [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR(
@@ -170,21 +173,19 @@
     try {
         # Enumerate each parameter.
         foreach ($key in $PSBoundParameters.Keys) {
-            # If the property is a member of the WinSCP.SessionOptions object, set the matching value.
             $sessionOptionsKeys = $sessionOptions | 
                 Get-Member -MemberType Properties |
                     Select-Object -ExpandProperty Name
-
-            if ($sessionOptionsKeys -contains $key) {
-                $sessionOptions.$key = $PSBoundParameters.$key
-            }
 
             $sessionKeys = $session |
                 Get-Member -MemberType Properties |
                     Select-Object -ExpandProperty Name
 
-            # If the property is a member of the WinSCP.Session object, set the matching value.
-            elseif ($sessionKeys -contains $key) {
+            if ($sessionOptionsKeys -contains $key) {
+                # If the property is a member of the WinSCP.SessionOptions object, set the matching value.
+                $sessionOptions.$key = $PSBoundParameters.$key
+            } elseif ($sessionKeys -contains $key) {
+                # If the property is a member of the WinSCP.Session object, set the matching value.
                 $session.$key = $PSBoundParameters.$key
             }
         }
