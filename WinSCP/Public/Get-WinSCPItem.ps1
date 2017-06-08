@@ -48,9 +48,16 @@ function Get-WinSCPItem {
             if ($filterParameterUsed) {
                 $output = Get-WinSCPChildItem -WinSCPSession $WinSCPSession -Path $pathValue -Filter $Filter
             } else {
-                $output = $WinSCPSession.GetFileInfo(
-                    $pathValue
-                )
+                try {
+                    $output = $WinSCPSession.GetFileInfo(
+                        $pathValue
+                    )
+                } catch {
+                    $PSCmdlet.WriteError(
+                        $_
+                    )
+                    continue
+                }
             }
 
             Write-Output -InputObject $output

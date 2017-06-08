@@ -116,7 +116,10 @@
 
                 Write-Output -InputObject $items
             } catch {
-                Write-Error -Message $_.ToString()
+                $PSCmdlet.WriteError(
+                    $_
+                )
+                continue
             }
         }
     }

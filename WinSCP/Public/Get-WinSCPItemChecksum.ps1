@@ -1,4 +1,5 @@
-﻿Function Get-WinSCPItemChecksum {
+﻿function Get-WinSCPItemChecksum {
+
     [CmdletBinding(
         HelpUri = "https://dotps1.github.io/WinSCP/Get-WinSCPItemChecksum.html"
     )]
@@ -6,7 +7,7 @@
         [Array]
     )]
 
-    Param (
+    param (
         [Parameter(
             Mandatory = $true,
             ValueFromPipeline = $true
@@ -15,7 +16,7 @@
             if ($_.Opened) { 
                 return $true 
             } else { 
-                throw 'The WinSCP Session is not in an Open state.'
+                throw "The WinSCP Session is not in an Open state."
             }
         })]
         [WinSCP.Session]
@@ -35,29 +36,25 @@
         $Path
     )
 
-    Begin {
-        $sessionValueFromPipeLine = $PSBoundParameters.ContainsKey('WinSCPSession')
-    }
-
-    Process {
-        foreach ($item in (Format-WinSCPPathString -Path $($Path))) {
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $item)) {
-                Write-Error -Message "Cannot find path: $item because it does not exist."
+    process {
+        foreach ($pathValue in (Format-WinSCPPathString -Path $($Path))) {
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $pathValue)) {
+                Write-Error -Message "Cannot find path '$pathValue' because it does not exist."
 
                 continue
             }
 
             try {
-                return ($WinSCPSession.CalculateFileChecksum($Algorithm, $item))
+                $output = $WinSCPSession.CalculateFileChecksum(
+                    $Algorithm, $pathValue
+                )
+
+                Write-Output -InputObject $output
             } catch {
-                Write-Error -Message $_.ToString()
+                $PSCmdlet.WriteError(
+                    $_
+                )
             }
         }
-    }
-    
-    End {
-        if (-not ($sessionValueFromPipeLine)) {
-            Remove-WinSCPSession -WinSCPSession $WinSCPSession
-        }
-    }
+    }   
 }
