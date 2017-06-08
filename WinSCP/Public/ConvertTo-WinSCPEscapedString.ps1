@@ -30,7 +30,9 @@
 
                 Write-Output -InputObject $output
             } catch {
-                Write-Error -Message $_.ToString()
+                $PSCmdlet.WriteError(
+                    $_
+                )
                 continue
             }
         }

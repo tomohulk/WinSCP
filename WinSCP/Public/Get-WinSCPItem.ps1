@@ -23,10 +23,11 @@ function Get-WinSCPItem {
         $WinSCPSession,
 
         [Parameter(
+            Mandatory = $true,
             ValueFromPipelineByPropertyName = $true
         )]
         [String[]]
-        $Path = "/",
+        $Path,
 
         [Parameter()]
         [String]
@@ -45,19 +46,14 @@ function Get-WinSCPItem {
             )
 
             if ($filterParameterUsed) {
-                Get-WinSCPChildItem -WinSCPSession $WinSCPSession -Path $pathValue -Filter $Filter
+                $output = Get-WinSCPChildItem -WinSCPSession $WinSCPSession -Path $pathValue -Filter $Filter
             } else {
-                try {
-                    $output = $WinSCPSession.GetFileInfo(
-                        $pathValue
-                    )
-
-                    Write-Output -InputObject $output
-                } catch {
-                    Write-Error -Message $_.ToString()
-                    continue
-                }
+                $output = $WinSCPSession.GetFileInfo(
+                    $pathValue
+                )
             }
+
+            Write-Output -InputObject $output
         }
     }
 }

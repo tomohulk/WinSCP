@@ -70,10 +70,12 @@ FormatsToProcess = @(
 # NestedModules = @()
 
 # Functions to export from this module
-FunctionsToExport = "ConvertTo-WinSCPEscapedString",
+FunctionsToExport = @(
+    "ConvertTo-WinSCPEscapedString",
     "Get-WinSCPChildItem",
     "Get-WinSCPItem",
     "Get-WinSCPItemChecksum",
+    "Get-WinSCPSession",
     "Invoke-WinSCPCommand",
     "Move-WinSCPItem",
     "New-WinSCPItem",
@@ -88,6 +90,7 @@ FunctionsToExport = "ConvertTo-WinSCPEscapedString",
     "Start-WinSCPConsole",
     "Sync-WinSCPPath",
     "Test-WinSCPPath"
+)
 
 # Cmdlets to export from this module
 # CmdletsToExport = "*"
@@ -118,7 +121,9 @@ FileList = @(
     "lib\WinSCPnet.dll",
     "Public\ConvertTo-WinSCPEscapedString.ps1",
     "Public\Get-WinSCPChildItem.ps1",
+    "Public\Get-WinSCPItem.ps1"
     "Public\Get-WinSCPItemChecksum.ps1",
+    "Public\Get-WinSCPSession.ps1",
     "Public\Invoke-WinSCPCommand.ps1",
     "Public\Move-WinSCPItem.ps1",
     "Public\New-WinSCPItemPermission.ps1"
