@@ -7,14 +7,16 @@
     )]
     
     Param (
-        [Parameter(
-            Mandatory = $true,
-            ValueFromPipeline = $true
-        )]
+        [Parameter()]
         [ValidateNotNull()]
-        [System.Management.Automation.PSCredential]
-        [System.Management.Automation.Credential()]
-        $Credential,
+        [PSCredential]
+        $Credential = [PSCredential]::new(
+            "anonymous", [SecureString]::new()
+        ),
+
+        [Parameter()]
+        [PSCredential]
+        $ExecutableProcessCredential = [PSCredential]::Empty,
 
         [Parameter()]
         [WinSCP.FtpMode]
@@ -36,7 +38,7 @@
             Mandatory = $true
         )]
         [String]
-        $HostName = $null,
+        $HostName,
 
         [Parameter()]
         [Int]
@@ -63,15 +65,11 @@
         [String]
         $SshPrivateKeyPath = $null,
 
-        [Parameter(
-			ValueFromPipelineByPropertyName = $true
-		)]
+        [Parameter()]
         [SecureString]
         $SshPrivateKeySecurePassphrase = $null,
 
-        [Parameter(
-			ValueFromPipelineByPropertyName = $true
-		)]
+        [Parameter()]
         [String]
         $TlsHostCertificateFingerprint = $null,
 
@@ -142,6 +140,19 @@
     $PSBoundParameters.Add(
         "SecurePassword", $Credential.Password
     )
+
+    # Set the process credentials.
+    $executableProcessCredentialUsed = $PSBoundParameters.ContainsKey(
+        "ExecutableProcessCredential"
+    )
+    if ($executableProcessCredentialUsed) {
+        $PSBoundParameters.Add(
+            "ExecutableProcessUserName", $ExecutableProcessCredential.UserName
+        )
+        $PSBoundParameters.Add(
+            "ExecutableProcessPassword", $ExecutableProcessCredential.Password
+        )
+    }
 
     # Resolve Full Path, WinSCP.exe does not like dot sourced path for the Certificate.
     $sshPrivateKeyPathUsed = $PSBoundParameters.ContainsKey(
