@@ -3,7 +3,7 @@
 os: WMF 5
 skip_tags: true
 only_commits:
-  message: /build/
+  message: build/
   author: dotps1@outlook.com
 install:
   - cmd: cinst filezilla.server -y

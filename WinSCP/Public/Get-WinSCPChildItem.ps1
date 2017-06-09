@@ -27,7 +27,7 @@
             ValueFromPipelineByPropertyName = $true
         )]
         [String[]]
-        $Path = "/",
+        $Path = $WinSCPSession.HomePath,
 
         [Parameter()]
         [String]

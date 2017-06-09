@@ -1,4 +1,5 @@
-﻿Function Move-WinSCPItem {
+﻿function Move-WinSCPItem {
+
     [CmdletBinding(
         HelpUri = "https://dotps1.github.io/WinSCP/Move-WinSCPItem.html"
     )]
@@ -6,16 +7,16 @@
         [Void]
     )]
     
-    Param (
+    param (
         [Parameter(
             Mandatory = $true,
-            ValueFromPipeline = $true
+            ValueFromPipelineByPropertyName = $true
         )]
         [ValidateScript({ 
             if ($_.Opened) { 
                 return $true 
             } else { 
-                throw 'The WinSCP Session is not in an Open state.'
+                throw "The WinSCP Session is not in an Open state."
             }
         })]
         [WinSCP.Session]
@@ -23,6 +24,7 @@
 
         [Parameter(
             Mandatory = $true,
+            ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true
         )]
         [String[]]
@@ -30,7 +32,7 @@
 
         [Parameter()]
         [String]
-        $Destination = '/',
+        $Destination = $WinSCPSession.HomePath,
 
         [Parameter()]
         [Switch]
@@ -41,11 +43,7 @@
         $PassThru
     )
 
-    Begin {
-        $sessionValueFromPipeLine = $PSBoundParameters.ContainsKey('WinSCPSession')
-    }
-
-    Process {
+    process {
         if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path ($Destination = Format-WinSCPPathString -Path $($Destination)))) {
             if ($Force.IsPresent) {
                 New-WinSCPItem -WinSCPSession $WinSCPSession -Path $Destination -ItemType Directory
@@ -56,28 +54,28 @@
             }
         }
 
-        foreach ($item in (Format-WinSCPPathString -Path $($Path))) {
+        foreach ($pathValue in (Format-WinSCPPathString -Path $($Path))) {
             try {
-                if (-not ($Destination.EndsWith($item))) {
+                if (-not ($Destination.EndsWith($pathValue))) {
                     if (-not ($Destination.EndsWith('/'))) {
-                        $Destination += '/'
+                        $Destination += "/"
                     }
                 }
 
-                $WinSCPSession.MoveFile($item.TrimEnd('/'), $Destination)
+                $WinSCPSession.MoveFile(
+                    $pathValue.TrimEnd(
+                        "/"
+                    ), $Destination
+                )
 
                 if ($PassThru.IsPresent) {
                     Get-WinSCPItem -WinSCPSession $WinSCPSession -Path (Join-Path -Path $Destination -ChildPath (Split-Path -Path $item -Leaf))
                 }
             } catch {
-                Write-Error -Message $_.ToString()
+                $PSCmdlet.WriteError(
+                    $_
+                )
             }
-        }
-    }
-
-    End {
-        if (-not ($sessionValueFromPipeLine)) {
-            Remove-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }
