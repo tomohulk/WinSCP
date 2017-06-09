@@ -6,10 +6,18 @@ function Get-WinSCPSession {
     )]
 
     param (
-        [Parameter()]
+        [Parameter(
+            Mandatory = $true,
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true
+        )]
         [WinSCP.Session]
         $WinSCPSession
     )
 
-    Write-Output -InputObject $WinSCPSession
+    process {
+        foreach ($winscpSessionValue in $WinSCPSession) {
+            Write-Output -InputObject $winscpSessionValue
+        }
+    }
 }

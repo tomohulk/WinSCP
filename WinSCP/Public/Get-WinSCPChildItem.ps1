@@ -10,7 +10,7 @@
     param (
         [Parameter(
             Mandatory = $true,
-            ValueFromPipeline = $true
+            ValueFromPipelineByPropertyName = $true
         )]
         [ValidateScript({ 
             if ($_.Opened) { 
@@ -23,6 +23,7 @@
         $WinSCPSession,
 
         [Parameter(
+            ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true
         )]
         [String[]]

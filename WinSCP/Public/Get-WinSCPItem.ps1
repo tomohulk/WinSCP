@@ -10,7 +10,7 @@ function Get-WinSCPItem {
     param (
         [Parameter(
             Mandatory = $true,
-            ValueFromPipeline = $true
+            ValueFromPipelineByPropertyName = $true
         )]
         [ValidateScript({ 
             if ($_.Opened) { 
@@ -24,6 +24,7 @@ function Get-WinSCPItem {
 
         [Parameter(
             Mandatory = $true,
+            ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true
         )]
         [String[]]
