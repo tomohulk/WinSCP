@@ -1,4 +1,5 @@
-﻿Function New-WinSCPItem {
+﻿function New-WinSCPItem {
+
     [CmdletBinding(
         SupportsShouldProcess = $true,
         HelpUri = "https://dotps1.github.io/WinSCP/New-WinSCPItem.html"
@@ -7,26 +8,27 @@
         [WinSCP.RemoteFileInfo]
     )]
     
-    Param (
+    param (
         [Parameter(
             Mandatory = $true,
-            ValueFromPipeline = $true
+            ValueFromPipelineByPropertyName = $true
         )]
         [ValidateScript({ 
             if ($_.Opened) { 
                 return $true 
             } else { 
-                throw 'The WinSCP Session is not in an Open state.'
+                throw "The WinSCP Session is not in an Open state."
             }
         })]
         [WinSCP.Session]
         $WinSCPSession,
 
         [Parameter(
+            ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true
         )]
         [String[]]
-        $Path = '/',
+        $Path = $WinSCPSession.HomePath,
 
         [Parameter(
             ValueFromPipelineByPropertyName = $true
@@ -36,7 +38,7 @@
 
         [Parameter()]
         [String]
-        $ItemType = 'File',
+        $ItemType = "File",
 
         [Parameter()]
         [String]
@@ -51,14 +53,10 @@
         $TransferOptions = (New-Object -TypeName WinSCP.TransferOptions)
     )
 
-    Begin {
-        $sessionValueFromPipeLine = $PSBoundParameters.ContainsKey('WinSCPSession')
-    }
-
-    Process {
-        foreach ($item in (Format-WinSCPPathString -Path $($Path))) {
+    process {
+        foreach ($pathValue in (Format-WinSCPPathString -Path $($Path))) {
             if ($PSBoundParameters.ContainsKey('Name')) {
-                $item = Format-WinSCPPathString -Path $(Join-Path -Path $item -ChildPath $Name)
+                $item = Format-WinSCPPathString -Path $(Join-Path -Path $pathValue -ChildPath $Name)
             }
 
             if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path (Split-Path -Path $item -Parent))) {
@@ -68,7 +66,7 @@
             }
 
             if ((Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $item) -and -not $Force.IsPresent) {
-                Write-Error -Message "An item with the spcified name '$item' already exists."
+                Write-Error -Message "An item with the specified name '$item' already exists."
 
                 continue
             } 
@@ -83,7 +81,10 @@
                 }
 
                 if ($PSCmdlet.ShouldProcess($item)) {
-                    $result = $WinSCPSession.PutFiles((New-Item @newItemParams).FullName, $item, $true, $TransferOptions)
+                    $newItem = New-Item @newItemParams
+                    $result = $WinSCPSession.PutFiles(
+                        $newItem.FullName, $item, $true, $TransferOptions
+                    )
 
                     if ($result.IsSuccess) {
                         Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $item
@@ -94,14 +95,15 @@
                     }
                 }
             } catch {
-                Write-Error -Message $_.ToString()
+                $PSCmdlet.WriteError(
+                    $_
+                )
+            } finally {
+                # Make sure to clean up our temp item if the transfer fails.
+                if (Test-Path -Path $newItem.FullName) {
+                    Remove-Item -Path $newItem.FullName -Force -Confirm:$false -Recurse -ErrorAction SilentlyContinue
+                }
             }
-        }
-    }
-
-    End {
-        if (-not ($sessionValueFromPipeLine)) {
-            Remove-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }
