@@ -1,7 +1,6 @@
 ﻿function New-WinSCPItem {
 
     [CmdletBinding(
-        SupportsShouldProcess = $true,
         HelpUri = "https://dotps1.github.io/WinSCP/New-WinSCPItem.html"
     )]
     [OutputType(
@@ -56,17 +55,17 @@
     process {
         foreach ($pathValue in (Format-WinSCPPathString -Path $($Path))) {
             if ($PSBoundParameters.ContainsKey('Name')) {
-                $item = Format-WinSCPPathString -Path $(Join-Path -Path $pathValue -ChildPath $Name)
+                $pathValue = Format-WinSCPPathString -Path $(Join-Path -Path $pathValue -ChildPath $Name)
             }
 
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path (Split-Path -Path $item -Parent))) {
-                Write-Error -Message "Could not find a part of the path '$item'"
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path (Split-Path -Path $pathValue -Parent))) {
+                Write-Error -Message "Could not find a part of the path '$pathValue'"
 
                 continue
             }
 
-            if ((Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $item) -and -not $Force.IsPresent) {
-                Write-Error -Message "An item with the specified name '$item' already exists."
+            if ((Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $pathValue) -and -not $Force.IsPresent) {
+                Write-Error -Message "An item with the specified name '$pathValue' already exists."
 
                 continue
             } 
@@ -74,25 +73,23 @@
             try {
                 $newItemParams = @{
                     Path = $env:TEMP
-                    Name = (Split-Path -Path $item -Leaf)
+                    Name = (Split-Path -Path $pathValue -Leaf)
                     ItemType = $ItemType
                     Value = $Value
                     Force = $true
                 }
 
-                if ($PSCmdlet.ShouldProcess($item)) {
-                    $newItem = New-Item @newItemParams
-                    $result = $WinSCPSession.PutFiles(
-                        $newItem.FullName, $item, $true, $TransferOptions
+                $newItem = New-Item @newItemParams
+                $result = $WinSCPSession.PutFiles(
+                    $newItem.FullName, $item, $true, $TransferOptions
+                )
+
+                if ($result.IsSuccess) {
+                    Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $item
+                } else {
+                    $PSCmdlet.WriteError(
+                        $result.Check()
                     )
-
-                    if ($result.IsSuccess) {
-                        Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $item
-                    } else {
-                        Write-Error $result.Check()
-
-                        continue
-                    }
                 }
             } catch {
                 $PSCmdlet.WriteError(
