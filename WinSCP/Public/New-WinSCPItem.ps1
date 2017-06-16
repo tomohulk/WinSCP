@@ -54,12 +54,15 @@
 
     process {
         foreach ($pathValue in (Format-WinSCPPathString -Path $($Path))) {
-            if ($PSBoundParameters.ContainsKey('Name')) {
+            $nameParameterUsed = $PSBoundParameters.ContainsKey(
+                "Name"
+            )
+            if ($nameParameterUsed) {
                 $pathValue = Format-WinSCPPathString -Path $(Join-Path -Path $pathValue -ChildPath $Name)
             }
 
             if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path (Split-Path -Path $pathValue -Parent))) {
-                Write-Error -Message "Could not find a part of the path '$pathValue'"
+                Write-Error -Message "Cannot find path '$pathValue' because it does not exist."
 
                 continue
             }

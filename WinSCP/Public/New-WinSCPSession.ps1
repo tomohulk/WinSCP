@@ -1,4 +1,5 @@
-﻿Function New-WinSCPSession {
+﻿function New-WinSCPSession {
+
     [CmdletBinding(
         HelpUri = "https://dotps1.github.io/WinSCP/New-WinSCPSession.html"
     )]
@@ -6,84 +7,14 @@
         [WinSCP.Session]
     )]
     
-    Param (
-        [Parameter()]
-        [ValidateNotNull()]
-        [PSCredential]
-        $Credential = [PSCredential]::new(
-            "anonymous", [SecureString]::new()
-        ),
-
-        [Parameter()]
-        [WinSCP.FtpMode]
-        $FtpMode = (New-Object -TypeName WinSCP.FtpMode),
-
-        [Parameter()]
-        [WinSCP.FtpSecure]
-        $FtpSecure = (New-Object -TypeName WinSCP.FtpSecure),
-        
-        [Parameter()]
-        [Switch]
-        $GiveUpSecurityAndAcceptAnySshHostKey,
-
-        [Parameter()]
-        [Switch]
-        $GiveUpSecurityAndAcceptAnyTlsHostCertificate,
-
+    param (
         [Parameter(
-            Mandatory = $true
-        )]
-        [String]
-        $HostName,
-
-        [Parameter()]
-        [Int]
-        $PortNumber = 0,
-
-        [Parameter()]
-        [WinSCP.Protocol]
-        $Protocol = (New-Object -TypeName WinSCP.Protocol),
-
-        [Parameter(
+            Mandatory = $true,
+            ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true
         )]
-        [String[]]
-        $SshHostKeyFingerprint = $null,
-
-        [Parameter()]
-        [ValidateScript({ 
-            if (Test-Path -Path $_) { 
-                return $true 
-            } else { 
-                throw "Unable to find part of Path: '$_'." 
-            } 
-        })]
-        [String]
-        $SshPrivateKeyPath = $null,
-
-        [Parameter()]
-        [SecureString]
-        $SshPrivateKeySecurePassphrase = $null,
-
-        [Parameter()]
-        [String]
-        $TlsHostCertificateFingerprint = $null,
-
-        [Parameter()]
-        [TimeSpan]
-        $Timeout = (New-TimeSpan -Seconds 15),
-
-        [Parameter()]
-        [Switch]
-        $WebdavSecure,
-
-        [Parameter()]
-        [String]
-        $WebdavRoot = $null,
-        
-        [Parameter()]
-        [HashTable]
-        $RawSetting = $null,
+        [WinSCP.SessionOptions]
+        $SessionOption,
 
         [Parameter()]
         [ValidateScript({
@@ -94,7 +25,7 @@
             } 
         })]
         [String]
-        $DebugLogPath = $null,
+        $DebugLogPath,
 
         [Parameter()]
         [ValidateRange(
@@ -112,7 +43,7 @@
             } 
         })]
         [String]
-        $SessionLogPath = $null,
+        $SessionLogPath,
 
         [Parameter()]
         [TimeSpan]
@@ -120,75 +51,21 @@
 
         [Parameter()]
         [ScriptBlock]
-        $FileTransferProgress = $null
+        $FileTransferProgress
     )
 
     # Create WinSCP.Session and WinSCP.SessionOptions Objects, parameter values will be assigned to matching object properties.
-    $sessionOptions = New-Object -TypeName WinSCP.SessionOptions
     $session = New-Object -TypeName WinSCP.Session -Property @{
         ExecutablePath = "$PSScriptRoot\..\bin\winscp.exe"
     }
 
-    # Convert PSCredential Object to match names of the WinSCP.SessionOptions Object.
-    $PSBoundParameters.Add(
-        "UserName", $Credential.UserName
-    )
-    $PSBoundParameters.Add(
-        "SecurePassword", $Credential.Password
-    )
-
-    # Resolve Full Path, WinSCP.exe does not like dot sourced path for the Certificate.
-    $sshPrivateKeyPathUsed = $PSBoundParameters.ContainsKey(
-        "SshPrivateKeyPath"
-    )
-    if ($sshPrivateKeyPathUsed) {
-        $PSBoundParameters.SshPrivateKeyPath = Resolve-Path -Path $SshPrivateKeyPath |
-            Select-Object -ExpandProperty Path
-    }
-
-    # Convert SshPrivateKeySecurePasspahrase to plain text and set it to the corresponding SessionOptions property.
-    $sshPrivateKeySecurePassphraseUsed = $PSBoundParameters.ContainsKey(
-        "SshPrivateKeySecurePassphrase"
-    )
-    if ($sshPrivateKeySecurePassphraseUsed) {
-		try {
-			$sessionOptions.SshPrivateKeyPassphrase = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto(
-                [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR(
-                    $SshPrivateKeySecurePassphrase
-                )
-            )
-		} catch {
-            $PSCmdlet.ThrowTerminatingError(
-                $_
-            )
-		}
-    }
-
     try {
         # Enumerate each parameter.
-        foreach ($key in $PSBoundParameters.Keys) {
-            $sessionOptionsKeys = $sessionOptions | 
-                Get-Member -MemberType Properties |
-                    Select-Object -ExpandProperty Name
-
-            $sessionKeys = $session |
-                Get-Member -MemberType Properties |
-                    Select-Object -ExpandProperty Name
-
-            if ($sessionOptionsKeys -contains $key) {
-                # If the property is a member of the WinSCP.SessionOptions object, set the matching value.
-                $sessionOptions.$key = $PSBoundParameters.$key
-            } elseif ($sessionKeys -contains $key) {
-                # If the property is a member of the WinSCP.Session object, set the matching value.
-                $session.$key = $PSBoundParameters.$key
-            }
-        }
-
-        # Enumerate raw settings and add the options to the WinSCP.SessionOptions object.
-        foreach ($key in $RawSetting.Keys) {
-            $sessionOptions.AddRawSettings(
-                $key, $RawSetting[$key]
-            )
+        $keys = $PSBoundParameters.Keys.Where({
+            $_ -ne "SessionOption"
+        })
+        foreach ($key in $keys) {
+            $session.$key = $PSBoundParameters.$key
         }
 
 		# Add FileTransferProgress ScriptBlock if present.
@@ -209,7 +86,7 @@
     try {
         # Open the WinSCP.Session object using the WinSCP.SessionOptions object.
         $session.Open(
-            $sessionOptions
+            $SessionOption
         )
 
         # Set the default -WinSCPSession Parameter Value for other cmdlets.
@@ -228,6 +105,7 @@
         $PSCmdlet.WriteError(
             $_
         )
+
         $session.Dispose()
     }
 }

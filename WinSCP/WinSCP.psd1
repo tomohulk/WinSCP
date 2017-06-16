@@ -80,6 +80,7 @@ FunctionsToExport = @(
     "Move-WinSCPItem",
     "New-WinSCPItem",
     "New-WinSCPItemPermission",
+    "New-WinSCPSessionOption"
     "New-WinSCPSession",
     "New-WinSCPTransferOption",
     "Receive-WinSCPItem",
@@ -130,6 +131,7 @@ FileList = @(
     "Public\New-WinSCPItem.ps1",
     "Public\New-WinSCPTransferOption.ps1",
     "Public\New-WinSCPSession.ps1",
+    "Public\New-WinSCPSessionOption.ps1",
     "Public\Receive-WinSCPItem.ps1",
     "Public\Remove-WinSCPItem.ps1",
     "Public\Remove-WinSCPSession.ps1",

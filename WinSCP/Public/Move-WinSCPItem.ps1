@@ -48,18 +48,21 @@
             if ($Force.IsPresent) {
                 New-WinSCPItem -WinSCPSession $WinSCPSession -Path $Destination -ItemType Directory
             } else {
-                Write-Error -Message 'Could not find a part of the path.'
-
+                Write-Error -Message "Cannot find path '$Destination' because it does not exist."
                 return
             }
         }
 
         foreach ($pathValue in (Format-WinSCPPathString -Path $($Path))) {
             try {
-                if (-not ($Destination.EndsWith($pathValue))) {
-                    if (-not ($Destination.EndsWith('/'))) {
-                        $Destination += "/"
-                    }
+                $destinationEndsWithPathValue = $Destination.EndsWith(
+                    $pathValue
+                )
+                $destinationEndsWithForwardSlash = $Destination.EndsWith(
+                    "/"
+                )
+                if (-not ($destinationEndsWithPathValue) -and -not ($destinationEndsWithForwardSlash)) {
+                    $Destination += "/"
                 }
 
                 $WinSCPSession.MoveFile(
