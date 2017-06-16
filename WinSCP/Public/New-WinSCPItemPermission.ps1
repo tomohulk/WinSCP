@@ -1,13 +1,13 @@
-Function New-WinSCPItemPermission {
+function New-WinSCPItemPermission {
+
     [CmdletBinding(
-        SupportsShouldProcess = $true,
         HelpUri = "https://dotps1.github.io/WinSCP/New-WinSCPItemPermission.html"
     )]
     [OutputType(
         [WinSCP.FilePermissions]
     )]
 
-    Param (
+    param (
         [Parameter()]
         [Switch]
         $GroupExecute,
@@ -22,7 +22,7 @@ Function New-WinSCPItemPermission {
 
         [Parameter()]
         [Int]
-        $Numeric = $null,
+        $Numeric,
 
         [Parameter()]
         [String]
@@ -54,7 +54,7 @@ Function New-WinSCPItemPermission {
 
         [Parameter()]
         [String]
-        $Text = $null,
+        $Text,
 
         [Parameter()]
         [Switch]
@@ -69,21 +69,16 @@ Function New-WinSCPItemPermission {
         $UserWrite
     )
 
-    Begin {
-        $filePermmisions = New-Object -TypeName WinSCP.FilePermissions
+        $filePermissions = New-Object -TypeName WinSCP.FilePermissions
 
-        if ($PSCmdlet.ShouldProcess($filePermmisions)) {
-            foreach ($key in $PSBoundParameters.Keys) {
-                try {
-                    $filePermmisions.$($key) = $PSBoundParameters.$($key)
-                } catch {
-                    Write-Error -Message $_.ToString()
-                }
+        foreach ($key in $PSBoundParameters.Keys) {
+            try {
+                $filePermissions.$($key) = $PSBoundParameters.$($key)
+            } catch {
+                Write-Error -Message $_.ToString()
             }
         }
     }
 
-    End {
-        return $filePermmisions
-    }
+    Write-Output -InputObject $filePermissions
 }

@@ -1,6 +1,8 @@
 function New-WinSCPSessionOption {
 
-    [CmdletBinding()]
+    [CmdletBinding(
+        HelpUri = "https://dotps1.github.io/WinSCP/New-WinSCPSessionOption.html"
+    )]
     [OutputType(
         [WinSCP.SessionOptions]
     )]
