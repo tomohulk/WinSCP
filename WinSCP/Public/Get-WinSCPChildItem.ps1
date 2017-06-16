@@ -39,7 +39,7 @@
 
         [Parameter()]
         [Int]
-        $Depth = $null,
+        $Depth,
 
         [Parameter()]
         [Switch]

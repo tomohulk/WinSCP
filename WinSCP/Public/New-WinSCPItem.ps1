@@ -33,7 +33,7 @@
             ValueFromPipelineByPropertyName = $true
         )]
         [String]
-        $Name = $null,
+        $Name,
 
         [Parameter()]
         [String]
@@ -41,7 +41,7 @@
 
         [Parameter()]
         [String]
-        $Value = $null,
+        $Value,
 
         [Parameter()]
         [Switch]
