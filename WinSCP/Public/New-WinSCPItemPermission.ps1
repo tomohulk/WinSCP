@@ -69,14 +69,13 @@ function New-WinSCPItemPermission {
         $UserWrite
     )
 
-        $filePermissions = New-Object -TypeName WinSCP.FilePermissions
+    $filePermissions = New-Object -TypeName WinSCP.FilePermissions
 
-        foreach ($key in $PSBoundParameters.Keys) {
-            try {
-                $filePermissions.$($key) = $PSBoundParameters.$($key)
-            } catch {
-                Write-Error -Message $_.ToString()
-            }
+    foreach ($key in $PSBoundParameters.Keys) {
+        try {
+            $filePermissions.$($key) = $PSBoundParameters.$($key)
+        } catch {
+            Write-Error -Message $_.ToString()
         }
     }
 
