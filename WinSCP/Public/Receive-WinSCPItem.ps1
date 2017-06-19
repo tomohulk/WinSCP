@@ -43,10 +43,15 @@
     )
 
     process {
-        foreach ($itemValue in (Format-WinSCPPathString -Path $($Path))) {
+        foreach ($pathValue in (Format-WinSCPPathString -Path $($Path))) {
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $pathValue)) {
+                Write-Error -Message "Cannot find path '$pathValue' because it does not exist."
+                continue
+            }
+
             try {
                 $result = $WinSCPSession.GetFiles(
-                    $itemValue, $Destination, $Remove.IsPresent, $TransferOptions
+                    $pathValue, $Destination, $Remove.IsPresent, $TransferOptions
                 )
 
                 if ($result.IsSuccess) {
