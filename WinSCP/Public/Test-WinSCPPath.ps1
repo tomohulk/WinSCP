@@ -1,4 +1,5 @@
-﻿Function Test-WinSCPPath {
+﻿function Test-WinSCPPath {
+
     [CmdletBinding(
         HelpUri = "https://dotps1.github.io/WinSCP/Test-WinSCPPath.html"
     )]
@@ -6,7 +7,7 @@
         [Bool]
     )]
     
-    Param (
+    param (
         [Parameter(
             Mandatory = $true,
             ValueFromPipeline = $true
@@ -15,7 +16,7 @@
             if ($_.Opened) { 
                 return $true 
             } else { 
-                throw 'The WinSCP Session is not in an Open state.'
+                throw "The WinSCP Session is not in an Open state."
             }
         })]
         [WinSCP.Session]
@@ -29,23 +30,19 @@
         $Path
     )
 
-    Begin {
-        $sessionValueFromPipeLine = $PSBoundParameters.ContainsKey('WinSCPSession')
-    }
-
-    Process {
+    process {
         foreach($item in (Format-WinSCPPathString -Path $($Path))) {
             try {
-                $WinSCPSession.FileExists($item)
-            } catch {
-                Write-Error -Message $_.ToString()
-            }
-        }
-    }
+                $output = $WinSCPSession.FileExists(
+                    $item
+                )
 
-    End {
-        if (-not ($sessionValueFromPipeLine)) {
-            Remove-WinSCPSession -WinSCPSession $WinSCPSession
+                Write-Output -InputObject $output
+            } catch {
+                $PSCmdlet.WriteError(
+                    $_
+                )
+            }
         }
     }
 }

@@ -74,9 +74,11 @@
         }
 
         try {
-            $WinSCPSession.SynchronizeDirectories(
+            $output = $WinSCPSession.SynchronizeDirectories(
                 $Mode, $localPathInfo.FullName, $RemotePath, $Remove.IsPresent, $Mirror.IsPresent, $Criteria, $TransferOptions
             )
+
+            Write-Output -InputObject $output
         } catch {
             $PSCmdlet.WriteError(
                 $_
