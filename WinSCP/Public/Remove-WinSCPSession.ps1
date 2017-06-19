@@ -1,4 +1,5 @@
-﻿Function Remove-WinSCPSession {
+﻿function Remove-WinSCPSession {
+
     [CmdletBinding(
         HelpUri = "https://dotps1.github.io/WinSCP/Remove-WinSCPSession.html"
     )]
@@ -6,7 +7,7 @@
         Void]
     )]
     
-    Param (
+    param (
         [Parameter(
             Mandatory = $true,
             ValueFromPipeline = $true
@@ -17,10 +18,13 @@
 
     try {
         $WinSCPSession.Dispose()
-        Get-Command -Module WinSCP -ParameterName WinSCPSession | ForEach-Object {
-            $Global:PSDefaultParameterValues.Remove("$($_.Name):WinSCPSession")
-        }
     } catch {
         Write-Error $_.ToString()
+    } catch {
+        (Get-Command -Module WinSCP -ParameterName WinSCPSession).ForEach({
+            $Global:PSDefaultParameterValues.Remove(
+                "$($_.Name):WinSCPSession"
+            )
+        })
     }
 }

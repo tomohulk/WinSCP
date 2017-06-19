@@ -1,4 +1,5 @@
-﻿Function Remove-WinSCPItem {    
+﻿function Remove-WinSCPItem {
+
     [CmdletBinding(
         SupportsShouldProcess = $true,
         ConfirmImpact = 'High',
@@ -8,7 +9,7 @@
         [Void]
     )]
 
-    Param (
+    param (
         [Parameter(
             Mandatory = $true,
             ValueFromPipeline = $true
@@ -30,31 +31,27 @@
         $Path
     )
 
-    Begin {
-        $sessionValueFromPipeLine = $PSBoundParameters.ContainsKey('WinSCPSession')
-    }
-
-    Process {
-        foreach ($item in (Format-WinSCPPathString -Path $($Path))) {
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $item)) {
-                Write-Error -Message "Cannot find path: $item because it does not exist."
-
+    process {
+        foreach ($pathValue in (Format-WinSCPPathString -Path $($Path))) {
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $pathValue)) {
+                Write-Error -Message "Cannot find path '$pathValue' because it does not exist."
                 continue
             }
 
-            if ($PSCmdlet.ShouldProcess($item)) {
+            $cmdletShouldProcess = $PSCmdlet.ShouldProcess(
+                $pathValue
+            )
+            if ($cmdletShouldProcess) {
                 try {
-                    $WinSCPSession.RemoveFiles($item) | Out-Null
+                    $null = $WinSCPSession.RemoveFiles(
+                        $item
+                    )
                 } catch {
-                    Write-Error -Message $_.ToString()
+                    $PSCmdlet.WriteError(
+                        $_
+                    )
                 }
             }
         } 
-    }
-
-    End {
-        if (-not ($sessionValueFromPipeLine)) {
-            Remove-WinSCPSession -WinSCPSession $WinSCPSession
-        }
     }
 }
