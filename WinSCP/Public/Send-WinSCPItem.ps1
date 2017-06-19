@@ -1,4 +1,5 @@
-﻿Function Send-WinSCPItem {
+﻿function Send-WinSCPItem {
+
     [CmdletBinding(
         HelpUri = "https://dotps1.github.io/WinSCP/Send-WinSCPItem.html"
     )]
@@ -6,7 +7,7 @@
         [WinSCP.TransferOperationResult]
     )]
 
-    Param (
+    param (
         [Parameter(
             Mandatory = $true,
             ValueFromPipeline = $true
@@ -15,7 +16,7 @@
             if ($_.Opened) { 
                 return $true 
             } else { 
-                throw 'The WinSCP Session is not in an Open state.'
+                throw "The WinSCP Session is not in an Open state."
             }
         })]
         [WinSCP.Session]
@@ -30,7 +31,7 @@
 
         [Parameter()]
         [String]
-        $Destination = '/',
+        $Destination = $WinSCPSession.HomePath,
         
         [Parameter()]
         [Switch]
@@ -38,17 +39,11 @@
 
         [Parameter()]
         [WinSCP.TransferOptions]
-        $TransferOptions = (
-            New-Object -TypeName WinSCP.TransferOptions
-        )
+        $TransferOptions = (New-Object -TypeName WinSCP.TransferOptions)
     )
 
-    Begin {
-        $sessionValueFromPipeLine = $PSBoundParameters.ContainsKey('WinSCPSession')
-    }
-
-    Process {
-        foreach ($item in $Path) {
+    process {
+        foreach ($pathValue in $Path) {
             if (-not (Test-Path -Path $item)) {
                 Write-Error -Message "Cannot find path: $item because it does not exist."
 
@@ -63,7 +58,7 @@
 
             try {
                 $result = $WinSCPSession.PutFiles(
-                    $item, (Format-WinSCPPathString -Path $($Destination)), $Remove.IsPresent, $TransferOptions
+                    $pathValue, (Format-WinSCPPathString -Path $($Destination)), $Remove.IsPresent, $TransferOptions
                 )
 
                 if ($result.IsSuccess) {
@@ -75,12 +70,6 @@
             } catch {
                 Write-Error -Message $_.ToString()
             }
-        }
-    }
-
-    End {
-        if (-not ($sessionValueFromPipeLine)) {
-            Remove-WinSCPSession -WinSCPSession $WinSCPSession
         }
     }
 }
