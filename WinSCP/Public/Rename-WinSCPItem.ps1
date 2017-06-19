@@ -1,4 +1,5 @@
-﻿Function Rename-WinSCPItem {
+﻿function Rename-WinSCPItem {
+
     [CmdletBinding(
         HelpUri = "https://dotps1.github.io/WinSCP/Rename-WinSCPItem.html"
     )]
@@ -6,7 +7,7 @@
         [Void]
     )]
 
-    Param (
+    param (
         [Parameter(
             Mandatory = $true,
             ValueFromPipeline = $true
@@ -15,7 +16,7 @@
             if ($_.Opened) { 
                 return $true 
             } else { 
-                throw 'The WinSCP Session is not in an Open state.'
+                throw "The WinSCP Session is not in an Open state."
             }
         })]
         [WinSCP.Session]
@@ -38,32 +39,30 @@
         $PassThru
     )
 
-    Begin {
-        $sessionValueFromPipeLine = $PSBoundParameters.ContainsKey('WinSCPSession')
-    }
-
-    Process {
+    process {
         try {
             $item = Get-WinSCPItem -WinSCPSession $WinSCPSession -Path (Format-WinSCPPathString -Path $($Path)) -ErrorAction Stop
             
-            if ($NewName.Contains('/') -or $NewName.Contains('\')) {
-                $NewName = $NewName.Substring($NewName.LastIndexOfAny('/\'))
+            if ($NewName -contains "/" -or $NewName -contains "\")) {
+                $NewName = $NewName.Substring(
+                    $NewName.LastIndexOfAny(
+                        "/\"
+                    )
+                )
             }
 
-            $newPath = "$($item.FullName.Substring(0, $item.FullName.LastIndexOf('/') + 1))$NewName" 
-            $WinSCPSession.MoveFile($item.FullName, $newPath)
+            $newPath = Join-Path -Path (Split-Path -Path $item.FullName -Parent) -ChildPath $NewName
+            $WinSCPSession.MoveFile(
+                $item.FullName, $newPath
+            )
 
             if ($PassThru.IsPresent) {
                 Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $newPath
             }
         } catch {
-            Write-Error -Message $_.ToString()
-        }
-    }
-
-    End {
-        if (-not ($sessionValueFromPipeLine)) {
-            Remove-WinSCPSession -WinSCPSession $WinSCPSession
+            $PSCmdlet.WriteError(
+                $_
+            )
         }
     }
 }
