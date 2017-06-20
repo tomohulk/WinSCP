@@ -75,7 +75,9 @@ function New-WinSCPItemPermission {
         try {
             $filePermissions.$($key) = $PSBoundParameters.$($key)
         } catch {
-            Write-Error -Message $_.ToString()
+            $PSCmdlet.WriteError(
+                $_
+            )
         }
     }
 

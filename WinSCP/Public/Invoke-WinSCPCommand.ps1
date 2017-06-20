@@ -34,9 +34,11 @@
     process {
         foreach ($commandValue in $Command) {
             try {
-                $WinSCPSession.ExecuteCommand(
+                $output = $WinSCPSession.ExecuteCommand(
                     $commandValue
                 )
+
+                Write-OutputType -InputObject $output
             } catch {
                 $PSCmdlet.WriteError(
                     $_

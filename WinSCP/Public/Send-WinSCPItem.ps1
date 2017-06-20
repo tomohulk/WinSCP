@@ -71,7 +71,9 @@
                         Write-Error
                 }
             } catch {
-                Write-Error -Message $_.ToString()
+                $PSCmdlet.WriteError(
+                    $_
+                )
             }
         }
     }

@@ -72,7 +72,7 @@
                 )
 
                 if ($PassThru.IsPresent) {
-                    Get-WinSCPItem -WinSCPSession $WinSCPSession -Path (Join-Path -Path $Destination -ChildPath (Split-Path -Path $item -Leaf))
+                    Get-WinSCPItem -WinSCPSession $WinSCPSession -Path (Join-Path -Path $Destination -ChildPath (Split-Path -Path $pathValue -Leaf))
                 }
             } catch {
                 $PSCmdlet.WriteError(

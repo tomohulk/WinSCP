@@ -31,10 +31,10 @@
     )
 
     process {
-        foreach($item in (Format-WinSCPPathString -Path $($Path))) {
+        foreach($pathValue in (Format-WinSCPPathString -Path $($Path))) {
             try {
                 $output = $WinSCPSession.FileExists(
-                    $item
+                    $pathValue
                 )
 
                 Write-Output -InputObject $output
