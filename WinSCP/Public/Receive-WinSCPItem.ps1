@@ -49,6 +49,22 @@
                 continue
             }
 
+            $destinationEndsWithBackSlash = $Destination.EndsWith(
+                "\"
+            )
+            if (-not $destinationEndsWithBackSlash) {
+                $Destination += "\"
+            }
+
+            $pathValueEndsWithForwardSlash = $pathValue.EndsWith(
+                "/"
+            )
+            if (-not $pathValueEndsWithForwardSlash) {
+                if ((Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $pathValue -ErrorAction SilentlyContinue).IsDirectory) {
+                    $pathValue += "/"
+                }
+            }
+
             try {
                 $result = $WinSCPSession.GetFiles(
                     $pathValue, $Destination, $Remove.IsPresent, $TransferOptions

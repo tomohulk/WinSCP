@@ -55,7 +55,7 @@
             )
             if (-not $destinationEndsWithForwardSlash) {
                 if ((Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $Destination -ErrorAction SilentlyContinue).IsDirectory) {
-                    $Destination += '/'
+                    $Destination += "/"
                 }
             }
 

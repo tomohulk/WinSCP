@@ -114,11 +114,7 @@
 			<GroupBy>
 				<Label>Destination</Label>
 				<ScriptBlock>
-					if ($_.Transfers.Destination.StartsWith('/')) {
-						".$((Split-Path -Path $_.Transfers.Destination -Parent).Replace('\','/'))"
-					} else {
-						Split-Path -Path $_.Transfers.Destination -Parent
-					}
+                    Split-Path -Path $_.Transfers.Destination[0] -Parent
 				</ScriptBlock>
             </GroupBy>
             <TableControl>
@@ -128,11 +124,6 @@
                       <Width>9</Width>
                       <Alignment>left</Alignment>
                    </TableColumnHeader>
-				   <TableColumnHeader>
-                        <Label>Removal</Label>
-                        <Width>10</Width>
-                        <Alignment>right</Alignment>
-                    </TableColumnHeader>
                     <TableColumnHeader>
                         <Label>FileName</Label>
                     </TableColumnHeader>
@@ -143,15 +134,6 @@
                         <TableColumnItems>
                             <TableColumnItem>
                                 <PropertyName>IsSuccess</PropertyName>
-                            </TableColumnItem>
-							<TableColumnItem>
-                                <ScriptBlock>
-									if ($_.Transfers.Removal) {
-										$true -as [String]
-									} else {
-										$false -as [String]
-									}
-								</ScriptBlock>
                             </TableColumnItem>
                             <TableColumnItem>
 								<ScriptBlock>

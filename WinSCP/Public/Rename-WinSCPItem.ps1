@@ -43,7 +43,7 @@
         try {
             $item = Get-WinSCPItem -WinSCPSession $WinSCPSession -Path (Format-WinSCPPathString -Path $($Path)) -ErrorAction Stop
             
-            if ($NewName -contains "/" -or $NewName -contains "\")) {
+            if ($NewName -contains "/" -or $NewName -contains "\") {
                 $NewName = $NewName.Substring(
                     $NewName.LastIndexOfAny(
                         "/\"
