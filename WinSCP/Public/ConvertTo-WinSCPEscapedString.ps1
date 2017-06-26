@@ -18,7 +18,9 @@
     )
 
     begin {
-        $sessionObject = New-Object -TypeName WinSCP.Session
+        $session = New-Object -TypeName WinSCP.Session -Property @{
+            ExecutablePath = "$PSScriptRoot\..\bin\winscp.exe"
+        }
     }
 
     process {

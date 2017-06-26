@@ -18,7 +18,9 @@ function Get-WinSCPSshServerPublicKeyFingerprint {
     )
 
     begin {
-        $session = New-Object -TypeName WinSCP.Session
+        $session = New-Object -TypeName WinSCP.Session -Property @{
+            ExecutablePath = "$PSScriptRoot\..\bin\winscp.exe"
+        }
     }
 
     process {
