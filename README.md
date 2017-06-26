@@ -19,12 +19,16 @@ Install-Module -Name WinSCP
 * [Get-WinSCPChildItem](http://dotps1.github.io/WinSCP/Get-WinSCPChildItem.html)
 * [Get-WinSCPItem](http://dotps1.github.io/WinSCP/Get-WinSCPItem.html)
 * [Get-WinSCPFileChecksum](http://dotps1.github.io/WinSCP/Get-WinSCPItemChecksum.html)
+* Get-WinSCPSession
+* Get-WinSCPSshServerPublicKeyFingerprint
 * [Invoke-WinSCPCommand](http://dotps1.github.io/WinSCP/Invoke-WinSCPCommand.html)
 * [Move-WinSCPItem](http://dotps1.github.io/WinSCP/Move-WinSCPItem.html)
 * [New-WinSCPItem](http://dotps1.github.io/WinSCP/New-WinSCPItem.html)
 * [New-WinSCPItemPermission](http://dotps1.github.io/WinSCP/New-WinSCPItemPermission.html)
 * [New-WinSCPSession](http://dotps1.github.io/WinSCP/New-WinSCPSession.html)
+* New-WinSCPSessionOption
 * [New-WinSCPTransferOption](http://dotps1.github.io/WinSCP/New-WinSCPTransferOption.html)
+* New-WinSCPTransferResumeSupport
 * [Receive-WinSCPItem](http://dotps1.github.io/WinSCP/Receive-WinSCPItem.html)
 * [Remove-WinSCPItem](http://dotps1.github.io/WinSCP/Remove-WinSCPItem.html)
 * [Remove-WinSCPSession](http://dotps1.github.io/WinSCP/Remove-WinSCPSession.html)
