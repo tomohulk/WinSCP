@@ -17,6 +17,10 @@
         $SessionOption,
 
         [Parameter()]
+        [PSCredential]
+        $ExecutableProcessCredential,
+
+        [Parameter()]
         [ValidateScript({
             if (Test-Path -Path (Split-Path -Path $_ -Parent)) {
                 return $true
@@ -59,11 +63,27 @@
         ExecutablePath = "$PSScriptRoot\..\bin\winscp.exe"
     }
 
+    $executableProcessCredentialUsed = $PSBoundParameters.ContainsKey(
+        "ExecutableProcessCredential"
+    )
+    if ($executableProcessCredentialUsed) {
+        $PSBoundParameters.Add(
+            "ExecutableProcessUserName", $ExecutableProcessCredential.UserName
+        )
+        $PSBoundParameters.Add(
+            "ExecutableProcessPassword", $ExecutableProcessCredential.Password
+        )
+    }
+
     try {
         # Enumerate each parameter.
-        $keys = $PSBoundParameters.Keys.Where({
-            $_ -ne "SessionOption"
+        $sessionObjectProperties = $session |
+            Get-Member -MemberType Property |
+                Select-Object -ExpandProperty Name
+        $keys = ($PSBoundParameters.Keys).Where({
+            $_ -in $sessionObjectProperties
         })
+
         foreach ($key in $keys) {
             $session.$key = $PSBoundParameters.$key
         }

@@ -90,6 +90,7 @@ function New-WinSCPSessionOption {
     $sessionOptions = New-Object -TypeName WinSCP.SessionOptions
 
     # Convert PSCredential Object to match names of the WinSCP.SessionOptions Object.
+    # Remove the parameter "Credential", that is not a valid property of the WinSCP.SessionObject.
     $PSBoundParameters.Add(
         "UserName", $Credential.UserName
     )
@@ -112,7 +113,7 @@ function New-WinSCPSessionOption {
     )
     if ($sshPrivateKeySecurePassphraseUsed) {
 		try {
-			$sessionOptions.SshPrivateKeyPassphrase = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto(
+			$SshPrivateKeySecurePasspahrase = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto(
                 [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR(
                     $SshPrivateKeySecurePassphrase
                 )
@@ -126,7 +127,14 @@ function New-WinSCPSessionOption {
 
     # Enumerate each parameter.
     try {
-        foreach ($key in $PSBoundParameters.Keys) {
+        $sessionOptionObjectProperties = $sessionOptions |
+            Get-Member -MemberType Property |
+                Select-Object -ExpandProperty Name
+        $keys = ($PSBoundParameters.Keys).Where({
+            $_ -in $sessionOptionObjectProperties
+        })
+        
+        foreach ($key in $keys) {
             $sessionOptions.$key = $PSBoundParameters.$key
         } 
     } catch {
