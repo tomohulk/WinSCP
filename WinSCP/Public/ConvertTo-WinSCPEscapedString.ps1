@@ -26,7 +26,7 @@
     process {
         foreach ($fileMaskValue in $FileMask) {
             try {
-                $output = $sessionObject.EscapeFileMask(
+                $output = $session.EscapeFileMask(
                     $fileMaskValue
                 )
 
@@ -41,6 +41,6 @@
     }
     
     end {
-        $sessionObject.Dispose()
+        $session.Dispose()
     }
 }
