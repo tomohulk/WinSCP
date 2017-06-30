@@ -1,3 +1,6 @@
 # Local Repository Files To Ignore:
 winscp.ini
-*TempPoint.xml
+
+# Help files to ignore:
+WinSCP_Help/Help_Backup
+*TempPoint.*
