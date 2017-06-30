@@ -88,12 +88,12 @@
 			<command:example>
 				<maml:title>EXAMPLE 1</maml:title>
 				<maml:introduction>
-					<maml:para></maml:para>
+					<maml:para />
 				</maml:introduction>
-				<dev:code>C:\PS&gt; ConvertTo-WinSCPEscapedString -FileMask "./WhosFileIsThis?.txt"
+				<dev:code>PS C:\&gt; ConvertTo-WinSCPEscapedString -FileMask "./WhosFileIsThis?.txt"
 ./WhosFileIsThis[?].txt</dev:code>
 				<dev:remarks>
-					<maml:para></maml:para>
+					<maml:para />
 				</dev:remarks>
 			</command:example>
 			<command:example>
@@ -103,6 +103,13 @@
 				</maml:introduction>
 				<dev:code>PS C:\&gt; $sessionOption = New-WinSCPSessionOption -HostName $env:COMPUTERNAME -Protocol Ftp
 PS C:\&gt; New-WinSCPSession -SessionOption $sessionOption
+
+
+Opened       Timeout HostName
+------       ------- --------
+True        00:01:00 ftp.dotps1.github.io
+
+
 PS C:\&gt; $escapedString = ConvertTo-WinSCPEscapedString -FileMask "./WhosFileIsThis?.txt"
 PS C:\&gt; Get-WinSCPItem -Path $escapedString
 
@@ -392,7 +399,7 @@ This mimics the functionality of Get-ChildItem.</maml:para>
 				<maml:introduction>
 					<maml:para />
 				</maml:introduction>
-				<dev:code>C:\PS&gt; Get-WinSCPChildItem
+				<dev:code>PS C:\&gt; Get-WinSCPChildItem
 
 
    Directory: ./
@@ -414,6 +421,13 @@ Mode                  LastWriteTime     Length Name
 				</maml:introduction>
 				<dev:code>PS C:\&gt; $sessionOption = New-WinSCPSessionOption -HostName $env:COMPUTERNAME -Protocol Ftp
 PS C:\&gt; New-WinSCPSession -SessionOption $sessionOption
+
+
+Opened       Timeout HostName
+------       ------- --------
+True        00:01:00 ftp.dotps1.github.io
+
+
 PS C:\&gt; Get-WinChildItem -File
 
 
@@ -575,7 +589,7 @@ System.String[]</maml:name>
 				<maml:introduction>
 					<maml:para />
 				</maml:introduction>
-				<dev:code>C:\PS&gt; Get-WinSCPItem -Path "ftpDir1"
+				<dev:code>PS C:\&gt; Get-WinSCPItem -Path "ftpDir1"
 
 
    Directory: ./
@@ -594,6 +608,13 @@ Mode                  LastWriteTime     Length Name
 				</maml:introduction>
 				<dev:code>PS C:\&gt; $sessionOption = New-WinSCPSessionOption -HostName $env:COMPUTERNAME -Protocol Ftp
 PS C:\&gt; New-WinSCPSession -SessionOption $sessionOption
+
+
+Opened       Timeout HostName
+------       ------- --------
+True        00:01:00 ftp.dotps1.github.io
+
+
 PS C:\&gt; Get-WinSCPItem -Path "ftpDir1"
 
 
@@ -628,7 +649,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
 		<command:details>
 			<command:name>Get-WinSCPItemChecksum</command:name>
 			<maml:description>
-				<maml:para></maml:para>
+				<maml:para>Calculates a checksum of a remote file.</maml:para>
 			</maml:description>
 			<maml:copyright>
 				<maml:para></maml:para>
@@ -638,7 +659,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
 			<dev:version />
 		</command:details>
 		<maml:description>
-			<maml:para></maml:para>
+			<maml:para>Calculates a checksum of a remote file.</maml:para>
 		</maml:description>
 		<command:syntax>
 			<!-- Parameter Sets-->
@@ -660,7 +681,9 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
 				<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="1">
 					<maml:name>Algorithm</maml:name>
 					<maml:description>
-						<maml:para></maml:para>
+						<maml:para>A name of a checksum algorithm to use. 
+Use IANA name of algorithm or use a name of any proprietary algorithm the server supports (with SFTP protocol only). 
+Commonly supported algorithms are sha-1 and md5.</maml:para>
 					</maml:description>
 					<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 					<dev:type>
@@ -672,7 +695,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
 				<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="2">
 					<maml:name>Path</maml:name>
 					<maml:description>
-						<maml:para></maml:para>
+						<maml:para>A full path to a remote file to calculate a checksum for.</maml:para>
 					</maml:description>
 					<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
 					<dev:type>
@@ -700,7 +723,9 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="1">
 				<maml:name>Algorithm</maml:name>
 				<maml:description>
-					<maml:para></maml:para>
+					<maml:para>A name of a checksum algorithm to use. 
+Use IANA name of algorithm or use a name of any proprietary algorithm the server supports (with SFTP protocol only). 
+Commonly supported algorithms are sha-1 and md5.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 				<dev:type>
@@ -712,7 +737,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="2">
 				<maml:name>Path</maml:name>
 				<maml:description>
-					<maml:para></maml:para>
+					<maml:para>A full path to a remote file to calculate a checksum for.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
 				<dev:type>
@@ -753,6 +778,10 @@ System.String[]</maml:name>
 				<maml:linkText>Online version:</maml:linkText>
 				<maml:uri>https://dotps1.github.io/WinSCP/Get-WinSCPItemChecksum.html</maml:uri>
 			</maml:navigationLink>
+			<maml:navigationLink>
+				<maml:linkText>WinSCP method:</maml:linkText>
+				<maml:uri>https://winscp.net/eng/docs/library_session_calculatefilechecksum</maml:uri>
+			</maml:navigationLink>
 		</maml:relatedLinks>
 	</command:command>
 	<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
@@ -761,7 +790,7 @@ System.String[]</maml:name>
 		<command:details>
 			<command:name>Get-WinSCPSession</command:name>
 			<maml:description>
-				<maml:para></maml:para>
+				<maml:para>Gets a WinSCP.Session object.</maml:para>
 			</maml:description>
 			<maml:copyright>
 				<maml:para></maml:para>
@@ -771,7 +800,7 @@ System.String[]</maml:name>
 			<dev:version />
 		</command:details>
 		<maml:description>
-			<maml:para></maml:para>
+			<maml:para>Gets a WinSCP.Session object.</maml:para>
 		</maml:description>
 		<command:syntax>
 			<!-- Parameter Sets-->
@@ -831,6 +860,38 @@ System.String[]</maml:name>
 				</maml:description>
 			</command:returnValue>
 		</command:returnValues>
+		<maml:alertSet>
+			<!-- Notes-->
+			<maml:title>WinSCPSession PSDefaultParameterValue.</maml:title>
+			<maml:alert>
+				<maml:para>When creating/opeing a WinSCP.Session with the New-WinSCPSession cmdlet, the WinSCPSession PSDefaultParameterValue is set in all other commands in this module.
+This command is useful to retreive that object if necessary.</maml:para>
+			</maml:alert>
+		</maml:alertSet>
+		<command:examples>
+			<!-- Examples-->
+			<command:example>
+				<maml:title>EXAMPLE 1</maml:title>
+				<maml:introduction>
+					<maml:para />
+				</maml:introduction>
+				<dev:code>PS C:\&gt; Get-WinSCPSession
+
+Opened       Timeout HostName
+------       ------- --------
+True        00:01:00 ftp.dotps1.github.io</dev:code>
+				<dev:remarks>
+					<maml:para />
+				</dev:remarks>
+			</command:example>
+		</command:examples>
+		<maml:relatedLinks>
+			<!-- Links-->
+			<maml:navigationLink>
+				<maml:linkText>Online version:</maml:linkText>
+				<maml:uri>https://dotps1.github.io/WinSCP/Get-WinSCPSession.html</maml:uri>
+			</maml:navigationLink>
+		</maml:relatedLinks>
 	</command:command>
 	<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
 		<!--TAG: HASCOMMONPARAMETERS-->
@@ -838,7 +899,7 @@ System.String[]</maml:name>
 		<command:details>
 			<command:name>Get-WinSCPSshHostKeyFingerprint</command:name>
 			<maml:description>
-				<maml:para></maml:para>
+				<maml:para>Scans a fingerprint of SSH server public key (host key) or FTPS/WebDAVS TLS certificate.</maml:para>
 			</maml:description>
 			<maml:copyright>
 				<maml:para></maml:para>
@@ -848,7 +909,7 @@ System.String[]</maml:name>
 			<dev:version />
 		</command:details>
 		<maml:description>
-			<maml:para></maml:para>
+			<maml:para>Scans a fingerprint of SSH server public key (host key) or FTPS/WebDAVS TLS certificate.</maml:para>
 		</maml:description>
 		<command:syntax>
 			<!-- Parameter Sets-->
@@ -858,7 +919,8 @@ System.String[]</maml:name>
 				<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0">
 					<maml:name>SessionOption</maml:name>
 					<maml:description>
-						<maml:para></maml:para>
+						<maml:para>Defines a server to scan the fingerprint of. 
+The Protocol property must be Protocol.Sftp or Protocol.Scp, or Protocol.Ftp with FtpSecure being FtpSecure.Implicit or FtpSecure.Explicit, or Protocol.Webdav with WebdavSecure being true. Other than that only the HostName needs to be set. The PortNumber, Timeout and few raw session settings can be set, if necessary. The other properties are ignored.</maml:para>
 					</maml:description>
 					<command:parameterValue required="true" variableLength="false">SessionOptions[]</command:parameterValue>
 					<dev:type>
@@ -874,7 +936,8 @@ System.String[]</maml:name>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0">
 				<maml:name>SessionOption</maml:name>
 				<maml:description>
-					<maml:para></maml:para>
+					<maml:para>Defines a server to scan the fingerprint of. 
+The Protocol property must be Protocol.Sftp or Protocol.Scp, or Protocol.Ftp with FtpSecure being FtpSecure.Implicit or FtpSecure.Explicit, or Protocol.Webdav with WebdavSecure being true. Other than that only the HostName needs to be set. The PortNumber, Timeout and few raw session settings can be set, if necessary. The other properties are ignored.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">SessionOptions[]</command:parameterValue>
 				<dev:type>
@@ -908,11 +971,51 @@ System.String[]</maml:name>
 				</maml:description>
 			</command:returnValue>
 		</command:returnValues>
+		<command:examples>
+			<!-- Examples-->
+			<command:example>
+				<maml:title>EXAMPLE 1</maml:title>
+				<maml:introduction>
+					<maml:para />
+				</maml:introduction>
+				<dev:code>PS C:\&gt; $sessionOption = New-WinSCPSessionOption -HostName ftp.dotps1.github.io
+PS C:\&gt; Get-WinSCPSshHostKeyFingerprint -SessionOption $sessionOption
+ssh-dss 2048 01:aa:23:bb:45:cc:67:dd:89:ee:01:ff:23:aa:45:bb</dev:code>
+				<dev:remarks>
+					<maml:para />
+				</dev:remarks>
+			</command:example>
+			<command:example>
+				<maml:title>EXAMPLE 2</maml:title>
+				<maml:introduction>
+					<maml:para />
+				</maml:introduction>
+				<dev:code>PS C:\&gt; $sessionOption = New-WinSCPSessionOption -HostName ftp.dotps1.github.io
+PS C:\&gt; $sshHostKeyFingerprint = Get-WinSCPSshHostKeyFingerprint -SessionOption $sessionOption
+PS C:\&gt; $sessionOption.SshHostKeyFingerprint = $sshHostKeyFingerprint
+PS C:\&gt; New-WinSCPSession -SessionOption $sessionOption
+
+
+Opened       Timeout HostName
+------       ------- --------
+True        00:01:00 ftp.dotps1.github.io
+
+
+PS C:\&gt; Remove-WinSCPSession</dev:code>
+				<dev:remarks>
+					<maml:para />
+				</dev:remarks>
+			</command:example>
+		</command:examples>
 		<maml:relatedLinks>
 			<!-- Links-->
 			<maml:navigationLink>
 				<maml:linkText>Online version:</maml:linkText>
 				<maml:uri>https://dotps1.github.io/WinSCP/Get-WinSCPSshServerPublicKeyFingerprint.html</maml:uri>
+			</maml:navigationLink>
+			<maml:navigationLink>
+				<maml:linkText>WinSCP method:</maml:linkText>
+				<maml:uri>https://winscp.net/eng/docs/library_session_scanfingerprint</maml:uri>
 			</maml:navigationLink>
 		</maml:relatedLinks>
 	</command:command>
