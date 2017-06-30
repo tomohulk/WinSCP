@@ -449,7 +449,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
 		<command:details>
 			<command:name>Get-WinSCPItem</command:name>
 			<maml:description>
-				<maml:para></maml:para>
+				<maml:para>Gets the item at the specified location.</maml:para>
 			</maml:description>
 			<maml:copyright>
 				<maml:para></maml:para>
@@ -459,7 +459,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
 			<dev:version />
 		</command:details>
 		<maml:description>
-			<maml:para></maml:para>
+			<maml:para>Gets the item at the specified location.</maml:para>
 		</maml:description>
 		<command:syntax>
 			<!-- Parameter Sets-->
@@ -469,7 +469,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
 				<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName)" position="0">
 					<maml:name>WinSCPSession</maml:name>
 					<maml:description>
-						<maml:para></maml:para>
+						<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 					</maml:description>
 					<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 					<dev:type>
@@ -481,7 +481,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
 				<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="1">
 					<maml:name>Path</maml:name>
 					<maml:description>
-						<maml:para></maml:para>
+						<maml:para>Full path to remote file.</maml:para>
 					</maml:description>
 					<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
 					<dev:type>
@@ -509,7 +509,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName)" position="0">
 				<maml:name>WinSCPSession</maml:name>
 				<maml:description>
-					<maml:para></maml:para>
+					<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 				<dev:type>
@@ -521,7 +521,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="1">
 				<maml:name>Path</maml:name>
 				<maml:description>
-					<maml:para></maml:para>
+					<maml:para>Full path to remote file.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
 				<dev:type>
@@ -568,11 +568,57 @@ System.String[]</maml:name>
 				</maml:description>
 			</command:returnValue>
 		</command:returnValues>
+		<command:examples>
+			<!-- Examples-->
+			<command:example>
+				<maml:title>EXAMPLE 1</maml:title>
+				<maml:introduction>
+					<maml:para />
+				</maml:introduction>
+				<dev:code>C:\PS&gt; Get-WinSCPItem -Path "ftpDir1"
+
+
+   Directory: ./
+
+Mode                  LastWriteTime     Length Name
+----                  -------------     ------ ----
+---------      6/30/2017 8:50:37 AM            ftpDir1</dev:code>
+				<dev:remarks>
+					<maml:para />
+				</dev:remarks>
+			</command:example>
+			<command:example>
+				<maml:title>EXAMPLE 2</maml:title>
+				<maml:introduction>
+					<maml:para />
+				</maml:introduction>
+				<dev:code>PS C:\&gt; $sessionOption = New-WinSCPSessionOption -HostName $env:COMPUTERNAME -Protocol Ftp
+PS C:\&gt; New-WinSCPSession -SessionOption $sessionOption
+PS C:\&gt; Get-WinSCPItem -Path "ftpDir1"
+
+
+   Directory: ./
+
+Mode                  LastWriteTime     Length Name
+----                  -------------     ------ ----
+---------      6/30/2017 8:50:37 AM            ftpDir1
+
+
+PS C:\&gt; Remove-WinSCPSession</dev:code>
+				<dev:remarks>
+					<maml:para />
+				</dev:remarks>
+			</command:example>
+		</command:examples>
 		<maml:relatedLinks>
 			<!-- Links-->
 			<maml:navigationLink>
 				<maml:linkText>Online version:</maml:linkText>
 				<maml:uri>https://dotps1.github.io/WinSCP/Get-WinSCPItem.html</maml:uri>
+			</maml:navigationLink>
+			<maml:navigationLink>
+				<maml:linkText>WinSCP method:</maml:linkText>
+				<maml:uri>https://winscp.net/eng/docs/library_session_getfileinfo</maml:uri>
 			</maml:navigationLink>
 		</maml:relatedLinks>
 	</command:command>
@@ -602,7 +648,7 @@ System.String[]</maml:name>
 				<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName)" position="0">
 					<maml:name>WinSCPSession</maml:name>
 					<maml:description>
-						<maml:para></maml:para>
+						<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 					</maml:description>
 					<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 					<dev:type>
@@ -642,7 +688,7 @@ System.String[]</maml:name>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName)" position="0">
 				<maml:name>WinSCPSession</maml:name>
 				<maml:description>
-					<maml:para></maml:para>
+					<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 				<dev:type>
@@ -735,7 +781,7 @@ System.String[]</maml:name>
 				<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0">
 					<maml:name>WinSCPSession</maml:name>
 					<maml:description>
-						<maml:para></maml:para>
+						<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 					</maml:description>
 					<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 					<dev:type>
@@ -751,7 +797,7 @@ System.String[]</maml:name>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0">
 				<maml:name>WinSCPSession</maml:name>
 				<maml:description>
-					<maml:para></maml:para>
+					<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 				<dev:type>
@@ -896,7 +942,7 @@ System.String[]</maml:name>
 				<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName)" position="0">
 					<maml:name>WinSCPSession</maml:name>
 					<maml:description>
-						<maml:para></maml:para>
+						<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 					</maml:description>
 					<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 					<dev:type>
@@ -924,7 +970,7 @@ System.String[]</maml:name>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName)" position="0">
 				<maml:name>WinSCPSession</maml:name>
 				<maml:description>
-					<maml:para></maml:para>
+					<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 				<dev:type>
@@ -1005,7 +1051,7 @@ System.String[]</maml:name>
 				<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName)" position="0">
 					<maml:name>WinSCPSession</maml:name>
 					<maml:description>
-						<maml:para></maml:para>
+						<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 					</maml:description>
 					<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 					<dev:type>
@@ -1069,7 +1115,7 @@ System.String[]</maml:name>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName)" position="0">
 				<maml:name>WinSCPSession</maml:name>
 				<maml:description>
-					<maml:para></maml:para>
+					<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 				<dev:type>
@@ -1186,7 +1232,7 @@ System.String[]</maml:name>
 				<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName)" position="0">
 					<maml:name>WinSCPSession</maml:name>
 					<maml:description>
-						<maml:para></maml:para>
+						<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 					</maml:description>
 					<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 					<dev:type>
@@ -1274,7 +1320,7 @@ System.String[]</maml:name>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName)" position="0">
 				<maml:name>WinSCPSession</maml:name>
 				<maml:description>
-					<maml:para></maml:para>
+					<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 				<dev:type>
@@ -2844,7 +2890,7 @@ System.String</maml:name>
 				<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByValue)" position="0">
 					<maml:name>WinSCPSession</maml:name>
 					<maml:description>
-						<maml:para></maml:para>
+						<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 					</maml:description>
 					<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 					<dev:type>
@@ -2908,7 +2954,7 @@ System.String</maml:name>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByValue)" position="0">
 				<maml:name>WinSCPSession</maml:name>
 				<maml:description>
-					<maml:para></maml:para>
+					<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 				<dev:type>
@@ -3025,7 +3071,7 @@ System.String[]</maml:name>
 				<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByValue)" position="0">
 					<maml:name>WinSCPSession</maml:name>
 					<maml:description>
-						<maml:para></maml:para>
+						<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 					</maml:description>
 					<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 					<dev:type>
@@ -3053,7 +3099,7 @@ System.String[]</maml:name>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByValue)" position="0">
 				<maml:name>WinSCPSession</maml:name>
 				<maml:description>
-					<maml:para></maml:para>
+					<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 				<dev:type>
@@ -3134,7 +3180,7 @@ System.String[]</maml:name>
 				<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByValue)" position="0">
 					<maml:name>WinSCPSession</maml:name>
 					<maml:description>
-						<maml:para></maml:para>
+						<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 					</maml:description>
 					<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 					<dev:type>
@@ -3150,7 +3196,7 @@ System.String[]</maml:name>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByValue)" position="0">
 				<maml:name>WinSCPSession</maml:name>
 				<maml:description>
-					<maml:para></maml:para>
+					<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 				<dev:type>
@@ -3218,7 +3264,7 @@ System.String[]</maml:name>
 				<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByValue)" position="0">
 					<maml:name>WinSCPSession</maml:name>
 					<maml:description>
-						<maml:para></maml:para>
+						<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 					</maml:description>
 					<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 					<dev:type>
@@ -3270,7 +3316,7 @@ System.String[]</maml:name>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByValue)" position="0">
 				<maml:name>WinSCPSession</maml:name>
 				<maml:description>
-					<maml:para></maml:para>
+					<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 				<dev:type>
@@ -3374,7 +3420,7 @@ System.String[]</maml:name>
 				<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByValue)" position="0">
 					<maml:name>WinSCPSession</maml:name>
 					<maml:description>
-						<maml:para></maml:para>
+						<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 					</maml:description>
 					<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 					<dev:type>
@@ -3438,7 +3484,7 @@ System.String[]</maml:name>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByValue)" position="0">
 				<maml:name>WinSCPSession</maml:name>
 				<maml:description>
-					<maml:para></maml:para>
+					<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 				<dev:type>
@@ -3615,7 +3661,7 @@ System.String[]</maml:name>
 				<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByValue)" position="0">
 					<maml:name>WinSCPSession</maml:name>
 					<maml:description>
-						<maml:para></maml:para>
+						<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 					</maml:description>
 					<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 					<dev:type>
@@ -3715,7 +3761,7 @@ System.String[]</maml:name>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByValue)" position="0">
 				<maml:name>WinSCPSession</maml:name>
 				<maml:description>
-					<maml:para></maml:para>
+					<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 				<dev:type>
@@ -3867,7 +3913,7 @@ System.String[]</maml:name>
 				<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByValue)" position="0">
 					<maml:name>WinSCPSession</maml:name>
 					<maml:description>
-						<maml:para></maml:para>
+						<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 					</maml:description>
 					<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 					<dev:type>
@@ -3895,7 +3941,7 @@ System.String[]</maml:name>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByValue)" position="0">
 				<maml:name>WinSCPSession</maml:name>
 				<maml:description>
-					<maml:para></maml:para>
+					<maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
 				<dev:type>
@@ -3951,29 +3997,5 @@ System.String[]</maml:name>
 		</maml:relatedLinks>
 	</command:command>
 	<!-- Generated by: SAPIEN PowerShell HelpWriter 2017 v2.1.35-->
-	<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
-		<!-- Command-->
-		<command:details>
-			<command:name>Verb-Noun</command:name>
-			<maml:description>
-				<maml:para />
-			</maml:description>
-			<maml:copyright>
-				<maml:para />
-			</maml:copyright>
-			<command:verb>Verb</command:verb>
-			<command:noun>Noun</command:noun>
-			<dev:version />
-		</command:details>
-		<maml:description>
-			<maml:para />
-		</maml:description>
-		<command:syntax>
-			<!-- Parameter Sets-->
-			<command:syntaxItem>
-				<maml:name>Verb-Noun</maml:name>
-			</command:syntaxItem>
-		</command:syntax>
-	</command:command>
 	<!-- Edited with: SAPIEN PowerShell HelpWriter 2017 v2.1.35-->
 </helpItems>

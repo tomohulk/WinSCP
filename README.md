@@ -47,10 +47,13 @@ Example 1:
 # Capture credentials.
 $credential = Get-Credential
 
-# Create new WinSCP session using captured credentials.
+# Set the options to open the WinSCPSession with
+$sessionOption = New-WinSCPSessionOption -HostName ftp.dotps1.github.io -Protocol Ftp -Credential $credential
+
+# Open the session using the SessionOptions object.
 # New-WinSCPSession sets the PSDefaultParameterValue of the WinSCPSession parameter for all other cmdlets to this WinSCP.Session object.
-# You can set it to a variable if you would like, but it is only necassary if you will have more then one session open at a time.
-New-WinSCPSession -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp
+# You can set it to a variable if you would like, but it is only necessary if you will have more then one session open at a time.
+New-WinSCPSession -SessionOption $sessionOption
 
 # Use that session to create a new Directory.
 New-WinSCPItem -Path './remoteDirectory' -ItemType Directory
@@ -62,14 +65,7 @@ Send-WinSCPItem -Path 'C:\localDirectory\localFile.txt' -Destination '/remoteDir
 Remove-WinSCPSession
 ```
 
-Example 2:
-```PowerShell
-# Create session, download a file, and close the session in one line.
-# If the WinSCP.Session Object is passed through the pipeline it will be auto-closed upon the completion of that command.
-New-WinSCPSession -Credential (Get-Credential) -HostName $env:COMPUTERNAME -Protocol Ftp | Receive-WinSCPItem -Path './file.txt' -Destination 'C:\folder\'
-```
-
-This is still a beta version, with most of the functionality available with WinSCP, I intend on developing this extensively.  
+This is still a beta version, with most of the functionality available with WinSCP.
 
 Check back regularly for updates.
 
