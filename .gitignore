@@ -1,2 +1,3 @@
 # Local Repository Files To Ignore:
 winscp.ini
+*TempPoint.xml
