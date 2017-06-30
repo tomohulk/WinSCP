@@ -20,7 +20,7 @@ Install-Module -Name WinSCP
 * [Get-WinSCPItem](http://dotps1.github.io/WinSCP/Get-WinSCPItem.html)
 * [Get-WinSCPFileChecksum](http://dotps1.github.io/WinSCP/Get-WinSCPItemChecksum.html)
 * Get-WinSCPSession
-* Get-WinSCPSshServerPublicKeyFingerprint
+* Get-WinSCPSshHostKeyFingerprint
 * [Invoke-WinSCPCommand](http://dotps1.github.io/WinSCP/Invoke-WinSCPCommand.html)
 * [Move-WinSCPItem](http://dotps1.github.io/WinSCP/Move-WinSCPItem.html)
 * [New-WinSCPItem](http://dotps1.github.io/WinSCP/New-WinSCPItem.html)

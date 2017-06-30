@@ -9,12 +9,10 @@ LONG DESCRIPTION
 	The goal of this project was to create a feeling of using native PowerShell commands with WinSCP.
 	
 NOTE
-	This is a note.
+	This is a work in progress, command names, parameter, and functionallity may change.
 	
 TROUBLESHOOTING NOTE
-	Please submit all issues and freature requests on the project site:  https://github.com/dotps1/WinSCP
-	
-	
+	Please submit all issues and freature requests on the project site: https://github.com/dotps1/WinSCP
 	
 EXAMPLES
 	Get-Command -Module WinSCP | Sort-Object -Property Name | Select-Object -Property Name
@@ -57,7 +55,7 @@ EXAMPLES
 	
 	# Update the WinSCP.SessionOptions object.
 	$sessionOption.SshHostKeyFingerprint = $sshHostKeyFingerprint
-	$sessionOption.Protocol = Sftp
+	$sessionOption.Protocol = "Sftp"
 	
 	# Create a new WinSCP.Session .
 	New-WinSCPSession -SessionOption $sessionOption
@@ -75,6 +73,6 @@ KEYWORDS
 	Scp
 	WebDav
 	
-	
 SEE ALSO
-	Place related topics here.
+	https://winscp.net
+	

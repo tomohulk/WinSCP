@@ -31,7 +31,7 @@
 
         [Parameter()]
         [String]
-        $Filter = [String]::Empty,
+        $Filter = $null,
 
         [Parameter()]
         [Switch]

@@ -119,6 +119,9 @@
             )
         })
 
+        # Append the host name to the WinSCP.Session object.
+        Add-Member -InputObject $session -NotePropertyName "HostName" -NotePropertyValue $SessionOption.HostName
+
         # Return the WinSCP.Session object.
         Write-Output -InputObject $session
     } catch {

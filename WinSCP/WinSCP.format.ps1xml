@@ -85,7 +85,7 @@
                         <Alignment>right</Alignment>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Label>HomePath</Label>
+                        <Label>HostName</Label>
                     </TableColumnHeader>
                 </TableHeaders>
                 <TableRowEntries>
@@ -99,7 +99,7 @@
                                 <PropertyName>Timeout</PropertyName>
                             </TableColumnItem>
                             <TableColumnItem>
-                                <PropertyName>HomePath</PropertyName>
+                                <PropertyName>HostName</PropertyName>
                             </TableColumnItem>
                         </TableColumnItems>
                     </TableRowEntry>
