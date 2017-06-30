@@ -88,18 +88,18 @@
 			<command:example>
 				<maml:title>EXAMPLE 1</maml:title>
 				<maml:introduction>
-					<maml:para></maml:para>
+					<maml:para />
 				</maml:introduction>
 				<dev:code>PS C:\&gt; ConvertTo-WinSCPEscapedString -FileMask "./WhosFileIsThis?.txt"
 ./WhosFileIsThis[?].txt</dev:code>
 				<dev:remarks>
-					<maml:para></maml:para>
+					<maml:para />
 				</dev:remarks>
 			</command:example>
 			<command:example>
 				<maml:title>EXAMPLE 2</maml:title>
 				<maml:introduction>
-					<maml:para></maml:para>
+					<maml:para />
 				</maml:introduction>
 				<dev:code>PS C:\&gt; $sessionOption = New-WinSCPSessionOption -HostName $env:COMPUTERNAME -Protocol Ftp
 PS C:\&gt; New-WinSCPSession -SessionOption $sessionOption
@@ -123,7 +123,7 @@ Mode                  LastWriteTime     Length Name
 
 PS C:\&gt; Remove-WinSCPSession</dev:code>
 				<dev:remarks>
-					<maml:para></maml:para>
+					<maml:para />
 				</dev:remarks>
 			</command:example>
 		</command:examples>
@@ -397,7 +397,7 @@ This mimics the functionality of Get-ChildItem.</maml:para>
 			<command:example>
 				<maml:title>EXAMPLE 1</maml:title>
 				<maml:introduction>
-					<maml:para></maml:para>
+					<maml:para />
 				</maml:introduction>
 				<dev:code>PS C:\&gt; Get-WinSCPChildItem
 
@@ -411,13 +411,13 @@ Mode                  LastWriteTime     Length Name
 ---------      6/30/2017 8:50:52 AM          0 ftpDoc1.txt
 ---------      6/30/2017 8:50:52 AM          0 ftpDoc2.txt</dev:code>
 				<dev:remarks>
-					<maml:para></maml:para>
+					<maml:para />
 				</dev:remarks>
 			</command:example>
 			<command:example>
 				<maml:title>EXAMPLE 2</maml:title>
 				<maml:introduction>
-					<maml:para></maml:para>
+					<maml:para />
 				</maml:introduction>
 				<dev:code>PS C:\&gt; $sessionOption = New-WinSCPSessionOption -HostName $env:COMPUTERNAME -Protocol Ftp
 PS C:\&gt; New-WinSCPSession -SessionOption $sessionOption
@@ -441,7 +441,7 @@ Mode                  LastWriteTime     Length Name
 
 PS C:\&gt; Remove-WinSCPSession</dev:code>
 				<dev:remarks>
-					<maml:para></maml:para>
+					<maml:para />
 				</dev:remarks>
 			</command:example>
 		</command:examples>
@@ -587,7 +587,7 @@ System.String[]</maml:name>
 			<command:example>
 				<maml:title>EXAMPLE 1</maml:title>
 				<maml:introduction>
-					<maml:para></maml:para>
+					<maml:para />
 				</maml:introduction>
 				<dev:code>PS C:\&gt; Get-WinSCPItem -Path "ftpDir1"
 
@@ -598,13 +598,13 @@ Mode                  LastWriteTime     Length Name
 ----                  -------------     ------ ----
 ---------      6/30/2017 8:50:37 AM            ftpDir1</dev:code>
 				<dev:remarks>
-					<maml:para></maml:para>
+					<maml:para />
 				</dev:remarks>
 			</command:example>
 			<command:example>
 				<maml:title>EXAMPLE 2</maml:title>
 				<maml:introduction>
-					<maml:para></maml:para>
+					<maml:para />
 				</maml:introduction>
 				<dev:code>PS C:\&gt; $sessionOption = New-WinSCPSessionOption -HostName $env:COMPUTERNAME -Protocol Ftp
 PS C:\&gt; New-WinSCPSession -SessionOption $sessionOption
@@ -627,7 +627,7 @@ Mode                  LastWriteTime     Length Name
 
 PS C:\&gt; Remove-WinSCPSession</dev:code>
 				<dev:remarks>
-					<maml:para></maml:para>
+					<maml:para />
 				</dev:remarks>
 			</command:example>
 		</command:examples>
@@ -681,8 +681,8 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
 				<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="1">
 					<maml:name>Algorithm</maml:name>
 					<maml:description>
-						<maml:para>A name of a checksum algorithm to use.
-Use IANA name of algorithm or use a name of any proprietary algorithm the server supports (with SFTP protocol only).
+						<maml:para>A name of a checksum algorithm to use. 
+Use IANA name of algorithm or use a name of any proprietary algorithm the server supports (with SFTP protocol only). 
 Commonly supported algorithms are sha-1 and md5.</maml:para>
 					</maml:description>
 					<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -723,8 +723,8 @@ Commonly supported algorithms are sha-1 and md5.</maml:para>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="1">
 				<maml:name>Algorithm</maml:name>
 				<maml:description>
-					<maml:para>A name of a checksum algorithm to use.
-Use IANA name of algorithm or use a name of any proprietary algorithm the server supports (with SFTP protocol only).
+					<maml:para>A name of a checksum algorithm to use. 
+Use IANA name of algorithm or use a name of any proprietary algorithm the server supports (with SFTP protocol only). 
 Commonly supported algorithms are sha-1 and md5.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -873,7 +873,7 @@ This command is useful to retreive that object if necessary.</maml:para>
 			<command:example>
 				<maml:title>EXAMPLE 1</maml:title>
 				<maml:introduction>
-					<maml:para></maml:para>
+					<maml:para />
 				</maml:introduction>
 				<dev:code>PS C:\&gt; Get-WinSCPSession
 
@@ -881,7 +881,7 @@ Opened       Timeout HostName
 ------       ------- --------
 True        00:01:00 ftp.dotps1.github.io</dev:code>
 				<dev:remarks>
-					<maml:para></maml:para>
+					<maml:para />
 				</dev:remarks>
 			</command:example>
 		</command:examples>
@@ -919,7 +919,7 @@ True        00:01:00 ftp.dotps1.github.io</dev:code>
 				<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0">
 					<maml:name>SessionOption</maml:name>
 					<maml:description>
-						<maml:para>Defines a server to scan the fingerprint of.
+						<maml:para>Defines a server to scan the fingerprint of. 
 The Protocol property must be Protocol.Sftp or Protocol.Scp, or Protocol.Ftp with FtpSecure being FtpSecure.Implicit or FtpSecure.Explicit, or Protocol.Webdav with WebdavSecure being true. Other than that only the HostName needs to be set. The PortNumber, Timeout and few raw session settings can be set, if necessary. The other properties are ignored.</maml:para>
 					</maml:description>
 					<command:parameterValue required="true" variableLength="false">SessionOptions[]</command:parameterValue>
@@ -936,7 +936,7 @@ The Protocol property must be Protocol.Sftp or Protocol.Scp, or Protocol.Ftp wit
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0">
 				<maml:name>SessionOption</maml:name>
 				<maml:description>
-					<maml:para>Defines a server to scan the fingerprint of.
+					<maml:para>Defines a server to scan the fingerprint of. 
 The Protocol property must be Protocol.Sftp or Protocol.Scp, or Protocol.Ftp with FtpSecure being FtpSecure.Implicit or FtpSecure.Explicit, or Protocol.Webdav with WebdavSecure being true. Other than that only the HostName needs to be set. The PortNumber, Timeout and few raw session settings can be set, if necessary. The other properties are ignored.</maml:para>
 				</maml:description>
 				<command:parameterValue required="true" variableLength="false">SessionOptions[]</command:parameterValue>
@@ -976,19 +976,19 @@ The Protocol property must be Protocol.Sftp or Protocol.Scp, or Protocol.Ftp wit
 			<command:example>
 				<maml:title>EXAMPLE 1</maml:title>
 				<maml:introduction>
-					<maml:para></maml:para>
+					<maml:para />
 				</maml:introduction>
 				<dev:code>PS C:\&gt; $sessionOption = New-WinSCPSessionOption -HostName ftp.dotps1.github.io
 PS C:\&gt; Get-WinSCPSshHostKeyFingerprint -SessionOption $sessionOption
 ssh-dss 2048 01:aa:23:bb:45:cc:67:dd:89:ee:01:ff:23:aa:45:bb</dev:code>
 				<dev:remarks>
-					<maml:para></maml:para>
+					<maml:para />
 				</dev:remarks>
 			</command:example>
 			<command:example>
 				<maml:title>EXAMPLE 2</maml:title>
 				<maml:introduction>
-					<maml:para></maml:para>
+					<maml:para />
 				</maml:introduction>
 				<dev:code>PS C:\&gt; $sessionOption = New-WinSCPSessionOption -HostName ftp.dotps1.github.io
 PS C:\&gt; $sshHostKeyFingerprint = Get-WinSCPSshHostKeyFingerprint -SessionOption $sessionOption
@@ -1003,7 +1003,7 @@ True        00:01:00 ftp.dotps1.github.io
 
 PS C:\&gt; Remove-WinSCPSession</dev:code>
 				<dev:remarks>
-					<maml:para></maml:para>
+					<maml:para />
 				</dev:remarks>
 			</command:example>
 		</command:examples>
@@ -1312,48 +1312,6 @@ System.String[]</maml:name>
 				<maml:para>The name must be included or the target page has to end with a slash.</maml:para>
 			</maml:alert>
 		</maml:alertSet>
-		<command:examples>
-			<!-- Examples-->
-			<command:example>
-				<maml:title>EXAMPLE 1</maml:title>
-				<maml:introduction>
-					<maml:para />
-				</maml:introduction>
-				<dev:code>PS C:\&gt; Move-WinSCPItem -Path "ftpDoc1.txt" -Destination "ftpDir1/"</dev:code>
-				<dev:remarks>
-					<maml:para />
-				</dev:remarks>
-			</command:example>
-			<command:example>
-				<maml:title>EXAMPLE 2</maml:title>
-				<maml:introduction>
-					<maml:para />
-				</maml:introduction>
-				<dev:code>PS C:\&gt; $sessionOption = New-WinSCPSessionOption -HostName $env:COMPUTERNAME -Protocol Ftp
-PS C:\&gt; New-WinSCPSession -SessionOption $sessionOption
-
-
-Opened       Timeout HostName
-------       ------- --------
-True        00:01:00 ftp.dotps1.github.io
-
-
-PS C:\&gt; Move-WinSCPItem -Path "ftpDir1/ftpDoc1.txt" -Destination "/" -PassThru
-
-
-   Directory: ./
-
-Mode                  LastWriteTime     Length Name
-----                  -------------     ------ ----
----------      6/30/2017 8:50:52 AM          0 ftpDoc1.txt
-
-
-PS C:\&gt; Remove-WinSCPSession</dev:code>
-				<dev:remarks>
-					<maml:para />
-				</dev:remarks>
-			</command:example>
-		</command:examples>
 		<maml:relatedLinks>
 			<!-- Links-->
 			<maml:navigationLink>
@@ -4157,4 +4115,5 @@ System.String[]</maml:name>
 		</maml:relatedLinks>
 	</command:command>
 	<!-- Generated by: SAPIEN PowerShell HelpWriter 2017 v2.1.35-->
+	<!-- Edited with: SAPIEN PowerShell HelpWriter 2017 v2.1.35-->
 </helpItems>

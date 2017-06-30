@@ -1,0 +1,77 @@
+﻿TOPIC 
+	about_WinSCP
+	
+SHORT DESCRIPTION	
+	PowerShell wrapper for WinSCP.
+	
+LONG DESCRIPTION
+	This is a PowerShell module designed to wrapper the open source WinSCP .net library.
+	The goal of this project was to create a feeling of using native PowerShell commands with WinSCP.
+	
+NOTE
+	This is a work in progress, command names, parameters, and functionallity may change.
+	
+TROUBLESHOOTING NOTE
+	Please submit all issues and freature requests on the project site: https://github.com/dotps1/WinSCP
+	
+EXAMPLES
+	Get-Command -Module WinSCP | Sort-Object -Property Name | Select-Object -Property Name
+	
+	Name
+	----
+	Close-WinSCPSession
+	ConvertTo-WinSCPEscapedString
+	Enter-WinSCPSession
+	Exit-WinSCPSession
+	Get-WinSCPChildItem
+	Get-WinSCPItem
+	Get-WinSCPItemChecksum
+	Get-WinSCPSession
+	Get-WinSCPSshHostKeyFingerprint
+	Invoke-WinSCPCommand
+	Move-WinSCPItem
+	New-WinSCPItem
+	New-WinSCPItemPermission
+	New-WinSCPSession
+	New-WinSCPSessionOption
+	New-WinSCPTransferOption
+	New-WinSCPTransferResumeSupport
+	Open-WinSCPSession
+	Receive-WinSCPItem
+	Remove-WinSCPItem
+	Remove-WinSCPSession
+	Rename-WinSCPItem
+	Send-WinSCPItem
+	Start-WinSCPConsole
+	Sync-WinSCPPath
+	Test-WinSCPPath
+
+
+	# Create a basic WinSCP.SessionOptions object, this use to open the connection to the host.
+	$sessionOption = New-WinSCPSessionOption -HostName ftp.dotps1.github.io
+	
+	# Get the SshHostKeyFingerprint of the certificate the host is using.
+	$sshHostKeyFingerprint = Get-WinSCPSshHostKeyFingerprint -SessionOption $sessionOption
+	
+	# Update the WinSCP.SessionOptions object.
+	$sessionOption.SshHostKeyFingerprint = $sshHostKeyFingerprint
+	
+	# Create a new WinSCP.Session .
+	New-WinSCPSession -SessionOption $sessionOption
+	
+	# List the contents of the home directory.
+	Get-WinSCPChildItem
+	
+	# Close the WinSCP.Session object.
+	Remove-WinSCPSession
+	
+KEYWORDS
+	WinSCP
+	Ftp
+	Sftp
+	Scp
+	WebDav
+	
+SEE ALSO
+	https://winscp.net
+	
