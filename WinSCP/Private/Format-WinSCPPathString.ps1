@@ -25,12 +25,13 @@
     http://dotps1.github.io/WinSCP
 #>
 
-Function Format-WinSCPPathString {
+function Format-WinSCPPathString {
+
     [OutputType(
         [String]
     )]
 
-    Param (
+    param (
         [Parameter(
             Mandatory = $true
         )]
@@ -38,13 +39,19 @@ Function Format-WinSCPPathString {
         $Path
     )
 
-    Process {
+    process {
         foreach ($item in $Path) {
-            if ($item.Contains('\')) {
-                $item = $item.Replace('\', '/')
+            if ($item -contains [System.IO.Path]::DirectorySeparatorChar) {
+                $item = $item.Replace(
+                    [System.IO.Path]::DirectorySeparatorChar, [System.IO.Path]::AltDirectorySeparatorChar
+                )
             }
 
-            $item
+            if ($item.ToCharArray()[0] -ne [System.IO.Path]::AltDirectorySeparatorChar) {
+                $item = [System.IO.Path]::AltDirectorySeparatorChar + $item
+            }
+
+            Write-Output -InputObject $item
         }
     }
 }

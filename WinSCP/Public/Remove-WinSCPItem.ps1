@@ -44,7 +44,7 @@
             if ($cmdletShouldProcess) {
                 try {
                     $null = $WinSCPSession.RemoveFiles(
-                        $item
+                        $pathValue
                     )
                 } catch {
                     $PSCmdlet.WriteError(

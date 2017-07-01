@@ -17,9 +17,16 @@
         $SessionOption,
 
         [Parameter()]
-        [PSCredential]
-        $ExecutableProcessCredential,
+        [String]
+        $AdditionalExecutableArguments = $null,
 
+        [Parameter()]
+        [ValidateRange(
+            0,2
+        )]
+        [Int]
+        $DebugLogLevel = 0,
+        
         [Parameter()]
         [ValidateScript({
             if (Test-Path -Path (Split-Path -Path $_ -Parent)) {
@@ -32,12 +39,13 @@
         $DebugLogPath,
 
         [Parameter()]
-        [ValidateRange(
-            0,2
-        )]
-        [Int]
-        $DebugLogLevel = 0,
+        [PSCredential]
+        $ExecutableProcessCredential,
 
+        [Parameter()]
+        [TimeSpan]
+        $ReconnectTime = (New-TimeSpan -Seconds 120),
+        
         [Parameter()]
         [ValidateScript({
             if (Test-Path -Path (Split-Path -Path $_ -Parent)) {
@@ -47,15 +55,7 @@
             } 
         })]
         [String]
-        $SessionLogPath,
-
-        [Parameter()]
-        [TimeSpan]
-        $ReconnectTime = (New-TimeSpan -Seconds 120),
-
-        [Parameter()]
-        [ScriptBlock]
-        $FileTransferProgress
+        $SessionLogPath = $null
     )
 
     # Create WinSCP.Session and WinSCP.SessionOptions Objects, parameter values will be assigned to matching object properties.
@@ -86,16 +86,6 @@
 
         foreach ($key in $keys) {
             $session.$key = $PSBoundParameters.$key
-        }
-
-		# Add FileTransferProgress ScriptBlock if present.
-        $fileTransferProgressUsed = $PSBoundParameters.ContainsKey(
-            "FileTransferProgress"
-        )
-        if ($fileTransferProgressUsed) {
-            $session.Add_FileTransferProgress(
-                $FileTransferProgress
-            )
         }
     } catch {
         $PSCmdlet.ThrowTerminatingError(

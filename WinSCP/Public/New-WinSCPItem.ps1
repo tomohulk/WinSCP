@@ -84,11 +84,11 @@
 
                 $newItem = New-Item @newItemParams
                 $result = $WinSCPSession.PutFiles(
-                    $newItem.FullName, $item, $true, $TransferOptions
+                    $newItem.FullName, $pathValue, $true, $TransferOptions
                 )
 
                 if ($result.IsSuccess) {
-                    Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $item
+                    Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $result.Transfers.Destination
                 } else {
                     $PSCmdlet.WriteError(
                         $result.Check()
