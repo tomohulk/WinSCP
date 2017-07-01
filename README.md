@@ -2,6 +2,22 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/dgoq6w2xsfh52m6h?svg=true)](https://ci.appveyor.com/project/dotps1/winscp)
 
+# MAJOR OVERHAUL IN PROGRESS
+I have been revisiting this module as of late, add making some major changes, they will be released when the WinSCP Assembly 5.10 is released.  Here are some of the key points as of 2017-07-01:
+
+1. New functions:
+    * Get-WinSCPSession
+    * Get-WinSCPSshHostKeyFingerprint
+    * New-WinSCPSessionOption
+    * New-WinSCPTransferResumeSupport
+2. The `New-WinSCPSession` has been split into two functions, most of the configurations for the session have been moved to the `New-WinSCPSessionOption` command.  This will mimic the functionality of `New-CimSessionOption` and `New-CimSession`.
+    * `PS C:\> New-WinSCPSession -SessionOption (New-WinSCPSessionOption -HostName ftp.dotps1.github.io)`
+3. The session is not longer auto disposed when passed in the pipeline, handling the session state is now your responsibility.
+4. I am completely overhauling the help, and adding more examples using Sapiens Help Writer.
+5. The `New-WinSCPSessionOption` defaults to using Anonymous authentication.
+6. And much much more!
+
+
 ## Use at your own risk.
 
 This module can be installed from the [PowerShellGet Gallery](https://www.powershellgallery.com/packages/WinSCP/),  You need [WMF 5](https://www.microsoft.com/en-us/download/details.aspx?id=44987) to use this feature.
