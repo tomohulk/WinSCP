@@ -114,7 +114,7 @@
 			<GroupBy>
 				<Label>Destination</Label>
 				<ScriptBlock>
-                    Split-Path -Path $_.Transfers.Destination[0] -Parent
+                    Split-Path -Path $_.Transfers[0].Destination -Parent
 				</ScriptBlock>
             </GroupBy>
             <TableControl>

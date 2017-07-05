@@ -26,12 +26,18 @@
             Mandatory = $true,
             ValueFromPipelineByPropertyName = $true
         )]
+        [Alias(
+            "Path"
+        )]
         [String[]]
-        $Path,
+        $LocalPath,
 
         [Parameter()]
+        [Alias(
+            "Destination"
+        )]
         [String]
-        $Destination = $WinSCPSession.HomePath,
+        $RemotePath = $WinSCPSession.HomePath,
         
         [Parameter()]
         [Switch]
@@ -43,25 +49,24 @@
     )
 
     process {
-        foreach ($pathValue in $Path) {
-            if (-not (Test-Path -Path $item)) {
-                Write-Error -Message "Cannot find path: $item because it does not exist."
-
+        foreach ($localPathValue in (Resolve-Path -Path $LocalPath).Path) {
+            if (-not (Test-Path -Path $localPathValue)) {
+                Write-Error -Message "Cannot find path '$localPathValue' because it does not exist."
                 continue
             }
 
-            $destinationEndsWithForwardSlash = $Destination.EndsWith(
+            $remotePathEndsWithForwardSlash = $RemotePath.EndsWith(
                 "/"
             )
-            if (-not $destinationEndsWithForwardSlash) {
-                if ((Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $Destination -ErrorAction SilentlyContinue).IsDirectory) {
+            if (-not $remotePathEndsWithForwardSlash) {
+                if ((Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $RemotePath -ErrorAction SilentlyContinue).IsDirectory) {
                     $Destination += "/"
                 }
             }
 
             try {
                 $result = $WinSCPSession.PutFiles(
-                    $pathValue, (Format-WinSCPPathString -Path $($Destination)), $Remove.IsPresent, $TransferOptions
+                    $localPathValue, (Format-WinSCPPathString -Path $($RemotePath)), $Remove.IsPresent, $TransferOptions
                 )
 
                 if ($result.IsSuccess) {

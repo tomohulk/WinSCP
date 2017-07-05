@@ -4,3 +4,6 @@ winscp.ini
 # Help files to ignore:
 WinSCP_Help/Help_Backup
 *TempPoint.*
+
+VSCode files to ignore:
+.vscode

@@ -128,7 +128,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
 				<maml:uri>https://dotps1.github.io/WinSCP/ConvertTo-WinSCPEscapedString.html</maml:uri>
 			</maml:navigationLink>
 			<maml:navigationLink>
-				<maml:linkText>WinSCP method:</maml:linkText>
+				<maml:linkText>WinSCP reference:</maml:linkText>
 				<maml:uri>https://winscp.net/eng/docs/library_session_escapefilemask</maml:uri>
 			</maml:navigationLink>
 		</maml:relatedLinks>
@@ -441,7 +441,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
 				<maml:uri>https://dotps1.github.io/WinSCP/Get-WinSCPChildItem.html</maml:uri>
 			</maml:navigationLink>
 			<maml:navigationLink>
-				<maml:linkText>WinSCP Method:</maml:linkText>
+				<maml:linkText>WinSCP reference:</maml:linkText>
 				<maml:uri>https://winscp.net/eng/docs/library_session_enumerateremotefiles</maml:uri>
 			</maml:navigationLink>
 		</maml:relatedLinks>
@@ -620,7 +620,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
 				<maml:uri>https://dotps1.github.io/WinSCP/Get-WinSCPItem.html</maml:uri>
 			</maml:navigationLink>
 			<maml:navigationLink>
-				<maml:linkText>WinSCP method:</maml:linkText>
+				<maml:linkText>WinSCP reference:</maml:linkText>
 				<maml:uri>https://winscp.net/eng/docs/library_session_getfileinfo</maml:uri>
 			</maml:navigationLink>
 		</maml:relatedLinks>
@@ -760,7 +760,7 @@ System.String[]</maml:name>
 				<maml:uri>https://dotps1.github.io/WinSCP/Get-WinSCPItemChecksum.html</maml:uri>
 			</maml:navigationLink>
 			<maml:navigationLink>
-				<maml:linkText>WinSCP method:</maml:linkText>
+				<maml:linkText>WinSCP reference:</maml:linkText>
 				<maml:uri>https://winscp.net/eng/docs/library_session_calculatefilechecksum</maml:uri>
 			</maml:navigationLink>
 		</maml:relatedLinks>
@@ -987,7 +987,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
 				<maml:uri>https://dotps1.github.io/WinSCP/Get-WinSCPSshServerPublicKeyFingerprint.html</maml:uri>
 			</maml:navigationLink>
 			<maml:navigationLink>
-				<maml:linkText>WinSCP method:</maml:linkText>
+				<maml:linkText>WinSCP reference:</maml:linkText>
 				<maml:uri>https://winscp.net/eng/docs/library_session_scanfingerprint</maml:uri>
 			</maml:navigationLink>
 		</maml:relatedLinks>
@@ -1099,7 +1099,7 @@ System.String[]</maml:name>
 				<maml:uri>https://dotps1.github.io/WinSCP/Invoke-WinSCPCommand.html</maml:uri>
 			</maml:navigationLink>
 			<maml:navigationLink>
-				<maml:linkText>WinSCP method:</maml:linkText>
+				<maml:linkText>WinSCP reference:</maml:linkText>
 				<maml:uri>https://winscp.net/eng/docs/library_session_executecommand</maml:uri>
 			</maml:navigationLink>
 		</maml:relatedLinks>
@@ -1328,7 +1328,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
 				<maml:uri>https://dotps1.github.io/WinSCP/Move-WinSCPItem.html</maml:uri>
 			</maml:navigationLink>
 			<maml:navigationLink>
-				<maml:linkText>WinSCP method:</maml:linkText>
+				<maml:linkText>WinSCP reference:</maml:linkText>
 				<maml:uri>https://winscp.net/eng/docs/library_session_movefile</maml:uri>
 			</maml:navigationLink>
 		</maml:relatedLinks>
@@ -2078,7 +2078,7 @@ SetUid       : False</dev:code>
 				<maml:uri>https://dotps1.github.io/WinSCP/New-WinSCPItemPermission.html</maml:uri>
 			</maml:navigationLink>
 			<maml:navigationLink>
-				<maml:linkText>WinSCP object:</maml:linkText>
+				<maml:linkText>WinSCP reference:</maml:linkText>
 				<maml:uri>https://winscp.net/eng/docs/library_filepermissions</maml:uri>
 			</maml:navigationLink>
 		</maml:relatedLinks>
@@ -2300,11 +2300,45 @@ SetUid       : False</dev:code>
 				</maml:description>
 			</command:returnValue>
 		</command:returnValues>
+		<command:examples>
+			<!-- Examples-->
+			<command:example>
+				<maml:title>EXAMPLE 1</maml:title>
+				<maml:introduction>
+					<maml:para></maml:para>				</maml:introduction>
+				<dev:code>PS C:\&gt; New-WinSCPSession -SessionOption (New-WinSCPSessionOption -HostName ftp.dotps1.github.io -Protocol Ftp)
+
+Opened       Timeout HostName
+------       ------- --------
+True        00:01:00 ftp.dotps1.github.io</dev:code>
+				<dev:remarks>
+					<maml:para></maml:para>				</dev:remarks>
+			</command:example>
+			<command:example>
+				<maml:title>EXAMPLE 2</maml:title>
+				<maml:introduction>
+					<maml:para></maml:para>				</maml:introduction>
+				<dev:code>PS C:\&gt; $credential = Get-Credential
+PS C:\&gt; $sshHostKeyFingerprint = &quot;ssh-dss 2048 01:aa:23:bb:45:cc:67:dd:89:ee:01:ff:23:aa:45:bb&quot;
+PS C:\&gt; $sessionOption = New-WinSCPSessionOption -HostName ftp.dotps1.github.io -SshHostKeyFingerprint $sshHostKeyFingerprint -Credential $credential
+PS C:\&gt; New-WinSCPSession -SessionOption $sessionOption
+
+Opened       Timeout HostName
+------       ------- --------
+True        00:01:00 ftp.dotps1.github.io</dev:code>
+				<dev:remarks>
+					<maml:para></maml:para>				</dev:remarks>
+			</command:example>
+		</command:examples>
 		<maml:relatedLinks>
 			<!-- Links-->
 			<maml:navigationLink>
 				<maml:linkText>Online version:</maml:linkText>
 				<maml:uri>https://dotps1.github.io/WinSCP/New-WinSCPSession.html</maml:uri>
+			</maml:navigationLink>
+			<maml:navigationLink>
+				<maml:linkText>WinSCP reference:</maml:linkText>
+				<maml:uri>https://winscp.net/eng/docs/library_session_open</maml:uri>
 			</maml:navigationLink>
 		</maml:relatedLinks>
 	</command:command>
@@ -2331,7 +2365,8 @@ SetUid       : False</dev:code>
 				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="0">
 					<maml:name>Credential</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Represents a set of security credentials, such as a user name and a password.</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">PSCredential</command:parameterValue>
 				<dev:type>
 					<maml:name>PSCredential</maml:name>
@@ -2342,7 +2377,8 @@ SetUid       : False</dev:code>
 				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="1">
 					<maml:name>FtpMode</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Possible values are FtpMode.Passive (default) and FtpMode.Active.</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">FtpMode</command:parameterValue>
 				<dev:type>
 					<maml:name>FtpMode</maml:name>
@@ -2353,7 +2389,8 @@ SetUid       : False</dev:code>
 				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2">
 					<maml:name>FtpSecure</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Possible values are FtpSecure.None (default), FtpSecure.Implicit and FtpSecure.Explicit.</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">FtpSecure</command:parameterValue>
 				<dev:type>
 					<maml:name>FtpSecure</maml:name>
@@ -2364,7 +2401,8 @@ SetUid       : False</dev:code>
 				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 					<maml:name>GiveUpSecurityAndAcceptAnySshHostKey</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Give up security and accept any SSH host key. To be used in exceptional situations only, when security is not required. When set, log files will include warning about insecure connection. To maintain security, use SshHostKeyFingerprint.</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 				<dev:type>
 					<maml:name>SwitchParameter</maml:name>
@@ -2375,7 +2413,8 @@ SetUid       : False</dev:code>
 				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 					<maml:name>GiveUpSecurityAndAcceptAnyTlsHostCertificate</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Give up security and accept any FTPS/WebDAVS server TLS/SSL certificate. To be used in exceptional situations only, when security is not required. When set, log files will include warning about insecure connection. To maintain security, use TlsHostCertificateFingerprint.</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 				<dev:type>
 					<maml:name>SwitchParameter</maml:name>
@@ -2386,7 +2425,8 @@ SetUid       : False</dev:code>
 				<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="3">
 					<maml:name>HostName</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Name of the host to connect to. Mandatory property.</maml:para>
+					</maml:description>
 					<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 				<dev:type>
 					<maml:name>String</maml:name>
@@ -2397,51 +2437,20 @@ SetUid       : False</dev:code>
 				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="4">
 					<maml:name>PortNumber</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Port number to connect to. Keep default 0 to use the default port for the protocol.</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">Int32</command:parameterValue>
 				<dev:type>
 					<maml:name>Int32</maml:name>
 					<maml:uri/>
 				</dev:type>
-				<dev:defaultValue></dev:defaultValue>
+				<dev:defaultValue>0</dev:defaultValue>
 				</command:parameter>
 				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="5">
-					<maml:name>Protocol</maml:name>
+					<maml:name>PrivateKeyPassphrase</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
-					<command:parameterValue required="false" variableLength="false">Protocol</command:parameterValue>
-				<dev:type>
-					<maml:name>Protocol</maml:name>
-					<maml:uri/>
-				</dev:type>
-				<dev:defaultValue></dev:defaultValue>
-				</command:parameter>
-				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName)" position="6">
-					<maml:name>SshHostKeyFingerprint</maml:name>
-					<maml:description>
-						<maml:para></maml:para>					</maml:description>
-					<command:parameterValue required="false" variableLength="false">String[]</command:parameterValue>
-				<dev:type>
-					<maml:name>String[]</maml:name>
-					<maml:uri/>
-				</dev:type>
-				<dev:defaultValue></dev:defaultValue>
-				</command:parameter>
-				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="7">
-					<maml:name>SshPrivateKeyPath</maml:name>
-					<maml:description>
-						<maml:para></maml:para>					</maml:description>
-					<command:parameterValue required="false" variableLength="false">String</command:parameterValue>
-				<dev:type>
-					<maml:name>String</maml:name>
-					<maml:uri/>
-				</dev:type>
-				<dev:defaultValue></dev:defaultValue>
-				</command:parameter>
-				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="8">
-					<maml:name>SshPrivateKeySecurePassphrase</maml:name>
-					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Passphrase for encrypted private keys and client certificates.</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">SecureString</command:parameterValue>
 				<dev:type>
 					<maml:name>SecureString</maml:name>
@@ -2449,10 +2458,47 @@ SetUid       : False</dev:code>
 				</dev:type>
 				<dev:defaultValue></dev:defaultValue>
 				</command:parameter>
-				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="9">
-					<maml:name>TlsHostCertificateFingerprint</maml:name>
+				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="6">
+					<maml:name>Protocol</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Protocol to use for the session. Possible values are Protocol.Sftp (default), Protocol.Scp, Protocol.Ftp and Protocol.Webdav.</maml:para>
+					</maml:description>
+					<command:parameterValue required="false" variableLength="false">Protocol</command:parameterValue>
+				<dev:type>
+					<maml:name>Protocol</maml:name>
+					<maml:uri/>
+				</dev:type>
+				<dev:defaultValue>Sftp</dev:defaultValue>
+				</command:parameter>
+				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName)" position="7">
+					<maml:name>SshHostKeyFingerprint</maml:name>
+					<maml:description>
+						<maml:para>Fingerprint of SSH server host key (or several alternative fingerprints separated by semicolon). It makes WinSCP automatically accept host key with the fingerprint. Mandatory for SFTP/SCP protocol.</maml:para>
+					</maml:description>
+					<command:parameterValue required="false" variableLength="false">String[]</command:parameterValue>
+				<dev:type>
+					<maml:name>String[]</maml:name>
+					<maml:uri/>
+				</dev:type>
+				<dev:defaultValue></dev:defaultValue>
+				</command:parameter>
+				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="8">
+					<maml:name>SshPrivateKeyPath</maml:name>
+					<maml:description>
+						<maml:para>Full path to SSH private key file.</maml:para>
+					</maml:description>
+					<command:parameterValue required="false" variableLength="false">String</command:parameterValue>
+				<dev:type>
+					<maml:name>String</maml:name>
+					<maml:uri/>
+				</dev:type>
+				<dev:defaultValue></dev:defaultValue>
+				</command:parameter>
+				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="9">
+					<maml:name>TlsClientCertificatePath</maml:name>
+					<maml:description>
+						<maml:para>Full path to TLS/SSL client certificate.</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">String</command:parameterValue>
 				<dev:type>
 					<maml:name>String</maml:name>
@@ -2461,9 +2507,22 @@ SetUid       : False</dev:code>
 				<dev:defaultValue></dev:defaultValue>
 				</command:parameter>
 				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="10">
+					<maml:name>TlsHostCertificateFingerprint</maml:name>
+					<maml:description>
+						<maml:para>Fingerprint of FTPS/WebDAVS server TLS/SSL certificate to be automatically accepted (useful for certificates signed by untrusted authority).</maml:para>
+					</maml:description>
+					<command:parameterValue required="false" variableLength="false">String</command:parameterValue>
+				<dev:type>
+					<maml:name>String</maml:name>
+					<maml:uri/>
+				</dev:type>
+				<dev:defaultValue></dev:defaultValue>
+				</command:parameter>
+				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="11">
 					<maml:name>Timeout</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Server response timeout. Defaults to 15 seconds.</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">TimeSpan</command:parameterValue>
 				<dev:type>
 					<maml:name>TimeSpan</maml:name>
@@ -2474,7 +2533,8 @@ SetUid       : False</dev:code>
 				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 					<maml:name>WebdavSecure</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Use WebDAVS (WebDAV over TLS/SSL), instead of WebDAV.</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 				<dev:type>
 					<maml:name>SwitchParameter</maml:name>
@@ -2482,10 +2542,11 @@ SetUid       : False</dev:code>
 				</dev:type>
 				<dev:defaultValue></dev:defaultValue>
 				</command:parameter>
-				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="11">
+				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="12">
 					<maml:name>WebdavRoot</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>WebDAV root path.</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">String</command:parameterValue>
 				<dev:type>
 					<maml:name>String</maml:name>
@@ -2493,10 +2554,11 @@ SetUid       : False</dev:code>
 				</dev:type>
 				<dev:defaultValue></dev:defaultValue>
 				</command:parameter>
-				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="12">
+				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="13">
 					<maml:name>RawSetting</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Allows configuring any site settings using raw format as in an INI file.</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">Hashtable</command:parameterValue>
 				<dev:type>
 					<maml:name>Hashtable</maml:name>
@@ -2511,7 +2573,8 @@ SetUid       : False</dev:code>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="0">
 				<maml:name>Credential</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Represents a set of security credentials, such as a user name and a password.</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">PSCredential</command:parameterValue>
 				<dev:type>
 					<maml:name>PSCredential</maml:name>
@@ -2522,7 +2585,8 @@ SetUid       : False</dev:code>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="1">
 				<maml:name>FtpMode</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Possible values are FtpMode.Passive (default) and FtpMode.Active.</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">FtpMode</command:parameterValue>
 				<dev:type>
 					<maml:name>FtpMode</maml:name>
@@ -2533,7 +2597,8 @@ SetUid       : False</dev:code>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2">
 				<maml:name>FtpSecure</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Possible values are FtpSecure.None (default), FtpSecure.Implicit and FtpSecure.Explicit.</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">FtpSecure</command:parameterValue>
 				<dev:type>
 					<maml:name>FtpSecure</maml:name>
@@ -2544,7 +2609,8 @@ SetUid       : False</dev:code>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 				<maml:name>GiveUpSecurityAndAcceptAnySshHostKey</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Give up security and accept any SSH host key. To be used in exceptional situations only, when security is not required. When set, log files will include warning about insecure connection. To maintain security, use SshHostKeyFingerprint.</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 				<dev:type>
 					<maml:name>SwitchParameter</maml:name>
@@ -2555,7 +2621,8 @@ SetUid       : False</dev:code>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 				<maml:name>GiveUpSecurityAndAcceptAnyTlsHostCertificate</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Give up security and accept any FTPS/WebDAVS server TLS/SSL certificate. To be used in exceptional situations only, when security is not required. When set, log files will include warning about insecure connection. To maintain security, use TlsHostCertificateFingerprint.</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 				<dev:type>
 					<maml:name>SwitchParameter</maml:name>
@@ -2566,7 +2633,8 @@ SetUid       : False</dev:code>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="3">
 				<maml:name>HostName</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Name of the host to connect to. Mandatory property.</maml:para>
+				</maml:description>
 					<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 				<dev:type>
 					<maml:name>String</maml:name>
@@ -2577,51 +2645,20 @@ SetUid       : False</dev:code>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="4">
 				<maml:name>PortNumber</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Port number to connect to. Keep default 0 to use the default port for the protocol.</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">Int32</command:parameterValue>
 				<dev:type>
 					<maml:name>Int32</maml:name>
 					<maml:uri/>
 				</dev:type>
-				<dev:defaultValue></dev:defaultValue>
+				<dev:defaultValue>0</dev:defaultValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="5">
-				<maml:name>Protocol</maml:name>
+				<maml:name>PrivateKeyPassphrase</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
-					<command:parameterValue required="false" variableLength="false">Protocol</command:parameterValue>
-				<dev:type>
-					<maml:name>Protocol</maml:name>
-					<maml:uri/>
-				</dev:type>
-				<dev:defaultValue></dev:defaultValue>
-			</command:parameter>
-			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName)" position="6">
-				<maml:name>SshHostKeyFingerprint</maml:name>
-				<maml:description>
-					<maml:para></maml:para>				</maml:description>
-					<command:parameterValue required="false" variableLength="false">String[]</command:parameterValue>
-				<dev:type>
-					<maml:name>String[]</maml:name>
-					<maml:uri/>
-				</dev:type>
-				<dev:defaultValue></dev:defaultValue>
-			</command:parameter>
-			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="7">
-				<maml:name>SshPrivateKeyPath</maml:name>
-				<maml:description>
-					<maml:para></maml:para>				</maml:description>
-					<command:parameterValue required="false" variableLength="false">String</command:parameterValue>
-				<dev:type>
-					<maml:name>String</maml:name>
-					<maml:uri/>
-				</dev:type>
-				<dev:defaultValue></dev:defaultValue>
-			</command:parameter>
-			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="8">
-				<maml:name>SshPrivateKeySecurePassphrase</maml:name>
-				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Passphrase for encrypted private keys and client certificates.</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">SecureString</command:parameterValue>
 				<dev:type>
 					<maml:name>SecureString</maml:name>
@@ -2629,10 +2666,47 @@ SetUid       : False</dev:code>
 				</dev:type>
 				<dev:defaultValue></dev:defaultValue>
 			</command:parameter>
-			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="9">
-				<maml:name>TlsHostCertificateFingerprint</maml:name>
+			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="6">
+				<maml:name>Protocol</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Protocol to use for the session. Possible values are Protocol.Sftp (default), Protocol.Scp, Protocol.Ftp and Protocol.Webdav.</maml:para>
+				</maml:description>
+					<command:parameterValue required="false" variableLength="false">Protocol</command:parameterValue>
+				<dev:type>
+					<maml:name>Protocol</maml:name>
+					<maml:uri/>
+				</dev:type>
+				<dev:defaultValue>Sftp</dev:defaultValue>
+			</command:parameter>
+			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName)" position="7">
+				<maml:name>SshHostKeyFingerprint</maml:name>
+				<maml:description>
+					<maml:para>Fingerprint of SSH server host key (or several alternative fingerprints separated by semicolon). It makes WinSCP automatically accept host key with the fingerprint. Mandatory for SFTP/SCP protocol.</maml:para>
+				</maml:description>
+					<command:parameterValue required="false" variableLength="false">String[]</command:parameterValue>
+				<dev:type>
+					<maml:name>String[]</maml:name>
+					<maml:uri/>
+				</dev:type>
+				<dev:defaultValue></dev:defaultValue>
+			</command:parameter>
+			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="8">
+				<maml:name>SshPrivateKeyPath</maml:name>
+				<maml:description>
+					<maml:para>Full path to SSH private key file.</maml:para>
+				</maml:description>
+					<command:parameterValue required="false" variableLength="false">String</command:parameterValue>
+				<dev:type>
+					<maml:name>String</maml:name>
+					<maml:uri/>
+				</dev:type>
+				<dev:defaultValue></dev:defaultValue>
+			</command:parameter>
+			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="9">
+				<maml:name>TlsClientCertificatePath</maml:name>
+				<maml:description>
+					<maml:para>Full path to TLS/SSL client certificate.</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">String</command:parameterValue>
 				<dev:type>
 					<maml:name>String</maml:name>
@@ -2641,9 +2715,22 @@ SetUid       : False</dev:code>
 				<dev:defaultValue></dev:defaultValue>
 			</command:parameter>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="10">
+				<maml:name>TlsHostCertificateFingerprint</maml:name>
+				<maml:description>
+					<maml:para>Fingerprint of FTPS/WebDAVS server TLS/SSL certificate to be automatically accepted (useful for certificates signed by untrusted authority).</maml:para>
+				</maml:description>
+					<command:parameterValue required="false" variableLength="false">String</command:parameterValue>
+				<dev:type>
+					<maml:name>String</maml:name>
+					<maml:uri/>
+				</dev:type>
+				<dev:defaultValue></dev:defaultValue>
+			</command:parameter>
+			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="11">
 				<maml:name>Timeout</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Server response timeout. Defaults to 15 seconds.</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">TimeSpan</command:parameterValue>
 				<dev:type>
 					<maml:name>TimeSpan</maml:name>
@@ -2654,7 +2741,8 @@ SetUid       : False</dev:code>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 				<maml:name>WebdavSecure</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Use WebDAVS (WebDAV over TLS/SSL), instead of WebDAV.</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 				<dev:type>
 					<maml:name>SwitchParameter</maml:name>
@@ -2662,10 +2750,11 @@ SetUid       : False</dev:code>
 				</dev:type>
 				<dev:defaultValue></dev:defaultValue>
 			</command:parameter>
-			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="11">
+			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="12">
 				<maml:name>WebdavRoot</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>WebDAV root path.</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">String</command:parameterValue>
 				<dev:type>
 					<maml:name>String</maml:name>
@@ -2673,10 +2762,11 @@ SetUid       : False</dev:code>
 				</dev:type>
 				<dev:defaultValue></dev:defaultValue>
 			</command:parameter>
-			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="12">
+			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="13">
 				<maml:name>RawSetting</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Allows configuring any site settings using raw format as in an INI file.</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">Hashtable</command:parameterValue>
 				<dev:type>
 					<maml:name>Hashtable</maml:name>
@@ -2709,11 +2799,82 @@ SetUid       : False</dev:code>
 				</maml:description>
 			</command:returnValue>
 		</command:returnValues>
+		<command:examples>
+			<!-- Examples-->
+			<command:example>
+				<maml:title>EXAMPLE 1</maml:title>
+				<maml:introduction>
+					<maml:para></maml:para>				</maml:introduction>
+				<dev:code>PS C:\&gt; New-WinSCPSessionOption -HostName ftp.dotps1.github.io
+
+
+Protocol                                     : Sftp
+HostName                                     : ftp.dotps1.github.io
+PortNumber                                   : 0
+UserName                                     : anonymous
+Password                                     :
+SecurePassword                               : System.Security.SecureString
+NewPassword                                  :
+SecureNewPassword                            :
+Timeout                                      : 00:00:15
+TimeoutInMilliseconds                        : 15000
+PrivateKeyPassphrase                         :
+SshHostKeyFingerprint                        :
+GiveUpSecurityAndAcceptAnySshHostKey         : False
+SshPrivateKeyPath                            :
+SshPrivateKeyPassphrase                      :
+FtpMode                                      : Passive
+FtpSecure                                    : None
+WebdavSecure                                 : False
+WebdavRoot                                   :
+TlsHostCertificateFingerprint                :
+GiveUpSecurityAndAcceptAnyTlsHostCertificate : False
+TlsClientCertificatePath                     :</dev:code>
+				<dev:remarks>
+					<maml:para></maml:para>				</dev:remarks>
+			</command:example>
+			<command:example>
+				<maml:title>EXAMPLE 2</maml:title>
+				<maml:introduction>
+					<maml:para></maml:para>				</maml:introduction>
+				<dev:code>PS C:\&gt; New-WinSCPSessionOption -HostName ftp.dotps1.github.io -Protocol Sftp -SshHostKeyFingerPrint &quot;ssh-dss 2048 01:aa:23:bb:45:cc:67:dd:89:ee:01:ff:23:aa:45:bb&quot; -Credential (Get-Credential)
+
+
+Protocol                                     : Sftp
+HostName                                     : ftp.dotps1.github.io
+PortNumber                                   : 0
+UserName                                     : dotps1
+Password                                     :
+SecurePassword                               : System.Security.SecureString
+NewPassword                                  :
+SecureNewPassword                            :
+Timeout                                      : 00:00:15
+TimeoutInMilliseconds                        : 15000
+PrivateKeyPassphrase                         :
+SshHostKeyFingerprint                        : ssh-dss 2048 01:aa:23:bb:45:cc:67:dd:89:ee:01:ff:23:aa:45:bb
+GiveUpSecurityAndAcceptAnySshHostKey         : False
+SshPrivateKeyPath                            :
+SshPrivateKeyPassphrase                      :
+FtpMode                                      : Passive
+FtpSecure                                    : None
+WebdavSecure                                 : False
+WebdavRoot                                   :
+TlsHostCertificateFingerprint                :
+GiveUpSecurityAndAcceptAnyTlsHostCertificate : False
+TlsClientCertificatePath                     :</dev:code>
+				<dev:remarks>
+					<maml:para></maml:para>				</dev:remarks>
+			</command:example>
+		</command:examples>
 		<maml:relatedLinks>
 			<!-- Links-->
 			<maml:navigationLink>
 				<maml:linkText>Online version:</maml:linkText>
 				<maml:uri>https://dotps1.github.io/WinSCP/New-WinSCPSessionOption.html</maml:uri>
+			</maml:navigationLink>
+			<maml:navigationLink>
+				<maml:linkText>WinSCP reference:</maml:linkText>
+				<maml:uri>https://winscp.net/eng/docs/library_sessionoptions</maml:uri>
 			</maml:navigationLink>
 		</maml:relatedLinks>
 	</command:command>
@@ -2723,7 +2884,8 @@ SetUid       : False</dev:code>
 		<command:details>
 			<command:name>New-WinSCPTransferOption</command:name>
 			<maml:description>
-				<maml:para></maml:para>			</maml:description>
+				<maml:para>Defines options for file transfers.</maml:para>
+			</maml:description>
 			<maml:copyright>
 				<maml:para></maml:para>			</maml:copyright>
 			<command:verb>New</command:verb>
@@ -2731,7 +2893,8 @@ SetUid       : False</dev:code>
 			<dev:version/>
 		</command:details>
 		<maml:description>
-			<maml:para></maml:para>		</maml:description>
+			<maml:para>Defines options for file transfers.</maml:para>
+		</maml:description>
 		<command:syntax>
 			<!-- Parameter Sets-->
 			<command:syntaxItem parametersetname="__AllParameterSets">
@@ -2751,7 +2914,8 @@ SetUid       : False</dev:code>
 				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="1">
 					<maml:name>FilePermissions</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Permissions to applied to a remote file (used for uploads only). Use default null to keep default permissions.</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">FilePermissions</command:parameterValue>
 				<dev:type>
 					<maml:name>FilePermissions</maml:name>
@@ -2762,7 +2926,12 @@ SetUid       : False</dev:code>
 				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2">
 					<maml:name>OverwriteMode</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Behavior when overwriting existing files.
+Possible values are:
+OverwriteMode.Overwrite (default) to overwrite the existing files.
+OverwriteMode.Resume to assume that the existing and smaller file is a remnant of an interrupted transfer and resumes the transfer. SFTP and FTP protocols only.
+OverwriteMode.Append to append the source file to the end of existing target file. SFTP protocol only.</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">OverwriteMode</command:parameterValue>
 				<dev:type>
 					<maml:name>OverwriteMode</maml:name>
@@ -2773,7 +2942,9 @@ SetUid       : False</dev:code>
 				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="3">
 					<maml:name>PreserveTimestamp</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Preserve timestamp (set last write time of destination file to that of source file). Defaults to true.
+When used with Session.SynchronizeDirectories, timestamp is always preserved, disregarding property value, unless criteria parameter is SynchronizationCriteria.None or SynchronizationCriteria.Size.</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">Boolean</command:parameterValue>
 				<dev:type>
 					<maml:name>Boolean</maml:name>
@@ -2784,7 +2955,8 @@ SetUid       : False</dev:code>
 				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="4">
 					<maml:name>TransferResumeSupport</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Configures automatic resume/transfer to temporary filename.</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">TransferResumeSupport</command:parameterValue>
 				<dev:type>
 					<maml:name>TransferResumeSupport</maml:name>
@@ -2795,7 +2967,8 @@ SetUid       : False</dev:code>
 				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="5">
 					<maml:name>SpeedLimit</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Limit transfer speed (in KB/s).</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">Int32</command:parameterValue>
 				<dev:type>
 					<maml:name>Int32</maml:name>
@@ -2806,7 +2979,8 @@ SetUid       : False</dev:code>
 				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="6">
 					<maml:name>TransferMode</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Possible values are TransferMode.Binary (default), TransferMode.Ascii and TransferMode.Automatic (based on file extension).</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">TransferMode</command:parameterValue>
 				<dev:type>
 					<maml:name>TransferMode</maml:name>
@@ -2832,7 +3006,8 @@ SetUid       : False</dev:code>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="1">
 				<maml:name>FilePermissions</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Permissions to applied to a remote file (used for uploads only). Use default null to keep default permissions.</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">FilePermissions</command:parameterValue>
 				<dev:type>
 					<maml:name>FilePermissions</maml:name>
@@ -2843,7 +3018,12 @@ SetUid       : False</dev:code>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2">
 				<maml:name>OverwriteMode</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Behavior when overwriting existing files.
+Possible values are:
+OverwriteMode.Overwrite (default) to overwrite the existing files.
+OverwriteMode.Resume to assume that the existing and smaller file is a remnant of an interrupted transfer and resumes the transfer. SFTP and FTP protocols only.
+OverwriteMode.Append to append the source file to the end of existing target file. SFTP protocol only.</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">OverwriteMode</command:parameterValue>
 				<dev:type>
 					<maml:name>OverwriteMode</maml:name>
@@ -2854,7 +3034,9 @@ SetUid       : False</dev:code>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="3">
 				<maml:name>PreserveTimestamp</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Preserve timestamp (set last write time of destination file to that of source file). Defaults to true.
+When used with Session.SynchronizeDirectories, timestamp is always preserved, disregarding property value, unless criteria parameter is SynchronizationCriteria.None or SynchronizationCriteria.Size.</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">Boolean</command:parameterValue>
 				<dev:type>
 					<maml:name>Boolean</maml:name>
@@ -2865,7 +3047,8 @@ SetUid       : False</dev:code>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="4">
 				<maml:name>TransferResumeSupport</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Configures automatic resume/transfer to temporary filename.</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">TransferResumeSupport</command:parameterValue>
 				<dev:type>
 					<maml:name>TransferResumeSupport</maml:name>
@@ -2876,7 +3059,8 @@ SetUid       : False</dev:code>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="5">
 				<maml:name>SpeedLimit</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Limit transfer speed (in KB/s).</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">Int32</command:parameterValue>
 				<dev:type>
 					<maml:name>Int32</maml:name>
@@ -2887,7 +3071,8 @@ SetUid       : False</dev:code>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="6">
 				<maml:name>TransferMode</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Possible values are TransferMode.Binary (default), TransferMode.Ascii and TransferMode.Automatic (based on file extension).</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">TransferMode</command:parameterValue>
 				<dev:type>
 					<maml:name>TransferMode</maml:name>
@@ -2920,11 +3105,52 @@ SetUid       : False</dev:code>
 				</maml:description>
 			</command:returnValue>
 		</command:returnValues>
+		<command:examples>
+			<!-- Examples-->
+			<command:example>
+				<maml:title>EXAMPLE 1</maml:title>
+				<maml:introduction>
+					<maml:para></maml:para>				</maml:introduction>
+				<dev:code>PS C:\&gt; New-WinSCPTransferOption
+
+
+PreserveTimestamp : True
+FilePermissions   :
+TransferMode      : Binary
+FileMask          :
+ResumeSupport     : default
+SpeedLimit        : 0
+OverwriteMode     : Overwrite</dev:code>
+				<dev:remarks>
+					<maml:para></maml:para>				</dev:remarks>
+			</command:example>
+			<command:example>
+				<maml:title>EXAMPLE 2</maml:title>
+				<maml:introduction>
+					<maml:para></maml:para>				</maml:introduction>
+				<dev:code>PS C:\&gt; New-WinSCPTransferOption -PreserveTimestamp:$false -FilePermissions (New-WinSCPItemPermission -OtherExecute)
+
+
+PreserveTimestamp : False
+FilePermissions   : --------x
+TransferMode      : Binary
+FileMask          :
+ResumeSupport     : default
+SpeedLimit        : 0
+OverwriteMode     : Overwrite</dev:code>
+				<dev:remarks>
+					<maml:para></maml:para>				</dev:remarks>
+			</command:example>
+		</command:examples>
 		<maml:relatedLinks>
 			<!-- Links-->
 			<maml:navigationLink>
 				<maml:linkText>Online version:</maml:linkText>
 				<maml:uri>https://dotps1.github.io/WinSCP/New-WinSCPTransferOption.html</maml:uri>
+			</maml:navigationLink>
+			<maml:navigationLink>
+				<maml:linkText>WinSCP reference:</maml:linkText>
+				<maml:uri>https://winscp.net/eng/docs/library_transferoptions</maml:uri>
 			</maml:navigationLink>
 		</maml:relatedLinks>
 	</command:command>
@@ -2934,7 +3160,8 @@ SetUid       : False</dev:code>
 		<command:details>
 			<command:name>New-WinSCPTransferResumeSupport</command:name>
 			<maml:description>
-				<maml:para></maml:para>			</maml:description>
+				<maml:para>Configures automatic resume/transfer to temporary filename.</maml:para>
+			</maml:description>
 			<maml:copyright>
 				<maml:para></maml:para>			</maml:copyright>
 			<command:verb>New</command:verb>
@@ -2942,7 +3169,8 @@ SetUid       : False</dev:code>
 			<dev:version/>
 		</command:details>
 		<maml:description>
-			<maml:para></maml:para>		</maml:description>
+			<maml:para>Configures automatic resume/transfer to temporary filename.</maml:para>
+		</maml:description>
 		<command:syntax>
 			<!-- Parameter Sets-->
 			<command:syntaxItem parametersetname="__AllParameterSets">
@@ -2951,7 +3179,8 @@ SetUid       : False</dev:code>
 				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="0">
 					<maml:name>TransferResumeSupportState</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Sets what files will be transferred with resume support/to temporary filename. Use TransferResumeSupportState.Default for built-in default (currently all files above 100 KB), TransferResumeSupportState.On for all files, TransferResumeSupportState.Off for no file (turn off) or TransferResumeSupportState.Smart for all files above threshold (see Threshold).</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">TransferResumeSupportState</command:parameterValue>
 				<dev:type>
 					<maml:name>TransferResumeSupportState</maml:name>
@@ -2962,7 +3191,8 @@ SetUid       : False</dev:code>
 				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="1">
 					<maml:name>Threshold</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Threshold (in KB) for TransferResumeSupportState.Smart mode. Setting the Threshold automatically sets the State to the TransferResumeSupportState.Smart.</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">Int32</command:parameterValue>
 				<dev:type>
 					<maml:name>Int32</maml:name>
@@ -2977,7 +3207,8 @@ SetUid       : False</dev:code>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="0">
 				<maml:name>TransferResumeSupportState</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Sets what files will be transferred with resume support/to temporary filename. Use TransferResumeSupportState.Default for built-in default (currently all files above 100 KB), TransferResumeSupportState.On for all files, TransferResumeSupportState.Off for no file (turn off) or TransferResumeSupportState.Smart for all files above threshold (see Threshold).</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">TransferResumeSupportState</command:parameterValue>
 				<dev:type>
 					<maml:name>TransferResumeSupportState</maml:name>
@@ -2988,7 +3219,8 @@ SetUid       : False</dev:code>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="1">
 				<maml:name>Threshold</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Threshold (in KB) for TransferResumeSupportState.Smart mode. Setting the Threshold automatically sets the State to the TransferResumeSupportState.Smart.</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">Int32</command:parameterValue>
 				<dev:type>
 					<maml:name>Int32</maml:name>
@@ -3021,11 +3253,30 @@ SetUid       : False</dev:code>
 				</maml:description>
 			</command:returnValue>
 		</command:returnValues>
+		<command:examples>
+			<!-- Examples-->
+			<command:example>
+				<maml:title>EXAMPLE 1</maml:title>
+				<maml:introduction>
+					<maml:para></maml:para>				</maml:introduction>
+				<dev:code>PS C:\&gt; New-WinSCPTransferResumeSupport
+
+  State Threshold
+  ----- ---------
+Default</dev:code>
+				<dev:remarks>
+					<maml:para></maml:para>				</dev:remarks>
+			</command:example>
+		</command:examples>
 		<maml:relatedLinks>
 			<!-- Links-->
 			<maml:navigationLink>
 				<maml:linkText>Online version:</maml:linkText>
 				<maml:uri>https://dotps1.github.io/WinSCP/New-WinSCPTransferResumeSupport.html</maml:uri>
+			</maml:navigationLink>
+			<maml:navigationLink>
+				<maml:linkText>WinSCP reference:</maml:linkText>
+				<maml:uri>https://winscp.net/eng/docs/library_transferresumesupport</maml:uri>
 			</maml:navigationLink>
 		</maml:relatedLinks>
 	</command:command>
@@ -3035,7 +3286,8 @@ SetUid       : False</dev:code>
 		<command:details>
 			<command:name>Receive-WinSCPItem</command:name>
 			<maml:description>
-				<maml:para></maml:para>			</maml:description>
+				<maml:para>Downloads one or more files from remote directory to local directory.</maml:para>
+			</maml:description>
 			<maml:copyright>
 				<maml:para></maml:para>			</maml:copyright>
 			<command:verb>Receive</command:verb>
@@ -3043,7 +3295,8 @@ SetUid       : False</dev:code>
 			<dev:version/>
 		</command:details>
 		<maml:description>
-			<maml:para></maml:para>		</maml:description>
+			<maml:para>Downloads one or more files from remote directory to local directory.</maml:para>
+		</maml:description>
 		<command:syntax>
 			<!-- Parameter Sets-->
 			<command:syntaxItem parametersetname="__AllParameterSets">
@@ -3061,10 +3314,11 @@ SetUid       : False</dev:code>
 				</dev:type>
 				<dev:defaultValue></dev:defaultValue>
 				</command:parameter>
-				<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName)" position="1">
-					<maml:name>Path</maml:name>
+				<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName)" position="1" aliases="Path">
+					<maml:name>RemotePath</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Full path to remote directory followed by slash and wildcard to select files or subdirectories to download.</maml:para>
+					</maml:description>
 					<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
 				<dev:type>
 					<maml:name>String[]</maml:name>
@@ -3072,10 +3326,11 @@ SetUid       : False</dev:code>
 				</dev:type>
 				<dev:defaultValue></dev:defaultValue>
 				</command:parameter>
-				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2">
-					<maml:name>Destination</maml:name>
+				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2" aliases="Destination">
+					<maml:name>LocalPath</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Full path to download the file to. When downloading multiple files, the filename in the path should be replaced with operation mask or omitted (path ends with backslash).</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">String</command:parameterValue>
 				<dev:type>
 					<maml:name>String</maml:name>
@@ -3086,7 +3341,8 @@ SetUid       : False</dev:code>
 				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 					<maml:name>Remove</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>When set to true, deletes source remote file(s) after transfer. Defaults to false.</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 				<dev:type>
 					<maml:name>SwitchParameter</maml:name>
@@ -3097,7 +3353,8 @@ SetUid       : False</dev:code>
 				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="3">
 					<maml:name>TransferOptions</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Transfer options. Defaults to null, what is equivalent to New-WinSCPTransferOption.</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">TransferOptions</command:parameterValue>
 				<dev:type>
 					<maml:name>TransferOptions</maml:name>
@@ -3121,10 +3378,11 @@ SetUid       : False</dev:code>
 				</dev:type>
 				<dev:defaultValue></dev:defaultValue>
 			</command:parameter>
-			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName)" position="1">
-				<maml:name>Path</maml:name>
+			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName)" position="1" aliases="Path">
+				<maml:name>RemotePath</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Full path to remote directory followed by slash and wildcard to select files or subdirectories to download.</maml:para>
+				</maml:description>
 					<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
 				<dev:type>
 					<maml:name>String[]</maml:name>
@@ -3132,10 +3390,11 @@ SetUid       : False</dev:code>
 				</dev:type>
 				<dev:defaultValue></dev:defaultValue>
 			</command:parameter>
-			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2">
-				<maml:name>Destination</maml:name>
+			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2" aliases="Destination">
+				<maml:name>LocalPath</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Full path to download the file to. When downloading multiple files, the filename in the path should be replaced with operation mask or omitted (path ends with backslash).</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">String</command:parameterValue>
 				<dev:type>
 					<maml:name>String</maml:name>
@@ -3146,7 +3405,8 @@ SetUid       : False</dev:code>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 				<maml:name>Remove</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>When set to true, deletes source remote file(s) after transfer. Defaults to false.</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 				<dev:type>
 					<maml:name>SwitchParameter</maml:name>
@@ -3157,7 +3417,8 @@ SetUid       : False</dev:code>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="3">
 				<maml:name>TransferOptions</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Transfer options. Defaults to null, what is equivalent to New-WinSCPTransferOption.</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">TransferOptions</command:parameterValue>
 				<dev:type>
 					<maml:name>TransferOptions</maml:name>
@@ -3191,11 +3452,58 @@ System.String[]</maml:name>
 				</maml:description>
 			</command:returnValue>
 		</command:returnValues>
+		<command:examples>
+			<!-- Examples-->
+			<command:example>
+				<maml:title>EXAMPLE 1</maml:title>
+				<maml:introduction>
+					<maml:para></maml:para>				</maml:introduction>
+				<dev:code>PS C:\&gt; Receive-WinSCPItem -RemotePath ftpDoc1.txt
+
+
+   Destination: C:\
+
+IsSuccess FileName
+--------- --------
+True      ftpDoc1.txt</dev:code>
+				<dev:remarks>
+					<maml:para></maml:para>				</dev:remarks>
+			</command:example>
+			<command:example>
+				<maml:title>EXAMPLE 2</maml:title>
+				<maml:introduction>
+					<maml:para></maml:para>				</maml:introduction>
+				<dev:code>PS C:\&gt; New-WinSCPItem -Path NewWinSCPItem.txt -ItemType File -Value &quot;Hello World!&quot;
+
+
+   Directory: ./
+
+Mode                  LastWriteTime     Length Name
+----                  -------------     ------ ----
+---------      7/5/2017 10:54:45 AM         12 NewWinSCPItem.txt
+
+
+PS C:\&gt; Receive-WinSCPItem -RemotePath NewWinSCPItem.txt -LocalPath C:\Users\dotps1\Desktop -Remove
+
+
+   Destination: C:\Users\dotps1\Desktop
+
+IsSuccess FileName
+--------- --------
+True      NewWinSCPItem.txt</dev:code>
+				<dev:remarks>
+					<maml:para></maml:para>				</dev:remarks>
+			</command:example>
+		</command:examples>
 		<maml:relatedLinks>
 			<!-- Links-->
 			<maml:navigationLink>
 				<maml:linkText>Online version:</maml:linkText>
 				<maml:uri>https://dotps1.github.io/WinSCP/Receive-WinSCPItem.html</maml:uri>
+			</maml:navigationLink>
+			<maml:navigationLink>
+				<maml:linkText>WinSCP reference:</maml:linkText>
+				<maml:uri></maml:uri>
 			</maml:navigationLink>
 		</maml:relatedLinks>
 	</command:command>
@@ -3205,7 +3513,8 @@ System.String[]</maml:name>
 		<command:details>
 			<command:name>Remove-WinSCPItem</command:name>
 			<maml:description>
-				<maml:para></maml:para>			</maml:description>
+				<maml:para>Removes one or more remote files.</maml:para>
+			</maml:description>
 			<maml:copyright>
 				<maml:para></maml:para>			</maml:copyright>
 			<command:verb>Remove</command:verb>
@@ -3213,7 +3522,8 @@ System.String[]</maml:name>
 			<dev:version/>
 		</command:details>
 		<maml:description>
-			<maml:para></maml:para>		</maml:description>
+			<maml:para>Removes one or more remote files.</maml:para>
+		</maml:description>
 		<command:syntax>
 			<!-- Parameter Sets-->
 			<command:syntaxItem parametersetname="__AllParameterSets">
@@ -3234,7 +3544,8 @@ System.String[]</maml:name>
 				<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName)" position="1">
 					<maml:name>Path</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Full path to remote directory followed by slash and wildcard to select files or subdirectories to remove.</maml:para>
+					</maml:description>
 					<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
 				<dev:type>
 					<maml:name>String[]</maml:name>
@@ -3261,7 +3572,8 @@ System.String[]</maml:name>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName)" position="1">
 				<maml:name>Path</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Full path to remote directory followed by slash and wildcard to select files or subdirectories to remove.</maml:para>
+				</maml:description>
 					<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
 				<dev:type>
 					<maml:name>String[]</maml:name>
@@ -3295,11 +3607,26 @@ System.String[]</maml:name>
 				</maml:description>
 			</command:returnValue>
 		</command:returnValues>
+		<command:examples>
+			<!-- Examples-->
+			<command:example>
+				<maml:title>EXAMPLE 1</maml:title>
+				<maml:introduction>
+					<maml:para></maml:para>				</maml:introduction>
+				<dev:code>PS C:\&gt; Remove-WinSCPItem -Path NewWinSCPItem.txt</dev:code>
+				<dev:remarks>
+					<maml:para></maml:para>				</dev:remarks>
+			</command:example>
+		</command:examples>
 		<maml:relatedLinks>
 			<!-- Links-->
 			<maml:navigationLink>
 				<maml:linkText>Online version:</maml:linkText>
 				<maml:uri>https://dotps1.github.io/WinSCP/Remove-WinSCPItem.html</maml:uri>
+			</maml:navigationLink>
+			<maml:navigationLink>
+				<maml:linkText>WinSCP reference:</maml:linkText>
+				<maml:uri>https://winscp.net/eng/docs/library_session_removefiles</maml:uri>
 			</maml:navigationLink>
 		</maml:relatedLinks>
 	</command:command>
@@ -3309,7 +3636,8 @@ System.String[]</maml:name>
 		<command:details>
 			<command:name>Remove-WinSCPSession</command:name>
 			<maml:description>
-				<maml:para></maml:para>			</maml:description>
+				<maml:para>Closes and disposes the WinSCP.Session object.</maml:para>
+			</maml:description>
 			<maml:copyright>
 				<maml:para></maml:para>			</maml:copyright>
 			<command:verb>Remove</command:verb>
@@ -3317,7 +3645,8 @@ System.String[]</maml:name>
 			<dev:version/>
 		</command:details>
 		<maml:description>
-			<maml:para></maml:para>		</maml:description>
+			<maml:para>Closes and disposes the WinSCP.Session object.</maml:para>
+		</maml:description>
 		<command:syntax>
 			<!-- Parameter Sets-->
 			<command:syntaxItem parametersetname="__AllParameterSets">
@@ -3376,11 +3705,26 @@ System.String[]</maml:name>
 				</maml:description>
 			</command:returnValue>
 		</command:returnValues>
+		<command:examples>
+			<!-- Examples-->
+			<command:example>
+				<maml:title>EXAMPLE 1</maml:title>
+				<maml:introduction>
+					<maml:para></maml:para>				</maml:introduction>
+				<dev:code>PS C:\&gt; Remove-WinSCPSession</dev:code>
+				<dev:remarks>
+					<maml:para></maml:para>				</dev:remarks>
+			</command:example>
+		</command:examples>
 		<maml:relatedLinks>
 			<!-- Links-->
 			<maml:navigationLink>
 				<maml:linkText>Online version:</maml:linkText>
 				<maml:uri>https://dotps1.github.io/WinSCP/Remove-WinSCPSession.html</maml:uri>
+			</maml:navigationLink>
+			<maml:navigationLink>
+				<maml:linkText>WinSCP reference:</maml:linkText>
+				<maml:uri>https://winscp.net/eng/docs/library_session_close</maml:uri>
 			</maml:navigationLink>
 		</maml:relatedLinks>
 	</command:command>
@@ -3419,7 +3763,8 @@ System.String[]</maml:name>
 				<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="1">
 					<maml:name>Path</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>The full path to the item to e renamed.</maml:para>
+					</maml:description>
 					<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 				<dev:type>
 					<maml:name>String</maml:name>
@@ -3430,7 +3775,8 @@ System.String[]</maml:name>
 				<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="2">
 					<maml:name>NewName</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>The new name for the item.</maml:para>
+					</maml:description>
 					<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 				<dev:type>
 					<maml:name>String</maml:name>
@@ -3441,7 +3787,8 @@ System.String[]</maml:name>
 				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 					<maml:name>PassThru</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Output the WinSCP.RemoteFileInfo object.</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 				<dev:type>
 					<maml:name>SwitchParameter</maml:name>
@@ -3468,7 +3815,8 @@ System.String[]</maml:name>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="1">
 				<maml:name>Path</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>The full path to the item to e renamed.</maml:para>
+				</maml:description>
 					<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 				<dev:type>
 					<maml:name>String</maml:name>
@@ -3479,7 +3827,8 @@ System.String[]</maml:name>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="2">
 				<maml:name>NewName</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>The new name for the item.</maml:para>
+				</maml:description>
 					<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
 				<dev:type>
 					<maml:name>String</maml:name>
@@ -3490,7 +3839,8 @@ System.String[]</maml:name>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 				<maml:name>PassThru</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Output the WinSCP.RemoteFileInfo object.</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 				<dev:type>
 					<maml:name>SwitchParameter</maml:name>
@@ -3523,11 +3873,51 @@ System.String[]</maml:name>
 				</maml:description>
 			</command:returnValue>
 		</command:returnValues>
+		<command:examples>
+			<!-- Examples-->
+			<command:example>
+				<maml:title>EXAMPLE 1</maml:title>
+				<maml:introduction>
+					<maml:para></maml:para>				</maml:introduction>
+				<dev:code>PS C:\&gt; Rename-WinSCPItem -Path NewWinSCPItem.txt -NewName RenameWinSCPItem.txt</dev:code>
+				<dev:remarks>
+					<maml:para></maml:para>				</dev:remarks>
+			</command:example>
+			<command:example>
+				<maml:title>EXAMPLE 2</maml:title>
+				<maml:introduction>
+					<maml:para></maml:para>				</maml:introduction>
+				<dev:code>PS C:\&gt; New-WinSCPItem -Path NewWinSCPItem.txt -ItemType File
+
+
+   Directory: ./
+
+Mode                  LastWriteTime     Length Name
+----                  -------------     ------ ----
+---------      7/5/2017 12:14:55 PM          0 NewWinSCPItem.txt
+
+
+PS C:\&gt; Rename-WinSCPItem -Path NewWinSCPItem.txt -NewName RenameWinSCPItem.txt -PassThru
+
+
+   Directory: ./
+
+Mode                  LastWriteTime     Length Name
+----                  -------------     ------ ----
+---------       7/5/2017 2:26:09 PM          0 RenameWinSCPItem.txt</dev:code>
+				<dev:remarks>
+					<maml:para></maml:para>				</dev:remarks>
+			</command:example>
+		</command:examples>
 		<maml:relatedLinks>
 			<!-- Links-->
 			<maml:navigationLink>
 				<maml:linkText>Online version:</maml:linkText>
 				<maml:uri>https://dotps1.github.io/WinSCP/Rename-WinSCPItem.html</maml:uri>
+			</maml:navigationLink>
+			<maml:navigationLink>
+				<maml:linkText>WinSCP reference:</maml:linkText>
+				<maml:uri>https://winscp.net/eng/docs/library_session_movefile</maml:uri>
 			</maml:navigationLink>
 		</maml:relatedLinks>
 	</command:command>
@@ -3537,7 +3927,8 @@ System.String[]</maml:name>
 		<command:details>
 			<command:name>Send-WinSCPItem</command:name>
 			<maml:description>
-				<maml:para></maml:para>			</maml:description>
+				<maml:para>Uploads one or more files from local directory to remote directory.</maml:para>
+			</maml:description>
 			<maml:copyright>
 				<maml:para></maml:para>			</maml:copyright>
 			<command:verb>Send</command:verb>
@@ -3545,7 +3936,8 @@ System.String[]</maml:name>
 			<dev:version/>
 		</command:details>
 		<maml:description>
-			<maml:para></maml:para>		</maml:description>
+			<maml:para>Uploads one or more files from local directory to remote directory.</maml:para>
+		</maml:description>
 		<command:syntax>
 			<!-- Parameter Sets-->
 			<command:syntaxItem parametersetname="__AllParameterSets">
@@ -3563,10 +3955,11 @@ System.String[]</maml:name>
 				</dev:type>
 				<dev:defaultValue></dev:defaultValue>
 				</command:parameter>
-				<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName)" position="1">
-					<maml:name>Path</maml:name>
+				<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName)" position="1" aliases="Path">
+					<maml:name>LocalPath</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Full path to local file or directory to upload. Filename in the path can be replaced with Windows wildcard to select multiple files.</maml:para>
+					</maml:description>
 					<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
 				<dev:type>
 					<maml:name>String[]</maml:name>
@@ -3574,10 +3967,11 @@ System.String[]</maml:name>
 				</dev:type>
 				<dev:defaultValue></dev:defaultValue>
 				</command:parameter>
-				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2">
-					<maml:name>Destination</maml:name>
+				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2" aliases="Destination">
+					<maml:name>RemotePath</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Full path to upload the file to. When uploading multiple files, the filename in the path should be replaced with operation mask or omitted (path ends with slash).</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">String</command:parameterValue>
 				<dev:type>
 					<maml:name>String</maml:name>
@@ -3588,7 +3982,8 @@ System.String[]</maml:name>
 				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 					<maml:name>Remove</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>When set to true, deletes source local file(s) after transfer. Defaults to false.</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 				<dev:type>
 					<maml:name>SwitchParameter</maml:name>
@@ -3599,7 +3994,8 @@ System.String[]</maml:name>
 				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="3">
 					<maml:name>TransferOptions</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Transfer options. Defaults to null, what is equivalent to New-WinSCPTransferOption.</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">TransferOptions</command:parameterValue>
 				<dev:type>
 					<maml:name>TransferOptions</maml:name>
@@ -3623,10 +4019,11 @@ System.String[]</maml:name>
 				</dev:type>
 				<dev:defaultValue></dev:defaultValue>
 			</command:parameter>
-			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName)" position="1">
-				<maml:name>Path</maml:name>
+			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName)" position="1" aliases="Path">
+				<maml:name>LocalPath</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Full path to local file or directory to upload. Filename in the path can be replaced with Windows wildcard to select multiple files.</maml:para>
+				</maml:description>
 					<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
 				<dev:type>
 					<maml:name>String[]</maml:name>
@@ -3634,10 +4031,11 @@ System.String[]</maml:name>
 				</dev:type>
 				<dev:defaultValue></dev:defaultValue>
 			</command:parameter>
-			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2">
-				<maml:name>Destination</maml:name>
+			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2" aliases="Destination">
+				<maml:name>RemotePath</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Full path to upload the file to. When uploading multiple files, the filename in the path should be replaced with operation mask or omitted (path ends with slash).</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">String</command:parameterValue>
 				<dev:type>
 					<maml:name>String</maml:name>
@@ -3648,7 +4046,8 @@ System.String[]</maml:name>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 				<maml:name>Remove</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>When set to true, deletes source local file(s) after transfer. Defaults to false.</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 				<dev:type>
 					<maml:name>SwitchParameter</maml:name>
@@ -3659,7 +4058,8 @@ System.String[]</maml:name>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="3">
 				<maml:name>TransferOptions</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Transfer options. Defaults to null, what is equivalent to New-WinSCPTransferOption.</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">TransferOptions</command:parameterValue>
 				<dev:type>
 					<maml:name>TransferOptions</maml:name>
@@ -3693,11 +4093,59 @@ System.String[]</maml:name>
 				</maml:description>
 			</command:returnValue>
 		</command:returnValues>
+		<command:examples>
+			<!-- Examples-->
+			<command:example>
+				<maml:title>EXAMPLE 1</maml:title>
+				<maml:introduction>
+					<maml:para></maml:para>				</maml:introduction>
+				<dev:code>PS C:\&gt; Send-WinSCPItem -LocalPath ftpDoc3.txt
+
+
+   Destination: \
+
+IsSuccess FileName
+--------- --------
+True      ftpDoc3.txt</dev:code>
+				<dev:remarks>
+					<maml:para></maml:para>				</dev:remarks>
+			</command:example>
+			<command:example>
+				<maml:title>EXAMPLE 2</maml:title>
+				<maml:introduction>
+					<maml:para></maml:para>				</maml:introduction>
+				<dev:code>PS C:\&gt; New-Item -Name NewItem.txt -ItemType File -Value &quot;Hello World!&quot;
+
+
+    Directory: C:\
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-a----         7/5/2017   2:48 PM             12 NewItem.txt
+
+
+PS C:\ Send-WinSCPItem -LocalPath NewItem.txt -Remove
+
+
+   Destination: \
+
+IsSuccess FileName
+--------- --------
+True      NewItem.txt</dev:code>
+				<dev:remarks>
+					<maml:para></maml:para>				</dev:remarks>
+			</command:example>
+		</command:examples>
 		<maml:relatedLinks>
 			<!-- Links-->
 			<maml:navigationLink>
 				<maml:linkText>Online version:</maml:linkText>
 				<maml:uri>https://dotps1.github.io/WinSCP/Send-WinSCPItem.html</maml:uri>
+			</maml:navigationLink>
+			<maml:navigationLink>
+				<maml:linkText>WinSCP reference:</maml:linkText>
+				<maml:uri>https://winscp.net/eng/docs/library_session_putfiles</maml:uri>
 			</maml:navigationLink>
 		</maml:relatedLinks>
 	</command:command>
@@ -3707,7 +4155,8 @@ System.String[]</maml:name>
 		<command:details>
 			<command:name>Start-WinSCPConsole</command:name>
 			<maml:description>
-				<maml:para></maml:para>			</maml:description>
+				<maml:para>Starts an ineratice WinSCP Console.</maml:para>
+			</maml:description>
 			<maml:copyright>
 				<maml:para></maml:para>			</maml:copyright>
 			<command:verb>Start</command:verb>
@@ -3715,7 +4164,8 @@ System.String[]</maml:name>
 			<dev:version/>
 		</command:details>
 		<maml:description>
-			<maml:para></maml:para>		</maml:description>
+			<maml:para>Starts an ineratice WinSCP Console.</maml:para>
+		</maml:description>
 		<command:syntax>
 			<!-- Parameter Sets-->
 			<command:syntaxItem parametersetname="__AllParameterSets">
@@ -3750,11 +4200,26 @@ System.String[]</maml:name>
 				</maml:description>
 			</command:returnValue>
 		</command:returnValues>
+		<command:examples>
+			<!-- Examples-->
+			<command:example>
+				<maml:title>EXAMPLE 1</maml:title>
+				<maml:introduction>
+					<maml:para></maml:para>				</maml:introduction>
+				<dev:code>PS C:\&gt; Start-WinSCPConsole</dev:code>
+				<dev:remarks>
+					<maml:para></maml:para>				</dev:remarks>
+			</command:example>
+		</command:examples>
 		<maml:relatedLinks>
 			<!-- Links-->
 			<maml:navigationLink>
 				<maml:linkText>Online version:</maml:linkText>
 				<maml:uri>https://dotps1.github.io/WinSCP/Start-WinSCPConsole.html</maml:uri>
+			</maml:navigationLink>
+			<maml:navigationLink>
+				<maml:linkText>WinSCP reference:</maml:linkText>
+				<maml:uri>https://winscp.net/eng/docs/commandline#scripting</maml:uri>
 			</maml:navigationLink>
 		</maml:relatedLinks>
 	</command:command>
@@ -3764,7 +4229,8 @@ System.String[]</maml:name>
 		<command:details>
 			<command:name>Sync-WinSCPPath</command:name>
 			<maml:description>
-				<maml:para></maml:para>			</maml:description>
+				<maml:para>Synchronizes directories.</maml:para>
+			</maml:description>
 			<maml:copyright>
 				<maml:para></maml:para>			</maml:copyright>
 			<command:verb>Sync</command:verb>
@@ -3772,7 +4238,8 @@ System.String[]</maml:name>
 			<dev:version/>
 		</command:details>
 		<maml:description>
-			<maml:para></maml:para>		</maml:description>
+			<maml:para>Synchronizes directories.</maml:para>
+		</maml:description>
 		<command:syntax>
 			<!-- Parameter Sets-->
 			<command:syntaxItem parametersetname="__AllParameterSets">
@@ -3793,7 +4260,8 @@ System.String[]</maml:name>
 				<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="1">
 					<maml:name>Mode</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Synchronization mode. Possible values are SynchronizationMode.Local, SynchronizationMode.Remote and SynchronizationMode.Both.</maml:para>
+					</maml:description>
 					<command:parameterValue required="true" variableLength="false">SynchronizationMode</command:parameterValue>
 				<dev:type>
 					<maml:name>SynchronizationMode</maml:name>
@@ -3804,7 +4272,8 @@ System.String[]</maml:name>
 				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2">
 					<maml:name>LocalPath</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Full path to local directory.</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">String</command:parameterValue>
 				<dev:type>
 					<maml:name>String</maml:name>
@@ -3815,7 +4284,8 @@ System.String[]</maml:name>
 				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="3">
 					<maml:name>RemotePath</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Full path to remote directory.</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">String</command:parameterValue>
 				<dev:type>
 					<maml:name>String</maml:name>
@@ -3826,7 +4296,8 @@ System.String[]</maml:name>
 				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 					<maml:name>Remove</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>When set to true, deletes obsolete files. Cannot be used for SynchronizationMode.Both.</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 				<dev:type>
 					<maml:name>SwitchParameter</maml:name>
@@ -3837,7 +4308,8 @@ System.String[]</maml:name>
 				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 					<maml:name>Mirror</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>When set to true, synchronizes in mirror mode (synchronizes also older files). Cannot be used for SynchronizationMode.Both. Defaults to false.</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 				<dev:type>
 					<maml:name>SwitchParameter</maml:name>
@@ -3848,7 +4320,8 @@ System.String[]</maml:name>
 				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="4">
 					<maml:name>Criteria</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Comparison criteria. Possible values are SynchronizationCriteria.None, SynchronizationCriteria.Time (default), SynchronizationCriteria.Size and SynchronizationCriteria.Either. For SynchronizationMode.Both SynchronizationCriteria.Time can be used only.</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">SynchronizationCriteria</command:parameterValue>
 				<dev:type>
 					<maml:name>SynchronizationCriteria</maml:name>
@@ -3859,7 +4332,8 @@ System.String[]</maml:name>
 				<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="5">
 					<maml:name>TransferOptions</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Transfer options. Defaults to null, what is equivalent to New-WinSCPTransferOption.</maml:para>
+					</maml:description>
 					<command:parameterValue required="false" variableLength="false">TransferOptions</command:parameterValue>
 				<dev:type>
 					<maml:name>TransferOptions</maml:name>
@@ -3886,7 +4360,8 @@ System.String[]</maml:name>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="1">
 				<maml:name>Mode</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Synchronization mode. Possible values are SynchronizationMode.Local, SynchronizationMode.Remote and SynchronizationMode.Both.</maml:para>
+				</maml:description>
 					<command:parameterValue required="true" variableLength="false">SynchronizationMode</command:parameterValue>
 				<dev:type>
 					<maml:name>SynchronizationMode</maml:name>
@@ -3897,7 +4372,8 @@ System.String[]</maml:name>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="2">
 				<maml:name>LocalPath</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Full path to local directory.</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">String</command:parameterValue>
 				<dev:type>
 					<maml:name>String</maml:name>
@@ -3908,7 +4384,8 @@ System.String[]</maml:name>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="3">
 				<maml:name>RemotePath</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Full path to remote directory.</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">String</command:parameterValue>
 				<dev:type>
 					<maml:name>String</maml:name>
@@ -3919,7 +4396,8 @@ System.String[]</maml:name>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 				<maml:name>Remove</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>When set to true, deletes obsolete files. Cannot be used for SynchronizationMode.Both.</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 				<dev:type>
 					<maml:name>SwitchParameter</maml:name>
@@ -3930,7 +4408,8 @@ System.String[]</maml:name>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
 				<maml:name>Mirror</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>When set to true, synchronizes in mirror mode (synchronizes also older files). Cannot be used for SynchronizationMode.Both. Defaults to false.</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
 				<dev:type>
 					<maml:name>SwitchParameter</maml:name>
@@ -3941,7 +4420,8 @@ System.String[]</maml:name>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="4">
 				<maml:name>Criteria</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Comparison criteria. Possible values are SynchronizationCriteria.None, SynchronizationCriteria.Time (default), SynchronizationCriteria.Size and SynchronizationCriteria.Either. For SynchronizationMode.Both SynchronizationCriteria.Time can be used only.</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">SynchronizationCriteria</command:parameterValue>
 				<dev:type>
 					<maml:name>SynchronizationCriteria</maml:name>
@@ -3952,7 +4432,8 @@ System.String[]</maml:name>
 			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="5">
 				<maml:name>TransferOptions</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Transfer options. Defaults to null, what is equivalent to New-WinSCPTransferOption.</maml:para>
+				</maml:description>
 					<command:parameterValue required="false" variableLength="false">TransferOptions</command:parameterValue>
 				<dev:type>
 					<maml:name>TransferOptions</maml:name>
@@ -3985,11 +4466,48 @@ System.String[]</maml:name>
 				</maml:description>
 			</command:returnValue>
 		</command:returnValues>
+		<command:examples>
+			<!-- Examples-->
+			<command:example>
+				<maml:title>EXAMPLE 1</maml:title>
+				<maml:introduction>
+					<maml:para></maml:para>				</maml:introduction>
+				<dev:code>PS C:\&gt; Sync-WinSCPPath -Mode Local
+
+
+Uploads   : {}
+Downloads : {/ftpDoc1.txt, /ftpDoc2.txt}
+Removals  : {}
+Failures  : {}
+IsSuccess : True</dev:code>
+				<dev:remarks>
+					<maml:para></maml:para>				</dev:remarks>
+			</command:example>
+			<command:example>
+				<maml:title>EXAMPLE 2</maml:title>
+				<maml:introduction>
+					<maml:para></maml:para>				</maml:introduction>
+				<dev:code>PS C:\&gt; Sync-WinSCPPath -Mode Both -Criteria Time
+
+
+Uploads   : {C:\Users\us165614\Desktop\local\localDoc1.txt, C:\Users\us165614\Desktop\local\localDoc2.txt}
+Downloads : {/ftpDoc1.txt, /ftpDoc2.txt}
+Removals  : {}
+Failures  : {}
+IsSuccess : True</dev:code>
+				<dev:remarks>
+					<maml:para></maml:para>				</dev:remarks>
+			</command:example>
+		</command:examples>
 		<maml:relatedLinks>
 			<!-- Links-->
 			<maml:navigationLink>
 				<maml:linkText>Online version:</maml:linkText>
 				<maml:uri>https://dotps1.github.io/WinSCP/Sync-WinSCPPath.html</maml:uri>
+			</maml:navigationLink>
+			<maml:navigationLink>
+				<maml:linkText>WinSCP reference:</maml:linkText>
+				<maml:uri>https://winscp.net/eng/docs/library_session_synchronizedirectories</maml:uri>
 			</maml:navigationLink>
 		</maml:relatedLinks>
 	</command:command>
@@ -3999,7 +4517,8 @@ System.String[]</maml:name>
 		<command:details>
 			<command:name>Test-WinSCPPath</command:name>
 			<maml:description>
-				<maml:para></maml:para>			</maml:description>
+				<maml:para>Checks for existence of remote file or directory.</maml:para>
+			</maml:description>
 			<maml:copyright>
 				<maml:para></maml:para>			</maml:copyright>
 			<command:verb>Test</command:verb>
@@ -4007,7 +4526,8 @@ System.String[]</maml:name>
 			<dev:version/>
 		</command:details>
 		<maml:description>
-			<maml:para></maml:para>		</maml:description>
+			<maml:para>Checks for existence of remote file or directory.</maml:para>
+		</maml:description>
 		<command:syntax>
 			<!-- Parameter Sets-->
 			<command:syntaxItem parametersetname="__AllParameterSets">
@@ -4028,7 +4548,8 @@ System.String[]</maml:name>
 				<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName)" position="1">
 					<maml:name>Path</maml:name>
 					<maml:description>
-						<maml:para></maml:para>					</maml:description>
+						<maml:para>Full path to remote file.</maml:para>
+					</maml:description>
 					<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
 				<dev:type>
 					<maml:name>String[]</maml:name>
@@ -4055,7 +4576,8 @@ System.String[]</maml:name>
 			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="True (ByPropertyName)" position="1">
 				<maml:name>Path</maml:name>
 				<maml:description>
-					<maml:para></maml:para>				</maml:description>
+					<maml:para>Full path to remote file.</maml:para>
+				</maml:description>
 					<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
 				<dev:type>
 					<maml:name>String[]</maml:name>
@@ -4089,11 +4611,27 @@ System.String[]</maml:name>
 				</maml:description>
 			</command:returnValue>
 		</command:returnValues>
+		<command:examples>
+			<!-- Examples-->
+			<command:example>
+				<maml:title>EXAMPLE 1</maml:title>
+				<maml:introduction>
+					<maml:para></maml:para>				</maml:introduction>
+				<dev:code>PS C:\&gt; Test-WinSCPPath -Path /
+True</dev:code>
+				<dev:remarks>
+					<maml:para></maml:para>				</dev:remarks>
+			</command:example>
+		</command:examples>
 		<maml:relatedLinks>
 			<!-- Links-->
 			<maml:navigationLink>
 				<maml:linkText>Online version:</maml:linkText>
 				<maml:uri>https://dotps1.github.io/WinSCP/Test-WinSCPPath.html</maml:uri>
+			</maml:navigationLink>
+			<maml:navigationLink>
+				<maml:linkText>WinSCP reference:</maml:linkText>
+				<maml:uri>https://winscp.net/eng/docs/library_session_fileexists</maml:uri>
 			</maml:navigationLink>
 		</maml:relatedLinks>
 	</command:command>

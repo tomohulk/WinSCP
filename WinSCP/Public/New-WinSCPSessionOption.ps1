@@ -42,6 +42,10 @@ function New-WinSCPSessionOption {
         $PortNumber = 0,
 
         [Parameter()]
+        [SecureString]
+        $PrivateKeyPassphrase,
+
+        [Parameter()]
         [WinSCP.Protocol]
         $Protocol = (New-Object -TypeName WinSCP.Protocol),
 
@@ -53,8 +57,12 @@ function New-WinSCPSessionOption {
 
         [Parameter()]
         [ValidateScript({ 
-            if (Test-Path -Path $_) { 
-                return $true
+            if (Test-Path -Path $_) {
+                if ((Get-Item -Path $_).PSIsContainer) {
+                    throw "Target is not a file: '$_'."
+                } else {
+                    return $true
+                }
             } else { 
                 throw "Unable to find part of Path: '$_'." 
             } 
@@ -63,8 +71,19 @@ function New-WinSCPSessionOption {
         $SshPrivateKeyPath,
 
         [Parameter()]
-        [SecureString]
-        $SshPrivateKeySecurePassphrase,
+        [ValidateScript({ 
+            if (Test-Path -Path $_) {
+                if ((Get-Item -Path $_).PSIsContainer) {
+                    throw "Target is not a file: '$_'."
+                } else {
+                    return $true
+                }
+            } else { 
+                throw "Unable to find part of Path: '$_'." 
+            } 
+        })]
+        [String]
+        $TlsClientCertificatePath,
 
         [Parameter()]
         [String]
@@ -107,13 +126,22 @@ function New-WinSCPSessionOption {
             Select-Object -ExpandProperty Path
     }
 
-    # Convert SshPrivateKeySecurePasspahrase to plain text and set it to the corresponding SessionOptions property.
-    $sshPrivateKeySecurePassphraseUsed = $PSBoundParameters.ContainsKey(
-        "SshPrivateKeySecurePassphrase"
+    $tlsClientCertificatePathUsed = $PSBoundParameters.ContainsKey(
+        "TlsClientCertificatePath"
     )
-    if ($sshPrivateKeySecurePassphraseUsed) {
+    if ($tlsClientCertificatePathUsed) {
+        $PSBoundParameters.TlsClientCertificatePath = Resolve-Path -Path $TlsClientCertificatePath |
+            Select-Object -ExpandProperty Path
+    }
+
+    # Convert PrivateKeyPassphrase to plain text and set it to the corresponding SessionOptions property.
+    # This does seem silly, but the PSScriptAnalyzer gets mad about having a "Password" parameter that is not a SecureString.
+    $privateKeyPassphraseUsed = $PSBoundParameters.ContainsKey(
+        "PrivateKeyPassphrase"
+    )
+    if ($privateKeyPassphraseUsed) {
 		try {
-			$SshPrivateKeySecurePasspahrase = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto(
+			$PrivateKeyPassphrase = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto(
                 [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR(
                     $SshPrivateKeySecurePassphrase
                 )

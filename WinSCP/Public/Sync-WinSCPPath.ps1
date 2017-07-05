@@ -57,7 +57,6 @@
         $RemotePath = Format-WinSCPPathString -Path $($RemotePath)
         if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $RemotePath)) {
             Write-Error -Message "Cannot find path '$RemotePath' because it does not exist."
-
             continue
         }
 

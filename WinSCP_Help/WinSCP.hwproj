@@ -8,5 +8,5 @@
     <File>en-US\about_WinSCP.Help.txt</File>
     <File>en-US\WinSCP-Help.xml</File>
   </Files>
-  <SourceModule name="WinSCP" path="C:\Users\us165614\Documents\GitHub\WinSCP\WinSCP\WinSCP.psd1" version="0.0.0.0" backup="0.0.0.0" refreshmode="0" deployed="131434188513876969" />
+  <SourceModule name="WinSCP" path="C:\Users\us165614\Documents\GitHub\WinSCP\WinSCP\WinSCP.psd1" version="0.0.0.0" backup="0.0.0.0" refreshmode="0" deployed="131437567760052171" />
 </HelpProject>

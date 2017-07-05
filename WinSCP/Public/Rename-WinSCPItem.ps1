@@ -51,7 +51,13 @@
                 )
             }
 
-            $newPath = Join-Path -Path (Split-Path -Path $item.FullName -Parent) -ChildPath $NewName
+            $parentPath = (Split-Path -Path $item.FullName -Parent).Replace(
+                "\", "/"
+            )
+            $newPath = $WinSCPSession.CombinePaths(
+                $parentPath , $NewName
+            )
+
             $WinSCPSession.MoveFile(
                 $item.FullName, $newPath
             )

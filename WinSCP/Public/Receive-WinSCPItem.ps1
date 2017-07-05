@@ -26,12 +26,18 @@
             Mandatory = $true,
             ValueFromPipelineByPropertyName = $true
         )]
+        [Alias(
+            "Path"
+        )]
         [String[]]
-        $Path,
+        $RemotePath,
 
         [Parameter()]
+        [Alias(
+            "Destination"
+        )]
         [String]
-        $Destination = $pwd,
+        $LocalPath = $pwd,
 
         [Parameter()]
         [Switch]
@@ -43,31 +49,31 @@
     )
 
     process {
-        foreach ($pathValue in (Format-WinSCPPathString -Path $($Path))) {
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $pathValue)) {
-                Write-Error -Message "Cannot find path '$pathValue' because it does not exist."
+        foreach ($remotePathValue in (Format-WinSCPPathString -Path $($RemotePath))) {
+            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $remotePathValue)) {
+                Write-Error -Message "Cannot find path '$remotePathValue' because it does not exist."
                 continue
             }
 
-            $destinationEndsWithBackSlash = $Destination.EndsWith(
+            $localPathEndsWithBackSlash = $LocalPath.EndsWith(
                 "\"
             )
-            if (-not $destinationEndsWithBackSlash) {
-                $Destination += "\"
+            if (-not $localPathEndsWithBackSlash) {
+                $LocalPath += "\"
             }
 
-            $pathValueEndsWithForwardSlash = $pathValue.EndsWith(
+            $remotePathValueEndsWithForwardSlash = $remotePathValue.EndsWith(
                 "/"
             )
-            if (-not $pathValueEndsWithForwardSlash) {
-                if ((Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $pathValue -ErrorAction SilentlyContinue).IsDirectory) {
-                    $pathValue += "/"
+            if (-not $remotePathValueEndsWithForwardSlash) {
+                if ((Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $remotePathValue -ErrorAction SilentlyContinue).IsDirectory) {
+                    $remotePathValue += "/"
                 }
             }
 
             try {
                 $result = $WinSCPSession.GetFiles(
-                    $pathValue, $Destination, $Remove.IsPresent, $TransferOptions
+                    $remotePathValue, $LocalPath, $Remove.IsPresent, $TransferOptions
                 )
 
                 if ($result.IsSuccess) {
