@@ -43,9 +43,14 @@
             )
             if ($cmdletShouldProcess) {
                 try {
-                    $null = $WinSCPSession.RemoveFiles(
+                    $result = $WinSCPSession.RemoveFiles(
                         $pathValue
                     )
+
+                    if (-not ($result.IsSuccess)) {
+                        $result.Failures[0] |
+                            Write-Error
+                    }
                 } catch {
                     $PSCmdlet.WriteError(
                         $_

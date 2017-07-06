@@ -49,7 +49,7 @@
     )
 
     process {
-        foreach ($localPathValue in (Resolve-Path -Path $LocalPath).Path) {
+        foreach ($localPathValue in (Convert-Path -Path (Resolve-Path -Path $LocalPath))) {
             if (-not (Test-Path -Path $localPathValue)) {
                 Write-Error -Message "Cannot find path '$localPathValue' because it does not exist."
                 continue
