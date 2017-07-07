@@ -60,7 +60,7 @@
             )
             if (-not $remotePathEndsWithForwardSlash) {
                 if ((Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $RemotePath -ErrorAction SilentlyContinue).IsDirectory) {
-                    $Destination += "/"
+                    $RemotePath += "/"
                 }
             }
 
