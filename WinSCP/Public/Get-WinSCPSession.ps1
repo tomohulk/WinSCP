@@ -9,7 +9,6 @@ function Get-WinSCPSession {
 
     param (
         [Parameter(
-            Mandatory = $true,
             ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true
         )]
