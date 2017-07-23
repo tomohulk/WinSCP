@@ -1,7 +1,8 @@
 ﻿function New-WinSCPItem {
 
     [CmdletBinding(
-        HelpUri = "https://dotps1.github.io/WinSCP/New-WinSCPItem.html"
+        HelpUri = "https://dotps1.github.io/WinSCP/New-WinSCPItem.html",
+        PositionalBinding = $false
     )]
     [OutputType(
         [WinSCP.RemoteFileInfo]
@@ -23,6 +24,7 @@
         $WinSCPSession,
 
         [Parameter(
+            Position = 0,
             ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true
         )]
@@ -49,25 +51,27 @@
 
         [Parameter()]
         [WinSCP.TransferOptions]
-        $TransferOptions = (New-Object -TypeName WinSCP.TransferOptions)
+        $TransferOptions = ( New-Object -TypeName WinSCP.TransferOptions )
     )
 
     process {
-        foreach ($pathValue in (Format-WinSCPPathString -Path $($Path))) {
+        foreach ($pathValue in ( Format-WinSCPPathString -Path $Path )) {
             $nameParameterUsed = $PSBoundParameters.ContainsKey(
                 "Name"
             )
             if ($nameParameterUsed) {
-                $pathValue = Format-WinSCPPathString -Path $(Join-Path -Path $pathValue -ChildPath $Name)
+                $pathValue = Format-WinSCPPathString -Path ( Join-Path -Path $pathValue -ChildPath $Name )
             }
 
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path (Split-Path -Path $pathValue -Parent))) {
+            $pathExists = Test-WinSCPPath -WinSCPSession $WinSCPSession -Path ( Split-Path -Path $pathValue -Parent )
+            if (-not $pathExists) {
                 Write-Error -Message "Cannot find path '$pathValue' because it does not exist."
 
                 continue
             }
 
-            if ((Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $pathValue) -and -not $Force.IsPresent) {
+            $itemExits = Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $pathValue
+            if ($itemExits -and -not $Force.IsPresent) {
                 Write-Error -Message "An item with the specified name '$pathValue' already exists."
 
                 continue

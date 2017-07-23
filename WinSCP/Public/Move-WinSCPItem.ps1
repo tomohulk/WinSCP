@@ -1,7 +1,8 @@
 ﻿function Move-WinSCPItem {
 
     [CmdletBinding(
-        HelpUri = "https://dotps1.github.io/WinSCP/Move-WinSCPItem.html"
+        HelpUri = "https://dotps1.github.io/WinSCP/Move-WinSCPItem.html",
+        PositionalBinding = $false
     )]
     [OutputType(
         [Void]
@@ -24,13 +25,16 @@
 
         [Parameter(
             Mandatory = $true,
+            Position = 0,
             ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true
         )]
         [String[]]
         $Path,
 
-        [Parameter()]
+        [Parameter(
+            Position = 1
+        )]
         [String]
         $Destination = $WinSCPSession.HomePath,
 
@@ -44,7 +48,9 @@
     )
 
     process {
-        if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path ($Destination = Format-WinSCPPathString -Path $($Destination)))) {
+        $Destination = Format-WinSCPPathString -Path $Destination
+        $pathExists = Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $Destination 
+        if (-not $pathExists) {
             if ($Force.IsPresent) {
                 New-WinSCPItem -WinSCPSession $WinSCPSession -Path $Destination -ItemType Directory
             } else {
@@ -53,7 +59,7 @@
             }
         }
 
-        foreach ($pathValue in (Format-WinSCPPathString -Path $($Path))) {
+        foreach ($pathValue in ( Format-WinSCPPathString -Path $Path )) {
             try {
                 $destinationEndsWithPathValue = $Destination.EndsWith(
                     $pathValue
@@ -61,7 +67,7 @@
                 $destinationEndsWithForwardSlash = $Destination.EndsWith(
                     "/"
                 )
-                if (-not ($destinationEndsWithPathValue) -and -not ($destinationEndsWithForwardSlash)) {
+                if (-not $destinationEndsWithPathValue -and -not $destinationEndsWithForwardSlash ) {
                     $Destination += "/"
                 }
 
@@ -72,7 +78,7 @@
                 )
 
                 if ($PassThru.IsPresent) {
-                    Get-WinSCPItem -WinSCPSession $WinSCPSession -Path (Join-Path -Path $Destination -ChildPath (Split-Path -Path $pathValue -Leaf))
+                    Get-WinSCPItem -WinSCPSession $WinSCPSession -Path ( Join-Path -Path $Destination -ChildPath ( Split-Path -Path $pathValue -Leaf ))
                 }
             } catch {
                 $PSCmdlet.WriteError(

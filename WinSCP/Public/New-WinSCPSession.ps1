@@ -1,7 +1,8 @@
 ﻿function New-WinSCPSession {
 
     [CmdletBinding(
-        HelpUri = "https://dotps1.github.io/WinSCP/New-WinSCPSession.html"
+        HelpUri = "https://dotps1.github.io/WinSCP/New-WinSCPSession.html",
+        PositionalBinding = $false
     )]
     [OutputType(
         [WinSCP.Session]
@@ -10,6 +11,7 @@
     param (
         [Parameter(
             Mandatory = $true,
+            Position = 0,
             ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true
         )]
@@ -44,7 +46,7 @@
 
         [Parameter()]
         [TimeSpan]
-        $ReconnectTime = (New-TimeSpan -Seconds 120),
+        $ReconnectTime = ( New-TimeSpan -Seconds 120 ),
         
         [Parameter()]
         [ValidateScript({

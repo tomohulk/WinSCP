@@ -1,7 +1,8 @@
 ﻿function Get-WinSCPItemChecksum {
 
     [CmdletBinding(
-        HelpUri = "https://dotps1.github.io/WinSCP/Get-WinSCPItemChecksum.html"
+        HelpUri = "https://dotps1.github.io/WinSCP/Get-WinSCPItemChecksum.html",
+        PositionalBinding = $false
     )]
     [OutputType(
         [Array]
@@ -23,13 +24,15 @@
         $WinSCPSession,
 
         [Parameter(
-            Mandatory = $true
+            Mandatory = $true,
+            Position = 1
         )]
         [String]
         $Algorithm,
 
         [Parameter(
             Mandatory = $true,
+            Position = 0,
             ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true
         )]
@@ -38,8 +41,9 @@
     )
 
     process {
-        foreach ($pathValue in (Format-WinSCPPathString -Path $($Path))) {
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $pathValue)) {
+        foreach ($pathValue in ( Format-WinSCPPathString -Path $Path )) {
+            $pathExists = Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $pathValue 
+            if (-not $pathExists) {
                 Write-Error -Message "Cannot find path '$pathValue' because it does not exist."
                 continue
             }

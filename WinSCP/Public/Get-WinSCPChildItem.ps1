@@ -1,7 +1,8 @@
 ﻿function Get-WinSCPChildItem {
 
     [CmdletBinding(
-        HelpUri = "https://dotps1.github.io/WinSCP/Get-WinSCPChildItem.html"
+        HelpUri = "https://dotps1.github.io/WinSCP/Get-WinSCPChildItem.html",
+        PositionalBinding = $false
     )]
     [OutputType(
         [Array]
@@ -23,6 +24,7 @@
         $WinSCPSession,
 
         [Parameter(
+            Position = 0,
             ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true
         )]
@@ -55,8 +57,9 @@
     )
 
     process {
-        foreach ($pathValue in (Format-WinSCPPathString -Path $($Path))) {
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $pathValue)) {
+        foreach ($pathValue in ( Format-WinSCPPathString -Path $Path )) {
+            $pathExists = Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $pathValue
+            if (-not $pathExists) {
                 Write-Error -Message "Cannot find path '$pathValue' because it does not exist."
                 continue
             }
@@ -100,7 +103,7 @@
                     # If both -Directory and -File switches are used, exit the loop and return nothing.
                     # This mimics the functionality of Get-ChildItem.
                     continue
-                } elseif ($Directory.IsPresent -and -not $File.IsPresent) {
+                } elseif ($Directory.IsPresent -and -not $File.IsPresent ) {
                     $items = $items.Where({
                         $_.IsDirectory -eq $true
                     })

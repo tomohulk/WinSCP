@@ -2,7 +2,7 @@
 
     [CmdletBinding(
         SupportsShouldProcess = $true,
-        ConfirmImpact = 'High',
+        ConfirmImpact = "High",
         HelpUri = "https://dotps1.github.io/WinSCP/Remove-WinSCPItem.html"
     )]
     [OutputType(
@@ -32,8 +32,8 @@
     )
 
     process {
-        foreach ($pathValue in (Format-WinSCPPathString -Path $($Path))) {
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $pathValue)) {
+        foreach ($pathValue in ( Format-WinSCPPathString -Path $Path )) {
+            if (-not ( Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $pathValue )) {
                 Write-Error -Message "Cannot find path '$pathValue' because it does not exist."
                 continue
             }
@@ -47,7 +47,7 @@
                         $pathValue
                     )
 
-                    if (-not ($result.IsSuccess)) {
+                    if (-not ( $result.IsSuccess )) {
                         $result.Failures[0] |
                             Write-Error
                     }

@@ -1,13 +1,15 @@
 function Get-WinSCPItem {
 
     [CmdletBinding(
-        HelpUri = "https://dotps1.github.io/WinSCP/Get-WinSCPItem.html"
+        HelpUri = "https://dotps1.github.io/WinSCP/Get-WinSCPItem.html",
+        PositionalBinding = $false
     )]
     [OutputType(
         [WinSCP.RemoteFileInfo]
     )]
     
     param (
+        
         [Parameter(
             Mandatory = $true,
             ValueFromPipelineByPropertyName = $true
@@ -24,6 +26,7 @@ function Get-WinSCPItem {
 
         [Parameter(
             Mandatory = $true,
+            Position = 0,
             ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true
         )]
@@ -37,7 +40,8 @@ function Get-WinSCPItem {
 
     process {
         foreach ($pathValue in (Format-WinSCPPathString -Path $($Path))) {
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $pathValue)) {
+            $pathExists = Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $pathValue
+            if (-not $pathExists) {
                 Write-Error -Message "Cannot find path '$pathValue' because it does not exist."
                 continue
             }
