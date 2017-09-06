@@ -3,7 +3,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/dgoq6w2xsfh52m6h?svg=true)](https://ci.appveyor.com/project/dotps1/winscp)
 
 # MAJOR OVERHAUL IN PROGRESS
-I have been revisiting this module as of late, add making some major changes, they will be released when the WinSCP Assembly 5.10 is released.  Here are some of the key points as of 2017-07-01:
+I have been revisiting this module as of late, add making some major changes, they will be released when the WinSCP Assembly 5.11 is released.  Here are some of the key points as of 2017-07-01:
 
 1. New functions:
     * Get-WinSCPSession
@@ -17,6 +17,10 @@ I have been revisiting this module as of late, add making some major changes, th
 5. The `New-WinSCPSessionOption` defaults to using Anonymous authentication.
 6. And much much more!
 
+TODOs as of 2017-09-06
+
+1. Update pester tests.
+2. Re impliment AppVeyor build.
 
 ## Use at your own risk.
 
@@ -31,28 +35,28 @@ Install-Module -Name WinSCP
 
 ## WinSCP Cmdlets
 
-* [ConvertTo-WinSCPEscapedString](http://dotps1.github.io/WinSCP/ConvertTo-WinSCPEscapedString.html)
-* [Get-WinSCPChildItem](http://dotps1.github.io/WinSCP/Get-WinSCPChildItem.html)
-* [Get-WinSCPItem](http://dotps1.github.io/WinSCP/Get-WinSCPItem.html)
-* [Get-WinSCPFileChecksum](http://dotps1.github.io/WinSCP/Get-WinSCPItemChecksum.html)
-* Get-WinSCPSession
-* Get-WinSCPSshHostKeyFingerprint
-* [Invoke-WinSCPCommand](http://dotps1.github.io/WinSCP/Invoke-WinSCPCommand.html)
-* [Move-WinSCPItem](http://dotps1.github.io/WinSCP/Move-WinSCPItem.html)
-* [New-WinSCPItem](http://dotps1.github.io/WinSCP/New-WinSCPItem.html)
-* [New-WinSCPItemPermission](http://dotps1.github.io/WinSCP/New-WinSCPItemPermission.html)
-* [New-WinSCPSession](http://dotps1.github.io/WinSCP/New-WinSCPSession.html)
-* New-WinSCPSessionOption
-* [New-WinSCPTransferOption](http://dotps1.github.io/WinSCP/New-WinSCPTransferOption.html)
-* New-WinSCPTransferResumeSupport
-* [Receive-WinSCPItem](http://dotps1.github.io/WinSCP/Receive-WinSCPItem.html)
-* [Remove-WinSCPItem](http://dotps1.github.io/WinSCP/Remove-WinSCPItem.html)
-* [Remove-WinSCPSession](http://dotps1.github.io/WinSCP/Remove-WinSCPSession.html)
-* [Rename-WinSCPItem](http://dotps1.github.io/WinSCP/Rename-WinSCPItem.html)
-* [Send-WinSCPItem](http://dotps1.github.io/WinSCP/Send-WinSCPItem.html)
-* [Start-WinSCPConsole](http://dotps1.github.io/WinSCP/Start-WinSCPConsole.html)
-* [Sync-WinSCPPath](http://dotps1.github.io/WinSCP/Sync-WinSCPPath.html)
-* [Test-WinSCPPath](http://dotps1.github.io/WinSCP/Test-WinSCPPath.html)
+* [ConvertTo-WinSCPEscapedString](https://github.com/dotps1/WinSCP/wiki/ConvertTo-WinSCPEscapedString)
+* [Get-WinSCPChildItem](https://github.com/dotps1/WinSCP/wiki/Get-WinSCPChildItem)
+* [Get-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Get-WinSCPItem)
+* [Get-WinSCPFileChecksum](https://github.com/dotps1/WinSCP/wiki/Get-WinSCPItemChecksum)
+* [Get-WinSCPSession](https://github.com/dotps1/WinSCP/wiki/Get-WinSCPSession)
+* [Get-WinSCPSshHostKeyFingerprint](https://github.com/dotps1/WinSCP/wiki/Get-WinSCPSshHostKeyFingerprint)
+* [Invoke-WinSCPCommand](https://github.com/dotps1/WinSCP/wiki/Invoke-WinSCPCommand)
+* [Move-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Move-WinSCPItem)
+* [New-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/New-WinSCPItem)
+* [New-WinSCPItemPermission](https://github.com/dotps1/WinSCP/wiki/New-WinSCPItemPermission)
+* [New-WinSCPSession](https://github.com/dotps1/WinSCP/wiki/New-WinSCPSession)
+* [New-WinSCPSessionOption](https://github.com/dotps1/WinSCP/wiki/New-WinSCPSessionOption)
+* [New-WinSCPTransferOption](https://github.com/dotps1/WinSCP/wiki/New-WinSCPTransferOption)
+* [New-WinSCPTransferResumeSupport](https://github.com/dotps1/WinSCP/wiki/New-WinSCPTransferResumeSupport)
+* [Receive-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Receive-WinSCPItem)
+* [Remove-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPItem)
+* [Remove-WinSCPSession](https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPSession)
+* [Rename-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Rename-WinSCPItem)
+* [Send-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Send-WinSCPItem)
+* [Start-WinSCPConsole](https://github.com/dotps1/WinSCP/wiki/Start-WinSCPConsole)
+* [Sync-WinSCPPath](https://github.com/dotps1/WinSCP/wiki/Sync-WinSCPPath)
+* [Test-WinSCPPath](https://github.com/dotps1/WinSCP/wiki/Test-WinSCPPath)
 
 
 ## Examples
