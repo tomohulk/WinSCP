@@ -78,7 +78,7 @@ TlsClientCertificatePath                     :
 ## PARAMETERS
 
 ### Credential
-Represents a set of security credentials, such as a user name and a password.
+Represents a set of security credentials, such as a user name and a password.
 
 ```yaml
 Type: PSCredential
@@ -92,7 +92,7 @@ Pipeline Input: false
 ```
 
 ### FtpMode
-Possible values are FtpMode.Passive (default) and FtpMode.Active.
+Possible values are FtpMode.Passive (default) and FtpMode.Active.
 
 ```yaml
 Type: FtpMode
@@ -106,7 +106,7 @@ Pipeline Input: false
 ```
 
 ### FtpSecure
-Possible values are FtpSecure.None (default), FtpSecure.Implicit and FtpSecure.Explicit.
+Possible values are FtpSecure.None (default), FtpSecure.Implicit and FtpSecure.Explicit.
 
 ```yaml
 Type: FtpSecure
@@ -120,7 +120,7 @@ Pipeline Input: false
 ```
 
 ### GiveUpSecurityAndAcceptAnySshHostKey
-Give up security and accept any SSH host key. To be used in exceptional situations only, when security is not required. When set, log files will include warning about insecure connection. To maintain security, use SshHostKeyFingerprint.
+Give up security and accept any SSH host key. To be used in exceptional situations only, when security is not required. When set, log files will include warning about insecure connection. To maintain security, use SshHostKeyFingerprint.
 
 ```yaml
 Type: SwitchParameter
@@ -134,7 +134,7 @@ Pipeline Input: false
 ```
 
 ### GiveUpSecurityAndAcceptAnyTlsHostCertificate
-Give up security and accept any FTPS/WebDAVS server TLS/SSL certificate. To be used in exceptional situations only, when security is not required. When set, log files will include warning about insecure connection. To maintain security, use TlsHostCertificateFingerprint.
+Give up security and accept any FTPS/WebDAVS server TLS/SSL certificate. To be used in exceptional situations only, when security is not required. When set, log files will include warning about insecure connection. To maintain security, use TlsHostCertificateFingerprint.
 
 ```yaml
 Type: SwitchParameter
@@ -148,7 +148,7 @@ Pipeline Input: false
 ```
 
 ### HostName
-Name of the host to connect to. Mandatory property.
+Name of the host to connect to. Mandatory property.
 
 ```yaml
 Type: String
@@ -162,7 +162,7 @@ Pipeline Input: false
 ```
 
 ### PortNumber
-Port number to connect to. Keep default 0 to use the default port for the protocol.
+Port number to connect to. Keep default 0 to use the default port for the protocol.
 
 ```yaml
 Type: Int32
@@ -176,7 +176,7 @@ Pipeline Input: false
 ```
 
 ### PrivateKeyPassphrase
-Passphrase for encrypted private keys and client certificates.
+Passphrase for encrypted private keys and client certificates.
 
 ```yaml
 Type: SecureString
@@ -190,7 +190,7 @@ Pipeline Input: false
 ```
 
 ### Protocol
-Protocol to use for the session. Possible values are Protocol.Sftp (default), Protocol.Scp, Protocol.Ftp and Protocol.Webdav.
+Protocol to use for the session. Possible values are Protocol.Sftp (default), Protocol.Scp, Protocol.Ftp and Protocol.Webdav.
 
 ```yaml
 Type: Protocol
@@ -204,7 +204,7 @@ Pipeline Input: false
 ```
 
 ### SshHostKeyFingerprint
-Fingerprint of SSH server host key (or several alternative fingerprints separated by semicolon). It makes WinSCP automatically accept host key with the fingerprint. Mandatory for SFTP/SCP protocol.
+Fingerprint of SSH server host key (or several alternative fingerprints separated by semicolon). It makes WinSCP automatically accept host key with the fingerprint. Mandatory for SFTP/SCP protocol.
 
 ```yaml
 Type: String[]
@@ -218,7 +218,7 @@ Pipeline Input: True (ByPropertyName)
 ```
 
 ### SshPrivateKeyPath
-Full path to SSH private key file.
+Full path to SSH private key file.
 
 ```yaml
 Type: String
@@ -232,7 +232,7 @@ Pipeline Input: false
 ```
 
 ### TlsClientCertificatePath
-Full path to TLS/SSL client certificate.
+Full path to TLS/SSL client certificate.
 
 ```yaml
 Type: String
@@ -246,7 +246,7 @@ Pipeline Input: false
 ```
 
 ### TlsHostCertificateFingerprint
-Fingerprint of FTPS/WebDAVS server TLS/SSL certificate to be automatically accepted (useful for certificates signed by untrusted authority).
+Fingerprint of FTPS/WebDAVS server TLS/SSL certificate to be automatically accepted (useful for certificates signed by untrusted authority).
 
 ```yaml
 Type: String
@@ -260,7 +260,7 @@ Pipeline Input: false
 ```
 
 ### Timeout
-Server response timeout. Defaults to 15 seconds.
+Server response timeout. Defaults to 15 seconds.
 
 ```yaml
 Type: TimeSpan
@@ -274,7 +274,7 @@ Pipeline Input: false
 ```
 
 ### WebdavSecure
-Use WebDAVS (WebDAV over TLS/SSL), instead of WebDAV.
+Use WebDAVS (WebDAV over TLS/SSL), instead of WebDAV.
 
 ```yaml
 Type: SwitchParameter
@@ -288,7 +288,7 @@ Pipeline Input: false
 ```
 
 ### WebdavRoot
-WebDAV root path.
+WebDAV root path.
 
 ```yaml
 Type: String
@@ -302,7 +302,7 @@ Pipeline Input: false
 ```
 
 ### RawSetting
-Allows configuring any site settings using raw format as in an INI file.
+Allows configuring any site settings using raw format as in an INI file.
 
 ```yaml
 Type: Hashtable
@@ -337,4 +337,4 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 [WinSCP reference:](https://winscp.net/eng/docs/library_sessionoptions)
 
 
-*Generated by:  PowerShell HelpWriter 2017 v2.1.35*
+*Generated by: PowerShell HelpWriter 2017 v2.1.36*
