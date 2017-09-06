@@ -12,7 +12,7 @@
 RootModule = "WinSCP"
 
 # Version number of this module.
-ModuleVersion = "0.0.0.0"
+ModuleVersion = "5.11.0.0"
 
 # ID used to uniquely identify this module
 GUID = "06e0af4e-779b-48f4-939f-c90b8ec950e6"
@@ -24,7 +24,7 @@ Author = "Thomas J. Malkewitz @dotps1"
 # CompanyName = "Unknown"
 
 # Copyright statement for this module
-Copyright = "(c) 2015 Thomas J. Malkewitz @dotps1. All rights reserved.  Licensed with GNU GENERAL PUBLIC LICENSE."
+Copyright = "(c) 2017 Thomas J. Malkewitz @dotps1. All rights reserved.  Licensed with GNU GENERAL PUBLIC LICENSE."
 
 # Description of the functionality provided by this module
 Description = "PowerShell Module Wrapper for WinSCP."
