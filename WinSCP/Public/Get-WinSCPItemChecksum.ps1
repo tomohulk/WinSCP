@@ -1,7 +1,7 @@
 ﻿function Get-WinSCPItemChecksum {
 
     [CmdletBinding(
-        HelpUri = "https://dotps1.github.io/WinSCP/Get-WinSCPItemChecksum.html",
+        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Get-WinSCPItemChecksum",
         PositionalBinding = $false
     )]
     [OutputType(

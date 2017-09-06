@@ -1,7 +1,7 @@
 ﻿function Receive-WinSCPItem {
 
     [CmdletBinding(
-        HelpUri = "https://dotps1.github.io/WinSCP/Receive-WinSCPItem.html"
+        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Receive-WinSCPItem"
     )]
     [OutputType(
         [WinSCP.TransferOperationResult]

@@ -1,7 +1,7 @@
 function Get-WinSCPItem {
 
     [CmdletBinding(
-        HelpUri = "https://dotps1.github.io/WinSCP/Get-WinSCPItem.html",
+        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Get-WinSCPItem",
         PositionalBinding = $false
     )]
     [OutputType(

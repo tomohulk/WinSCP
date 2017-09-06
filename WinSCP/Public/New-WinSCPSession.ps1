@@ -1,7 +1,7 @@
 ﻿function New-WinSCPSession {
 
     [CmdletBinding(
-        HelpUri = "https://dotps1.github.io/WinSCP/New-WinSCPSession.html",
+        HelpUri = "https://github.com/dotps1/WinSCP/wiki/New-WinSCPSession",
         PositionalBinding = $false
     )]
     [OutputType(

@@ -1,7 +1,7 @@
 ﻿function New-WinSCPItem {
 
     [CmdletBinding(
-        HelpUri = "https://dotps1.github.io/WinSCP/New-WinSCPItem.html",
+        HelpUri = "https://github.com/dotps1/WinSCP/wiki/New-WinSCPItem",
         PositionalBinding = $false
     )]
     [OutputType(

@@ -1,7 +1,7 @@
 ﻿function Move-WinSCPItem {
 
     [CmdletBinding(
-        HelpUri = "https://dotps1.github.io/WinSCP/Move-WinSCPItem.html",
+        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Move-WinSCPItem",
         PositionalBinding = $false
     )]
     [OutputType(

@@ -1,7 +1,7 @@
 ﻿function Invoke-WinSCPCommand {
 
     [CmdletBinding(
-        HelpUri = "https://dotps1.github.io/WinSCP/Invoke-WinSCPCommand.html",
+        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Invoke-WinSCPCommand",
         PositionalBinding = $false
     )]
     [OutputType(

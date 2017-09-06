@@ -1,7 +1,7 @@
 function New-WinSCPTransferResumeSupport {
 
     [CmdletBinding(
-        HelpUri = "https://dotps1.github.io/WinSCP/New-WinSCPTransferResumeSupport.html"
+        HelpUri = "https://github.com/dotps1/WinSCP/wiki/New-WinSCPTransferResumeSupport"
     )]
     [OutputType(
         [WinSCP.TransferResumeSupport]

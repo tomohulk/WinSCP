@@ -12,7 +12,7 @@ NOTE
 	This is a work in progress, command names, parameters, and functionallity may change.
 	
 TROUBLESHOOTING NOTE
-	Please submit all issues and freature requests on the project site: https://github.com/dotps1/WinSCP
+	Please submit all issues and freature requests on the project site: https://github.com/dotps1/WinSCP/issues
 	
 EXAMPLES
 	Get-Command -Module WinSCP | Sort-Object -Property Name | Select-Object -Property Name

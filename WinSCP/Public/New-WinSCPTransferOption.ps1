@@ -1,7 +1,7 @@
 ﻿function New-WinSCPTransferOption {
 
     [CmdletBinding(
-        HelpUri = "https://dotps1.github.io/WinSCP/New-WinSCPTransferOption.html"
+        HelpUri = "https://github.com/dotps1/WinSCP/wiki/New-WinSCPTransferOption"
     )]
     [OutputType(
         [WinSCP.TransferOptions]

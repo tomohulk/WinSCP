@@ -1,7 +1,7 @@
 function New-WinSCPItemPermission {
 
     [CmdletBinding(
-        HelpUri = "https://dotps1.github.io/WinSCP/New-WinSCPItemPermission.html"
+        HelpUri = "https://github.com/dotps1/WinSCP/wiki/New-WinSCPItemPermission"
     )]
     [OutputType(
         [WinSCP.FilePermissions]

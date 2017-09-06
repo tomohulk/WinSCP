@@ -1,7 +1,7 @@
 function Get-WinSCPSshHostKeyFingerprint {
 
     [CmdletBinding(
-        HelpUri = "https://dotps1.github.io/WinSCP/Get-WinSCPSshHostKeyFingerprint.html"
+        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Get-WinSCPSshHostKeyFingerprint"
     )]
     [OutputType(
         [String]

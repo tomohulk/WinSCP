@@ -1,7 +1,7 @@
 ﻿function Start-WinSCPConsole {
 
     [CmdletBinding(
-        HelpUri = "https://dotps1.github.io/WinSCP/Start-WinSCPConsole.html"
+        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Start-WinSCPConsole"
     )]
     [OutputType(
         [Void]

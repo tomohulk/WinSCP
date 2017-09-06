@@ -1,7 +1,7 @@
 ﻿function Test-WinSCPPath {
 
     [CmdletBinding(
-        HelpUri = "https://dotps1.github.io/WinSCP/Test-WinSCPPath.html"
+        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Test-WinSCPPath"
     )]
     [OutputType(
         [Bool]

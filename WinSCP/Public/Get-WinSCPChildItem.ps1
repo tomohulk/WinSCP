@@ -1,7 +1,7 @@
 ﻿function Get-WinSCPChildItem {
 
     [CmdletBinding(
-        HelpUri = "https://dotps1.github.io/WinSCP/Get-WinSCPChildItem.html",
+        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Get-WinSCPChildItem",
         PositionalBinding = $false
     )]
     [OutputType(

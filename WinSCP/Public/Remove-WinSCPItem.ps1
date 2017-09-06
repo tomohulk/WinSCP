@@ -3,7 +3,7 @@
     [CmdletBinding(
         SupportsShouldProcess = $true,
         ConfirmImpact = "High",
-        HelpUri = "https://dotps1.github.io/WinSCP/Remove-WinSCPItem.html"
+        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPItem"
     )]
     [OutputType(
         [Void]
