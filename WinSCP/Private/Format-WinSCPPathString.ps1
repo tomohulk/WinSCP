@@ -41,7 +41,7 @@ function Format-WinSCPPathString {
 
     process {
         foreach ($item in $Path) {
-            if ($item -contains [System.IO.Path]::DirectorySeparatorChar) {
+            if ($item -match [RegEx]::Escape( [System.IO.Path]::DirectorySeparatorChar )) {
                 $item = $item.Replace(
                     [System.IO.Path]::DirectorySeparatorChar, [System.IO.Path]::AltDirectorySeparatorChar
                 )
