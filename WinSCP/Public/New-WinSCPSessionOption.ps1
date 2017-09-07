@@ -143,7 +143,7 @@ function New-WinSCPSessionOption {
 		try {
 			$PrivateKeyPassphrase = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto(
                 [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR(
-                    $PrivateKeySecurePassphrase
+                    $PrivateKeyPassphrase
                 )
             )
 		} catch {
