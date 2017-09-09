@@ -12,7 +12,7 @@
 RootModule = "WinSCP"
 
 # Version number of this module.
-ModuleVersion = "5.11.0.3"
+ModuleVersion = "5.11.1.0"
 
 # ID used to uniquely identify this module
 GUID = "06e0af4e-779b-48f4-939f-c90b8ec950e6"
