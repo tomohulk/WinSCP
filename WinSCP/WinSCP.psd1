@@ -169,7 +169,7 @@ PrivateData = @{
         IconUri = "http://winscp.net/eng/images/og_logo_240x240.jpg"
 
         # ReleaseNotes of this module
-        ReleaseNotes = "Bug fix for https://github.com/dotps1/WinSCP/issues/64.  Typo in variable name for PrivateKeyPassphrase."
+        ReleaseNotes = "Update WinSCP Core to 5.11.1."
     } # End of PSData hashtable
 
 } # End of PrivateData hashtable
