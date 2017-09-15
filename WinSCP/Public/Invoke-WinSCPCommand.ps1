@@ -40,7 +40,7 @@
                     $commandValue
                 )
 
-                Write-OutputType -InputObject $output
+                Write-Output -InputObject $output
             } catch {
                 $PSCmdlet.WriteError(
                     $_
