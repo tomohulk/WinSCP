@@ -10,7 +10,7 @@ function New-WinSCPTransferResumeSupport {
     param (
         [Parameter()]
         [WinSCP.TransferResumeSupportState]
-        $TransferResumeSupportState = (New-Object -TypeName WinSCP.TransferResumeSupportState),
+        $State = (New-Object -TypeName WinSCP.TransferResumeSupportState),
 
         [Parameter()]
         [Int]
