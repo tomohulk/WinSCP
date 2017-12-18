@@ -12,7 +12,7 @@
 RootModule = "WinSCP"
 
 # Version number of this module.
-ModuleVersion = "5.11.2.1"
+ModuleVersion = "5.11.3.0"
 
 # ID used to uniquely identify this module
 GUID = "06e0af4e-779b-48f4-939f-c90b8ec950e6"
@@ -169,7 +169,7 @@ PrivateData = @{
         IconUri = "http://winscp.net/eng/images/og_logo_240x240.jpg"
 
         # ReleaseNotes of this module
-        ReleaseNotes = "Bug fix for #68."
+        ReleaseNotes = "Update WinSCP Core to 5.11.3."
     } # End of PSData hashtable
 
 } # End of PrivateData hashtable
