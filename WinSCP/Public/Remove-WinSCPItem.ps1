@@ -33,11 +33,6 @@
 
     process {
         foreach ($pathValue in ( Format-WinSCPPathString -Path $Path )) {
-            if (-not ( Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $pathValue )) {
-                Write-Error -Message "Cannot find path '$pathValue' because it does not exist."
-                continue
-            }
-
             $cmdletShouldProcess = $PSCmdlet.ShouldProcess(
                 $pathValue
             )

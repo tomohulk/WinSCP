@@ -50,11 +50,6 @@
 
     process {
         foreach ($remotePathValue in (Format-WinSCPPathString -Path $($RemotePath))) {
-            if (-not (Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $remotePathValue)) {
-                Write-Error -Message "Cannot find path '$remotePathValue' because it does not exist."
-                continue
-            }
-
             $localPathEndsWithBackSlash = $LocalPath.EndsWith(
                 "\"
             )

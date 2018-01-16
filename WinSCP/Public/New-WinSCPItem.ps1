@@ -63,13 +63,6 @@
                 $pathValue = Format-WinSCPPathString -Path ( Join-Path -Path $pathValue -ChildPath $Name )
             }
 
-            $pathExists = Test-WinSCPPath -WinSCPSession $WinSCPSession -Path ( Split-Path -Path $pathValue -Parent )
-            if (-not $pathExists) {
-                Write-Error -Message "Cannot find path '$pathValue' because it does not exist."
-
-                continue
-            }
-
             $itemExits = Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $pathValue
             if ($itemExits -and -not $Force.IsPresent) {
                 Write-Error -Message "An item with the specified name '$pathValue' already exists."

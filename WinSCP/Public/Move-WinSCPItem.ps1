@@ -49,16 +49,7 @@
 
     process {
         $Destination = Format-WinSCPPathString -Path $Destination
-        $pathExists = Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $Destination 
-        if (-not $pathExists) {
-            if ($Force.IsPresent) {
-                New-WinSCPItem -WinSCPSession $WinSCPSession -Path $Destination -ItemType Directory
-            } else {
-                Write-Error -Message "Cannot find path '$Destination' because it does not exist."
-                return
-            }
-        }
-
+        
         foreach ($pathValue in ( Format-WinSCPPathString -Path $Path )) {
             try {
                 $destinationEndsWithPathValue = $Destination.EndsWith(
