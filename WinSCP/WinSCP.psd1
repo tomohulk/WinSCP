@@ -12,7 +12,7 @@
 RootModule = "WinSCP"
 
 # Version number of this module.
-ModuleVersion = "5.11.3.0"
+ModuleVersion = "0.0.0.0"
 
 # ID used to uniquely identify this module
 GUID = "06e0af4e-779b-48f4-939f-c90b8ec950e6"
@@ -24,7 +24,7 @@ Author = "Thomas J. Malkewitz @dotps1"
 # CompanyName = "Unknown"
 
 # Copyright statement for this module
-Copyright = "(c) 2017 Thomas J. Malkewitz @dotps1. All rights reserved.  Licensed with GNU GENERAL PUBLIC LICENSE."
+Copyright = "(c) 2018 Thomas J. Malkewitz @dotps1. All rights reserved.  Licensed with GNU GENERAL PUBLIC LICENSE."
 
 # Description of the functionality provided by this module
 Description = "PowerShell Module Wrapper for WinSCP."
@@ -163,13 +163,13 @@ PrivateData = @{
         LicenseUri = "https://raw.githubusercontent.com/dotps1/WinSCP/master/LICENSE.md"
 
         # A URL to the main website for this project.
-        ProjectUri = "http://dotps1.github.io/WinSCP"
+        ProjectUri = "https://github.com/dotps1/WinSCP"
 
         # A URL to an icon representing this module.
         IconUri = "http://winscp.net/eng/images/og_logo_240x240.jpg"
 
         # ReleaseNotes of this module
-        ReleaseNotes = "Update WinSCP Core to 5.11.3."
+        ReleaseNotes = ""
     } # End of PSData hashtable
 
 } # End of PrivateData hashtable
