@@ -4,7 +4,6 @@ Get-Process -Name WinSCP -ErrorAction SilentlyContinue |
     Stop-Process -Force
 
 $credential = ( New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "filezilla", ( ConvertTo-SecureString -AsPlainText "filezilla" -Force ))
-
 $ftp = "$env:SystemDrive\temp\ftproot"
 New-Item -Path "$ftp\TextFile.txt" -ItemType File -Value "Hello World!" -Force | 
     Out-Null
