@@ -140,25 +140,6 @@ function New-WinSCPSessionOption {
                 Select-Object -ExpandProperty Path
         }
 
-        # Convert PrivateKeyPassphrase to plain text and set it to the corresponding SessionOptions property.
-        # This does seem silly, but the PSScriptAnalyzer gets mad about having a "Password" parameter that is not a SecureString.
-        $privateKeyPassphraseUsed = $PSBoundParameters.ContainsKey(
-            "PrivateKeyPassphrase"
-        )
-        if ($privateKeyPassphraseUsed) {
-            try {
-                $PrivateKeyPassphrase = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto(
-                    [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR(
-                        $PrivateKeyPassphrase
-                    )
-                )
-            } catch {
-                $PSCmdlet.ThrowTerminatingError(
-                    $_
-                )
-            }
-        }
-
         # Enumerate each parameter.
         try {
             $sessionOptionObjectProperties = $sessionOptions |
