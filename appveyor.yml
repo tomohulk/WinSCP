@@ -15,7 +15,7 @@ test_script:
 environment:
   powershell_gallery_api_token:
     secure: feZG1n6/I0hDzxw9VWtlUph94caZUYw3denU0TLudvgWX9cG/jkjDLOT8ixd02P4
-notifications:
-  - provider: Slack
-    incoming_webhook:
-      secure: AbntoBWt4UaZffU0mBhQjuXCQAIegqF1NtTVdnFyinHHS23C+b/r4/lWGDzneboipU5R9/6ti/x1p1ceodafH5iv+il9EyS87/M8TaE3hf8=
+#notifications:
+#  - provider: Slack
+#    incoming_webhook:
+#      secure: AbntoBWt4UaZffU0mBhQjuXCQAIegqF1NtTVdnFyinHHS23C+b/r4/lWGDzneboipU5R9/6ti/x1p1ceodafH5iv+il9EyS87/M8TaE3hf8=
