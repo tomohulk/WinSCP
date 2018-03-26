@@ -1,22 +1,23 @@
 ﻿function New-WinSCPItem {
 
     [CmdletBinding(
+        ConfirmImpact = "Low",
         HelpUri = "https://github.com/dotps1/WinSCP/wiki/New-WinSCPItem",
-        PositionalBinding = $false
+        SupportsShouldProcess = $true
     )]
     [OutputType(
         [WinSCP.RemoteFileInfo]
     )]
-    
+
     param (
         [Parameter(
             Mandatory = $true,
             ValueFromPipelineByPropertyName = $true
         )]
-        [ValidateScript({ 
-            if ($_.Opened) { 
-                return $true 
-            } else { 
+        [ValidateScript({
+            if ($_.Opened) {
+                return $true
+            } else {
                 throw "The WinSCP Session is not in an Open state."
             }
         })]
@@ -68,28 +69,33 @@
                 Write-Error -Message "An item with the specified name '$pathValue' already exists."
 
                 continue
-            } 
+            }
 
             try {
-                $newItemParams = @{
-                    Path = $env:TEMP
-                    Name = (Split-Path -Path $pathValue -Leaf)
-                    ItemType = $ItemType
-                    Value = $Value
-                    Force = $true
-                }
-
-                $newItem = New-Item @newItemParams
-                $result = $WinSCPSession.PutFiles(
-                    $newItem.FullName, $pathValue, $true, $TransferOptions
+                $shouldProcess = $PSCmdlet.ShouldProcess(
+                    $pathValue
                 )
+                if ($shouldProcess) {
+                    $newItemParams = @{
+                        Path = $env:TEMP
+                        Name = (Split-Path -Path $pathValue -Leaf)
+                        ItemType = $ItemType
+                        Value = $Value
+                        Force = $true
+                    }
 
-                if ($result.IsSuccess) {
-                    Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $result.Transfers.Destination
-                } else {
-                    $PSCmdlet.WriteError(
-                        $result.Check()
+                    $newItem = New-Item @newItemParams
+                    $result = $WinSCPSession.PutFiles(
+                        $newItem.FullName, $pathValue, $true, $TransferOptions
                     )
+
+                    if ($result.IsSuccess) {
+                        Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $pathValue
+                    } else {
+                        $PSCmdlet.WriteError(
+                            $result.Check()
+                        )
+                    }
                 }
             } catch {
                 $PSCmdlet.WriteError(

@@ -1,13 +1,14 @@
 ﻿function New-WinSCPSession {
 
     [CmdletBinding(
+        ConfirmImpact = "Low",
         HelpUri = "https://github.com/dotps1/WinSCP/wiki/New-WinSCPSession",
-        PositionalBinding = $false
+        SupportsShouldProcess = $true
     )]
     [OutputType(
         [WinSCP.Session]
     )]
-    
+
     param (
         [Parameter(
             Mandatory = $true,
@@ -28,14 +29,14 @@
         )]
         [Int]
         $DebugLogLevel = 0,
-        
+
         [Parameter()]
         [ValidateScript({
             if (Test-Path -Path (Split-Path -Path $_ -Parent)) {
                 return $true
             } else {
                 throw "Path not found $(Split-Path -Path $_ -Parent)."
-            } 
+            }
         })]
         [String]
         $DebugLogPath,
@@ -47,14 +48,14 @@
         [Parameter()]
         [TimeSpan]
         $ReconnectTime = ( New-TimeSpan -Seconds 120 ),
-        
+
         [Parameter()]
         [ValidateScript({
             if (Test-Path -Path (Split-Path -Path $_ -Parent)) {
                 return $true
             } else {
                 throw "Path not found $(Split-Path -Path $_ -Parent)."
-            } 
+            }
         })]
         [String]
         $SessionLogPath = $null
@@ -65,34 +66,39 @@
         ExecutablePath = "$PSScriptRoot\..\bin\winscp.exe"
     }
 
-    $executableProcessCredentialUsed = $PSBoundParameters.ContainsKey(
-        "ExecutableProcessCredential"
+    $shouldProcess = $PSCmdlet.ShouldProcess(
+        $session
     )
-    if ($executableProcessCredentialUsed) {
-        $PSBoundParameters.Add(
-            "ExecutableProcessUserName", $ExecutableProcessCredential.UserName
+    if ($shouldProcess) {
+        $executableProcessCredentialUsed = $PSBoundParameters.ContainsKey(
+            "ExecutableProcessCredential"
         )
-        $PSBoundParameters.Add(
-            "ExecutableProcessPassword", $ExecutableProcessCredential.Password
-        )
-    }
-
-    try {
-        # Enumerate each parameter.
-        $sessionObjectProperties = $session |
-            Get-Member -MemberType Property |
-                Select-Object -ExpandProperty Name
-        $keys = ($PSBoundParameters.Keys).Where({
-            $_ -in $sessionObjectProperties
-        })
-
-        foreach ($key in $keys) {
-            $session.$key = $PSBoundParameters.$key
+        if ($executableProcessCredentialUsed) {
+            $PSBoundParameters.Add(
+                "ExecutableProcessUserName", $ExecutableProcessCredential.UserName
+            )
+            $PSBoundParameters.Add(
+                "ExecutableProcessPassword", $ExecutableProcessCredential.Password
+            )
         }
-    } catch {
-        $PSCmdlet.ThrowTerminatingError(
-            $_
-        )
+
+        try {
+            # Enumerate each parameter.
+            $sessionObjectProperties = $session |
+                Get-Member -MemberType Property |
+                    Select-Object -ExpandProperty Name
+            $keys = ($PSBoundParameters.Keys).Where({
+                $_ -in $sessionObjectProperties
+            })
+
+            foreach ($key in $keys) {
+                $session.$key = $PSBoundParameters.$key
+            }
+        } catch {
+            $PSCmdlet.ThrowTerminatingError(
+                $_
+            )
+        }
     }
 
     try {

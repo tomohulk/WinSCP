@@ -1,7 +1,7 @@
 function New-WinSCPSessionOption {
 
     [CmdletBinding(
-        ConfirmImpact = "None",
+        ConfirmImpact = "Low",
         HelpUri = "https://github.com/dotps1/WinSCP/wiki/New-WinSCPSessionOption",
         SupportsShouldProcess = $true
     )]
@@ -24,7 +24,7 @@ function New-WinSCPSessionOption {
         [Parameter()]
         [WinSCP.FtpSecure]
         $FtpSecure = (New-Object -TypeName WinSCP.FtpSecure),
-        
+
         [Parameter()]
         [Switch]
         $GiveUpSecurityAndAcceptAnySshHostKey,
@@ -58,31 +58,31 @@ function New-WinSCPSessionOption {
         $SshHostKeyFingerprint,
 
         [Parameter()]
-        [ValidateScript({ 
+        [ValidateScript({
             if (Test-Path -Path $_) {
                 if ((Get-Item -Path $_).PSIsContainer) {
                     throw "Target is not a file: '$_'."
                 } else {
                     return $true
                 }
-            } else { 
-                throw "Unable to find part of Path: '$_'." 
-            } 
+            } else {
+                throw "Unable to find part of Path: '$_'."
+            }
         })]
         [String]
         $SshPrivateKeyPath,
 
         [Parameter()]
-        [ValidateScript({ 
+        [ValidateScript({
             if (Test-Path -Path $_) {
                 if ((Get-Item -Path $_).PSIsContainer) {
                     throw "Target is not a file: '$_'."
                 } else {
                     return $true
                 }
-            } else { 
-                throw "Unable to find part of Path: '$_'." 
-            } 
+            } else {
+                throw "Unable to find part of Path: '$_'."
+            }
         })]
         [String]
         $TlsClientCertificatePath,
@@ -148,10 +148,10 @@ function New-WinSCPSessionOption {
             $keys = ($PSBoundParameters.Keys).Where({
                 $_ -in $sessionOptionObjectProperties
             })
-            
+
             foreach ($key in $keys) {
                 $sessionOptions.$key = $PSBoundParameters.$key
-            } 
+            }
         } catch {
             $PSCmdlet.ThrowTerminatingError(
                 $_

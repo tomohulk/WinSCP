@@ -1,55 +1,64 @@
-#requires -Modules Pester, PSScriptAnalyzer
+#Requires -Modules Pester, PSScriptAnalyzer, WinSCP
 
-Get-Process | Where-Object { $_.Name -eq 'WinSCP' } | Stop-Process -Force
+Get-Process -Name WinSCP -ErrorAction SilentlyContinue |
+    Stop-Process -Force
+
+$credential = ( New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "filezilla", ( ConvertTo-SecureString -AsPlainText "filezilla" -Force ))
 
 Describe 'New-WinSCPSession' {
-    $credential = (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList 'filezilla', (ConvertTo-SecureString -AsPlainText 'filezilla' -Force))
-
-    Context "New-WinSCPSession -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp" {
-        $session = New-WinSCPSession -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp
+    Context "New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp )" {
+        $session = New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp )
 
         It 'Session should be open.' {
-            $session.Opened | Should Be $true
+            $session.Opened |
+                Should Be $true
         }
 
         It "Hostname should be $env:COMPUTERNAME." {
-            $session
+            $session.Hostname |
+                Should Be $env:COMPUTERNAME
         }
 
+        Remove-WinSCPSession -WinSCPSession $session
         It 'Session should be closed and the object should be disposed.' {
-            Remove-WinSCPSession -WinSCPSession $session
-            $session | Should Not Exist
+            $session |
+                Should Not Exist
         }
     }
 
-    Context "New-WinSCPSession -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp -SessionLogPath $env:TEMP\Session.log -DebugLogPath $env:TEMP\Debug.log" {
-        $session = New-WinSCPSession -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp -SessionLogPath "$env:TEMP\Session.log" -DebugLogPath "$env:TEMP\Debug.log"
+    Context "New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp ) -SessionLogPath $env:TEMP\Session.log -DebugLogPath $env:TEMP\Debug.log" {
+        $session = New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp ) -SessionLogPath "$env:TEMP\Session.log" -DebugLogPath "$env:TEMP\Debug.log"
 
         It 'Session should be open.' {
-            $session.Opened | Should Be $true
+            $session.Opened |
+                Should Be $true
         }
 
         It "$env:TEMP\Session.log should exist." {
-            Test-Path -Path "$env:TEMP\Session.log" | Should Be $true
+            Test-Path -Path "$env:TEMP\Session.log" |
+                Should Be $true
         }
 
         It "$env:TEMP\Debug.log should exist." {
-            Test-Path -Path "$env:TEMP\Debug.log" | Should Be $true
+            Test-Path -Path "$env:TEMP\Debug.log" |
+                Should Be $true
         }
 
+        Remove-WinSCPSession -WinSCPSession $session
         It 'Session should be closed and the object should be disposed.' {
-            Remove-WinSCPSession -WinSCPSession $session
-            $session | Should Not Exist
+            $session |
+                Should Not Exist
         }
 
         Remove-Item -Path @("$env:TEMP\Session.log", "$env:TEMP\Debug.log") -Force -Confirm:$false
     }
 
-    Context "Invoke-ScriptAnalyzer -Path $(Resolve-Path -Path (Get-Location))\Functions\New-WinSCPSession.ps1." {
-        $results = Invoke-ScriptAnalyzer -Path .\WinSCP\Public\New-WinSCPSession.ps1
+    Context "Invoke-ScriptAnalyzer -Path `"$((Get-Module -Name WinSCP).ModuleBase)\Public\New-WinSCPSession.ps1`"" {
+        $results = Invoke-ScriptAnalyzer -Path "$((Get-Module -Name WinSCP).ModuleBase)\Public\New-WinSCPSession.ps1"
 
-        it 'Invoke-ScriptAnalyzer results of New-WinSCPSession count should be 0.' {
-            $results.Count | Should Be 0
+        It "Invoke-ScriptAnalyzer of New-WinSCPItem results count should be 0." {
+            $results.Count |
+                Should Be 0
         }
     }
 }
