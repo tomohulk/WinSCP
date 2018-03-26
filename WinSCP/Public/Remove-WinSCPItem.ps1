@@ -1,9 +1,9 @@
 ﻿function Remove-WinSCPItem {
 
     [CmdletBinding(
-        SupportsShouldProcess = $true,
         ConfirmImpact = "High",
-        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPItem"
+        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPItem",
+        SupportsShouldProcess = $true
     )]
     [OutputType(
         [Void]
@@ -14,10 +14,10 @@
             Mandatory = $true,
             ValueFromPipeline = $true
         )]
-        [ValidateScript({ 
-            if ($_.Opened) { 
-                return $true 
-            } else { 
+        [ValidateScript({
+            if ($_.Opened) {
+                return $true
+            } else {
                 throw "The WinSCP Session is not in an Open state."
             }
         })]
@@ -52,6 +52,6 @@
                     )
                 }
             }
-        } 
+        }
     }
 }

@@ -5,11 +5,11 @@ Get-Process -Name WinSCP -ErrorAction SilentlyContinue |
 
 $credential = ( New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "filezilla", ( ConvertTo-SecureString -AsPlainText "filezilla" -Force ))
 
-Describe 'New-WinSCPSession' {
+Describe "New-WinSCPSession" {
     Context "New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp )" {
         $session = New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp )
 
-        It 'Session should be open.' {
+        It "Session should be open." {
             $session.Opened |
                 Should Be $true
         }
@@ -20,7 +20,7 @@ Describe 'New-WinSCPSession' {
         }
 
         Remove-WinSCPSession -WinSCPSession $session
-        It 'Session should be closed and the object should be disposed.' {
+        It "Session should be closed and the object should be disposed." {
             $session |
                 Should Not Exist
         }
@@ -29,7 +29,7 @@ Describe 'New-WinSCPSession' {
     Context "New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp ) -SessionLogPath $env:TEMP\Session.log -DebugLogPath $env:TEMP\Debug.log" {
         $session = New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp ) -SessionLogPath "$env:TEMP\Session.log" -DebugLogPath "$env:TEMP\Debug.log"
 
-        It 'Session should be open.' {
+        It "Session should be open." {
             $session.Opened |
                 Should Be $true
         }
@@ -45,7 +45,7 @@ Describe 'New-WinSCPSession' {
         }
 
         Remove-WinSCPSession -WinSCPSession $session
-        It 'Session should be closed and the object should be disposed.' {
+        It "Session should be closed and the object should be disposed." {
             $session |
                 Should Not Exist
         }

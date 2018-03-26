@@ -3,7 +3,7 @@
 Get-Process -Name WinSCP -ErrorAction SilentlyContinue |
     Stop-Process -Force
 
-Describe 'New-WinSCPTransferOption' {
+Describe "New-WinSCPTransferOption" {
     Context "Invoke-ScriptAnalyzer -Path `"$((Get-Module -Name WinSCP).ModuleBase)\Public\New-WinSCPTransferOption.ps1`"" {
         $results = Invoke-ScriptAnalyzer -Path "$((Get-Module -Name WinSCP).ModuleBase)\Public\New-WinSCPTransferOption.ps1"
 

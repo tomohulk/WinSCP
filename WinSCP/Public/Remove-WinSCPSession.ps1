@@ -1,12 +1,14 @@
 ﻿function Remove-WinSCPSession {
 
     [CmdletBinding(
-        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPSession"
+        ConfirmImpact = "Low",
+        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPSession",
+        SupportsShouldProcess = $true
     )]
     [OutputType([
         Void]
     )]
-    
+
     param (
         [Parameter(
             Mandatory = $true,
@@ -17,7 +19,12 @@
     )
 
     try {
-        $WinSCPSession.Dispose()
+        $shouldProcess = $PSCmdlet.ShouldProcess(
+            $WinSCPSession
+        )
+        if ($shouldProcess) {
+            $WinSCPSession.Dispose()
+        }
     } catch {
         $PSCmdlet.WriteError(
             $_
