@@ -4,7 +4,7 @@ version: 5.13.0.{build}
 os: WMF 5
 skip_tags: true
 only_commits:
-  message: build/
+  message: /build/
 install:
   - cmd: cinst filezilla.server -y
   - ps: Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Confirm:$false -Force -ErrorAction Stop | Out-Null
