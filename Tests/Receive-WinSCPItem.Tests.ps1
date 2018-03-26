@@ -9,7 +9,7 @@ New-Item -Path "$ftp\TextFile.txt" -ItemType File -Value "Hello World!" -Force |
     Out-Null
 New-Item -Path "$ftp\SubDirectory\SubDirectoryTextFile.txt" -ItemType File -Value "Hello World!" -Force |
     Out-Null
-$temp = New-Item "$env:SystemDrive\temp\Receive-Item" -ItemType Directory -Force
+$temp = New-Item "$env:SystemDrive\temp\Receive-WinSCPItem" -ItemType Directory -Force
 
 Describe "Receive-WinSCPItem" {
     Context "New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp ); Receive-WinSCPItem -Path `"/TextFile.txt`" -Destination `"$($temp.FullName)`"; Remove-WinSCPSession" {

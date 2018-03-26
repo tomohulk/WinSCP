@@ -12,10 +12,10 @@
             Mandatory = $true,
             ValueFromPipeline = $true
         )]
-        [ValidateScript({ 
-            if ($_.Opened) { 
-                return $true 
-            } else { 
+        [ValidateScript({
+            if ($_.Opened) {
+                return $true
+            } else {
                 throw "The WinSCP Session is not in an Open state."
             }
         })]
@@ -40,35 +40,13 @@
     )
 
     process {
-        try {
-            $item = Get-WinSCPItem -WinSCPSession $WinSCPSession -Path ( Format-WinSCPPathString -Path $($Path) ) -ErrorAction Stop
-            
-            if ($NewName -contains "/" -or $NewName -contains "\") {
-                $NewName = $NewName.Substring(
-                    $NewName.LastIndexOfAny(
-                        "/\"
-                    )
-                )
-            }
+        $parent = ( Split-Path -Path $Path -Parent ).Replace(
+            [System.IO.Path]::DirectorySeparatorChar, [System.IO.Path]::AltDirectorySeparatorChar
+        )
+        $destination = [WinSCP.RemotePath]::CombinePaths(
+            $parent, $NewName
+        )
 
-            $parentPath = (Split-Path -Path $item.FullName -Parent).Replace(
-                "\", "/"
-            )
-            $newPath = $WinSCPSession.CombinePaths(
-                $parentPath , $NewName
-            )
-
-            $WinSCPSession.MoveFile(
-                $item.FullName, $newPath
-            )
-
-            if ($PassThru.IsPresent) {
-                Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $newPath
-            }
-        } catch {
-            $PSCmdlet.WriteError(
-                $_
-            )
-        }
+        Move-WinSCPItem -WinSCPSession $WinSCPSession -Path $Path -Destination $destination -PassThru:$PassThru.IsPresent
     }
 }
