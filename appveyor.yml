@@ -1,5 +1,6 @@
 # http://www.appveyor.com/docs/appveyor-yml
 
+version: 5.13.0.{build}
 os: WMF 5
 skip_tags: true
 only_commits:
