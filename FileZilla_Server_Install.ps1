@@ -21,7 +21,7 @@ try {
 
     Copy-Item -Path "$pwd\FileZilla*.xml" -Destination $installDirectory -Force
 
-    Start-Process -FilePath "$pwd\FileZilla*.exe" -ArgumentList "/S" -Wait
+    Start-Process -FilePath "$pwd\FileZilla*.exe" -ArgumentList "/S"
 } catch {
     throw "$($_.Exception.Message)"
 }
