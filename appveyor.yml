@@ -21,16 +21,14 @@ test_script:
 before_deploy:
   - ps: xcopy .\WinSCP\* .\deploy\ /S | Out-Null
   - ps: Compress-Archive -Path .\deploy\* -DestinationPath .\WinSCP.zip -CompressionLevel Optimal
-artifacts:
-  - path: WinSCP.zip
-    name: WinSCP
+  - ps: Push-AppveyorArtifact -Path .\WinSCP.zip -FileName WinSCP
 deploy:
   - provider: GitHub
     release: WinSCP-PowerShell-v$(APPVEYOR_BUILD_VERSION)
     auth_token:
       secure: zNRQZ3Yia8BPJrcmjn5x3a0FkrLWCFSgtwaxKGOnBvIiYv6WbWi/ilXezZJclZyE
     description: $(APPVEYOR_REPO_COMMIT_MESSAGE)
-    artifact: /.*\.zip/
+    artifact: WinSCP
     draft: false
     prerelease: false
     on:
