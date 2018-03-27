@@ -28,7 +28,7 @@ deploy:
     auth_token:
       secure: zNRQZ3Yia8BPJrcmjn5x3a0FkrLWCFSgtwaxKGOnBvIiYv6WbWi/ilXezZJclZyE
     description: $(APPVEYOR_REPO_COMMIT_MESSAGE)
-    artifact: WinSCP
+    artifact: WinSCP.zip
     draft: false
     prerelease: false
     on:
