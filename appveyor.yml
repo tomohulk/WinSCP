@@ -19,7 +19,7 @@ build: off
 test_script:
   - ps: . .\Invoke-AppveyorBuild.ps1
 before_deploy:
-  - ps: Remove-Item .\bin\winscp.ini -Force -Confirm:$false
+  - ps: Remove-Item .\WinSCP\bin\winscp.ini -Force -Confirm:$false
   - ps: Compress-Archive -Path .\WinSCP\* -DestinationPath .\WinSCP.zip -CompressionLevel Optimal
 deploy:
   - provider: GitHub
