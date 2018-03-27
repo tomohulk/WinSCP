@@ -24,6 +24,7 @@ try {
         throw "Build failed."
     } else {
         # Publish to the PowerShell Gallery if the build is successful.
+        Remove-Item -Path .\WinSCP\bin\winscp.ini -Force -Confirm:$false
         Update-Metadata -Path ".\${env:APPVEYOR_PROJECT_NAME}\${env:APPVEYOR_PROJECT_NAME}.psd1" -PropertyName ModuleVersion -Value $env:APPVEYOR_BUILD_VERSION -ErrorAction Stop
         Update-Metadata -Path ".\${env:APPVEYOR_PROJECT_NAME}\${env:APPVEYOR_PROJECT_NAME}.psd1" -PropertyName ReleaseNotes -Value $env:APPVEYOR_REPO_COMMIT_MESSAGE -ErrorAction Stop
 

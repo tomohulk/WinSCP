@@ -19,10 +19,14 @@ build: off
 test_script:
   - ps: . .\Invoke-AppveyorBuild.ps1
 before_deploy:
-  - ps: Remove-Item .\WinSCP\bin\winscp.ini -Force -Confirm:$false
-  - ps: Compress-Archive -Path .\WinSCP\* -DestinationPath .\WinSCP.zip -CompressionLevel Optimal
+  - ps: xcopy .\WinSCP\* .\deploy\ /S | Out-Null
+  - ps: Compress-Archive -Path .\deploy\* -DestinationPath .\WinSCP.zip -CompressionLevel Optimal
 deploy:
   - provider: GitHub
+    release: WinSCP-PowerShell-v$(APPVEYOR_BUILD_VERSION)
+    auth_token:
+      secure: zNRQZ3Yia8BPJrcmjn5x3a0FkrLWCFSgtwaxKGOnBvIiYv6WbWi/ilXezZJclZyE
+    description: $(APPVEYOR_REPO_COMMIT_MESSAGE)
     artifact: /.*\.zip/
     draft: false
     prerelease: false
