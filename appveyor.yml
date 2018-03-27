@@ -2,9 +2,15 @@
 
 version: 5.13.0.{build}
 os: WMF 5
-skip_tags: true
+branches:
+  only:
+    - master
 only_commits:
   message: /build/
+  author: dotps1@outlook.com
+skip_commits:
+  files:
+    README.md
 install:
   - ps: . .\FileZilla_Server_Install.ps1
   - ps: Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Confirm:$false -Force -ErrorAction Stop | Out-Null
@@ -12,6 +18,17 @@ install:
 build: off
 test_script:
   - ps: . .\Invoke-AppveyorBuild.ps1
+before_deploy:
+  - ps: Remove-Item .\bin\winscp.ini -Force -Confirm:$false
+  - ps: Compress-Archive -Path .\WinSCP\* -DestinationPath .\WinSCP.zip -CompressionLevel Optimal
+deploy:
+  -provider: GitHub
+  artifact: /.*\.zip/
+  draft: false
+  prerelease: false
+  on:
+    branch: master
+    appveyor_repo_tag: false
 environment:
   powershell_gallery_api_token:
     secure: feZG1n6/I0hDzxw9VWtlUph94caZUYw3denU0TLudvgWX9cG/jkjDLOT8ixd02P4

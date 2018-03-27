@@ -27,7 +27,9 @@ try {
         Update-Metadata -Path ".\${env:APPVEYOR_PROJECT_NAME}\${env:APPVEYOR_PROJECT_NAME}.psd1" -PropertyName ModuleVersion -Value $env:APPVEYOR_BUILD_VERSION -ErrorAction Stop
         Update-Metadata -Path ".\${env:APPVEYOR_PROJECT_NAME}\${env:APPVEYOR_PROJECT_NAME}.psd1" -PropertyName ReleaseNotes -Value $env:APPVEYOR_REPO_COMMIT_MESSAGE -ErrorAction Stop
 
-        Publish-Module -Path .\$env:APPVEYOR_PROJECT_NAME -NuGetApiKey $env:POWERSHELL_GALLERY_API_TOKEN -Verbose -ErrorAction Stop
+        if ($env:APPVEYOR_REPO_COMMIT_MESSAGE -match "publish") {
+            Publish-Module -Path .\$env:APPVEYOR_PROJECT_NAME -NuGetApiKey $env:POWERSHELL_GALLERY_API_TOKEN -Verbose -ErrorAction Stop
+        }
     }
 } catch {
     throw $_
