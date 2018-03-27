@@ -22,13 +22,13 @@ before_deploy:
   - ps: Remove-Item .\bin\winscp.ini -Force -Confirm:$false
   - ps: Compress-Archive -Path .\WinSCP\* -DestinationPath .\WinSCP.zip -CompressionLevel Optimal
 deploy:
-  -provider: GitHub
-  artifact: /.*\.zip/
-  draft: false
-  prerelease: false
-  on:
-    branch: master
-    appveyor_repo_tag: false
+  - provider: GitHub
+    artifact: /.*\.zip/
+    draft: false
+    prerelease: false
+    on:
+      branch: master
+      appveyor_repo_tag: false
 environment:
   powershell_gallery_api_token:
     secure: feZG1n6/I0hDzxw9VWtlUph94caZUYw3denU0TLudvgWX9cG/jkjDLOT8ixd02P4
