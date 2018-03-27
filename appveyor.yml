@@ -21,7 +21,7 @@ test_script:
 before_deploy:
   - ps: xcopy .\WinSCP\* .\deploy\ /S | Out-Null
   - ps: Compress-Archive -Path .\deploy\* -DestinationPath .\WinSCP.zip -CompressionLevel Optimal
-  - ps: Push-AppveyorArtifact -Path .\WinSCP.zip -FileName WinSCP
+  - ps: Push-AppveyorArtifact -Path .\WinSCP.zip -FileName WinSCP.zip
 deploy:
   - provider: GitHub
     release: WinSCP-PowerShell-v$(APPVEYOR_BUILD_VERSION)
