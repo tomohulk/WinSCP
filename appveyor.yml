@@ -22,7 +22,6 @@ before_deploy:
   - ps: xcopy .\WinSCP\* .\deploy\ /S | Out-Null
   - ps: Compress-Archive -Path .\deploy\* -DestinationPath .\WinSCP.zip -CompressionLevel Optimal
   - ps: Push-AppveyorArtifact -Path .\WinSCP.zip -FileName WinSCP.zip
-  # https://help.appveyor.com/discussions/questions/18741-publishing-to-github-releases-fails-sending-the-request
   - ps: [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 deploy:
   - provider: GitHub
