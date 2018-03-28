@@ -22,7 +22,7 @@ before_deploy:
   - ps: xcopy .\WinSCP\* .\deploy\ /S | Out-Null
   - ps: Compress-Archive -Path .\deploy\* -DestinationPath .\WinSCP.zip -CompressionLevel Optimal
   - ps: Push-AppveyorArtifact -Path .\WinSCP.zip -FileName WinSCP.zip
-  - ps: [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+  - ps: '[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12'
 deploy:
   - provider: GitHub
     release: WinSCP-PowerShell-v$(APPVEYOR_BUILD_VERSION)
