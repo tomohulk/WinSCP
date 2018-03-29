@@ -1,10 +1,11 @@
 # http://www.appveyor.com/docs/appveyor-yml
 
-version: 5.13.0.{build}
+version: 5.13.1.{build}
 os: WMF 5
 branches:
   only:
     - master
+skip_tags: true
 only_commits:
   message: /build/
   author: dotps1@outlook.com
