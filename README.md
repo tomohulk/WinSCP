@@ -2,8 +2,8 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/dgoq6w2xsfh52m6h?svg=true)](https://ci.appveyor.com/project/dotps1/winscp)
 
-# MAJOR OVERHAUL IN PROGRESS
-I have been revisiting this module as of late, add making some major changes, they will be released when the WinSCP Assembly 5.11 is released.  Here are some of the key points as of 2017-07-01:
+## Overhaul complete:
+I have been revisiting this module as of late, add making some major changes:
 
 1. New functions:
     * Get-WinSCPSession
@@ -13,14 +13,12 @@ I have been revisiting this module as of late, add making some major changes, th
 2. The `New-WinSCPSession` has been split into two functions, most of the configurations for the session have been moved to the `New-WinSCPSessionOption` command.  This will mimic the functionality of `New-CimSessionOption` and `New-CimSession`.
     * `PS C:\> New-WinSCPSession -SessionOption (New-WinSCPSessionOption -HostName ftp.dotps1.github.io)`
 3. The session is not longer auto disposed when passed in the pipeline, handling the session state is now your responsibility.
-4. I am completely overhauling the help, and adding more examples using Sapiens Help Writer.
+4. I am completely overhauling the help, and adding more examples using platyPS.
 5. The `New-WinSCPSessionOption` defaults to using Anonymous authentication.
-6. And much much more!
-
-TODOs as of 2017-09-06
-
-1. Update pester tests.
-2. Re impliment AppVeyor build.
+6. Updated pester tests.
+7. Re implimented AppVeyor build.
+8. Auto publishing to both PowerShellGallery.com and GitHub Releases.
+9. Lots of bug fixes.
 
 ## Use at your own risk.
 
@@ -85,7 +83,6 @@ Send-WinSCPItem -Path 'C:\localDirectory\localFile.txt' -Destination '/remoteDir
 Remove-WinSCPSession
 ```
 
-This is still a beta version, with most of the functionality available with WinSCP.
 
 Check back regularly for updates.
 
