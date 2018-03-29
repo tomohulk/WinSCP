@@ -17,7 +17,7 @@ Describe "Receive-WinSCPItem" {
         $results = Receive-WinSCPItem -Path "/TextFile.txt" -Destination $temp.FullName
         Remove-WinSCPSession
 
-        It "Results of Get-WinSCPItem should not be null." {
+        It "Results of Receive-WinSCPItem should not be null." {
             $results |
                 Should Not Be Null
         }
@@ -29,6 +29,37 @@ Describe "Receive-WinSCPItem" {
 
         It "TextFile.txt should exist in $temp" {
             Test-Path -Path "$($temp.FullName)\TextFile.txt" |
+                Should Be $true
+        }
+
+        It "WinSCP process should not exist." {
+            Get-Process -Name WinSCP -ErrorAction SilentlyContinue |
+                Should BeNullOrEmpty
+        }
+    }
+
+    Context "New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp ); Receive-WinSCPItem -Path `"/SubDirectory`" -Destination `"$($temp.FullName)`"; Remove-WinSCPSession" {
+        New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp )
+        $results = Receive-WinSCPItem -Path "/SubDirectory" -Destination $temp.FullName
+        Remove-WinSCPSession
+
+        It "Results of Receive-WinSCPItem should not be null." {
+            $results |
+                Should Not Be Null
+        }
+
+        It "Results of transfer should be success." {
+            $results.IsSuccess |
+                Should Be $true
+        }
+
+        It "SubDirectory should exist in $temp." {
+            Test-Path -Path "$($temp.FullName)\SubDirectory" |
+                Should Be $true
+        }
+
+        It "SubDirectoryTextFile.txt should exist in $temp\SubDirectory." {
+            Test-Path -Path "$($temp.FullName)\SubDirectory\SubDirectoryTextFile.txt" |
                 Should Be $true
         }
 

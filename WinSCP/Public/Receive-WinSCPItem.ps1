@@ -12,10 +12,10 @@
             Mandatory = $true,
             ValueFromPipeline = $true
         )]
-        [ValidateScript({ 
-            if ($_.Opened) { 
-                return $true 
-            } else { 
+        [ValidateScript({
+            if ($_.Opened) {
+                return $true
+            } else {
                 throw "The WinSCP Session is not in an Open state."
             }
         })]
@@ -45,25 +45,13 @@
 
         [Parameter()]
         [WinSCP.TransferOptions]
-        $TransferOptions = (New-Object -TypeName WinSCP.TransferOptions)
+        $TransferOptions = ( New-Object -TypeName WinSCP.TransferOptions )
     )
 
     process {
-        foreach ($remotePathValue in (Format-WinSCPPathString -Path $($RemotePath))) {
-            $localPathEndsWithBackSlash = $LocalPath.EndsWith(
-                "\"
-            )
-            if (-not $localPathEndsWithBackSlash) {
-                $LocalPath += "\"
-            }
-
-            $remotePathValueEndsWithForwardSlash = $remotePathValue.EndsWith(
-                "/"
-            )
-            if (-not $remotePathValueEndsWithForwardSlash) {
-                if ((Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $remotePathValue -ErrorAction SilentlyContinue).IsDirectory) {
-                    $remotePathValue += "/"
-                }
+        foreach ($remotePathValue in ( Format-WinSCPPathString -Path $($RemotePath) )) {
+            if ((Get-Item -Path $LocalPath).PSIsContainer -and -not $LocalPath.EndsWith( [System.IO.Path]::DirectorySeparatorChar )) {
+                $LocalPath += [System.IO.Path]::DirectorySeparatorChar
             }
 
             try {
@@ -74,7 +62,7 @@
                 if ($result.IsSuccess) {
                     Write-Output -InputObject $result
                 } else {
-                    $result.Failures[0] | 
+                    $result.Failures[0] |
                         Write-Error
                 }
             } catch {
