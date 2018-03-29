@@ -58,6 +58,7 @@ if ($publishedVersion -gt $currentVersion) {
     try {
         git add .
         git commit -a -m "Build - Updating WinSCP Core to $publishedVersion."
+        git push
     } catch {
         $PSCmdlet.ThrowTerminatingError(
             $_
