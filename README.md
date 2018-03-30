@@ -7,7 +7,7 @@ I have been revisiting this module as of late, add making some major changes:
 
 1. New functions:
     * Get-WinSCPSession
-    * Get-WinSCPSshHostKeyFingerprint
+    * Get-WinSCPHostKeyFingerprint
     * New-WinSCPSessionOption
     * New-WinSCPTransferResumeSupport
 2. The `New-WinSCPSession` has been split into two functions, most of the configurations for the session have been moved to the `New-WinSCPSessionOption` command.  This will mimic the functionality of `New-CimSessionOption` and `New-CimSession`.

@@ -1,7 +1,7 @@
-function Get-WinSCPSshHostKeyFingerprint {
+function Get-WinSCPHostKeyFingerprint {
 
     [CmdletBinding(
-        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Get-WinSCPSshHostKeyFingerprint"
+        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Get-WinSCPHostKeyFingerprint"
     )]
     [OutputType(
         [String]
@@ -14,7 +14,14 @@ function Get-WinSCPSshHostKeyFingerprint {
             ValueFromPipelineByPropertyName = $true
         )]
         [WinSCP.SessionOptions[]]
-        $SessionOption
+        $SessionOption,
+
+        [Parameter()]
+        [ValidateSet(
+            "SHA-256", "MD5"
+        )]
+        [String]
+        $Algorithm = "SHA-256"
     )
 
     begin {
@@ -27,7 +34,7 @@ function Get-WinSCPSshHostKeyFingerprint {
         foreach ($sessionOptionValue in $SessionOption) {
             try {
                 $output = $session.ScanFingerprint(
-                    $sessionOptionValue
+                    $sessionOptionValue, $Algorithm
                 )
 
                 Write-Output -InputObject $output

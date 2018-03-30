@@ -57,11 +57,6 @@ if ($publishedVersion -gt $currentVersion) {
     Remove-Item -Path "${env:TEMP}\$payloadName" -Force -Confirm:$false
     Remove-Item -Path "${env:TEMP}\WinSCP" -Recurse -Force -Confirm:$false
 
-    # Recompile the Help file(s).
-    Import-Module -Path "${pwd}\WinSCP"
-    Update-MarkdownHelpModule -Path "..\Wiki"
-    New-ExternalHelp -Path ..\Wiki -OutputPath "${pwd}\WinSCP\en-US" -Force
-
     try {
         git add .
         git commit -a -m "Build - Updating WinSCP Core to $publishedVersion."

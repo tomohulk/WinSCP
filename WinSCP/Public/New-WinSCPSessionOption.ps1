@@ -36,6 +36,9 @@ function New-WinSCPSessionOption {
         [Parameter(
             Mandatory = $true
         )]
+        [Alias(
+            "ComputerName"
+        )]
         [String]
         $HostName,
 
@@ -49,7 +52,7 @@ function New-WinSCPSessionOption {
 
         [Parameter()]
         [WinSCP.Protocol]
-        $Protocol = (New-Object -TypeName WinSCP.Protocol),
+        $Protocol = ( New-Object -TypeName WinSCP.Protocol ),
 
         [Parameter(
             ValueFromPipelineByPropertyName = $true

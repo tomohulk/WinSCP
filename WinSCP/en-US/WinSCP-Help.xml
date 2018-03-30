@@ -122,11 +122,11 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
       <command:verb>Get</command:verb>
       <command:noun>WinSCPChildItem</command:noun>
       <maml:description>
-        <maml:para>Gets the items and child items in one or more specified locations.</maml:para>
+        <maml:para>Recursively enumerates remote files.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Gets the items and child items in one or more specified locations.</maml:para>
+      <maml:para>Recursively enumerates remote files.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -158,7 +158,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Filter</maml:name>
           <maml:Description>
-            <maml:para>Windows wildcard to filter files.  To select all files, use null.</maml:para>
+            <maml:para>Windows wildcard to filter files. To select all files, use null.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -253,7 +253,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Filter</maml:name>
         <maml:Description>
-          <maml:para>Windows wildcard to filter files.  To select all files, use null.</maml:para>
+          <maml:para>Windows wildcard to filter files. To select all files, use null.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -407,15 +407,156 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Get-WinSCPHostKeyFingerprint</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>WinSCPHostKeyFingerprint</command:noun>
+      <maml:description>
+        <maml:para>Scans a fingerprint of SSH server public key (host key) or FTPS/WebDAVS TLS certificate.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Scans a fingerprint of SSH server public key (host key) or FTPS/WebDAVS TLS certificate.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-WinSCPHostKeyFingerprint</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="none">
+          <maml:name>SessionOption</maml:name>
+          <maml:Description>
+            <maml:para>Defines a server to scan the fingerprint of. The Protocol property must be Protocol.Sftp or Protocol.Scp, or Protocol.Ftp with FtpSecure being FtpSecure.Implicit or FtpSecure.Explicit, or Protocol.Webdav with WebdavSecure being true. Other than that only the HostName needs to be set. The PortNumber, Timeout and few raw session settings can be set, if necessary. The other properties are ignored.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">SessionOptions[]</command:parameterValue>
+          <dev:type>
+            <maml:name>SessionOptions[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Algorithm</maml:name>
+          <maml:Description>
+            <maml:para>Fingerprint algorithm to use. Supported algorithms are SHA-256 (recommended with SFTP and SCP protocols) and MD5 (the only supported option with FTPS and WebDAVS. With SFTP and SCP protocols, it should be used only for backward compatibility with previous versions). This parameter is present since version 5.13 only. Older versions lack the parameter and use MD5 algorithm.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>SHA-256</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="none">
+        <maml:name>SessionOption</maml:name>
+        <maml:Description>
+          <maml:para>Defines a server to scan the fingerprint of. The Protocol property must be Protocol.Sftp or Protocol.Scp, or Protocol.Ftp with FtpSecure being FtpSecure.Implicit or FtpSecure.Explicit, or Protocol.Webdav with WebdavSecure being true. Other than that only the HostName needs to be set. The PortNumber, Timeout and few raw session settings can be set, if necessary. The other properties are ignored.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">SessionOptions[]</command:parameterValue>
+        <dev:type>
+          <maml:name>SessionOptions[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Algorithm</maml:name>
+        <maml:Description>
+          <maml:para>Fingerprint algorithm to use. Supported algorithms are SHA-256 (recommended with SFTP and SCP protocols) and MD5 (the only supported option with FTPS and WebDAVS. With SFTP and SCP protocols, it should be used only for backward compatibility with previous versions). This parameter is present since version 5.13 only. Older versions lack the parameter and use MD5 algorithm.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>SHA-256</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>WinSCP.SessionOptions[]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $sessionOption = New-WinSCPSessionOption -HostName ftp.dotps1.github.io
+PS C:\&gt; $sshHostKeyFingerprint = Get-WinSCPHostKeyFingerprint -SessionOption $sessionOption
+PS C:\&gt; $sessionOption.SshHostKeyFingerprint = $sshHostKeyFingerprint
+PS C:\&gt; New-WinSCPSession -SessionOption $sessionOption
+
+
+Opened       Timeout HostName
+------       ------- --------
+True        00:01:00 ftp.dotps1.github.io
+
+
+PS C:\&gt; Remove-WinSCPSession</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $sessionOption = New-WinSCPSessionOption -HostName ftp.dotps1.github.io -FtpSecure Implicit -Port 990 -Protocol Ftp -TlsClientCertificatePath C:\ftp.dotps1.github.io.crt
+PS C:\&gt; $tlsHostCertificateFingerprint = Get-WinSCPHostFingerprint -SessionOptions $sessionOption -Algorithm MD5
+PS C:\&gt; $sessionOption.TlsHostCertificateFingerprint = $tlsHostCertificateFingerprint
+PS C:\&gt; New-WinSCPSession -SessionOption $sessionOption
+
+
+Opened       Timeout HostName
+------       ------- --------
+True        00:01:00 ftp.dotps1.github.io
+
+
+PS C:\&gt; Remove-WinSCPSession</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/dotps1/WinSCP/wiki/Get-WinSCPServerPublicKeyFingerprint</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>WinSCP reference:</maml:linkText>
+        <maml:uri>https://winscp.net/eng/docs/library_session_scanfingerprint</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Get-WinSCPItem</command:name>
       <command:verb>Get</command:verb>
       <command:noun>WinSCPItem</command:noun>
       <maml:description>
-        <maml:para>Gets the item at the specified location.</maml:para>
+        <maml:para>Recursively enumerates remote files.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Gets the item at the specified location.</maml:para>
+      <maml:para>Recursively enumerates remote files.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -800,114 +941,6 @@ True        00:01:00 ftp.dotps1.github.io</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Get-WinSCPSshHostKeyFingerprint</command:name>
-      <command:verb>Get</command:verb>
-      <command:noun>WinSCPSshHostKeyFingerprint</command:noun>
-      <maml:description>
-        <maml:para>Scans a fingerprint of SSH server public key (host key) or FTPS/WebDAVS TLS certificate.</maml:para>
-      </maml:description>
-    </command:details>
-    <maml:description>
-      <maml:para>Scans a fingerprint of SSH server public key (host key) or FTPS/WebDAVS TLS certificate.</maml:para>
-    </maml:description>
-    <command:syntax>
-      <command:syntaxItem>
-        <maml:name>Get-WinSCPSshHostKeyFingerprint</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="none">
-          <maml:name>SessionOption</maml:name>
-          <maml:Description>
-            <maml:para>Defines a server to scan the fingerprint of. The Protocol property must be Protocol.Sftp or Protocol.Scp, or Protocol.Ftp with FtpSecure being FtpSecure.Implicit or FtpSecure.Explicit, or Protocol.Webdav with WebdavSecure being true. Other than that only the HostName needs to be set. The PortNumber, Timeout and few raw session settings can be set, if necessary. The other properties are ignored.</maml:para>
-          </maml:Description>
-          <command:parameterValue required="true" variableLength="false">SessionOptions[]</command:parameterValue>
-          <dev:type>
-            <maml:name>SessionOptions[]</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-      </command:syntaxItem>
-    </command:syntax>
-    <command:parameters>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="none">
-        <maml:name>SessionOption</maml:name>
-        <maml:Description>
-          <maml:para>Defines a server to scan the fingerprint of. The Protocol property must be Protocol.Sftp or Protocol.Scp, or Protocol.Ftp with FtpSecure being FtpSecure.Implicit or FtpSecure.Explicit, or Protocol.Webdav with WebdavSecure being true. Other than that only the HostName needs to be set. The PortNumber, Timeout and few raw session settings can be set, if necessary. The other properties are ignored.</maml:para>
-        </maml:Description>
-        <command:parameterValue required="true" variableLength="false">SessionOptions[]</command:parameterValue>
-        <dev:type>
-          <maml:name>SessionOptions[]</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-    </command:parameters>
-    <command:inputTypes>
-      <command:inputType>
-        <dev:type>
-          <maml:name>WinSCP.SessionOptions[]</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:inputType>
-    </command:inputTypes>
-    <command:returnValues>
-      <command:returnValue>
-        <dev:type>
-          <maml:name>System.String</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:returnValue>
-    </command:returnValues>
-    <maml:alertSet>
-      <maml:alert>
-        <maml:para></maml:para>
-      </maml:alert>
-    </maml:alertSet>
-    <command:examples>
-      <command:example>
-        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $sessionOption = New-WinSCPSessionOption -HostName ftp.dotps1.github.io
-PS C:\&gt; Get-WinSCPSshHostKeyFingerprint -SessionOption $sessionOption
-ssh-dss 2048 01:aa:23:bb:45:cc:67:dd:89:ee:01:ff:23:aa:45:bb</dev:code>
-        <dev:remarks>
-          <maml:para></maml:para>
-        </dev:remarks>
-      </command:example>
-      <command:example>
-        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $sessionOption = New-WinSCPSessionOption -HostName ftp.dotps1.github.io
-PS C:\&gt; $sshHostKeyFingerprint = Get-WinSCPSshHostKeyFingerprint -SessionOption $sessionOption
-PS C:\&gt; $sessionOption.SshHostKeyFingerprint = $sshHostKeyFingerprint
-PS C:\&gt; New-WinSCPSession -SessionOption $sessionOption
-
-
-Opened       Timeout HostName
-------       ------- --------
-True        00:01:00 ftp.dotps1.github.io
-
-
-PS C:\&gt; Remove-WinSCPSession</dev:code>
-        <dev:remarks>
-          <maml:para></maml:para>
-        </dev:remarks>
-      </command:example>
-    </command:examples>
-    <command:relatedLinks>
-      <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/dotps1/WinSCP/wiki/Get-WinSCPSshServerPublicKeyFingerprint</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>WinSCP reference:</maml:linkText>
-        <maml:uri>https://winscp.net/eng/docs/library_session_scanfingerprint</maml:uri>
-      </maml:navigationLink>
-    </command:relatedLinks>
-  </command:command>
-  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
-    <command:details>
       <command:name>Invoke-WinSCPCommand</command:name>
       <command:verb>Invoke</command:verb>
       <command:noun>WinSCPCommand</command:noun>
@@ -1278,11 +1311,11 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
       <command:verb>New</command:verb>
       <command:noun>WinSCPItem</command:noun>
       <maml:description>
-        <maml:para>Creates a new item on a remote host.</maml:para>
+        <maml:para>Creates a new item on a remote system.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Creates a new item on a remote host.</maml:para>
+      <maml:para>Creates a new item on a remote system.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1290,7 +1323,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="none">
           <maml:name>Path</maml:name>
           <maml:Description>
-            <maml:para>The full path to the new item.  If the Name parameter is used, it will be appened to this value.</maml:para>
+            <maml:para>The full path to the new item. If the Name parameter is used, it will be appened to this value.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
@@ -1314,7 +1347,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none">
           <maml:name>Name</maml:name>
           <maml:Description>
-            <maml:para>The name of the new item.  If this parameter is not used, the item will be named the last segment in the Path parameter value.</maml:para>
+            <maml:para>The name of the new item. If this parameter is not used, the item will be named the last segment in the Path parameter value.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -1410,7 +1443,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="none">
         <maml:name>Path</maml:name>
         <maml:Description>
-          <maml:para>The full path to the new item.  If the Name parameter is used, it will be appened to this value.</maml:para>
+          <maml:para>The full path to the new item. If the Name parameter is used, it will be appened to this value.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
@@ -1422,7 +1455,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none">
         <maml:name>Name</maml:name>
         <maml:Description>
-          <maml:para>The name of the new item.  If this parameter is not used, the item will be named the last segment in the Path parameter value.</maml:para>
+          <maml:para>The name of the new item. If this parameter is not used, the item will be named the last segment in the Path parameter value.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -2095,7 +2128,7 @@ SetUid       : False</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="none">
           <maml:name>SessionOption</maml:name>
           <maml:Description>
-            <maml:para>Defines information to allow an automatic connection and authentication of the session.  Returned from the New-WinSCPSessionOption command.</maml:para>
+            <maml:para>Defines information to allow an automatic connection and authentication of the session. Returned from the New-WinSCPSessionOption command.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">SessionOptions</command:parameterValue>
           <dev:type>
@@ -2204,7 +2237,7 @@ SetUid       : False</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="none">
         <maml:name>SessionOption</maml:name>
         <maml:Description>
-          <maml:para>Defines information to allow an automatic connection and authentication of the session.  Returned from the New-WinSCPSessionOption command.</maml:para>
+          <maml:para>Defines information to allow an automatic connection and authentication of the session. Returned from the New-WinSCPSessionOption command.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">SessionOptions</command:parameterValue>
         <dev:type>
@@ -2379,7 +2412,7 @@ True        00:01:00 ftp.dotps1.github.io</dev:code>
       <command:verb>New</command:verb>
       <command:noun>WinSCPSessionOption</command:noun>
       <maml:description>
-        <maml:para>Defines information to allow an automatic connection and authentication of the session. Is used with the Session.Open and Session.ScanFingerprint methods.</maml:para>
+        <maml:para>Defines information to allow an automatic connection and authentication of the session.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -2472,7 +2505,7 @@ True        00:01:00 ftp.dotps1.github.io</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="ComputerName">
           <maml:name>HostName</maml:name>
           <maml:Description>
             <maml:para>Name of the host to connect to. Mandatory property.</maml:para>
@@ -2674,7 +2707,7 @@ True        00:01:00 ftp.dotps1.github.io</dev:code>
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="ComputerName">
         <maml:name>HostName</maml:name>
         <maml:Description>
           <maml:para>Name of the host to connect to. Mandatory property.</maml:para>
@@ -3920,11 +3953,11 @@ True      NewWinSCPItem.txt</dev:code>
       <command:verb>Rename</command:verb>
       <command:noun>WinSCPItem</command:noun>
       <maml:description>
-        <maml:para>Renames a remote item.</maml:para>
+        <maml:para>Moves remote file to another remote directory and/or renames remote file.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Renames a remote file or folder.</maml:para>
+      <maml:para>Moves remote file to another remote directory and/or renames remote file.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -4318,11 +4351,11 @@ True      NewItem.txt</dev:code>
       <command:verb>Start</command:verb>
       <command:noun>WinSCPConsole</command:noun>
       <maml:description>
-        <maml:para>Starts an ineratice WinSCP Console.</maml:para>
+        <maml:para>Starts an iteractive WinSCP Console.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Starts an ineratice WinSCP Console.</maml:para>
+      <maml:para>Starts an iteractive WinSCP Console.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>

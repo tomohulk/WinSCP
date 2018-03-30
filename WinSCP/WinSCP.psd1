@@ -76,7 +76,7 @@ FunctionsToExport = @(
     "Get-WinSCPItem",
     "Get-WinSCPItemChecksum",
     "Get-WinSCPSession",
-    "Get-WinSCPSshHostKeyFingerprint",
+    "Get-WinSCPHostKeyFingerprint",
     "Invoke-WinSCPCommand",
     "Move-WinSCPItem",
     "New-WinSCPItem",
@@ -127,7 +127,7 @@ FileList = @(
     "Public\Get-WinSCPItem.ps1"
     "Public\Get-WinSCPItemChecksum.ps1",
     "Public\Get-WinSCPSession.ps1",
-    "Public\Get-WinSCPSshHostKeyFingerprint.ps1",
+    "Public\Get-WinSCPHostKeyFingerprint.ps1",
     "Public\Invoke-WinSCPCommand.ps1",
     "Public\Move-WinSCPItem.ps1",
     "Public\New-WinSCPItemPermission.ps1"
