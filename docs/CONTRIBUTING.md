@@ -8,7 +8,7 @@ The environment the tests are running against include the follow key points:
 * Ftp Root: `C:\temp\ftproot`.
 * Requried PowerShell Modules: `Pester, PSScriptAnalyzer`
 
-You can easily setup this environment on your dev machine by running the `.\Install-FileZillaServer.ps1` located in the project root.
+You can easily setup this environment on your dev machine by running the `.\Install_FileZilla_Server.ps1` located in the project root.
 
 Also, please update the Help files with any applicable changes that you may have made.
 All the help is compiled using [platyPS](https://github.com/PowerShell/platyPS).
