@@ -46,7 +46,7 @@
 
         [Parameter()]
         [WinSCP.SynchronizationCriteria]
-        $Criteria = (New-Object -TypeName WinSCP.SynchronizationCriteria),
+        $Criteria = [WinSCP.SynchronizationCriteria]::Time,
 
         [Parameter()]
         [WinSCP.TransferOptions]
