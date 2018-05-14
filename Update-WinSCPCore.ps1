@@ -1,4 +1,4 @@
-#requires -Modules platyPS
+#requires -Modules PSAppVeyor
 
 [CmdletBinding()]
 [OutputType()]
@@ -36,9 +36,7 @@ if ($publishedVersion -gt $currentVersion) {
 
         $downloader.Dispose()
     } catch {
-        $PSCmdlet.ThrowTerminatingError(
-            $_
-        )
+        Write-Error $_
         exit
     }
 
@@ -47,11 +45,15 @@ if ($publishedVersion -gt $currentVersion) {
         Move-Item -Path "${env:TEMP}\WinSCP\*.exe" -Destination "${pwd}\WinSCP\bin\" -Force -Confirm:$false -ErrorAction Stop
         Move-Item -Path "${env:TEMP}\WinSCP\*.dll" -Destination "${pwd}\WinSCP\lib\" -Force -Confirm:$false -ErrorAction Stop
     } catch {
-        $PSCmdlet.ThrowTerminatingError(
-            $_
-        )
+        Write-Error $_
         exit
     }
+
+    # Update AppVeyor yml build info.
+    $yml = Get-Content -Path ${pwd}\appveyor.yml
+    $yml = $yml -replace ($yml | Select-String -Pattern "\d.*\d").Matches.Value[0], $publishedVersion
+    Set-Content -Path ${pwd}\appveyor.yml -Value $yml
+    Update-AppVeyorProjectBuildNumber -AccountName dotps1 -ProjectName WinSCP -BuildNumber 0
 
     # Clean up downloaded and extracted files.
     Remove-Item -Path "${env:TEMP}\$payloadName" -Force -Confirm:$false
@@ -62,9 +64,7 @@ if ($publishedVersion -gt $currentVersion) {
         git commit -a -m "Build - Updating WinSCP Core to $publishedVersion."
         git push
     } catch {
-        $PSCmdlet.ThrowTerminatingError(
-            $_
-        )
+        Write-Error $_
         exit
     }
 }
