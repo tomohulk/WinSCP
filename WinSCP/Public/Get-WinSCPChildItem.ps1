@@ -13,10 +13,10 @@
             Mandatory = $true,
             ValueFromPipelineByPropertyName = $true
         )]
-        [ValidateScript({ 
-            if ($_.Opened) { 
-                return $true 
-            } else { 
+        [ValidateScript({
+            if ($_.Opened) {
+                return $true
+            } else {
                 throw "The WinSCP Session is not in an Open state."
             }
         })]
@@ -78,7 +78,7 @@
                 )
 
                 $items = $items |
-                    Sort-Object -Property IsDirectory -Descending:$false | 
+                    Sort-Object -Property IsDirectory -Descending:$false |
                         Sort-Object -Property @{ Expression = { Split-Path -Path $_.FullName } }, Name
 
                 if ($depthParameterUsed) {
@@ -104,11 +104,11 @@
                 } elseif ($File.IsPresent -and -not $Directory.IsPresent) {
                         $items = $items.Where({
                         $_.IsDirectory -eq $false
-                    }) 
+                    })
                 }
 
                 if ($Name.IsPresent) {
-                    $items = $items | 
+                    $items = $items |
                         Select-Object -ExpandProperty Name
                 }
 

@@ -1,5 +1,5 @@
 function Get-WinSCPSession {
-    
+
     [CmdletBinding(
         HelpUri = "https://github.com/dotps1/WinSCP/wiki/Get-WinSCPSession"
     )]

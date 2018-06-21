@@ -12,10 +12,10 @@
             Mandatory = $true,
             ValueFromPipeline = $true
         )]
-        [ValidateScript({ 
-            if ($_.Opened) { 
-                return $true 
-            } else { 
+        [ValidateScript({
+            if ($_.Opened) {
+                return $true
+            } else {
                 throw "The WinSCP Session is not in an Open state."
             }
         })]
@@ -38,7 +38,7 @@
         )]
         [String]
         $RemotePath = $WinSCPSession.HomePath,
-        
+
         [Parameter()]
         [Switch]
         $Remove,

@@ -47,40 +47,38 @@ function Copy-WinSCPItem {
     )
 
     process {
-        process {
-            $Destination = Format-WinSCPPathString -Path $Destination
-            $destinationInfo = Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $Destination -ErrorAction SilentlyContinue
+        $Destination = Format-WinSCPPathString -Path $Destination
+        $destinationInfo = Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $Destination -ErrorAction SilentlyContinue
 
-            foreach ($pathValue in ( Format-WinSCPPathString -Path $Path )) {
-                try {
-                    $shouldProcess = $PSCmdlet.ShouldProcess(
-                        $pathValue
-                    )
-                    if ($shouldProcess) {
-                        if ($null -ne $destinationInfo) {
-                            $leaf = Split-Path -Path $pathValue -Leaf
-                            $destinationPath = $WinSCPSession.CombinePaths(
-                                $Destination, $leaf
-                            )
-                        }
-
-                        if (( Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $destinationPath ) -and $Force.IsPresent) {
-                            Remove-WinSCPItem -WinSCPSession $WinSCPSession -Path $destinationPath -Confirm:$false
-                        }
-
-                        $WinSCPSession.DuplicateFile(
-                            $pathValue, $destinationPath
+        foreach ($pathValue in ( Format-WinSCPPathString -Path $Path )) {
+            try {
+                $shouldProcess = $PSCmdlet.ShouldProcess(
+                    $pathValue
+                )
+                if ($shouldProcess) {
+                    if ($null -ne $destinationInfo) {
+                        $leaf = Split-Path -Path $pathValue -Leaf
+                        $destinationPath = $WinSCPSession.CombinePaths(
+                            $Destination, $leaf
                         )
                     }
 
-                    if ($PassThru.IsPresent) {
-                        Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $destinationPath
+                    if (( Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $destinationPath ) -and $Force.IsPresent) {
+                        Remove-WinSCPItem -WinSCPSession $WinSCPSession -Path $destinationPath -Confirm:$false
                     }
-                } catch {
-                    $PSCmdlet.WriteError(
-                        $_
+
+                    $WinSCPSession.DuplicateFile(
+                        $pathValue, $destinationPath
                     )
                 }
+
+                if ($PassThru.IsPresent) {
+                    Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $destinationPath
+                }
+            } catch {
+                $PSCmdlet.WriteError(
+                    $_
+                )
             }
         }
     }
