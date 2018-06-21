@@ -7,7 +7,7 @@ Describe 'Start-WinSCPConsole' {
     Context "Invoke-ScriptAnalyzer -Path `"$((Get-Module -Name WinSCP).ModuleBase)\Public\Start-WinSCPConsole.ps1`"" {
         $results = Invoke-ScriptAnalyzer -Path "$((Get-Module -Name WinSCP).ModuleBase)\Public\Start-WinSCPConsole.ps1"
 
-        It "Invoke-ScriptAnalyzer of New-WinSCPItem results count should be 0." {
+        It "Invoke-ScriptAnalyzer of Start-WinSCPConsole results count should be 0." {
             $results.Count |
                 Should Be 0
         }

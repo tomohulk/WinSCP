@@ -72,6 +72,7 @@ FormatsToProcess = @(
 # Functions to export from this module
 FunctionsToExport = @(
     "ConvertTo-WinSCPEscapedString",
+    "Copy-WinSCPItem",
     "Get-WinSCPChildItem",
     "Get-WinSCPItem",
     "Get-WinSCPItemChecksum",
@@ -123,6 +124,7 @@ FileList = @(
     "en-US\WinSCP-Help.xml",
     "lib\WinSCPnet.dll",
     "Public\ConvertTo-WinSCPEscapedString.ps1",
+    "Public\Copy-WinSCPItem.ps1",
     "Public\Get-WinSCPChildItem.ps1",
     "Public\Get-WinSCPItem.ps1"
     "Public\Get-WinSCPItemChecksum.ps1",

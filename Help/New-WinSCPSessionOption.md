@@ -1,5 +1,5 @@
 ---
-external help file: WinSCP-help.xml
+external help file: WinSCP-Help.xml
 Module Name: WinSCP
 online version: https://github.com/dotps1/WinSCP/wiki/New-WinSCPSessionOption
 schema: 2.0.0
@@ -15,7 +15,7 @@ Defines information to allow an automatic connection and authentication of the s
 ```
 New-WinSCPSessionOption [[-Credential] <PSCredential>] [[-FtpMode] <FtpMode>] [[-FtpSecure] <FtpSecure>]
  [-GiveUpSecurityAndAcceptAnySshHostKey] [-GiveUpSecurityAndAcceptAnyTlsHostCertificate] [-HostName] <String>
- [[-PortNumber] <Int32>] [[-PrivateKeyPassphrase] <SecureString>] [[-Protocol] <Protocol>]
+ [[-PortNumber] <Int32>] [[-Protocol] <Protocol>] [-SecurePrivateKeyPassphrase <SecureString>]
  [[-SshHostKeyFingerprint] <String[]>] [[-SshPrivateKeyPath] <String>] [[-TlsClientCertificatePath] <String>]
  [[-TlsHostCertificateFingerprint] <String>] [[-Timeout] <TimeSpan>] [-WebdavSecure] [[-WebdavRoot] <String>]
  [[-RawSetting] <Hashtable>] [-WhatIf] [-Confirm] [<CommonParameters>]
@@ -200,21 +200,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -PrivateKeyPassphrase
-Passphrase for encrypted private keys and client certificates.
-
-```yaml
-Type: SecureString
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 5
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Protocol
 Protocol to use for the session.
 Possible values are Protocol.Sftp (default), Protocol.Scp, Protocol.Ftp and Protocol.Webdav.
@@ -385,8 +370,24 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -SecurePrivateKeyPassphrase
+{{Fill SecurePrivateKeyPassphrase Description}}
+
+```yaml
+Type: SecureString
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

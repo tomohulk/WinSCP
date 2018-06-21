@@ -26,7 +26,8 @@
 
         [Parameter(
             Mandatory = $true,
-            ValueFromPipelineByPropertyName = $true)]
+            ValueFromPipelineByPropertyName = $true
+        )]
         [String[]]
         $Path
     )

@@ -7,7 +7,7 @@ Describe "New-WinSCPItemPermission" {
     Context "Invoke-ScriptAnalyzer -Path `"$((Get-Module -Name WinSCP).ModuleBase)\Public\New-WinSCPItemPermission.ps1`"" {
         $results = Invoke-ScriptAnalyzer -Path "$((Get-Module -Name WinSCP).ModuleBase)\Public\New-WinSCPItemPermission.ps1"
 
-        It "Invoke-ScriptAnalyzer of New-WinSCPItem results count should be 0." {
+        It "Invoke-ScriptAnalyzer of New-WinSCPItemPermission results count should be 0." {
             $results.Count |
                 Should Be 0
         }

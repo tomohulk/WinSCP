@@ -47,12 +47,12 @@ function New-WinSCPSessionOption {
         $PortNumber = 0,
 
         [Parameter()]
-        [SecureString]
-        $PrivateKeyPassphrase,
-
-        [Parameter()]
         [WinSCP.Protocol]
         $Protocol = ( New-Object -TypeName WinSCP.Protocol ),
+
+        [Parameter()]
+        [SecureString]
+        $SecurePrivateKeyPassphrase,
 
         [Parameter(
             ValueFromPipelineByPropertyName = $true

@@ -48,15 +48,7 @@
 
     process {
         $Destination = Format-WinSCPPathString -Path $Destination
-        $destinationEndsWithForwardSlash = $Destination.EndsWith(
-            [System.IO.Path]::AltDirectorySeparatorChar
-        )
         $destinationInfo = Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $Destination -ErrorAction SilentlyContinue
-        if ($null -ne $destinationInfo) {
-            if ($destinationInfo.IsDirectory -and -not $destinationEndsWithForwardSlash) {
-                $Destination += "/"
-            }
-        }
 
         foreach ($pathValue in ( Format-WinSCPPathString -Path $Path )) {
             try {
@@ -64,13 +56,24 @@
                     $pathValue
                 )
                 if ($shouldProcess) {
+                    if ($null -ne $destinationInfo) {
+                        $leaf = Split-Path -Path $pathValue -Leaf
+                        $destinationPath = $WinSCPSession.CombinePaths(
+                            $Destination, $leaf
+                        )
+                    }
+
+                    if (( Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $destinationPath ) -and $Force.IsPresent) {
+                        Remove-WinSCPItem -WinSCPSession $WinSCPSession -Path $destinationPath -Confirm:$false
+                    }
+
                     $WinSCPSession.MoveFile(
-                        $pathValue, $Destination
+                        $pathValue, $destinationPath
                     )
                 }
 
                 if ($PassThru.IsPresent) {
-                    Get-WinSCPItem -WinSCPSession $WinSCPSession -Path ( Join-Path -Path $Destination -ChildPath ( Split-Path -Path $pathValue -Leaf ))
+                    Get-WinSCPItem -WinSCPSession $WinSCPSession -Path $destinationPath
                 }
             } catch {
                 $PSCmdlet.WriteError(

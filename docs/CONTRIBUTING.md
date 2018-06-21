@@ -16,7 +16,7 @@ So please update the help in `.\Help\<CmdletName>.md`, then compile a new `WinSC
 ```powershell
 New-ExternalHelp -Path .\Help -OutputPath .\WinSCP\en-US -Force
 ```
-And, if your feeling exceptionally helpful, the Wiki is its own repo, so you could also update that as well.:
+And, if your feeling exceptionally helpful, the Wiki is its own repo, so you could also update that as well:
 ```
 git clone https://github.io/dotps1/WinSCP/wiki.git ..\Wiki
 New-MarkdownHelp -Path .\Help -OutputPath ..\Wiki -NoMetadata -Force
