@@ -16,7 +16,7 @@ I have been revisiting this module as of late, add making some major changes:
 4. I am completely overhauling the help, and adding more examples using platyPS.
 5. The `New-WinSCPSessionOption` defaults to using Anonymous authentication.
 6. Updated pester tests.
-7. Re implimented AppVeyor build.
+7. Re implemented AppVeyor build.
 8. Auto publishing to both PowerShellGallery.com and GitHub Releases.
 9. Lots of bug fixes.
 
