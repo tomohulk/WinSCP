@@ -28,7 +28,7 @@
 
         [Parameter()]
         [WinSCP.TransferResumeSupport]
-        $TransferResumeSupport = (New-Object -TypeName WinSCP.TransferResumeSupport),
+        $ResumeSupport = (New-Object -TypeName WinSCP.TransferResumeSupport),
 
         [Parameter()]
         [Int]
