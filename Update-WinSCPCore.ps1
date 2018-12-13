@@ -10,7 +10,7 @@ $uri = "https://winscp.net"
 [Version]$currentVersion = (Get-Item -Path "${pwd}\WinSCP\lib\WinSCPnet.dll").VersionInfo.ProductVersion
 
 try {
-    $payloadName = ((Invoke-WebRequest -Uri "${uri}/eng/downloads.php" -UseBasicParsing -ErrorAction Stop).Links | Select-String -Pattern "WinSCP-.*?-Automation\.zip").Matches.Value
+    $payloadName = ((Invoke-WebRequest -Uri "${uri}/eng/downloads.php" -UseBasicParsing -ErrorAction Stop).Links | Select-String -Pattern "WinSCP-.*?\d+-Automation\.zip").Matches.Value
 } catch {
     $PSCmdlet.ThrowTerminatingError(
         $_
