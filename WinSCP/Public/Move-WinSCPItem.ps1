@@ -26,7 +26,6 @@
 
         [Parameter(
             Mandatory = $true,
-            Position = 0,
             ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true
         )]
@@ -56,11 +55,13 @@
                     $pathValue
                 )
                 if ($shouldProcess) {
-                    if ($null -ne $destinationInfo) {
+                    if ($null -ne $destinationInfo -and $destinationInfo.IsDirectory) {
                         $leaf = Split-Path -Path $pathValue -Leaf
                         $destinationPath = $WinSCPSession.CombinePaths(
-                            $Destination, $leaf
+                            $destinationInfo.FullName, $leaf
                         )
+                    } else {
+                        $destinationPath = $Destination
                     }
 
                     if (( Test-WinSCPPath -WinSCPSession $WinSCPSession -Path $destinationPath ) -and $Force.IsPresent) {

@@ -31,7 +31,7 @@
     )
 
     process {
-        foreach($pathValue in (Format-WinSCPPathString -Path $($Path))) {
+        foreach($pathValue in (Format-WinSCPPathString -Path $Path)) {
             try {
                 $output = $WinSCPSession.FileExists(
                     $pathValue

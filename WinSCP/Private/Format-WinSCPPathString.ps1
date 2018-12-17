@@ -47,7 +47,8 @@ function Format-WinSCPPathString {
                 )
             }
 
-            if ($item.ToCharArray()[0] -ne [System.IO.Path]::AltDirectorySeparatorChar) {
+            $itemCharArray = $item.ToCharArray()
+            if ($itemCharArray[0] -ne [System.IO.Path]::AltDirectorySeparatorChar -and $itemCharArray[0] -ne '.') {
                 $item = [System.IO.Path]::AltDirectorySeparatorChar + $item
             }
 
