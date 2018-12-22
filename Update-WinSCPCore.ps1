@@ -55,6 +55,10 @@ if ($publishedVersion -gt $currentVersion) {
     Set-Content -Path ${pwd}\appveyor.yml -Value $yml
     Update-AppVeyorProjectBuildNumber -AccountName dotps1 -ProjectName WinSCP -BuildNumber 0
 
+    # TODO
+    # Ensure PlatyPS is updated to the latest module version.
+    # Recompile help files.
+
     # Clean up downloaded and extracted files.
     Remove-Item -Path "${env:TEMP}\$payloadName" -Force -Confirm:$false
     Remove-Item -Path "${env:TEMP}\WinSCP" -Recurse -Force -Confirm:$false
