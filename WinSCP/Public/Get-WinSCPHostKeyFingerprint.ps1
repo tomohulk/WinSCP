@@ -16,12 +16,14 @@ function Get-WinSCPHostKeyFingerprint {
         [WinSCP.SessionOptions[]]
         $SessionOption,
 
-        [Parameter()]
+        [Parameter(
+            Mandatory = $true
+        )]
         [ValidateSet(
             "SHA-256", "MD5"
         )]
         [String]
-        $Algorithm = "SHA-256"
+        $Algorithm
     )
 
     begin {
