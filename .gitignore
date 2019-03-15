@@ -1,5 +1,6 @@
 # Local Repository Files To Ignore:
 winscp.ini
+.DS_Stores
 
 VSCode files to ignore:
 .vscode
