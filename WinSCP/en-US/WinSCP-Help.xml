@@ -656,7 +656,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Algorithm</maml:name>
           <maml:Description>
             <maml:para>Fingerprint algorithm to use. Supported algorithms are SHA-256 (recommended with SFTP and SCP protocols) and MD5 (the only supported option with FTPS and WebDAVS. With SFTP and SCP protocols, it should be used only for backward compatibility with previous versions). This parameter is present since version 5.13 only. Older versions lack the parameter and use MD5 algorithm.</maml:para>
@@ -683,7 +683,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Algorithm</maml:name>
         <maml:Description>
           <maml:para>Fingerprint algorithm to use. Supported algorithms are SHA-256 (recommended with SFTP and SCP protocols) and MD5 (the only supported option with FTPS and WebDAVS. With SFTP and SCP protocols, it should be used only for backward compatibility with previous versions). This parameter is present since version 5.13 only. Older versions lack the parameter and use MD5 algorithm.</maml:para>
@@ -3263,18 +3263,6 @@ TlsClientCertificatePath                     :</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
-          <maml:name>TransferResumeSupport</maml:name>
-          <maml:Description>
-            <maml:para>Configures automatic resume/transfer to temporary filename.</maml:para>
-          </maml:Description>
-          <command:parameterValue required="true" variableLength="false">TransferResumeSupport</command:parameterValue>
-          <dev:type>
-            <maml:name>TransferResumeSupport</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
           <maml:name>SpeedLimit</maml:name>
           <maml:Description>
@@ -3320,6 +3308,18 @@ TlsClientCertificatePath                     :</dev:code>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ResumeSupport</maml:name>
+          <maml:Description>
+            <maml:para>{{ Fill ResumeSupport Description }}</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">TransferResumeSupport</command:parameterValue>
+          <dev:type>
+            <maml:name>TransferResumeSupport</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
       </command:syntaxItem>
     </command:syntax>
@@ -3372,18 +3372,6 @@ TlsClientCertificatePath                     :</dev:code>
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
-        <maml:name>TransferResumeSupport</maml:name>
-        <maml:Description>
-          <maml:para>Configures automatic resume/transfer to temporary filename.</maml:para>
-        </maml:Description>
-        <command:parameterValue required="true" variableLength="false">TransferResumeSupport</command:parameterValue>
-        <dev:type>
-          <maml:name>TransferResumeSupport</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
         <maml:name>SpeedLimit</maml:name>
         <maml:Description>
@@ -3431,6 +3419,18 @@ TlsClientCertificatePath                     :</dev:code>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ResumeSupport</maml:name>
+        <maml:Description>
+          <maml:para>{{ Fill ResumeSupport Description }}</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">TransferResumeSupport</command:parameterValue>
+        <dev:type>
+          <maml:name>TransferResumeSupport</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
     </command:parameters>
     <command:inputTypes>

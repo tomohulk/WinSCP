@@ -1,5 +1,5 @@
 ---
-external help file: WinSCP-Help.xml
+external help file: WinSCP-help.xml
 Module Name: WinSCP
 online version: https://github.com/dotps1/WinSCP/wiki/New-WinSCPTransferOption
 schema: 2.0.0
@@ -14,9 +14,8 @@ Defines options for file transfers.
 
 ```
 New-WinSCPTransferOption [[-FileMask] <String>] [[-FilePermissions] <FilePermissions>]
- [[-OverwriteMode] <OverwriteMode>] [[-PreserveTimestamp] <Boolean>]
- [[-TransferResumeSupport] <TransferResumeSupport>] [[-SpeedLimit] <Int32>] [[-TransferMode] <TransferMode>]
- [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-OverwriteMode] <OverwriteMode>] [[-PreserveTimestamp] <Boolean>] [-ResumeSupport <TransferResumeSupport>]
+ [[-SpeedLimit] <Int32>] [[-TransferMode] <TransferMode>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -122,21 +121,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -TransferResumeSupport
-Configures automatic resume/transfer to temporary filename.
-
-```yaml
-Type: TransferResumeSupport
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 4
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -SpeedLimit
 Limit transfer speed (in KB/s).
 
@@ -198,9 +182,23 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -ResumeSupport
+{{ Fill ResumeSupport Description }}
+
+```yaml
+Type: TransferResumeSupport
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
