@@ -8,7 +8,7 @@ schema: 2.0.0
 # Copy-WinSCPItem
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Duplicates remote file to another remote directory or name.
 
 ## SYNTAX
 
@@ -18,16 +18,14 @@ Copy-WinSCPItem -WinSCPSession <Session> [-Path] <String[]> [[-Destination] <Str
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Duplicates remote file to another remote directory or name.
 
 ## EXAMPLES
 
 ### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
 ```
-
-{{ Add example description here }}
+PS C:\> Copy-WinSCPItem -Path "./Folder/File.txt" -Destination "./NewFolder/File.txt"
+```
 
 ## PARAMETERS
 
@@ -47,7 +45,7 @@ Accept wildcard characters: False
 ```
 
 ### -Destination
-{{Fill Destination Description}}
+Full path to new location and name to duplicate the file to.
 
 ```yaml
 Type: String
@@ -62,7 +60,7 @@ Accept wildcard characters: False
 ```
 
 ### -Force
-{{Fill Force Description}}
+Overwrite the destination if it exists.
 
 ```yaml
 Type: SwitchParameter
@@ -77,7 +75,7 @@ Accept wildcard characters: False
 ```
 
 ### -PassThru
-{{Fill PassThru Description}}
+Gets the RemoteFileInfo object from the new path.
 
 ```yaml
 Type: SwitchParameter
@@ -92,7 +90,7 @@ Accept wildcard characters: False
 ```
 
 ### -Path
-{{Fill Path Description}}
+Full path to remote file to duplicate.
 
 ```yaml
 Type: String[]
@@ -123,7 +121,7 @@ Accept wildcard characters: False
 ```
 
 ### -WinSCPSession
-{{Fill WinSCPSession Description}}
+It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.
 
 ```yaml
 Type: Session
@@ -153,5 +151,5 @@ System.String[]
 
 ## RELATED LINKS
 
-[https://github.com/dotps1/WinSCP/wiki/Copy-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Copy-WinSCPItem)
+[WinSCP reference:](https://winscp.net/eng/docs/library_session_duplicatefile)
 

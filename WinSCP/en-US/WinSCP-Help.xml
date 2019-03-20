@@ -122,11 +122,11 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
       <command:verb>Copy</command:verb>
       <command:noun>WinSCPItem</command:noun>
       <maml:description>
-        <maml:para>{{Fill in the Synopsis}}</maml:para>
+        <maml:para>Duplicates remote file to another remote directory or name.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{Fill in the Description}}</maml:para>
+      <maml:para>Duplicates remote file to another remote directory or name.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -134,7 +134,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="none">
           <maml:name>Path</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Path Description}}</maml:para>
+            <maml:para>Full path to remote file to duplicate.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
@@ -146,7 +146,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Destination</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Destination Description}}</maml:para>
+            <maml:para>Full path to new location and name to duplicate the file to.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -169,7 +169,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Force</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Force Description}}</maml:para>
+            <maml:para>Overwrite the destination if it exists.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -180,7 +180,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>PassThru</maml:name>
           <maml:Description>
-            <maml:para>{{Fill PassThru Description}}</maml:para>
+            <maml:para>Gets the RemoteFileInfo object from the new path.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -202,7 +202,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none">
           <maml:name>WinSCPSession</maml:name>
           <maml:Description>
-            <maml:para>{{Fill WinSCPSession Description}}</maml:para>
+            <maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
           <dev:type>
@@ -229,7 +229,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Destination</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Destination Description}}</maml:para>
+          <maml:para>Full path to new location and name to duplicate the file to.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -241,7 +241,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Force</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Force Description}}</maml:para>
+          <maml:para>Overwrite the destination if it exists.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -253,7 +253,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>PassThru</maml:name>
         <maml:Description>
-          <maml:para>{{Fill PassThru Description}}</maml:para>
+          <maml:para>Gets the RemoteFileInfo object from the new path.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -265,7 +265,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="none">
         <maml:name>Path</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Path Description}}</maml:para>
+          <maml:para>Full path to remote file to duplicate.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
@@ -289,7 +289,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none">
         <maml:name>WinSCPSession</maml:name>
         <maml:Description>
-          <maml:para>{{Fill WinSCPSession Description}}</maml:para>
+          <maml:para>It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Session</command:parameterValue>
         <dev:type>
@@ -327,16 +327,20 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Copy-WinSCPItem -Path "./Folder/File.txt" -Destination "./NewFolder/File.txt"</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para></maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>https://github.com/dotps1/WinSCP/wiki/Copy-WinSCPItem</maml:linkText>
+        <maml:linkText>Online Version:</maml:linkText>
         <maml:uri>https://github.com/dotps1/WinSCP/wiki/Copy-WinSCPItem</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>WinSCP reference:</maml:linkText>
+        <maml:uri>https://winscp.net/eng/docs/library_session_duplicatefile</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
