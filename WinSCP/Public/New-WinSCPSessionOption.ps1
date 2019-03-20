@@ -3,6 +3,7 @@ function New-WinSCPSessionOption {
     [CmdletBinding(
         ConfirmImpact = "Low",
         HelpUri = "https://github.com/dotps1/WinSCP/wiki/New-WinSCPSessionOption",
+        PositionalBinding = $false,
         SupportsShouldProcess = $true
     )]
     [OutputType(

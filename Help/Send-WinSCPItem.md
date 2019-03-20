@@ -13,8 +13,8 @@ Uploads one or more files from local directory to remote directory.
 ## SYNTAX
 
 ```
-Send-WinSCPItem [-WinSCPSession] <Session> [-LocalPath] <String[]> [[-RemotePath] <String>] [-Remove]
- [[-TransferOptions] <TransferOptions>] [<CommonParameters>]
+Send-WinSCPItem -WinSCPSession <Session> [-LocalPath] <String[]> [[-RemotePath] <String>] [-Remove]
+ [-TransferOptions <TransferOptions>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -59,21 +59,6 @@ True      NewItem.txt
 
 ## PARAMETERS
 
-### -WinSCPSession
-It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.
-
-```yaml
-Type: Session
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 0
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
 ### -LocalPath
 Full path to local file or directory to upload.
 Filename in the path can be replaced with Windows wildcard to select multiple files.
@@ -84,9 +69,9 @@ Parameter Sets: (All)
 Aliases: Path
 
 Required: True
-Position: 1
+Position: 0
 Default value: None
-Accept pipeline input: True (ByPropertyName)
+Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 
@@ -100,7 +85,7 @@ Parameter Sets: (All)
 Aliases: Destination
 
 Required: False
-Position: 2
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -132,9 +117,24 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 3
+Position: Named
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WinSCPSession
+It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.
+
+```yaml
+Type: Session
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 

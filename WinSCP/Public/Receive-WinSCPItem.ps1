@@ -1,7 +1,9 @@
 ﻿function Receive-WinSCPItem {
 
     [CmdletBinding(
-        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Receive-WinSCPItem"
+        ConfirmImpact = "Medium",
+        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Receive-WinSCPItem",
+        PositionalBinding = $false
     )]
     [OutputType(
         [WinSCP.TransferOperationResult]
@@ -10,7 +12,7 @@
     param (
             [Parameter(
             Mandatory = $true,
-            ValueFromPipeline = $true
+            ValueFromPipelineByPropertyName = $true
         )]
         [ValidateScript({
             if ($_.Opened) {
@@ -24,6 +26,8 @@
 
         [Parameter(
             Mandatory = $true,
+            Position = 0,
+            ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true
         )]
         [Alias(
@@ -32,7 +36,9 @@
         [String[]]
         $RemotePath,
 
-        [Parameter()]
+        [Parameter(
+            Position = 1
+        )]
         [Alias(
             "Destination"
         )]

@@ -13,9 +13,9 @@ Defines options for file transfers.
 ## SYNTAX
 
 ```
-New-WinSCPTransferOption [[-FileMask] <String>] [[-FilePermissions] <FilePermissions>]
- [[-OverwriteMode] <OverwriteMode>] [[-PreserveTimestamp] <Boolean>] [-ResumeSupport <TransferResumeSupport>]
- [[-SpeedLimit] <Int32>] [[-TransferMode] <TransferMode>] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-WinSCPTransferOption [-FileMask <String>] [-FilePermissions <FilePermissions>]
+ [-OverwriteMode <OverwriteMode>] [-PreserveTimestamp <Boolean>] [-ResumeSupport <TransferResumeSupport>]
+ [-SpeedLimit <Int32>] [-TransferMode <TransferMode>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -53,6 +53,21 @@ OverwriteMode     : Overwrite
 
 ## PARAMETERS
 
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -FileMask
 @{Text=}
 
@@ -62,7 +77,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 0
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -78,7 +93,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 1
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -96,9 +111,10 @@ SFTP protocol only.
 Type: OverwriteMode
 Parameter Sets: (All)
 Aliases:
+Accepted values: Overwrite, Resume, Append
 
 Required: False
-Position: 2
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -115,7 +131,22 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 3
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResumeSupport
+{{ Fill ResumeSupport Description }}
+
+```yaml
+Type: TransferResumeSupport
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -130,7 +161,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 5
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -143,25 +174,11 @@ Possible values are TransferMode.Binary (default), TransferMode.Ascii and Transf
 Type: TransferMode
 Parameter Sets: (All)
 Aliases:
-
-Required: False
-Position: 6
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
+Accepted values: Binary, Ascii, Automatic
 
 Required: False
 Position: Named
-Default value: False
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -178,21 +195,6 @@ Aliases: wi
 Required: False
 Position: Named
 Default value: False
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ResumeSupport
-{{ Fill ResumeSupport Description }}
-
-```yaml
-Type: TransferResumeSupport
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

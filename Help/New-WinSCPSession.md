@@ -13,7 +13,7 @@ This is the main interface class of the WinSCP assembly.
 ## SYNTAX
 
 ```
-New-WinSCPSession [-SessionOption] <SessionOptions> [-AdditionalExecutableArguments <String>]
+New-WinSCPSession -SessionOption <SessionOptions> [-AdditionalExecutableArguments <String>]
  [-DebugLogLevel <Int32>] [-DebugLogPath <String>] [-ExecutableProcessCredential <PSCredential>]
  [-ReconnectTime <TimeSpan>] [-SessionLogPath <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
@@ -47,22 +47,6 @@ True        00:01:00 ftp.dotps1.github.io
 
 ## PARAMETERS
 
-### -SessionOption
-Defines information to allow an automatic connection and authentication of the session.
-Returned from the New-WinSCPSessionOption command.
-
-```yaml
-Type: SessionOptions
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 0
-Default value: None
-Accept pipeline input: True (ByPropertyName, ByValue)
-Accept wildcard characters: False
-```
-
 ### -AdditionalExecutableArguments
 Additional command-line arguments to be passed to winscp.com.
 In general, this should be left with default null.
@@ -75,6 +59,21 @@ Aliases:
 Required: False
 Position: Named
 Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -162,18 +161,19 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
+### -SessionOption
+Defines information to allow an automatic connection and authentication of the session.
+Returned from the New-WinSCPSessionOption command.
 
 ```yaml
-Type: SwitchParameter
+Type: SessionOptions
 Parameter Sets: (All)
-Aliases: cf
+Aliases:
 
-Required: False
+Required: True
 Position: Named
-Default value: False
-Accept pipeline input: False
+Default value: None
+Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 

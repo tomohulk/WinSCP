@@ -13,8 +13,7 @@ Moves remote file to another remote directory and/or renames remote file.
 ## SYNTAX
 
 ```
-Rename-WinSCPItem [-WinSCPSession] <Session> [-Path] <String> [-NewName] <String> [-PassThru]
- [<CommonParameters>]
+Rename-WinSCPItem -WinSCPSession <Session> [-Path] <String> -NewName <String> [-PassThru] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -51,36 +50,6 @@ Mode                  LastWriteTime     Length Name
 
 ## PARAMETERS
 
-### -WinSCPSession
-It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.
-
-```yaml
-Type: Session
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 0
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
-### -Path
-The full path to the item to e renamed.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 1
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -NewName
 The new name for the item.
 
@@ -90,7 +59,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 2
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -108,6 +77,36 @@ Required: False
 Position: Named
 Default value: False
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Path
+The full path to the item to e renamed.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WinSCPSession
+It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.
+
+```yaml
+Type: Session
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 

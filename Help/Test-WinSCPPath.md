@@ -13,7 +13,7 @@ Checks for existence of remote file or directory.
 ## SYNTAX
 
 ```
-Test-WinSCPPath [-WinSCPSession] <Session> [-Path] <String[]> [<CommonParameters>]
+Test-WinSCPPath -WinSCPSession <Session> [-Path] <String[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -29,21 +29,6 @@ True
 
 ## PARAMETERS
 
-### -WinSCPSession
-It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.
-
-```yaml
-Type: Session
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 0
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
 ### -Path
 Full path to remote file.
 
@@ -53,7 +38,22 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 1
+Position: 0
+Default value: None
+Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
+### -WinSCPSession
+It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.
+
+```yaml
+Type: Session
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False

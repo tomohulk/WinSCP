@@ -13,8 +13,8 @@ Configures automatic resume/transfer to temporary filename.
 ## SYNTAX
 
 ```
-New-WinSCPTransferResumeSupport [-State <TransferResumeSupportState>] [[-Threshold] <Int32>] [-WhatIf]
- [-Confirm] [<CommonParameters>]
+New-WinSCPTransferResumeSupport [-State <TransferResumeSupportState>] [-Threshold <Int32>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -32,22 +32,6 @@ Default
 ```
 
 ## PARAMETERS
-
-### -Threshold
-Threshold (in KB) for TransferResumeSupportState.Smart mode.
-Setting the Threshold automatically sets the State to the TransferResumeSupportState.Smart.
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 1
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
 
 ### -Confirm
 Prompts you for confirmation before running the cmdlet.
@@ -69,6 +53,23 @@ Accept wildcard characters: False
 
 ```yaml
 Type: TransferResumeSupportState
+Parameter Sets: (All)
+Aliases:
+Accepted values: Default, On, Off, Smart
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Threshold
+Threshold (in KB) for TransferResumeSupportState.Smart mode.
+Setting the Threshold automatically sets the State to the TransferResumeSupportState.Smart.
+
+```yaml
+Type: Int32
 Parameter Sets: (All)
 Aliases:
 

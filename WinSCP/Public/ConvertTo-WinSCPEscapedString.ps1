@@ -1,7 +1,9 @@
 ﻿function ConvertTo-WinSCPEscapedString {
 
     [CmdletBinding(
-        HelpUri = "https://github.com/dotps1/WinSCP/wiki/ConvertTo-WinSCPEscapedString"
+        ConfirmImpact = "Low",
+        HelpUri = "https://github.com/dotps1/WinSCP/wiki/ConvertTo-WinSCPEscapedString",
+        PositionalBinding = $false
     )]
     [OutputType(
         [String]

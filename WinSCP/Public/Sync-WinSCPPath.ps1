@@ -1,7 +1,9 @@
 ﻿function Sync-WinSCPPath {
 
     [CmdletBinding(
-        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Sync-WinSCPPath"
+        ConfirmImpact = "Medium",
+        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Sync-WinSCPPath",
+        PositionalBinding = $false
     )]
     [OutputType(
         [WinSCP.SynchronizationResult]
@@ -10,7 +12,7 @@
     param (
         [Parameter(
             Mandatory = $true,
-            ValueFromPipeline = $true
+            ValueFromPipelineByPropertyName = $true
         )]
         [ValidateScript({
             if ($_.Opened) {
@@ -28,11 +30,15 @@
         [WinSCP.SynchronizationMode]
         $Mode,
 
-        [Parameter()]
+        [Parameter(
+            Position = 0
+        )]
         [String]
         $LocalPath = $pwd,
 
-        [Parameter()]
+        [Parameter(
+            Position = 1
+        )]
         [String]
         $RemotePath = $WinSCPSession.HomePath,
 

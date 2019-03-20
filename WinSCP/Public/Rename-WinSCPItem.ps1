@@ -1,7 +1,9 @@
 ﻿function Rename-WinSCPItem {
 
     [CmdletBinding(
-        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Rename-WinSCPItem"
+        ConfirmImpact = "Medium",
+        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Rename-WinSCPItem",
+        PositionalBinding = $false
     )]
     [OutputType(
         [Void]
@@ -23,7 +25,8 @@
         $WinSCPSession,
 
         [Parameter(
-            Mandatory = $true
+            Mandatory = $true,
+            Position = 0
         )]
         [String]
         $Path,

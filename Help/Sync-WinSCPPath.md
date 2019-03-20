@@ -13,9 +13,9 @@ Synchronizes directories.
 ## SYNTAX
 
 ```
-Sync-WinSCPPath [-WinSCPSession] <Session> [-Mode] <SynchronizationMode> [[-LocalPath] <String>]
- [[-RemotePath] <String>] [-Remove] [-Mirror] [[-Criteria] <SynchronizationCriteria>]
- [[-TransferOptions] <TransferOptions>] [<CommonParameters>]
+Sync-WinSCPPath -WinSCPSession <Session> -Mode <SynchronizationMode> [[-LocalPath] <String>]
+ [[-RemotePath] <String>] [-Remove] [-Mirror] [-Criteria <SynchronizationCriteria>]
+ [-TransferOptions <TransferOptions>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -49,33 +49,20 @@ IsSuccess : True
 
 ## PARAMETERS
 
-### -WinSCPSession
-It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.
+### -Criteria
+Comparison criteria.
+Possible values are SynchronizationCriteria.None, SynchronizationCriteria.Time (default), SynchronizationCriteria.Size and SynchronizationCriteria.Either.
+For SynchronizationMode.Both SynchronizationCriteria.Time can be used only.
 
 ```yaml
-Type: Session
+Type: SynchronizationCriteria
 Parameter Sets: (All)
 Aliases:
+Accepted values: None, Time, Size, Either
 
-Required: True
-Position: 0
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
-### -Mode
-Synchronization mode.
-Possible values are SynchronizationMode.Local, SynchronizationMode.Remote and SynchronizationMode.Both.
-
-```yaml
-Type: SynchronizationMode
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 1
-Default value: None
+Required: False
+Position: Named
+Default value: Time
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -89,39 +76,8 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 2
+Position: 0
 Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -RemotePath
-Full path to remote directory.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 3
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Remove
-When set to true, deletes obsolete files.
-Cannot be used for SynchronizationMode.Both.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -143,19 +99,50 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Criteria
-Comparison criteria.
-Possible values are SynchronizationCriteria.None, SynchronizationCriteria.Time (default), SynchronizationCriteria.Size and SynchronizationCriteria.Either.
-For SynchronizationMode.Both SynchronizationCriteria.Time can be used only.
+### -Mode
+Synchronization mode.
+Possible values are SynchronizationMode.Local, SynchronizationMode.Remote and SynchronizationMode.Both.
 
 ```yaml
-Type: SynchronizationCriteria
+Type: SynchronizationMode
+Parameter Sets: (All)
+Aliases:
+Accepted values: Local, Remote, Both
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -RemotePath
+Full path to remote directory.
+
+```yaml
+Type: String
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 4
-Default value: Time
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Remove
+When set to true, deletes obsolete files.
+Cannot be used for SynchronizationMode.Both.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -170,9 +157,24 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 5
+Position: Named
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WinSCPSession
+It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.
+
+```yaml
+Type: Session
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 

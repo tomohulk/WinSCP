@@ -13,8 +13,8 @@ Downloads one or more files from remote directory to local directory.
 ## SYNTAX
 
 ```
-Receive-WinSCPItem [-WinSCPSession] <Session> [-RemotePath] <String[]> [[-LocalPath] <String>] [-Remove]
- [[-TransferOptions] <TransferOptions>] [<CommonParameters>]
+Receive-WinSCPItem -WinSCPSession <Session> [-RemotePath] <String[]> [[-LocalPath] <String>] [-Remove]
+ [-TransferOptions <TransferOptions>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -58,18 +58,19 @@ True      NewWinSCPItem.txt
 
 ## PARAMETERS
 
-### -WinSCPSession
-It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.
+### -LocalPath
+Full path to download the file to.
+When downloading multiple files, the filename in the path should be replaced with operation mask or omitted (path ends with backslash).
 
 ```yaml
-Type: Session
+Type: String
 Parameter Sets: (All)
-Aliases:
+Aliases: Destination
 
-Required: True
-Position: 0
+Required: False
+Position: 1
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -82,25 +83,9 @@ Parameter Sets: (All)
 Aliases: Path
 
 Required: True
-Position: 1
+Position: 0
 Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -LocalPath
-Full path to download the file to.
-When downloading multiple files, the filename in the path should be replaced with operation mask or omitted (path ends with backslash).
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases: Destination
-
-Required: False
-Position: 2
-Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 
@@ -130,9 +115,24 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 3
+Position: Named
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WinSCPSession
+It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.
+
+```yaml
+Type: Session
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 

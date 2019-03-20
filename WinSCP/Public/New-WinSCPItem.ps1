@@ -3,6 +3,7 @@
     [CmdletBinding(
         ConfirmImpact = "Low",
         HelpUri = "https://github.com/dotps1/WinSCP/wiki/New-WinSCPItem",
+        PositionalBinding = $false,
         SupportsShouldProcess = $true
     )]
     [OutputType(

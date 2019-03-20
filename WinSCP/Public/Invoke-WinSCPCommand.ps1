@@ -1,6 +1,7 @@
 ﻿function Invoke-WinSCPCommand {
 
     [CmdletBinding(
+        ConfirmImpact = "Medium",
         HelpUri = "https://github.com/dotps1/WinSCP/wiki/Invoke-WinSCPCommand",
         PositionalBinding = $false
     )]
@@ -25,7 +26,6 @@
 
         [Parameter(
             Mandatory = $true,
-            Position = 0,
             ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true
         )]

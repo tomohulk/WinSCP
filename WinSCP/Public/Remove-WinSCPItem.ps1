@@ -3,6 +3,7 @@
     [CmdletBinding(
         ConfirmImpact = "High",
         HelpUri = "https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPItem",
+        PositionalBinding = $false,
         SupportsShouldProcess = $true
     )]
     [OutputType(
@@ -12,7 +13,7 @@
     param (
         [Parameter(
             Mandatory = $true,
-            ValueFromPipeline = $true
+            ValueFromPipelineByPropertyName = $true
         )]
         [ValidateScript({
             if ($_.Opened) {
@@ -26,6 +27,8 @@
 
         [Parameter(
             Mandatory = $true,
+            Position = 0,
+            ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true
         )]
         [String[]]

@@ -1,7 +1,9 @@
 ﻿function Test-WinSCPPath {
 
     [CmdletBinding(
-        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Test-WinSCPPath"
+        ConfirmImpact = "Low",
+        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Test-WinSCPPath",
+        PositionalBinding = $false
     )]
     [OutputType(
         [Bool]
@@ -10,7 +12,7 @@
     param (
         [Parameter(
             Mandatory = $true,
-            ValueFromPipeline = $true
+            ValueFromPipelineByPropertyName = $true
         )]
         [ValidateScript({
             if ($_.Opened) {
@@ -24,6 +26,8 @@
 
         [Parameter(
             Mandatory = $true,
+            Position = 0,
+            ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true
         )]
         [String[]]

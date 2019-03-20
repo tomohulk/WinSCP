@@ -13,8 +13,8 @@ Represents *nix-style remote file permissions.
 ## SYNTAX
 
 ```
-New-WinSCPItemPermission [-GroupExecute] [-GroupRead] [-GroupWrite] [[-Numeric] <Int32>] [[-Octal] <String>]
- [-OtherExecute] [-OtherRead] [-OtherWrite] [-SetGid] [-SetUid] [-Sticky] [[-Text] <String>] [-UserExecute]
+New-WinSCPItemPermission [-GroupExecute] [-GroupRead] [-GroupWrite] [-Numeric <Int32>] [-Octal <String>]
+ [-OtherExecute] [-OtherRead] [-OtherWrite] [-SetGid] [-SetUid] [-Sticky] [-Text <String>] [-UserExecute]
  [-UserRead] [-UserWrite] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -68,6 +68,21 @@ SetUid       : False
 ```
 
 ## PARAMETERS
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -GroupExecute
 Execute permission for group.
@@ -123,7 +138,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 0
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -140,7 +155,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 1
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -245,7 +260,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 2
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -288,21 +303,6 @@ Write permission for owner.
 Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
-
-Required: False
-Position: Named
-Default value: False
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
 
 Required: False
 Position: Named

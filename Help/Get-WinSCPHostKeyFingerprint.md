@@ -55,6 +55,26 @@ PS C:\> Remove-WinSCPSession
 
 ## PARAMETERS
 
+### -Algorithm
+Fingerprint algorithm to use.
+Supported algorithms are SHA-256 (recommended with SFTP and SCP protocols) and MD5 (the only supported option with FTPS and WebDAVS.
+With SFTP and SCP protocols, it should be used only for backward compatibility with previous versions).
+This parameter is present since version 5.13 only.
+Older versions lack the parameter and use MD5 algorithm.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+Accepted values: SHA-256, MD5
+
+Required: True
+Position: Named
+Default value: SHA-256
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -SessionOption
 Defines a server to scan the fingerprint of.
 The Protocol property must be Protocol.Sftp or Protocol.Scp, or Protocol.Ftp with FtpSecure being FtpSecure.Implicit or FtpSecure.Explicit, or Protocol.Webdav with WebdavSecure being true.
@@ -71,25 +91,6 @@ Required: True
 Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
-Accept wildcard characters: False
-```
-
-### -Algorithm
-Fingerprint algorithm to use.
-Supported algorithms are SHA-256 (recommended with SFTP and SCP protocols) and MD5 (the only supported option with FTPS and WebDAVS.
-With SFTP and SCP protocols, it should be used only for backward compatibility with previous versions).
-This parameter is present since version 5.13 only.
-Older versions lack the parameter and use MD5 algorithm.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: Named
-Default value: SHA-256
-Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

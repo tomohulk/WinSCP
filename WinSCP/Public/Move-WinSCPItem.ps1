@@ -3,6 +3,7 @@
     [CmdletBinding(
         ConfirmImpact = "Medium",
         HelpUri = "https://github.com/dotps1/WinSCP/wiki/Move-WinSCPItem",
+        PositionalBinding = $false,
         SupportsShouldProcess = $true
     )]
     [OutputType(
@@ -26,13 +27,16 @@
 
         [Parameter(
             Mandatory = $true,
+            Position = 0,
             ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true
         )]
         [String[]]
         $Path,
 
-        [Parameter()]
+        [Parameter(
+            Position = 1
+        )]
         [String]
         $Destination = $WinSCPSession.HomePath,
 

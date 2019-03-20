@@ -13,12 +13,12 @@ Defines information to allow an automatic connection and authentication of the s
 ## SYNTAX
 
 ```
-New-WinSCPSessionOption [[-Credential] <PSCredential>] [[-FtpMode] <FtpMode>] [[-FtpSecure] <FtpSecure>]
- [-GiveUpSecurityAndAcceptAnySshHostKey] [-GiveUpSecurityAndAcceptAnyTlsHostCertificate] [-HostName] <String>
- [[-PortNumber] <Int32>] [[-Protocol] <Protocol>] [-SecurePrivateKeyPassphrase <SecureString>]
- [[-SshHostKeyFingerprint] <String[]>] [[-SshPrivateKeyPath] <String>] [[-TlsClientCertificatePath] <String>]
- [[-TlsHostCertificateFingerprint] <String>] [[-Timeout] <TimeSpan>] [-WebdavSecure] [[-WebdavRoot] <String>]
- [[-RawSetting] <Hashtable>] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-WinSCPSessionOption [-Credential <PSCredential>] [-FtpMode <FtpMode>] [-FtpSecure <FtpSecure>]
+ [-GiveUpSecurityAndAcceptAnySshHostKey] [-GiveUpSecurityAndAcceptAnyTlsHostCertificate] -HostName <String>
+ [-PortNumber <Int32>] [-Protocol <Protocol>] [-SecurePrivateKeyPassphrase <SecureString>]
+ [-SshHostKeyFingerprint <String[]>] [-SshPrivateKeyPath <String>] [-TlsClientCertificatePath <String>]
+ [-TlsHostCertificateFingerprint <String>] [-Timeout <TimeSpan>] [-WebdavSecure] [-WebdavRoot <String>]
+ [-RawSetting <Hashtable>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -87,6 +87,21 @@ TlsClientCertificatePath                     :
 
 ## PARAMETERS
 
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Credential
 Represents a set of security credentials, such as a user name and a password.
 
@@ -96,7 +111,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 0
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -109,9 +124,10 @@ Possible values are FtpMode.Passive (default) and FtpMode.Active.
 Type: FtpMode
 Parameter Sets: (All)
 Aliases:
+Accepted values: Passive, Active
 
 Required: False
-Position: 1
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -124,9 +140,10 @@ Possible values are FtpSecure.None (default), FtpSecure.Implicit and FtpSecure.E
 Type: FtpSecure
 Parameter Sets: (All)
 Aliases:
+Accepted values: None, Implicit, Explicit
 
 Required: False
-Position: 2
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -178,7 +195,7 @@ Parameter Sets: (All)
 Aliases: ComputerName
 
 Required: True
-Position: 3
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -194,7 +211,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 4
+Position: Named
 Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -208,10 +225,41 @@ Possible values are Protocol.Sftp (default), Protocol.Scp, Protocol.Ftp and Prot
 Type: Protocol
 Parameter Sets: (All)
 Aliases:
+Accepted values: Sftp, Scp, Ftp, Webdav, S3
 
 Required: False
-Position: 6
+Position: Named
 Default value: Sftp
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -RawSetting
+Allows configuring any site settings using raw format as in an INI file.
+
+```yaml
+Type: Hashtable
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SecurePrivateKeyPassphrase
+{{Fill SecurePrivateKeyPassphrase Description}}
+
+```yaml
+Type: SecureString
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -227,7 +275,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 7
+Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -242,37 +290,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 8
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -TlsClientCertificatePath
-Full path to TLS/SSL client certificate.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 9
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -TlsHostCertificateFingerprint
-Fingerprint of FTPS/WebDAVS server TLS/SSL certificate to be automatically accepted (useful for certificates signed by untrusted authority).
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 10
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -288,7 +306,52 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 11
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -TlsClientCertificatePath
+Full path to TLS/SSL client certificate.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -TlsHostCertificateFingerprint
+Fingerprint of FTPS/WebDAVS server TLS/SSL certificate to be automatically accepted (useful for certificates signed by untrusted authority).
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WebdavRoot
+WebDAV root path.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -309,51 +372,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -WebdavRoot
-WebDAV root path.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 12
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -RawSetting
-Allows configuring any site settings using raw format as in an INI file.
-
-```yaml
-Type: Hashtable
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 13
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: False
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -WhatIf
 Shows what would happen if the cmdlet runs.
 The cmdlet is not run.
@@ -366,21 +384,6 @@ Aliases: wi
 Required: False
 Position: Named
 Default value: False
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -SecurePrivateKeyPassphrase
-{{Fill SecurePrivateKeyPassphrase Description}}
-
-```yaml
-Type: SecureString
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

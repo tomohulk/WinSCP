@@ -13,7 +13,7 @@ Executes command on the remote server.
 ## SYNTAX
 
 ```
-Invoke-WinSCPCommand -WinSCPSession <Session> [-Command] <String[]> [<CommonParameters>]
+Invoke-WinSCPCommand -WinSCPSession <Session> -Command <String[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -30,6 +30,21 @@ PS C:\> {{ Add example code here }}
 
 ## PARAMETERS
 
+### -Command
+Command to execute.
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
 ### -WinSCPSession
 It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.
 
@@ -42,21 +57,6 @@ Required: True
 Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -Command
-Command to execute.
-
-```yaml
-Type: String[]
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 0
-Default value: None
-Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 

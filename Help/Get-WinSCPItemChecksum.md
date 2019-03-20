@@ -13,7 +13,7 @@ Calculates a checksum of a remote file.
 ## SYNTAX
 
 ```
-Get-WinSCPItemChecksum -WinSCPSession <Session> [-Algorithm] <String> [-Path] <String[]> [<CommonParameters>]
+Get-WinSCPItemChecksum -WinSCPSession <Session> -Algorithm <String> [-Path] <String[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -30,21 +30,6 @@ PS C:\> {{ Add example code here }}
 
 ## PARAMETERS
 
-### -WinSCPSession
-It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.
-
-```yaml
-Type: Session
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
 ### -Algorithm
 A name of a checksum algorithm to use.
 Use IANA name of algorithm or use a name of any proprietary algorithm the server supports (with SFTP protocol only).
@@ -56,7 +41,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 1
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -74,6 +59,21 @@ Required: True
 Position: 0
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
+### -WinSCPSession
+It represents a session and provides methods for manipulating remote files over SFTP, SCP or FTP session.
+
+```yaml
+Type: Session
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 

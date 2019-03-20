@@ -1,6 +1,7 @@
 ﻿function Get-WinSCPItemChecksum {
 
     [CmdletBinding(
+        ConfirmImpact = "Low",
         HelpUri = "https://github.com/dotps1/WinSCP/wiki/Get-WinSCPItemChecksum",
         PositionalBinding = $false
     )]
@@ -24,8 +25,7 @@
         $WinSCPSession,
 
         [Parameter(
-            Mandatory = $true,
-            Position = 1
+            Mandatory = $true
         )]
         [String]
         $Algorithm,

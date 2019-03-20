@@ -13,7 +13,7 @@ Gets a WinSCP.Session object.
 ## SYNTAX
 
 ```
-Get-WinSCPSession [[-WinSCPSession] <Session>] [<CommonParameters>]
+Get-WinSCPSession [-WinSCPSession <Session>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -41,7 +41,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 0
+Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False

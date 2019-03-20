@@ -13,7 +13,7 @@ schema: 2.0.0
 ## SYNTAX
 
 ```
-Copy-WinSCPItem -WinSCPSession <Session> [-Path] <String[]> [-Destination <String>] [-Force] [-PassThru]
+Copy-WinSCPItem -WinSCPSession <Session> [-Path] <String[]> [[-Destination] <String>] [-Force] [-PassThru]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -55,7 +55,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

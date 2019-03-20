@@ -3,7 +3,8 @@
     [CmdletBinding(
         ConfirmImpact = "Low",
         HelpUri = "https://github.com/dotps1/WinSCP/wiki/New-WinSCPTransferOption",
-        SupportsShouldProcess = $true
+        SupportsShouldProcess = $true,
+        PositionalBinding = $false
     )]
     [OutputType(
         [WinSCP.TransferOptions]

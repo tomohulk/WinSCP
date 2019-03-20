@@ -3,6 +3,7 @@ function Copy-WinSCPItem {
     [CmdletBinding(
         ConfirmImpact = "Medium",
         HelpUri = "https://github.com/dotps1/WinSCP/wiki/Copy-WinSCPItem",
+        PositionalBinding = $false,
         SupportsShouldProcess = $true
     )]
     [OutputType(
@@ -33,7 +34,9 @@ function Copy-WinSCPItem {
         [String[]]
         $Path,
 
-        [Parameter()]
+        [Parameter(
+            Position = 1
+        )]
         [String]
         $Destination = $WinSCPSession.HomePath,
 

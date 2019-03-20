@@ -3,6 +3,7 @@
     [CmdletBinding(
         ConfirmImpact = "Low",
         HelpUri = "https://github.com/dotps1/WinSCP/wiki/New-WinSCPSession",
+        PositionalBinding = $false,
         SupportsShouldProcess = $true
     )]
     [OutputType(
@@ -12,7 +13,6 @@
     param (
         [Parameter(
             Mandatory = $true,
-            Position = 0,
             ValueFromPipeline = $true,
             ValueFromPipelineByPropertyName = $true
         )]

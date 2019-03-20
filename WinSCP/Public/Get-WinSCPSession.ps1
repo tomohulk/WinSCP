@@ -1,7 +1,9 @@
 function Get-WinSCPSession {
 
     [CmdletBinding(
-        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Get-WinSCPSession"
+        ConfirmImpact = "Low",
+        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Get-WinSCPSession",
+        PositionalBinding = $false
     )]
     [OutputType(
         [WinSCP.Session]
