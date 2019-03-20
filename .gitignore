@@ -2,5 +2,5 @@
 winscp.ini
 .DS_Store
 
-VSCode files to ignore:
+# VSCode files to ignore:
 .vscode

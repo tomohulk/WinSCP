@@ -1066,9 +1066,25 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Get-WinSCPItemCecksum -Path /TestDoc.txt -Algorithm MD5
+174
+102
+29
+8
+209
+202
+21
+118
+166
+239
+203
+130
+183
+188
+80
+47</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para></maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -1266,9 +1282,16 @@ True        00:01:00 ftp.dotps1.github.io</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>PS C:\&gt; Invoke-WinSCPCommand -Command "HASH ./TestDoc.txt"
+
+
+Output      : 213 MD5 ae661d08d1ca1576a6efcb82b7bc502f
+ErrorOutput :
+ExitCode    : 0
+Failures    : {}
+IsSuccess   : True</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para></maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>

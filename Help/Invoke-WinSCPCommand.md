@@ -23,10 +23,15 @@ Executes command on the remote server.
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
-```
+PS C:\> Invoke-WinSCPCommand -Command "HASH ./TestDoc.txt"
 
-{{ Add example description here }}
+
+Output      : 213 MD5 ae661d08d1ca1576a6efcb82b7bc502f
+ErrorOutput :
+ExitCode    : 0
+Failures    : {}
+IsSuccess   : True
+```
 
 ## PARAMETERS
 

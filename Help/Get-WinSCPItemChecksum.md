@@ -23,10 +23,24 @@ Calculates a checksum of a remote file.
 
 ### Example 1
 ```
-PS C:\> {{ Add example code here }}
+PS C:\> Get-WinSCPItemCecksum -Path /TestDoc.txt -Algorithm MD5
+174
+102
+29
+8
+209
+202
+21
+118
+166
+239
+203
+130
+183
+188
+80
+47
 ```
-
-{{ Add example description here }}
 
 ## PARAMETERS
 
