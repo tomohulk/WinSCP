@@ -1,9 +1,10 @@
 ﻿function Start-WinSCPConsole {
 
     [CmdletBinding(
-        ConfirmImpact = "None",
+        ConfirmImpact = "Medium",
         HelpUri = "https://github.com/dotps1/WinSCP/wiki/Start-WinSCPConsole",
-        PositionalBinding = $false
+        PositionalBinding = $false,
+        SupportsShouldProcess = $true
     )]
     [OutputType(
         [Void]
@@ -14,5 +15,11 @@
     $process = "$PSScriptRoot\..\bin\WinSCP.exe"
     $args = "/Console"
 
-    Start-Process -FilePath $process -ArgumentList $args -Wait
+    $shouldProcess = $PSCmdlet.ShouldProcess(
+        $process
+    )
+
+    if ($shouldProcess) {
+        Start-Process -FilePath $process -ArgumentList $args -Wait
+    }
 }
