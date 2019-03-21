@@ -34,6 +34,7 @@ Install-Module -Name WinSCP
 ## WinSCP Cmdlets
 
 * [ConvertTo-WinSCPEscapedString](https://github.com/dotps1/WinSCP/wiki/ConvertTo-WinSCPEscapedString)
+* [Copy-WInSCPItem](https://github.com/dotps1/WinSCP/wiki/Copy-WinSCPItem)
 * [Get-WinSCPChildItem](https://github.com/dotps1/WinSCP/wiki/Get-WinSCPChildItem)
 * [Get-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Get-WinSCPItem)
 * [Get-WinSCPFileChecksum](https://github.com/dotps1/WinSCP/wiki/Get-WinSCPItemChecksum)
@@ -58,8 +59,6 @@ Install-Module -Name WinSCP
 
 
 ## Examples
-
-Example 1:
 
 ```PowerShell
 # Capture credentials.
