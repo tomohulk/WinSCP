@@ -15,6 +15,9 @@ The goal of this project was to create a feeling of using native PowerShell comm
 ### [ConvertTo-WinSCPEscapedString](ConvertTo-WinSCPEscapedString.md)
 Converts special characters in file path to make it unambiguous file mask/wildcard.
 
+### [Copy-WinSCPItem](Copy-WinSCPItem.md)
+Duplicates remote file to another remote directory or name.
+
 ### [Get-WinSCPChildItem](Get-WinSCPChildItem.md)
 Recursively enumerates remote files.
 

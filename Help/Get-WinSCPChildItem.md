@@ -203,5 +203,5 @@ This mimics the functionality of Get-ChildItem.
 
 ## RELATED LINKS
 
-[WinSCP reference:](https://winscp.net/eng/docs/library_session_enumerateremotefiles)
+[WinSCP reference](https://winscp.net/eng/docs/library_session_enumerateremotefiles)
 

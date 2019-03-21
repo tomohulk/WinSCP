@@ -107,5 +107,5 @@ System.String\[\]
 
 ## RELATED LINKS
 
-[WinSCP reference:](https://winscp.net/eng/docs/library_session_calculatefilechecksum)
+[WinSCP reference](https://winscp.net/eng/docs/library_session_calculatefilechecksum)
 

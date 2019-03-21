@@ -151,5 +151,5 @@ System.String[]
 
 ## RELATED LINKS
 
-[WinSCP reference:](https://winscp.net/eng/docs/library_session_duplicatefile)
+[WinSCP reference](https://winscp.net/eng/docs/library_session_duplicatefile)
 

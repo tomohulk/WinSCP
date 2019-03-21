@@ -105,5 +105,5 @@ System.String\[\]
 
 ## RELATED LINKS
 
-[WinSCP reference:](https://winscp.net/eng/docs/library_session_removefiles)
+[WinSCP reference](https://winscp.net/eng/docs/library_session_removefiles)
 

@@ -111,7 +111,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
         <maml:uri>https://github.com/dotps1/WinSCP/wiki/ConvertTo-WinSCPEscapedString</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
-        <maml:linkText>WinSCP reference:</maml:linkText>
+        <maml:linkText>WinSCP reference</maml:linkText>
         <maml:uri>https://winscp.net/eng/docs/library_session_escapefilemask</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -339,7 +339,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
         <maml:uri>https://github.com/dotps1/WinSCP/wiki/Copy-WinSCPItem</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
-        <maml:linkText>WinSCP reference:</maml:linkText>
+        <maml:linkText>WinSCP reference</maml:linkText>
         <maml:uri>https://winscp.net/eng/docs/library_session_duplicatefile</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -628,7 +628,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
         <maml:uri>https://github.com/dotps1/WinSCP/wiki/Get-WinSCPChildItem</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
-        <maml:linkText>WinSCP reference:</maml:linkText>
+        <maml:linkText>WinSCP reference</maml:linkText>
         <maml:uri>https://winscp.net/eng/docs/library_session_enumerateremotefiles</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -773,7 +773,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
         <maml:uri>https://github.com/dotps1/WinSCP/wiki/Get-WinSCPServerPublicKeyFingerprint</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
-        <maml:linkText>WinSCP reference:</maml:linkText>
+        <maml:linkText>WinSCP reference</maml:linkText>
         <maml:uri>https://winscp.net/eng/docs/library_session_scanfingerprint</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -942,7 +942,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
         <maml:uri>https://github.com/dotps1/WinSCP/wiki/Get-WinSCPItem</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
-        <maml:linkText>WinSCP reference:</maml:linkText>
+        <maml:linkText>WinSCP reference</maml:linkText>
         <maml:uri>https://winscp.net/eng/docs/library_session_getfileinfo</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -1094,7 +1094,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
         <maml:uri>https://github.com/dotps1/WinSCP/wiki/Get-WinSCPItemChecksum</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
-        <maml:linkText>WinSCP reference:</maml:linkText>
+        <maml:linkText>WinSCP reference</maml:linkText>
         <maml:uri>https://winscp.net/eng/docs/library_session_calculatefilechecksum</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -1301,7 +1301,7 @@ IsSuccess   : True</dev:code>
         <maml:uri>https://github.com/dotps1/WinSCP/wiki/Invoke-WinSCPCommand</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
-        <maml:linkText>WinSCP reference:</maml:linkText>
+        <maml:linkText>WinSCP reference</maml:linkText>
         <maml:uri>https://winscp.net/eng/docs/library_session_executecommand</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -1555,7 +1555,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
         <maml:uri>https://github.com/dotps1/WinSCP/wiki/Move-WinSCPItem</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
-        <maml:linkText>WinSCP reference:</maml:linkText>
+        <maml:linkText>WinSCP reference</maml:linkText>
         <maml:uri>https://winscp.net/eng/docs/library_session_movefile</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -2360,7 +2360,7 @@ SetUid       : False</dev:code>
         <maml:uri>https://github.com/dotps1/WinSCP/wiki/New-WinSCPItemPermission</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
-        <maml:linkText>WinSCP reference:</maml:linkText>
+        <maml:linkText>WinSCP reference</maml:linkText>
         <maml:uri>https://winscp.net/eng/docs/library_filepermissions</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -2656,7 +2656,7 @@ True        00:01:00 ftp.dotps1.github.io</dev:code>
         <maml:uri>https://github.com/dotps1/WinSCP/wiki/New-WinSCPSession</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
-        <maml:linkText>WinSCP reference:</maml:linkText>
+        <maml:linkText>WinSCP reference</maml:linkText>
         <maml:uri>https://winscp.net/eng/docs/library_session_open</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -3242,7 +3242,7 @@ TlsClientCertificatePath                     :</dev:code>
         <maml:uri>https://github.com/dotps1/WinSCP/wiki/New-WinSCPSessionOption</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
-        <maml:linkText>WinSCP reference:</maml:linkText>
+        <maml:linkText>WinSCP reference</maml:linkText>
         <maml:uri>https://winscp.net/eng/docs/library_sessionoptions</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -3555,7 +3555,7 @@ OverwriteMode     : Overwrite</dev:code>
         <maml:uri>https://github.com/dotps1/WinSCP/wiki/New-WinSCPTransferOption</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
-        <maml:linkText>WinSCP reference:</maml:linkText>
+        <maml:linkText>WinSCP reference</maml:linkText>
         <maml:uri>https://winscp.net/eng/docs/library_transferoptions</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -3723,7 +3723,7 @@ Default</dev:code>
         <maml:uri>https://github.com/dotps1/WinSCP/wiki/New-WinSCPTransferResumeSupport</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
-        <maml:linkText>WinSCP reference:</maml:linkText>
+        <maml:linkText>WinSCP reference</maml:linkText>
         <maml:uri>https://winscp.net/eng/docs/library_transferresumesupport</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -3937,7 +3937,7 @@ True      NewWinSCPItem.txt</dev:code>
         <maml:uri>https://github.com/dotps1/WinSCP/wiki/Receive-WinSCPItem</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
-        <maml:linkText>WinSCP reference:</maml:linkText>
+        <maml:linkText>WinSCP reference</maml:linkText>
         <maml:uri>https://winscp.net/eng/docs/library_session_getfiles</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -4095,7 +4095,7 @@ True      NewWinSCPItem.txt</dev:code>
         <maml:uri>https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPItem</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
-        <maml:linkText>WinSCP reference:</maml:linkText>
+        <maml:linkText>WinSCP reference</maml:linkText>
         <maml:uri>https://winscp.net/eng/docs/library_session_removefiles</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -4229,7 +4229,7 @@ True      NewWinSCPItem.txt</dev:code>
         <maml:uri>https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPSession</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
-        <maml:linkText>WinSCP reference:</maml:linkText>
+        <maml:linkText>WinSCP reference</maml:linkText>
         <maml:uri>https://winscp.net/eng/docs/library_session_close</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -4412,7 +4412,7 @@ Mode                  LastWriteTime     Length Name
         <maml:uri>https://github.com/dotps1/WinSCP/wiki/Rename-WinSCPItem</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
-        <maml:linkText>WinSCP reference:</maml:linkText>
+        <maml:linkText>WinSCP reference</maml:linkText>
         <maml:uri>https://winscp.net/eng/docs/library_session_movefile</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -4627,7 +4627,7 @@ True      NewItem.txt</dev:code>
         <maml:uri>https://github.com/dotps1/WinSCP/wiki/Send-WinSCPItem</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
-        <maml:linkText>WinSCP reference:</maml:linkText>
+        <maml:linkText>WinSCP reference</maml:linkText>
         <maml:uri>https://winscp.net/eng/docs/library_session_putfiles</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -4690,7 +4690,7 @@ True      NewItem.txt</dev:code>
         <maml:uri>https://github.com/dotps1/WinSCP/wiki/Start-WinSCPConsole</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
-        <maml:linkText>WinSCP reference:</maml:linkText>
+        <maml:linkText>WinSCP reference</maml:linkText>
         <maml:uri>https://winscp.net/eng/docs/commandline#scripting</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -4976,7 +4976,7 @@ IsSuccess : True</dev:code>
         <maml:uri>https://github.com/dotps1/WinSCP/wiki/Sync-WinSCPPath</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
-        <maml:linkText>WinSCP reference:</maml:linkText>
+        <maml:linkText>WinSCP reference</maml:linkText>
         <maml:uri>https://winscp.net/eng/docs/library_session_synchronizedirectories</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -5089,7 +5089,7 @@ True</dev:code>
         <maml:uri>https://github.com/dotps1/WinSCP/wiki/Test-WinSCPPath</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
-        <maml:linkText>WinSCP reference:</maml:linkText>
+        <maml:linkText>WinSCP reference</maml:linkText>
         <maml:uri>https://winscp.net/eng/docs/library_session_fileexists</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>

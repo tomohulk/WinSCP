@@ -176,5 +176,5 @@ The name must be included or the target page has to end with a slash.
 
 ## RELATED LINKS
 
-[WinSCP reference:](https://winscp.net/eng/docs/library_session_movefile)
+[WinSCP reference](https://winscp.net/eng/docs/library_session_movefile)
 

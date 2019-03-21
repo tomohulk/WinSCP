@@ -111,5 +111,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[WinSCP reference:](https://winscp.net/eng/docs/library_transferresumesupport)
+[WinSCP reference](https://winscp.net/eng/docs/library_transferresumesupport)
 
