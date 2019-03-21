@@ -19,16 +19,10 @@
         $FileMask
     )
 
-    begin {
-        $session = New-Object -TypeName WinSCP.Session -Property @{
-            ExecutablePath = "$PSScriptRoot\..\bin\winscp.exe"
-        }
-    }
-
     process {
         foreach ($fileMaskValue in $FileMask) {
             try {
-                $output = $session.EscapeFileMask(
+                $output = [WinSCP.RemotePath]::EscapeFileMask(
                     $fileMaskValue
                 )
 
@@ -40,9 +34,5 @@
                 continue
             }
         }
-    }
-
-    end {
-        $session.Dispose()
     }
 }

@@ -78,7 +78,7 @@ New-WinSCPItem -Path './remoteDirectory' -ItemType Directory
 # Upload a file to the directory.
 Send-WinSCPItem -Path 'C:\localDirectory\localFile.txt' -Destination '/remoteDirectory/'
 
-# Close the session object.
+# Close and remove the session object.
 Remove-WinSCPSession
 ```
 
