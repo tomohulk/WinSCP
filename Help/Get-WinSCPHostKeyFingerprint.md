@@ -24,7 +24,7 @@ Scans a fingerprint of SSH server public key (host key) or FTPS/WebDAVS TLS cert
 ### EXAMPLE 1
 ```
 PS C:\> $sessionOption = New-WinSCPSessionOption -HostName ftp.dotps1.github.io
-PS C:\> $sshHostKeyFingerprint = Get-WinSCPHostKeyFingerprint -SessionOption $sessionOption
+PS C:\> $sshHostKeyFingerprint = Get-WinSCPHostKeyFingerprint -SessionOption $sessionOption -Algorithm SHA-256
 PS C:\> $sessionOption.SshHostKeyFingerprint = $sshHostKeyFingerprint
 PS C:\> New-WinSCPSession -SessionOption $sessionOption
 
