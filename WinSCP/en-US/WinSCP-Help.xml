@@ -733,7 +733,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; $sessionOption = New-WinSCPSessionOption -HostName ftp.dotps1.github.io
-PS C:\&gt; $sshHostKeyFingerprint = Get-WinSCPHostKeyFingerprint -SessionOption $sessionOption
+PS C:\&gt; $sshHostKeyFingerprint = Get-WinSCPHostKeyFingerprint -SessionOption $sessionOption -Algorithm SHA-256
 PS C:\&gt; $sessionOption.SshHostKeyFingerprint = $sshHostKeyFingerprint
 PS C:\&gt; New-WinSCPSession -SessionOption $sessionOption
 
