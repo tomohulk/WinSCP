@@ -162,7 +162,7 @@ PrivateData = @{
         )
 
         # A URL to the license for this module.
-        LicenseUri = "https://raw.githubusercontent.com/dotps1/WinSCP/master/LICENSE.md"
+        LicenseUri = "https://raw.githubusercontent.com/dotps1/WinSCP/master/LICENSE"
 
         # A URL to the main website for this project.
         ProjectUri = "https://github.com/dotps1/WinSCP"
