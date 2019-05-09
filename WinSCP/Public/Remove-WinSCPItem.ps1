@@ -32,23 +32,14 @@
             ValueFromPipelineByPropertyName = $true
         )]
         [String[]]
-        $Path,
-
-        [Parameter()]
-        [Switch]
-        $Force
+        $Path
     )
 
     process {
         foreach ($pathValue in ( Format-WinSCPPathString -Path $Path )) {
-            if ($Force.IsPresent) {
-                $cmdletShouldProcess = $true
-            } else {
-                $cmdletShouldProcess = $PSCmdlet.ShouldProcess(
-                    $pathValue
-                )
-            }
-            
+            $cmdletShouldProcess = $PSCmdlet.ShouldProcess(
+                $pathValue
+            )
             if ($cmdletShouldProcess) {
                 try {
                     $result = $WinSCPSession.RemoveFiles(
