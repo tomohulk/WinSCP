@@ -250,7 +250,7 @@ Accept wildcard characters: False
 ```
 
 ### -SecurePrivateKeyPassphrase
-{{Fill SecurePrivateKeyPassphrase Description}}
+Encrypted passphrase for encrypted private keys and client certificates.
 
 ```yaml
 Type: SecureString

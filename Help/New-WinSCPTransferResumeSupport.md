@@ -49,7 +49,7 @@ Accept wildcard characters: False
 ```
 
 ### -State
-{{Fill State Description}}
+Sets what files will be transferred with resume support/to temporary filename. Use TransferResumeSupportState.Default for built-in default (currently all files above 100 KB), TransferResumeSupportState.On for all files, TransferResumeSupportState.Off for no file (turn off) or TransferResumeSupportState.Smart.
 
 ```yaml
 Type: TransferResumeSupportState

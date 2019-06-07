@@ -55,7 +55,7 @@ PS C:\> Remove-WinSCPSession
 ## PARAMETERS
 
 ### -FileMask
-File path to convert.
+See WinSCP Documentation for filemasks and usages: https://winscp.net/eng/docs/file_mask.
 
 ```yaml
 Type: String[]

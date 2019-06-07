@@ -18,7 +18,7 @@
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="none">
           <maml:name>FileMask</maml:name>
           <maml:Description>
-            <maml:para>File path to convert.</maml:para>
+            <maml:para>See WinSCP Documentation for filemasks and usages: https://winscp.net/eng/docs/file_mask.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
@@ -33,7 +33,7 @@
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="none">
         <maml:name>FileMask</maml:name>
         <maml:Description>
-          <maml:para>File path to convert.</maml:para>
+          <maml:para>See WinSCP Documentation for filemasks and usages: https://winscp.net/eng/docs/file_mask.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
@@ -808,7 +808,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Filter</maml:name>
           <maml:Description>
-            <maml:para>@{Text=}</maml:para>
+            <maml:para>Windows wildcard to filter files. To select all files, use null.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -835,7 +835,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Filter</maml:name>
         <maml:Description>
-          <maml:para>@{Text=}</maml:para>
+          <maml:para>Windows wildcard to filter files. To select all files, use null.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -2812,7 +2812,7 @@ True        00:01:00 ftp.dotps1.github.io</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>SecurePrivateKeyPassphrase</maml:name>
           <maml:Description>
-            <maml:para>{{Fill SecurePrivateKeyPassphrase Description}}</maml:para>
+            <maml:para>Encrypted passphrase for encrypted private keys and client certificates.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">SecureString</command:parameterValue>
           <dev:type>
@@ -3041,7 +3041,7 @@ True        00:01:00 ftp.dotps1.github.io</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>SecurePrivateKeyPassphrase</maml:name>
         <maml:Description>
-          <maml:para>{{Fill SecurePrivateKeyPassphrase Description}}</maml:para>
+          <maml:para>Encrypted passphrase for encrypted private keys and client certificates.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">SecureString</command:parameterValue>
         <dev:type>
@@ -3276,7 +3276,7 @@ TlsClientCertificatePath                     :</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>FileMask</maml:name>
           <maml:Description>
-            <maml:para>@{Text=}</maml:para>
+            <maml:para>See WinSCP Documentation for filemasks and usages: https://winscp.net/eng/docs/file_mask.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -3329,7 +3329,7 @@ TlsClientCertificatePath                     :</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ResumeSupport</maml:name>
           <maml:Description>
-            <maml:para>{{ Fill ResumeSupport Description }}</maml:para>
+            <maml:para>Configures automatic resume/transfer to temporary filename.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">TransferResumeSupport</command:parameterValue>
           <dev:type>
@@ -3396,7 +3396,7 @@ TlsClientCertificatePath                     :</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>FileMask</maml:name>
         <maml:Description>
-          <maml:para>@{Text=}</maml:para>
+          <maml:para>See WinSCP Documentation for filemasks and usages: https://winscp.net/eng/docs/file_mask.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -3444,7 +3444,7 @@ TlsClientCertificatePath                     :</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>ResumeSupport</maml:name>
         <maml:Description>
-          <maml:para>{{ Fill ResumeSupport Description }}</maml:para>
+          <maml:para>Configures automatic resume/transfer to temporary filename.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">TransferResumeSupport</command:parameterValue>
         <dev:type>
@@ -3589,7 +3589,7 @@ OverwriteMode     : Overwrite</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>State</maml:name>
           <maml:Description>
-            <maml:para>{{Fill State Description}}</maml:para>
+            <maml:para>Sets what files will be transferred with resume support/to temporary filename. Use TransferResumeSupportState.Default for built-in default (currently all files above 100 KB), TransferResumeSupportState.On for all files, TransferResumeSupportState.Off for no file (turn off) or TransferResumeSupportState.Smart.</maml:para>
           </maml:Description>
           <command:parameterValueGroup>
             <command:parameterValue required="false" command:variableLength="false">Default</command:parameterValue>
@@ -3645,7 +3645,7 @@ OverwriteMode     : Overwrite</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>State</maml:name>
         <maml:Description>
-          <maml:para>{{Fill State Description}}</maml:para>
+          <maml:para>Sets what files will be transferred with resume support/to temporary filename. Use TransferResumeSupportState.Default for built-in default (currently all files above 100 KB), TransferResumeSupportState.On for all files, TransferResumeSupportState.Off for no file (turn off) or TransferResumeSupportState.Smart.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">TransferResumeSupportState</command:parameterValue>
         <dev:type>

@@ -60,7 +60,8 @@ PS C:\> Remove-WinSCPSession
 ## PARAMETERS
 
 ### -Filter
-@{Text=}
+Windows wildcard to filter files.
+To select all files, use null.
 
 ```yaml
 Type: String

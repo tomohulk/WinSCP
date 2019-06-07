@@ -69,7 +69,7 @@ Accept wildcard characters: False
 ```
 
 ### -FileMask
-@{Text=}
+See WinSCP Documentation for filemasks and usages: https://winscp.net/eng/docs/file_mask.
 
 ```yaml
 Type: String
@@ -138,7 +138,7 @@ Accept wildcard characters: False
 ```
 
 ### -ResumeSupport
-{{ Fill ResumeSupport Description }}
+Configures automatic resume/transfer to temporary filename.
 
 ```yaml
 Type: TransferResumeSupport
