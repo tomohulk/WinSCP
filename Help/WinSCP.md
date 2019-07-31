@@ -2,7 +2,7 @@
 Module Name: WinSCP
 Module Guid: 06e0af4e-779b-48f4-939f-c90b8ec950e6
 Download Help Link: https://github.com/dotps1/winscp/wiki.git
-Help Version: 5.13.1
+Help Version: 5.15.2.0
 Locale: en-US
 ---
 
@@ -25,7 +25,7 @@ Recursively enumerates remote files.
 Scans a fingerprint of SSH server public key (host key) or FTPS/WebDAVS TLS certificate.
 
 ### [Get-WinSCPItem](Get-WinSCPItem.md)
-Recursively enumerates remote files.
+Retrieves information about remote file.
 
 ### [Get-WinSCPItemChecksum](Get-WinSCPItemChecksum.md)
 Calculates a checksum of a remote file.
