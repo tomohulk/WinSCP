@@ -784,11 +784,11 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
       <command:verb>Get</command:verb>
       <command:noun>WinSCPItem</command:noun>
       <maml:description>
-        <maml:para>Recursively enumerates remote files.</maml:para>
+        <maml:para>Retrieves information about remote file.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Recursively enumerates remote files.</maml:para>
+      <maml:para>Retrieves information about remote file.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
