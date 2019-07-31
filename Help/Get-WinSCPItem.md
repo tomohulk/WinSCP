@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-WinSCPItem
 
 ## SYNOPSIS
-Recursively enumerates remote files.
+Retrieves information about remote file.
 
 ## SYNTAX
 
@@ -17,7 +17,7 @@ Get-WinSCPItem -WinSCPSession <Session> [-Path] <String[]> [-Filter <String>] [<
 ```
 
 ## DESCRIPTION
-Recursively enumerates remote files.
+Retrieves information about remote file.
 
 ## EXAMPLES
 
