@@ -133,7 +133,7 @@ function New-WinSCPSessionOption {
         )
         if ($sshPrivateKeyPathUsed) {
             $PSBoundParameters.SshPrivateKeyPath = Resolve-Path -Path $SshPrivateKeyPath |
-                Select-Object -ExpandProperty Path
+                Select-Object -ExpandProperty ProviderPath
         }
 
         $tlsClientCertificatePathUsed = $PSBoundParameters.ContainsKey(
@@ -141,7 +141,7 @@ function New-WinSCPSessionOption {
         )
         if ($tlsClientCertificatePathUsed) {
             $PSBoundParameters.TlsClientCertificatePath = Resolve-Path -Path $TlsClientCertificatePath |
-                Select-Object -ExpandProperty Path
+                Select-Object -ExpandProperty ProviderPath
         }
 
         # Enumerate each parameter.
