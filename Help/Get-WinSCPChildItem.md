@@ -48,7 +48,7 @@ Opened       Timeout HostName
 True        00:01:00 ftp.dotps1.github.io
 
 
-PS C:\> Get-WinChildItem -File
+PS C:\> Get-WinSCPChildItem -File
 
 
    Directory: ./
