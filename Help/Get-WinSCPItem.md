@@ -17,7 +17,7 @@ Get-WinSCPItem -WinSCPSession <Session> [-Path] <String[]> [-Filter <String>] [<
 ```
 
 ## DESCRIPTION
-Retrieves information about remote file.s
+Retrieves information about remote file.
 
 ## EXAMPLES
 
