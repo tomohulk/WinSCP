@@ -788,7 +788,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Retrieves information about remote file.s</maml:para>
+      <maml:para>Retrieves information about remote file.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
