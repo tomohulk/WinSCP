@@ -177,7 +177,7 @@ PrivateData = @{
 } # End of PrivateData hashtable
 
 # HelpInfo URI of this module
-HelpInfoURI = "https://raw.githubusercontent.com/dotps1/WinSCP/master/en-US/WinSCP-Help.xml"
+HelpInfoURI = "https://github.com/dotps1/WinSCP/Help"
 
 # Default prefix for commands exported from this module. Override the default prefix using Import-Module -Prefix.
 # DefaultCommandPrefix = "WinSCP"
