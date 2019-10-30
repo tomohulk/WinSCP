@@ -605,7 +605,7 @@ Opened       Timeout HostName
 True        00:01:00 ftp.dotps1.github.io
 
 
-PS C:\&gt; Get-WinChildItem -File
+PS C:\&gt; Get-WinSCPChildItem -File
 
 
    Directory: ./
@@ -784,11 +784,11 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
       <command:verb>Get</command:verb>
       <command:noun>WinSCPItem</command:noun>
       <maml:description>
-        <maml:para>Retrieves information about remote file.</maml:para>
+        <maml:para>Retrieves information about remote files.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Retrieves information about remote file.s</maml:para>
+      <maml:para>Retrieves information about remote files</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>

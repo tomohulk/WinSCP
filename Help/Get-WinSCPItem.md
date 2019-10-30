@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-WinSCPItem
 
 ## SYNOPSIS
-Retrieves information about remote file.
+Retrieves information about remote files.
 
 ## SYNTAX
 
@@ -17,7 +17,7 @@ Get-WinSCPItem -WinSCPSession <Session> [-Path] <String[]> [-Filter <String>] [<
 ```
 
 ## DESCRIPTION
-Retrieves information about remote file.s
+Retrieves information about remote files
 
 ## EXAMPLES
 
