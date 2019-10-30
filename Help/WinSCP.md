@@ -1,7 +1,7 @@
 ---
 Module Name: WinSCP
 Module Guid: 06e0af4e-779b-48f4-939f-c90b8ec950e6
-Download Help Link: https://github.com/dotps1/WinSCP/tree/master/Help
+Download Help Link: https://github.com/dotps1/WinSCP
 Help Version: 5.15.5
 Locale: en-US
 ---
