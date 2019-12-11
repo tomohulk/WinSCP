@@ -2781,7 +2781,7 @@ True        00:01:00 ftp.dotps1.github.io</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Protocol</maml:name>
           <maml:Description>
-            <maml:para>Protocol to use for the session. Protocol to use for the session. Possible values are Protocol.Sftp (default), Protocol.Scp, Protocol.Ftp, Protocol.Webdav and Protocol.S3.</maml:para>
+            <maml:para>Protocol to use for the session. Possible values are Protocol.Sftp (default), Protocol.Scp, Protocol.Ftp, Protocol.Webdav and Protocol.S3.</maml:para>
           </maml:Description>
           <command:parameterValueGroup>
             <command:parameterValue required="false" command:variableLength="false">Sftp</command:parameterValue>
@@ -3017,7 +3017,7 @@ True        00:01:00 ftp.dotps1.github.io</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Protocol</maml:name>
         <maml:Description>
-          <maml:para>Protocol to use for the session. Protocol to use for the session. Possible values are Protocol.Sftp (default), Protocol.Scp, Protocol.Ftp, Protocol.Webdav and Protocol.S3.</maml:para>
+          <maml:para>Protocol to use for the session. Possible values are Protocol.Sftp (default), Protocol.Scp, Protocol.Ftp, Protocol.Webdav and Protocol.S3.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Protocol</command:parameterValue>
         <dev:type>

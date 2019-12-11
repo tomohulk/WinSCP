@@ -219,7 +219,7 @@ Accept wildcard characters: False
 
 ### -Protocol
 Protocol to use for the session.
-Protocol to use for the session. Possible values are Protocol.Sftp (default), Protocol.Scp, Protocol.Ftp, Protocol.Webdav and Protocol.S3.
+Possible values are Protocol.Sftp (default), Protocol.Scp, Protocol.Ftp, Protocol.Webdav and Protocol.S3.
 
 ```yaml
 Type: Protocol
