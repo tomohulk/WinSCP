@@ -13,13 +13,13 @@
     param()
 
     $process = "$PSScriptRoot\..\bin\WinSCP.exe"
-    $args = "/Console"
+    $arguments = "/Console"
 
     $shouldProcess = $PSCmdlet.ShouldProcess(
         $process
     )
 
     if ($shouldProcess) {
-        Start-Process -FilePath $process -ArgumentList $args -Wait
+        Start-Process -FilePath $process -ArgumentList $arguments -Wait
     }
 }

@@ -112,63 +112,67 @@ function New-WinSCPSessionOption {
         $RawSetting
     )
 
-    $sessionOptions = New-Object -TypeName WinSCP.SessionOptions
+    begin {
+        $sessionOptions = New-Object -TypeName WinSCP.SessionOptions
+    }
 
-    $shouldProcess = $PSCmdlet.ShouldProcess(
-        $sessionOptions
-    )
-    if ($shouldProcess) {
-        # Convert PSCredential Object to match names of the WinSCP.SessionOptions Object.
-        # Remove the parameter "Credential", that is not a valid property of the WinSCP.SessionObject.
-        $PSBoundParameters.Add(
-            "UserName", $Credential.UserName
+    process {
+        $shouldProcess = $PSCmdlet.ShouldProcess(
+            $sessionOptions
         )
-        $PSBoundParameters.Add(
-            "SecurePassword", $Credential.Password
-        )
+        if ($shouldProcess) {
+            # Convert PSCredential Object to match names of the WinSCP.SessionOptions Object.
+            # Remove the parameter "Credential", that is not a valid property of the WinSCP.SessionObject.
+            $PSBoundParameters.Add(
+                "UserName", $Credential.UserName
+            )
+            $PSBoundParameters.Add(
+                "SecurePassword", $Credential.Password
+            )
 
-        # Resolve Full Path, WinSCP.exe does not like dot sourced path for the Certificate.
-        $sshPrivateKeyPathUsed = $PSBoundParameters.ContainsKey(
-            "SshPrivateKeyPath"
-        )
-        if ($sshPrivateKeyPathUsed) {
-            $PSBoundParameters.SshPrivateKeyPath = Resolve-Path -Path $SshPrivateKeyPath |
-                Select-Object -ExpandProperty ProviderPath
-        }
-
-        $tlsClientCertificatePathUsed = $PSBoundParameters.ContainsKey(
-            "TlsClientCertificatePath"
-        )
-        if ($tlsClientCertificatePathUsed) {
-            $PSBoundParameters.TlsClientCertificatePath = Resolve-Path -Path $TlsClientCertificatePath |
-                Select-Object -ExpandProperty ProviderPath
-        }
-
-        # Enumerate each parameter.
-        try {
-            $sessionOptionObjectProperties = $sessionOptions |
-                Get-Member -MemberType Property |
-                    Select-Object -ExpandProperty Name
-            $keys = ($PSBoundParameters.Keys).Where({
-                $_ -in $sessionOptionObjectProperties
-            })
-
-            foreach ($key in $keys) {
-                $sessionOptions.$key = $PSBoundParameters.$key
+            # Resolve Full Path, WinSCP.exe does not like dot sourced path for the Certificate.
+            $sshPrivateKeyPathUsed = $PSBoundParameters.ContainsKey(
+                "SshPrivateKeyPath"
+            )
+            if ($sshPrivateKeyPathUsed) {
+                $PSBoundParameters.SshPrivateKeyPath = Resolve-Path -Path $SshPrivateKeyPath |
+                    Select-Object -ExpandProperty ProviderPath
             }
-        } catch {
-            $PSCmdlet.ThrowTerminatingError(
-                $_
-            )
-        }
 
-        # Enumerate raw settings and add the options to the WinSCP.SessionOptions object.
-        foreach ($key in $RawSetting.Keys) {
-            $sessionOptions.AddRawSettings(
-                $key, $RawSetting[$key]
+            $tlsClientCertificatePathUsed = $PSBoundParameters.ContainsKey(
+                "TlsClientCertificatePath"
             )
-        }
+            if ($tlsClientCertificatePathUsed) {
+                $PSBoundParameters.TlsClientCertificatePath = Resolve-Path -Path $TlsClientCertificatePath |
+                    Select-Object -ExpandProperty ProviderPath
+            }
 
-        Write-Output -InputObject $sessionOptions
+            # Enumerate each parameter.
+            try {
+                $sessionOptionObjectProperties = $sessionOptions |
+                    Get-Member -MemberType Property |
+                        Select-Object -ExpandProperty Name
+                $keys = ($PSBoundParameters.Keys).Where({
+                    $_ -in $sessionOptionObjectProperties
+                })
+
+                foreach ($key in $keys) {
+                    $sessionOptions.$key = $PSBoundParameters.$key
+                }
+            } catch {
+                $PSCmdlet.ThrowTerminatingError(
+                    $_
+                )
+            }
+
+            # Enumerate raw settings and add the options to the WinSCP.SessionOptions object.
+            foreach ($key in $RawSetting.Keys) {
+                $sessionOptions.AddRawSettings(
+                    $key, $RawSetting[$key]
+                )
+            }
+
+            Write-Output -InputObject $sessionOptions
+        }
     }
 }

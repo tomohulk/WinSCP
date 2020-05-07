@@ -61,72 +61,76 @@
         $SessionLogPath = $null
     )
 
-    # Create WinSCP.Session and WinSCP.SessionOptions Objects, parameter values will be assigned to matching object properties.
-    $session = New-Object -TypeName WinSCP.Session -Property @{
-        ExecutablePath = "$PSScriptRoot\..\bin\winscp.exe"
+    begin {
+        # Create WinSCP.Session and WinSCP.SessionOptions Objects, parameter values will be assigned to matching object properties.
+        $session = New-Object -TypeName WinSCP.Session -Property @{
+            ExecutablePath = "$PSScriptRoot\..\bin\winscp.exe"
+        }
     }
 
-    $shouldProcess = $PSCmdlet.ShouldProcess(
-        $session
-    )
-    if ($shouldProcess) {
-        $executableProcessCredentialUsed = $PSBoundParameters.ContainsKey(
-            "ExecutableProcessCredential"
+    process {
+        $shouldProcess = $PSCmdlet.ShouldProcess(
+            $session
         )
-        if ($executableProcessCredentialUsed) {
-            $PSBoundParameters.Add(
-                "ExecutableProcessUserName", $ExecutableProcessCredential.UserName
+        if ($shouldProcess) {
+            $executableProcessCredentialUsed = $PSBoundParameters.ContainsKey(
+                "ExecutableProcessCredential"
             )
-            $PSBoundParameters.Add(
-                "ExecutableProcessPassword", $ExecutableProcessCredential.Password
-            )
+            if ($executableProcessCredentialUsed) {
+                $PSBoundParameters.Add(
+                    "ExecutableProcessUserName", $ExecutableProcessCredential.UserName
+                )
+                $PSBoundParameters.Add(
+                    "ExecutableProcessPassword", $ExecutableProcessCredential.Password
+                )
+            }
+
+            try {
+                # Enumerate each parameter.
+                $sessionObjectProperties = $session |
+                    Get-Member -MemberType Property |
+                        Select-Object -ExpandProperty Name
+                $keys = ($PSBoundParameters.Keys).Where({
+                    $_ -in $sessionObjectProperties
+                })
+
+                foreach ($key in $keys) {
+                    $session.$key = $PSBoundParameters.$key
+                }
+            } catch {
+                $PSCmdlet.ThrowTerminatingError(
+                    $_
+                )
+            }
         }
 
         try {
-            # Enumerate each parameter.
-            $sessionObjectProperties = $session |
-                Get-Member -MemberType Property |
-                    Select-Object -ExpandProperty Name
-            $keys = ($PSBoundParameters.Keys).Where({
-                $_ -in $sessionObjectProperties
+            # Open the WinSCP.Session object using the WinSCP.SessionOptions object.
+            $session.Open(
+                $SessionOption
+            )
+
+            # Set the default -WinSCPSession Parameter Value for other cmdlets.
+            (Get-Command -Module WinSCP -ParameterName WinSCPSession).ForEach({
+                $Global:PSDefaultParameterValues.Remove(
+                    "$($_.Name):WinSCPSession"
+                )
+                $Global:PSDefaultParameterValues.Add(
+                    "$($_.Name):WinSCPSession", $session
+                )
             })
 
-            foreach ($key in $keys) {
-                $session.$key = $PSBoundParameters.$key
-            }
+            # Append the host name to the WinSCP.Session object.
+            Add-Member -InputObject $session -NotePropertyName "HostName" -NotePropertyValue $SessionOption.HostName
+
+            # Return the WinSCP.Session object.
+            Write-Output -InputObject $session
         } catch {
-            $PSCmdlet.ThrowTerminatingError(
+            $PSCmdlet.WriteError(
                 $_
             )
+
+            $session.Dispose()
         }
-    }
-
-    try {
-        # Open the WinSCP.Session object using the WinSCP.SessionOptions object.
-        $session.Open(
-            $SessionOption
-        )
-
-        # Set the default -WinSCPSession Parameter Value for other cmdlets.
-        (Get-Command -Module WinSCP -ParameterName WinSCPSession).ForEach({
-            $Global:PSDefaultParameterValues.Remove(
-                "$($_.Name):WinSCPSession"
-            )
-            $Global:PSDefaultParameterValues.Add(
-                "$($_.Name):WinSCPSession", $session
-            )
-        })
-
-        # Append the host name to the WinSCP.Session object.
-        Add-Member -InputObject $session -NotePropertyName "HostName" -NotePropertyValue $SessionOption.HostName
-
-        # Return the WinSCP.Session object.
-        Write-Output -InputObject $session
-    } catch {
-        $PSCmdlet.WriteError(
-            $_
-        )
-
-        $session.Dispose()
     }
 }
