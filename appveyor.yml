@@ -9,8 +9,9 @@ branches:
 skip_tags: true
 only_commits:
   message: /build/
-  author: dotps1@outlook.com
-  author: thomas.malkewitz@icloud.com
+  author: 
+    - dotps1@outlook.com
+    - thomas.malkewitz@icloud.com
 skip_commits:
   files:
     README.md
