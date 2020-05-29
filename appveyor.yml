@@ -1,7 +1,7 @@
 # appveyor yml reference
 # http://www.appveyor.com/docs/appveyor-yml
 
-version: 5.17.5.{build}
+version: 5.17.6.{build}
 os: WMF 5
 branches:
   only:
