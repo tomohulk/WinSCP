@@ -8,7 +8,7 @@ try {
 
     Import-Module -Name ".\${env:APPVEYOR_PROJECT_NAME}" -Force -ErrorAction Stop
 
-    Invoke-Pester -Script ".\Tests" -OutputFormat NUnitXml -OutputFile ".\${resultsFile}" -PassThru -ErrorAction Stop |
+    Invoke-Pester -Script ".\Tests" -OutputFormat NUnitXml -OutputFile ".\${resultsFile}" -PassThru |
         Export-Clixml -Path ".\Pester${resultsFile}"
 
     (New-Object -TypeName System.Net.WebClient).UploadFile(
