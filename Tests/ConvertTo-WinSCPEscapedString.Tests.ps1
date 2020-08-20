@@ -1,7 +1,9 @@
 #requires -Modules Pester, PSScriptAnalyzer, WinSCP
 
-Get-Process -Name WinSCP -ErrorAction SilentlyContinue | 
-    Stop-Process -Force
+BeforeAll {
+    Get-Process -Name WinSCP -ErrorAction SilentlyContinue | 
+        Stop-Process -Force
+}
 
 Describe "ConvertTo-WinSCPEscapedString" {
     Context "ConvertTo-WinSCPEscapedString -FileMask `"FileNameWith*.txt`"" {
@@ -9,7 +11,7 @@ Describe "ConvertTo-WinSCPEscapedString" {
 
         It "Star in file name should be escaped." {
             $escapedString | 
-                Should BeExactly "FileNameWith[*].txt"
+                Should -BeExactly "FileNameWith[*].txt"
         }
     }
 
@@ -18,7 +20,7 @@ Describe "ConvertTo-WinSCPEscapedString" {
 
         It "Invoke-ScriptAnalyzer results of ConvertTo-WinSCPEscapedString count should be 0." {
             $results.Count | 
-                Should Be 0
+                Should -Be 0
         }
     }
 }
