@@ -2,7 +2,7 @@ $CurrentErrorActionPreference = $ErrorActionPreference
 $ErrorActionPreference = "Stop"
 
 try {
-    $is64Bit = ( Get-WmiObject -Class Win32_Processor ).AddressWidth -eq 64
+    $is64Bit = (Get-CimInstance -ClassName Win32_Processor).AddressWidth -eq 64
     $programFiles = $env:ProgramFiles
     if ($is64Bit -and $programFiles -notmatch "x86") {
         $programFiles = "$programFiles (x86)"

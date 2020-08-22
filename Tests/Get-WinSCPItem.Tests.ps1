@@ -1,104 +1,100 @@
-#Requires -Modules Pester, PSScriptAnalyzer, WinSCP
-
-Get-Process -Name WinSCP -ErrorAction SilentlyContinue | 
-    Stop-Process -Force
-
-$credential = ( New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "filezilla", ( ConvertTo-SecureString -AsPlainText "filezilla" -Force ))
-$ftp = "$env:SystemDrive\temp\ftproot"
-New-Item -Path "$ftp\TextFile.txt" -ItemType File -Value "Hello World!" -Force | 
-    Out-Null
-New-Item -Path "$ftp\SubDirectory\SubDirectoryTextFile.txt" -ItemType File -Value "Hello World!" -Force | 
-    Out-Null
+#requires -Modules Pester, PSScriptAnalyzer, WinSCP
 
 Describe "Get-WinSCPItem" {
-    $paths = @(
-        "SubDirectory",
-        "SubDirectory/",
-        "/SubDirectory",
-        "/SubDirectory/",
-        "./SubDirectory",
-        "./SubDirectory/"
-    )
-
-    foreach ($path in $paths) {
-        Context "New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp ); Get-WinSCPItem -Path `"$path`"; Remove-WinSCPSession" {
-            New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp )
-            $results = Get-WinSCPItem -Path $path
-            Remove-WinSCPSession
-
-            It "Results of Get-WinSCPItem should not be null." {
-                $results | 
-                    Should Not Be Null
-            }
-
-            It "Results of Get-WinSCPItem Count should be one." {
-                $results.Count | 
-                    Should Be 1
-            }
-
-            It "WinSCP process should not exist." {
-                Get-Process -Name WinSCP -ErrorAction SilentlyContinue | 
-                    Should BeNullOrEmpty
-            }
-        }
-    }
-
-    $files = @(
-        "TextFile.txt",
-        "TextFile.txt/",
-        "/TextFile.txt",
-        "/TextFile.txt/",
-        "./TextFile.txt",
-        "./TextFile.txt/"
-    )
-
-    foreach ($file in $files) {
-        Context "New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp ); Get-WinSCPItem -Path `"$file`"; Remove-WinSCPSession" {
-            New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp )
-            $results = Get-WinSCPItem -Path $file
-            Remove-WinSCPSession
-
-            It "Results of Get-WinSCPItem should not be null." {
-                $results | 
-                    Should Not Be Null
-            }
-
-            It "Results of Get-WinSCPItem Count should be one." {
-                $results.Count | 
-                    Should Be 1
-            }
-
-            It "WinSCP process should not exist." {
-                Get-Process -Name WinSCP -ErrorAction SilentlyContinue | 
-                    Should BeNullOrEmpty
-            }
-        }
-    }
-
-    Context "New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp ); Get-WinSCPItem -Path `"/InvalidPath`"; Remove-WinSCPSession" {
-        New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp )
-        Get-WinSCPItem -Path "/InvalidPath" -ErrorVariable e -ErrorAction SilentlyContinue
-        Remove-WinSCPSession
+    BeforeAll {
+        Get-Process -Name WinSCP -ErrorAction SilentlyContinue | 
+            Stop-Process -Force
+    
+        $credential = ( New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "filezilla", ( ConvertTo-SecureString -AsPlainText "filezilla" -Force ))
         
-        It "Results of Get-WinSCPItem should Write-Error." {            
-            $e | 
-                Should Not BeNullOrEmpty
+        $ftp = "$env:SystemDrive\temp\ftproot"
+        New-Item -Path "$ftp\TextFile.txt" -ItemType File -Value "Hello World!" -Force | 
+            Out-Null
+        New-Item -Path "$ftp\SubDirectory\SubDirectoryTextFile.txt" -ItemType File -Value "Hello World!" -Force | 
+            Out-Null
+
+        New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp )
+    }
+    
+    AfterAll {
+        Remove-WinSCPSession
+
+        Remove-Item -Path ( Join-Path -Path $ftp -ChildPath * ) -Recurse -Force -Confirm:$false
+    }
+
+    Context "Get-WinSCPItem -Path `"<Path>`"" {
+        $testCases = @(
+            @{ Path = "SubDirectory" }
+            @{ Path = "SubDirectory/" }
+            @{ Path = "/SubDirectory" }
+            @{ Path = "/SubDirectory/" }
+            @{ Path = "./SubDirectory" }
+            @{ Path = "./SubDirectory/" }
+        )
+
+        It "Results of Get-WinSCPItem -Path `"<Path>`" should not be null." -TestCases $testCases {
+            Param (
+                [String]$Path
+            )
+
+            Get-WinSCPItem -Path $Path | 
+                Should -Not -Be $null
         }
 
-        It "WinSCP process should not exist." {
-            Get-Process -Name WinSCP -ErrorAction SilentlyContinue | 
-                Should BeNullOrEmpty
+        It "Results of Get-WinSCPItem -Path `"<Path>`" Count should be one." -TestCases $testCases {
+            Param (
+                [String]$Path
+            )
+            
+            ( Get-WinSCPItem -Path $Path ).Count | 
+                Should -Be 1
+        }
+    }
+
+    Context "Get-WinSCPItem -Path `"<Path>`"" {
+        $testCases = @(
+            @{ Path = "TextFile.txt" }
+            @{ Path = "TextFile.txt/" }
+            @{ Path = "/TextFile.txt" }
+            @{ Path = "/TextFile.txt/" }
+            @{ Path = "./TextFile.txt" }
+            @{ Path = "./TextFile.txt/" }
+        )
+
+        It "Results of Get-WinSCPItem -Path `"<Path>`" should not be null." -TestCases $testCases {
+            Param (
+                [String]$Path
+            )
+
+            Get-WinSCPItem -Path $Path | 
+                Should -Not -Be $null
+        }
+
+        It "Results of Get-WinSCPItem -Path `"<Path>`" Count should be one." -TestCases $testCases {
+            ( Get-WinSCPItem -Path $Path ).Count | 
+                Should -Be 1
+        }
+    }
+
+    Context "Get-WinSCPItem -Path `"/InvalidPath`"" {
+        BeforeAll {
+            Get-WinSCPItem -Path "/InvalidPath" -ErrorVariable e -ErrorAction SilentlyContinue
+        }
+        
+        It "Results of Get-WinSCPItem -Path `"/InvalidPath`" should Write-Error." {            
+            $e | 
+                Should -Not -BeNullOrEmpty
         }
     }
 
     Context "Invoke-ScriptAnalyzer -Path `"$((Get-Module -Name WinSCP).ModuleBase)\Public\Get-WinSCPItem.ps1`"" {
-        $results = Invoke-ScriptAnalyzer -Path "$((Get-Module -Name WinSCP).ModuleBase)\Public\Get-WinSCPItem.ps1"
+        BeforeAll {
+            $results = Invoke-ScriptAnalyzer -Path "$((Get-Module -Name WinSCP).ModuleBase)\Public\Get-WinSCPItem.ps1"
+        }
 
         It "Invoke-ScriptAnalyzer results count for Get-WinSCPItem.ps1 should be 0." {
             $results.Count | 
-                Should Be 0
+                Should -Be 0
         }
     }
 }
-
-Remove-Item -Path (Join-Path -Path $ftp -ChildPath *) -Recurse -Force -Confirm:$false
