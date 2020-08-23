@@ -1,228 +1,198 @@
-#Requires -Modules Pester, PSScriptAnalyzer, WinSCP
-
-Get-Process -Name WinSCP -ErrorAction SilentlyContinue |
-    Stop-Process -Force
-
-$credential = ( New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "filezilla", ( ConvertTo-SecureString -AsPlainText "filezilla" -Force ))
-$ftp = "$env:SystemDrive\temp\ftproot"
+#requires -Modules Pester, PSScriptAnalyzer, WinSCP
 
 Describe "New-WinSCPItem" {
-    Context "New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp ); New-WinSCPItem -Path `"TestFolder`" -ItemType Directory; Remove-WinSCPSession" {
+    BeforeAll {
+        Get-Process -Name WinSCP -ErrorAction SilentlyContinue |
+            Stop-Process -Force
+    
+        $credential = ( New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "filezilla", ( ConvertTo-SecureString -AsPlainText "filezilla" -Force ))
+        $ftp = "$env:SystemDrive\temp\ftproot"
+
         New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp )
-        $results = New-WinSCPItem -Name "TestFolder" -ItemType Directory
+    }
+
+    AfterAll {
         Remove-WinSCPSession
 
-        It "Results of New-WinSCPItem should not be null." {
+        Remove-Item -Path ( Join-Path -Path $ftp -ChildPath * ) -Recurse -Force -Confirm:$false
+    }
+    
+    Context "New-WinSCPItem -Path `"TestFolder`" -ItemType Directory" {
+        BeforeAll {
+            $results = New-WinSCPItem -Name "TestFolder" -ItemType Directory
+        }
+
+        It "Results of New-WinSCPItem -Path `"TestFolder`" -ItemType Directory should not be null." {
             $results |
-                Should Not Be Null
+                Should -Not -Be $null
         }
 
-        It "Results should be of type WinSCP.RemoteFileInfo." {
+        It "Results of New-WinSCPItem -Path `"TestFolder`" -ItemType Directory should be of type WinSCP.RemoteFileInfo." {
             $results |
-                Should BeOfType WinSCP.RemoteFileInfo
+                Should -BeOfType WinSCP.RemoteFileInfo
         }
 
-        It "RemoteFileInfo should contain a fullpath property that is not null." {
-            $results.FullPath |
-                Should Not Be Null
-        }
-
-        It "WinSCP process should not exist." {
-            Get-Process -Name WinSCP -ErrorAction SilentlyContinue |
-                Should BeNullOrEmpty
+        It "RemoteFileInfo should contain a FullName property that is not null." {
+            $results.FullName |
+                Should -Not -Be $null
         }
     }
 
-    Context "New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp ); New-WinSCPItem -Path `"TestFolder`" -ItemType Directory -Force; Remove-WinSCPSession" {
-        New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp )
-        $results = New-WinSCPItem -Name "TestFolder" -ItemType Directory -Force
-        Remove-WinSCPSession
+    Context "New-WinSCPItem -Path `"TestFolder`" -ItemType Directory -Force" {
+        BeforeAll {
+            $results = New-WinSCPItem -Name "TestFolder" -ItemType Directory -Force
+        }
 
-        It "Results of New-WinSCPItem should not be null." {
+        It "Results of New-WinSCPItem -Path `"TestFolder`" -ItemType Directory -Force should not be null." {
             $results |
-                Should Not Be Null
+                Should -Not -Be $null
         }
 
-        It "Results should be of type WinSCP.RemoteFileInfo." {
+        It "Results of New-WinSCPItem -Path `"TestFolder`" -ItemType Directory -Force should be of type WinSCP.RemoteFileInfo." {
             $results |
-                Should BeOfType WinSCP.RemoteFileInfo
+                Should -BeOfType WinSCP.RemoteFileInfo
         }
 
-        It "RemoteFileInfo should contain a fullpath property that is not null." {
-            $results.FullPath |
-                Should Not Be Null
-        }
-
-        It "WinSCP process should not exist." {
-            Get-Process -Name WinSCP -ErrorAction SilentlyContinue |
-                Should BeNullOrEmpty
+        It "RemoteFileInfo should contain a FullName property that is not null." {
+            $results.FullName |
+                Should -Not -Be $null
         }
     }
 
-    Context "New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp ); New-WinSCPItem -Path `"Test.txt`" -ItemType File; Remove-WinSCPSession" {
-        New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp )
-        $results = New-WinSCPItem -Name "Test.txt" -ItemType File
-        Remove-WinSCPSession
+    Context "New-WinSCPItem -Path `"Test.txt`" -ItemType File" {
+        BeforeAll {
+            $results = New-WinSCPItem -Name "Test.txt" -ItemType File
+        }
 
-        It "Results of New-WinSCPItem should not be null." {
+        It "Results of New-WinSCPItem -Path `"Test.txt`" -ItemType File should not be null." {
             $results |
-                Should Not Be Null
+                Should -Not -Be $null
         }
 
-        It "Results should be of type WinSCP.RemoteFileInfo." {
+        It "Results of New-WinSCPItem -Path `"Test.txt`" -ItemType File should be of type WinSCP.RemoteFileInfo." {
             $results |
-                Should BeOfType WinSCP.RemoteFileInfo
+                Should -BeOfType WinSCP.RemoteFileInfo
         }
 
-        It "RemoteFileInfo should contain a fullpath property that is not null." {
-            $results.FullPath |
-                Should Not Be Null
-        }
-
-        It "WinSCP process should not exist." {
-            Get-Process -Name WinSCP -ErrorAction SilentlyContinue |
-                Should BeNullOrEmpty
+        It "RemoteFileInfo should contain a FullName property that is not null." {
+            $results.FullName |
+                Should -Not -Be $null
         }
     }
 
-    Context "New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp ); New-WinSCPItem -Path `"Test.txt`" -ItemType File -Force; Remove-WinSCPSession"  {
-        New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp )
-        $results = New-WinSCPItem -Name "Test.txt" -ItemType File -Force
-        Remove-WinSCPSession
+    Context "New-WinSCPItem -Path `"Test.txt`" -ItemType File -Force"  {
+        BeforeAll {
+            $results = New-WinSCPItem -Name "Test.txt" -ItemType File -Force
+        }
 
-        It "Results of New-WinSCPItem should not be null." {
+        It "Results of New-WinSCPItem -Path `"Test.txt`" -ItemType File -Force should not be null." {
             $results |
-                Should Not Be Null
+                Should -Not -Be $null
         }
 
-        It "Results should be of type WinSCP.RemoteFileInfo." {
+        It "Results of New-WinSCPItem -Path `"Test.txt`" -ItemType File -Force should be of type WinSCP.RemoteFileInfo." {
             $results |
-                Should BeOfType WinSCP.RemoteFileInfo
+                Should -BeOfType WinSCP.RemoteFileInfo
         }
 
-        It "RemoteFileInfo should contain a fullpath property that is not null." {
-            $results.FullPath |
-                Should Not Be Null
-        }
-
-        It "WinSCP process should not exist." {
-            Get-Process -Name WinSCP -ErrorAction SilentlyContinue |
-                Should BeNullOrEmpty
+        It "RemoteFileInfo should contain a FullName property that is not null." {
+            $results.FullName |
+                Should -Not -Be $null
         }
     }
 
-    Context "New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp ); New-WinSCPItem -Path `"TestFolder`" -Name TestFolder -ItemType Directory; Remove-WinSCPSession" {
-        New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp )
-        $results = New-WinSCPItem -Path "TestFolder" -Name "TestFolder" -ItemType Directory
-        Remove-WinSCPSession
+    Context "New-WinSCPItem -Path `"TestFolder`" -Name TestFolder -ItemType Directory" {
+        BeforeAll {
+            $results = New-WinSCPItem -Path "TestFolder" -Name "TestFolder" -ItemType Directory
+        }
 
-        It "Results of New-WinSCPItem should not be null." {
+        It "Results of New-WinSCPItem -Path `"TestFolder`" -Name TestFolder -ItemType Directory should not be null." {
             $results |
-                Should Not Be Null
+                Should -Not -Be $null
         }
 
-        It "Results should be of type WinSCP.RemoteFileInfo." {
+        It "Results of New-WinSCPItem -Path `"TestFolder`" -Name TestFolder -ItemType Directory should be of type WinSCP.RemoteFileInfo." {
             $results |
-                Should BeOfType WinSCP.RemoteFileInfo
+                Should -BeOfType WinSCP.RemoteFileInfo
         }
 
-        It "RemoteFileInfo should contain a fullpath property that is not null." {
-            $results.FullPath |
-                Should Not Be Null
-        }
-
-        It "WinSCP process should not exist." {
-            Get-Process -Name WinSCP -ErrorAction SilentlyContinue |
-                Should BeNullOrEmpty
+        It "RemoteFileInfo should contain a FullName property that is not null." {
+            $results.FullName |
+                Should -Not -Be $null
         }
     }
 
-    Context "New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp ); New-WinSCPItem -Path `"TestFolder`" -Name TestFolder -ItemType Directory -Force; Remove-WinSCPSession" {
-        New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp )
-        $results = New-WinSCPItem -Path "TestFolder" -Name "TestFolder" -ItemType Directory -Force
-        Remove-WinSCPSession
+    Context "New-WinSCPItem -Path `"TestFolder`" -Name TestFolder -ItemType Directory -Force" {
+        BeforeAll {
+            $results = New-WinSCPItem -Path "TestFolder" -Name "TestFolder" -ItemType Directory -Force
+        }
 
-        It "Results of New-WinSCPItem should not be null." {
+        It "Results of New-WinSCPItem -Path `"TestFolder`" -Name TestFolder -ItemType Directory -Force should not be null." {
             $results |
-                Should Not Be Null
+                Should -Not -Be $null
         }
 
-        It "Results should be of type WinSCP.RemoteFileInfo." {
+        It "Results of New-WinSCPItem -Path `"TestFolder`" -Name TestFolder -ItemType Directory -Force should be of type WinSCP.RemoteFileInfo." {
             $results |
-                Should BeOfType WinSCP.RemoteFileInfo
+                Should -BeOfType WinSCP.RemoteFileInfo
         }
 
-        It "RemoteFileInfo should contain a fullpath property that is not null." {
-            $results.FullPath |
-                Should Not Be Null
-        }
-
-        It "WinSCP process should not exist." {
-            Get-Process -Name WinSCP -ErrorAction SilentlyContinue |
-                Should BeNullOrEmpty
+        It "RemoteFileInfo should contain a FullName property that is not null." {
+            $results.FullName |
+                Should -Not -Be $null
         }
     }
 
-    Context "New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp ); New-WinSCPItem -Path `"TestFolder`" -Name `"Test.txt`" -ItemType File; Remove-WinSCPSession" {
-        New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp )
-        $results = New-WinSCPItem -Path "TestFolder" -Name "Test.txt" -ItemType File
-        Remove-WinSCPSession
+    Context "New-WinSCPItem -Path `"TestFolder`" -Name `"Test.txt`" -ItemType File" {
+        BeforeAll {
+            $results = New-WinSCPItem -Path "TestFolder" -Name "Test.txt" -ItemType File
+        }
 
-        It "Results of New-WinSCPItem should not be null." {
+        It "Results of New-WinSCPItem -Path `"TestFolder`" -Name `"Test.txt`" -ItemType File should not be null." {
             $results |
-                Should Not Be Null
+                Should -Not -Be $null
         }
 
-        It "Results should be of type WinSCP.RemoteFileInfo." {
+        It "Results of New-WinSCPItem -Path `"TestFolder`" -Name `"Test.txt`" -ItemType File should be of type WinSCP.RemoteFileInfo." {
             $results |
-                Should BeOfType WinSCP.RemoteFileInfo
+                Should -BeOfType WinSCP.RemoteFileInfo
         }
 
-        It "RemoteFileInfo should contain a fullpath property that is not null." {
-            $results.FullPath |
-                Should Not Be Null
-        }
-
-        It "WinSCP process should not exist." {
-            Get-Process -Name WinSCP -ErrorAction SilentlyContinue |
-                Should BeNullOrEmpty
+        It "RemoteFileInfo should contain a FullName property that is not null." {
+            $results.FullName |
+                Should -Not -Be $null
         }
     }
 
-    Context "New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential `$credential -HostName $env:COMPUTERNAME -Protocol Ftp ); New-WinSCPItem -Path `"TestFolder`" -Name `"Test.txt`" -ItemType File -Force; Remove-WinSCPSession" {
-        New-WinSCPSession -SessionOption ( New-WinSCPSessionOption -Credential $credential -HostName $env:COMPUTERNAME -Protocol Ftp )
-        $results = New-WinSCPItem -Path "TestFolder" -Name "Test.txt" -ItemType File -Force
-        Remove-WinSCPSession
+    Context "New-WinSCPItem -Path `"TestFolder`" -Name `"Test.txt`" -ItemType File -Force" {
+        BeforeAll {
+            $results = New-WinSCPItem -Path "TestFolder" -Name "Test.txt" -ItemType File -Force
+        }
 
-        It "Results of New-WinSCPItem should not be null." {
+        It "Results of New-WinSCPItem -Path `"TestFolder`" -Name `"Test.txt`" -ItemType File -Force should not be null." {
             $results |
-                Should Not Be Null
+                Should -Not -Be $null
         }
 
-        It "Results should be of type WinSCP.RemoteFileInfo." {
+        It "Results of New-WinSCPItem -Path `"TestFolder`" -Name `"Test.txt`" -ItemType File -Force should be of type WinSCP.RemoteFileInfo." {
             $results |
-                Should BeOfType WinSCP.RemoteFileInfo
+                Should -BeOfType WinSCP.RemoteFileInfo
         }
 
-        It "RemoteFileInfo should contain a fullpath property that is not null." {
-            $results.FullPath |
-                Should Not Be Null
-        }
-
-        It "WinSCP process should not exist." {
-            Get-Process -Name WinSCP -ErrorAction SilentlyContinue |
-                Should BeNullOrEmpty
+        It "RemoteFileInfo should contain a FullName property that is not null." {
+            $results.FullName |
+                Should -Not -Be $null
         }
     }
 
     Context "Invoke-ScriptAnalyzer -Path `"$((Get-Module -Name WinSCP).ModuleBase)\Public\New-WinSCPItem.ps1`"" {
-        $results = Invoke-ScriptAnalyzer -Path "$((Get-Module -Name WinSCP).ModuleBase)\Public\New-WinSCPItem.ps1"
+        BeforeAll {
+            $results = Invoke-ScriptAnalyzer -Path "$((Get-Module -Name WinSCP).ModuleBase)\Public\New-WinSCPItem.ps1"
+        }
 
         It "Invoke-ScriptAnalyzer of New-WinSCPItem results count should be 0." {
             $results.Count |
-                Should Be 0
+                Should -Be 0
         }
     }
 }
-
-Remove-Item -Path (Join-Path -Path $ftp -ChildPath *) -Recurse -Force -Confirm:$false
