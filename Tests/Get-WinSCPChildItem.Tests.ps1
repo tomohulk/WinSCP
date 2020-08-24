@@ -78,8 +78,9 @@ Describe "Get-WinSCPChildItem" {
         )
 
         It "Results of Get-WinSCPChildItem -Path <Path> should not be null." -TestCases $testCases {
-            Param(
-                [String]$Path
+            param(
+                [String]
+                $Path
             )
 
             Get-WinSCPChildItem -Path $Path | 

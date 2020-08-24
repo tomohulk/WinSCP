@@ -2,41 +2,60 @@
 
     [CmdletBinding(
         ConfirmImpact = "Medium",
+        DefaultParameterSetName = "SingleSession",
         HelpUri = "https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPSession",
         PositionalBinding = $false,
         SupportsShouldProcess = $true
     )]
-    [OutputType([
-        Void]
+    [OutputType(
+        [Void]
     )]
 
     param (
         [Parameter(
             Mandatory = $true,
+            ParameterSetName = "SingleSession",
             ValueFromPipeline = $true
         )]
         [WinSCP.Session]
-        $WinSCPSession
+        $WinSCPSession,
+
+        [Parameter(
+            ParameterSetName = "AllSessions"
+        )]
+        [Switch]
+        $ForceAll
     )
 
     process {
-        try {
-            $shouldProcess = $PSCmdlet.ShouldProcess(
-                $WinSCPSession
-            )
-            if ($shouldProcess) {
-                $WinSCPSession.Dispose()
+        switch ($PSCmdlet.ParameterSetName) {
+            "SingleSession" {    
+                try {
+                    $shouldProcess = $PSCmdlet.ShouldProcess(
+                        $WinSCPSession
+                    )
+                    if ($shouldProcess) {
+                        $WinSCPSession.Dispose()
+                    }
+                } catch {
+                    $PSCmdlet.WriteError(
+                        $_
+                    )
+                }
             }
-        } catch {
-            $PSCmdlet.WriteError(
-                $_
-            )
-        } finally {
-            (Get-Command -Module WinSCP -ParameterName WinSCPSession).ForEach({
-                $Global:PSDefaultParameterValues.Remove(
-                    "$($_.Name):WinSCPSession"
-                )
-            })
+
+            "AllSession" {
+                Get-Process -Name WinSCP -ErrorAction SilentlyContinue |
+                    Stop-Process -Force
+            }
         }
+    }
+
+    end {
+        (Get-Command -Module WinSCP -ParameterName WinSCPSession).ForEach({
+            $Global:PSDefaultParameterValues.Remove(
+                "$($_.Name):WinSCPSession"
+            )
+        })
     }
 }

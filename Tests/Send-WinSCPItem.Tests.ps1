@@ -24,26 +24,26 @@ Describe "Send-WinSCPItem" {
         Remove-Item -Path $temp -Force -Recurse -Confirm:$false
     }
 
-    Context "Send-WinSCPItem -Path `"$temp\TextFile.txt`" -Destination `"<Path>`"" {
+    Context "Send-WinSCPItem -Path `"$temp\TextFile.txt`" -Destination `"<Destination>`"" {
         AfterEach {
             Remove-Item -Path "$ftp\*" -Force -Recurse
         }
         
         $testCases = @(
-            @{ Path = "TextFile.txt" }
-            @{ Path = "TextFile.txt/" }
-            @{ Path = "/TextFile.txt" }
-            @{ Path = "/TextFile.txt/" }
-            @{ Path = "./TextFile.txt" }
-            @{ Path = "./TextFile.txt/" }
+            @{ Destination = "TextFile.txt" }
+            @{ Destination = "TextFile.txt/" }
+            @{ Destination = "/TextFile.txt" }
+            @{ Destination = "/TextFile.txt/" }
+            @{ Destination = "./TextFile.txt" }
+            @{ Destination = "./TextFile.txt/" }
         )
 
-        It "Result of Send-WinSCPItem -Path `"$temp\TextFile.txt`" -Destination `"<Path>`" should be succsessful." -TestCases $testCases {
+        It "Result of Send-WinSCPItem -Path `"$temp\TextFile.txt`" -Destination `"<Destination>`" should be succsessful." -TestCases $testCases {
             param (
                 [String]
-                $Path
+                $Destination
             )
-            (Send-WinSCPItem -Path "$temp\TextFile.txt" -Destination $Path).IsSuccess |
+            (Send-WinSCPItem -Path "$temp\TextFile.txt" -Destination $Destination).IsSuccess |
                 Should -Be $true
         }
     }

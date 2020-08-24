@@ -33,8 +33,9 @@ Describe "Move-WinSCPItem" {
         )
 
         It "Results of Move-WinSCPItem -Path `"/TextFile.txt`" -Destination `"<Destination>`" should be null, -PassThru switch not used." -TestCases $testCases {
-            Param (
-                [String]$Destination
+            param (
+                [String]
+                $Destination
             )
             
             # Return the TestFile.txt to the root directory to continue testing other formats.
@@ -65,8 +66,9 @@ Describe "Move-WinSCPItem" {
         )
 
         It "Results of Move-WinSCPItem -Path `"<Path>`" -Destination `"./SubDirectory`" should be null, -PassThru switch not used." -TestCases $testCases {
-            Param (
-                [String]$Path
+            param (
+                [String]
+                $Path
             )
 
             # Return the TestFile.txt to the root directory to continue testing other formats.

@@ -12,8 +12,14 @@ Closes and disposes the WinSCP.Session object.
 
 ## SYNTAX
 
+### SingleSession (Default)
 ```
 Remove-WinSCPSession -WinSCPSession <Session> [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
+### AllSessions
+```
+Remove-WinSCPSession [-ForceAll] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -64,7 +70,7 @@ It represents a session and provides methods for manipulating remote files over 
 
 ```yaml
 Type: Session
-Parameter Sets: (All)
+Parameter Sets: SingleSession
 Aliases:
 
 Required: True
@@ -74,8 +80,23 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
+### -ForceAll
+This can be used to attempt to forcefully terminate all WinSCP.exe processes.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: AllSessions
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

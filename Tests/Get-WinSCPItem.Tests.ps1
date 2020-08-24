@@ -33,8 +33,9 @@ Describe "Get-WinSCPItem" {
         )
 
         It "Results of Get-WinSCPItem -Path `"<Path>`" should not be null." -TestCases $testCases {
-            Param (
-                [String]$Path
+            param (
+                [String]
+                $Path
             )
 
             Get-WinSCPItem -Path $Path | 
