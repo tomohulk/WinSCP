@@ -2882,18 +2882,6 @@ True        00:01:00 ftp.dotps1.github.io</dev:code>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>WebdavRoot</maml:name>
-          <maml:Description>
-            <maml:para>WebDAV root path.</maml:para>
-          </maml:Description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>WebdavSecure</maml:name>
           <maml:Description>
             <maml:para>Use WebDAVS (WebDAV over TLS/SSL), instead of WebDAV.</maml:para>
@@ -2914,6 +2902,18 @@ True        00:01:00 ftp.dotps1.github.io</dev:code>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>RootPath</maml:name>
+          <maml:Description>
+            <maml:para>WebDAV root path or S3 bucket path. Set, when the HTTP server root or S3 bucket list is not accessible.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
       </command:syntaxItem>
     </command:syntax>
@@ -3111,18 +3111,6 @@ True        00:01:00 ftp.dotps1.github.io</dev:code>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>WebdavRoot</maml:name>
-        <maml:Description>
-          <maml:para>WebDAV root path.</maml:para>
-        </maml:Description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-        <dev:type>
-          <maml:name>String</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>WebdavSecure</maml:name>
         <maml:Description>
           <maml:para>Use WebDAVS (WebDAV over TLS/SSL), instead of WebDAV.</maml:para>
@@ -3145,6 +3133,18 @@ True        00:01:00 ftp.dotps1.github.io</dev:code>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>RootPath</maml:name>
+        <maml:Description>
+          <maml:para>WebDAV root path or S3 bucket path. Set, when the HTTP server root or S3 bucket list is not accessible.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
     </command:parameters>
     <command:inputTypes>

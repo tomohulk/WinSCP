@@ -105,7 +105,7 @@ function New-WinSCPSessionOption {
 
         [Parameter()]
         [String]
-        $WebdavRoot,
+        $RootPath,
 
         [Parameter()]
         [HashTable]

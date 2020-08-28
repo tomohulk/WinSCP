@@ -17,7 +17,7 @@ New-WinSCPSessionOption [-Credential <PSCredential>] [-FtpMode <FtpMode>] [-FtpS
  [-GiveUpSecurityAndAcceptAnySshHostKey] [-GiveUpSecurityAndAcceptAnyTlsHostCertificate] -HostName <String>
  [-PortNumber <Int32>] [-Protocol <Protocol>] [-SecurePrivateKeyPassphrase <SecureString>]
  [-SshHostKeyFingerprint <String[]>] [-SshPrivateKeyPath <String>] [-TlsClientCertificatePath <String>]
- [-TlsHostCertificateFingerprint <String>] [-Timeout <TimeSpan>] [-WebdavSecure] [-WebdavRoot <String>]
+ [-TlsHostCertificateFingerprint <String>] [-Timeout <TimeSpan>] [-WebdavSecure] [-RootPath <String>]
  [-RawSetting <Hashtable>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -342,21 +342,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -WebdavRoot
-WebDAV root path.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -WebdavSecure
 Use WebDAVS (WebDAV over TLS/SSL), instead of WebDAV.
 
@@ -384,6 +369,21 @@ Aliases: wi
 Required: False
 Position: Named
 Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -RootPath
+WebDAV root path or S3 bucket path. Set, when the HTTP server root or S3 bucket list is not accessible.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
