@@ -3,11 +3,12 @@
 [CmdletBinding()]
 [OutputType()]
 
+param ()
 
 $uri = "https://winscp.net"
 
 # Current version of dll in PowerShell build.
-[Version]$currentVersion = (Get-Item -Path "${pwd}\WinSCP\lib\WinSCPnet.dll").VersionInfo.ProductVersion
+[Version]$currentVersion = (Get-Item -Path "${pwd}\WinSCP\lib\netstandard2.0\WinSCPnet.dll").VersionInfo.ProductVersion
 
 try {
     $payloadName = ((Invoke-WebRequest -Uri "${uri}/eng/downloads.php" -UseBasicParsing -ErrorAction Stop).Links | Select-String -Pattern "WinSCP-.*?\d+-Automation\.zip").Matches.Value
@@ -43,7 +44,8 @@ if ($publishedVersion -gt $currentVersion) {
     try {
         Move-Item -Path "${env:TEMP}\WinSCP\*.txt" -Destination "${pwd}\WinSCP\en-US\" -Force -Confirm:$false -ErrorAction Stop
         Move-Item -Path "${env:TEMP}\WinSCP\*.exe" -Destination "${pwd}\WinSCP\bin\" -Force -Confirm:$false -ErrorAction Stop
-        Move-Item -Path "${env:TEMP}\WinSCP\*.dll" -Destination "${pwd}\WinSCP\lib\" -Force -Confirm:$false -ErrorAction Stop
+        Move-Item -Path "${env:TEMP}\WinSCP\net40\*.dll" -Destination "${pwd}\WinSCP\lib\net40\" -Force -Confirm:$false -ErrorAction Stop
+        Move-Item -Path "${env:TEMP}\WinSCP\netstandard2.0\*.dll" -Destination "${pwd}\WinSCP\lib\netstandard2.0\" -Force -Confirm:$false -ErrorAction Stop
     } catch {
         Write-Error $_
         exit
