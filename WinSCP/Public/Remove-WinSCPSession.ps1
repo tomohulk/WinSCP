@@ -29,7 +29,7 @@
 
     process {
         switch ($PSCmdlet.ParameterSetName) {
-            "SingleSession" {    
+            "SingleSession" {
                 try {
                     $shouldProcess = $PSCmdlet.ShouldProcess(
                         $WinSCPSession

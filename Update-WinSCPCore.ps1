@@ -33,7 +33,7 @@ if ($publishedVersion -gt $currentVersion) {
         )
 
         Unblock-File -Path "${env:TEMP}\$payloadName"
-        Expand-Archive -Path "${env:TEMP}\$payloadName" -DestinationPath "${env:TEMP}\WinSCP\"
+        Expand-Archive -Path "${env:TEMP}\$payloadName" -DestinationPath "${env:TEMP}\WinSCP\" -Force
 
         $downloader.Dispose()
     } catch {
