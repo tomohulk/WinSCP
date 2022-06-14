@@ -2,7 +2,7 @@
 # http://www.appveyor.com/docs/appveyor-yml
 
 version: 5.19.6.{build}
-os: WMF 5
+image: Visual Studio 2019
 branches:
   only:
     - master
