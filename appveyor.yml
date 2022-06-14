@@ -17,7 +17,7 @@ install:
   - ps: . .\FileZilla_Server_Install.ps1
   - ps: Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Confirm:$false -Force -ErrorAction Stop | Out-Null
   - ps: Install-Module -Name Configuration, Pester, PSScriptAnalyzer -Confirm:$false -Force -ErrorAction SilentlyContinue | Out-Null
-build: off
+build: false
 test_script:
   - ps: . .\Invoke-AppveyorBuild.ps1
 before_deploy:
