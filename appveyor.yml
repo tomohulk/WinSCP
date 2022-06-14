@@ -13,7 +13,7 @@ only_commits:
 skip_commits:
   files:
     README.md
-build: false
+build: off
 install:
   - ps: . .\FileZilla_Server_Install.ps1
   - ps: Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Confirm:$false -Force -ErrorAction Stop | Out-Null
