@@ -1,7 +1,7 @@
 # appveyor yml reference
 # http://www.appveyor.com/docs/appveyor-yml
 
-version: 5.19.6.{build}
+version: 5.21.7.{build}
 image: Visual Studio 2019
 branches:
   only:
