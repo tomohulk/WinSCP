@@ -31,7 +31,7 @@ deploy:
   - provider: GitHub
     release: WinSCP-PowerShell-v$(APPVEYOR_BUILD_VERSION)
     auth_token:
-      secure: zNRQZ3Yia8BPJrcmjn5x3a0FkrLWCFSgtwaxKGOnBvIiYv6WbWi/ilXezZJclZyE
+      secure: /uppgpvZIfvBVNh2oEtZB4WYG9Xqx/4+6kO9ykbwDrmRVqe81TLGpXoc5G8oPZdR
     description: '$(APPVEYOR_REPO_COMMIT_MESSAGE)'
     artifact: WinSCP.zip
     draft: false
@@ -41,4 +41,4 @@ deploy:
       appveyor_repo_tag: false
 environment:
   powershell_gallery_api_token:
-    secure: feZG1n6/I0hDzxw9VWtlUph94caZUYw3denU0TLudvgWX9cG/jkjDLOT8ixd02P4
+    secure: XL6Aqu2HklNdaeNLep/cf1eS9NkTgEC6CXbPHHXEz8auhATxxipNq2sfNrtCPhlH
