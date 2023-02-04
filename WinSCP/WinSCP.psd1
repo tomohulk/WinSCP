@@ -24,7 +24,7 @@ Author = "Thomas J. Malkewitz @tomohulk"
 # CompanyName = "Unknown"
 
 # Copyright statement for this module
-Copyright = "(c) 2020 Thomas J. Malkewitz @tomohulk. All rights reserved.  Licensed with GNU GENERAL PUBLIC LICENSE."
+Copyright = "(c) 2023 Thomas J. Malkewitz @tomohulk. All rights reserved.  Licensed with GNU GENERAL PUBLIC LICENSE."
 
 # Description of the functionality provided by this module
 Description = "PowerShell Module Wrapper for WinSCP."
