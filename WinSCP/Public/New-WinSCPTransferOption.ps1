@@ -37,7 +37,11 @@
 
         [Parameter()]
         [WinSCP.TransferMode]
-        $TransferMode = (New-Object -TypeName WinSCP.TransferMode)
+        $TransferMode = (New-Object -TypeName WinSCP.TransferMode),
+
+        [Parameter()]
+        [HashTable]
+        $RawSetting
     )
 
     $transferOptions = New-Object -TypeName WinSCP.TransferOptions
