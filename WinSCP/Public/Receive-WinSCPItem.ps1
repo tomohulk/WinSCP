@@ -56,6 +56,7 @@
 
     process {
         foreach ($remotePathValue in ( Format-WinSCPPathString -Path $($RemotePath) )) {
+            $LocalPath = Convert-Path -Path (Resolve-Path -Path $LocalPath)
             if (Test-Path -Path $LocalPath) {
                 if ((Get-Item -Path $LocalPath).PSIsContainer -and -not $LocalPath.EndsWith( [System.IO.Path]::DirectorySeparatorChar )) {
                     $LocalPath += [System.IO.Path]::DirectorySeparatorChar
