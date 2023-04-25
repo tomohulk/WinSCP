@@ -3,19 +3,15 @@
 try {
     Set-Location -Path $env:APPVEYOR_BUILD_FOLDER -ErrorAction Stop
 
-    $timestamp = Get-Date -uformat "%Y%m%d-%H%M%S"
-    $resultsFile = "Results_${timestamp}.xml"
-
     Import-Module -Name ".\${env:APPVEYOR_PROJECT_NAME}" -Force -ErrorAction Stop
 
-    Invoke-Pester -Path ".\Tests" -OutputFormat NUnitXml -OutputFile ".\${resultsFile}" -PassThru |
-        Export-Clixml -Path ".\Pester${resultsFile}"
+    Invoke-Pester -Path ".\Tests"
 
     (New-Object -TypeName System.Net.WebClient).UploadFile(
         "https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path -Path ".\${resultsFile}")
     )
 
-    [Int]$failures = Import-Clixml -Path ".\Pester${resultsFile}" -ErrorAction Stop |
+    [Int]$failures = Import-Clixml -Path ".\testResults.xml" -ErrorAction Stop |
         Select-Object -ExpandProperty FailedCount |
             Measure-Object -Sum |
                 Select-Object -ExpandProperty Sum
