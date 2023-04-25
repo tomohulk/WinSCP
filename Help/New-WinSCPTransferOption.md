@@ -15,7 +15,8 @@ Defines options for file transfers.
 ```
 New-WinSCPTransferOption [-FileMask <String>] [-FilePermissions <FilePermissions>]
  [-OverwriteMode <OverwriteMode>] [-PreserveTimestamp <Boolean>] [-ResumeSupport <TransferResumeSupport>]
- [-SpeedLimit <Int32>] [-TransferMode <TransferMode>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-SpeedLimit <Int32>] [-TransferMode <TransferMode>] [-RawSetting <Hashtable>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -195,6 +196,21 @@ Aliases: wi
 Required: False
 Position: Named
 Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -RawSetting
+Allows configuring any site settings using raw format as in an INI file.
+
+```yaml
+Type: Hashtable
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
