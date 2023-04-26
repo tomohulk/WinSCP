@@ -5,18 +5,29 @@ try {
 
     Import-Module -Name ".\${env:APPVEYOR_PROJECT_NAME}" -Force -ErrorAction Stop
 
-    Invoke-Pester -Path ".\Tests"
+    $pesterContainer = New-PesterContainer -Path ".\Tests"
+    $pesterConfiguration = [PesterConfiguration]@{
+        Run = @{
+            Container = $pesterContainer
+        }
+        Output = @{
+            Verbosity = "Detailed"
+        }
+        TestResult = @{
+            Enabled = $true
+        }
+    }
+    Invoke-Pester -Configuration $pesterConfiguration
 
     (New-Object -TypeName System.Net.WebClient).UploadFile(
-        "https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path -Path ".\${resultsFile}")
+        "https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path -Path ".\testResults.xml")
     )
 
     [Int]$failures = Import-Clixml -Path ".\testResults.xml" -ErrorAction Stop |
         Select-Object -ExpandProperty FailedCount |
-            Measure-Object -Sum |
-                Select-Object -ExpandProperty Sum
+            Measure-Object -Sum
 
-    if ($failures -gt 0) {
+    if ($failures.Sum -gt 0) {
         throw "Build failed."
     } else {
         Remove-Item -Path .\WinSCP\bin\winscp.ini -Force -Confirm:$false
