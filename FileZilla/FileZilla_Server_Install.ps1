@@ -19,9 +19,9 @@ try {
             Out-Null
     }
 
-    Copy-Item -Path "$pwd\FileZilla*.xml" -Destination $installDirectory -Force
+    Copy-Item -Path "$PSScriptRoot\FileZilla*.xml" -Destination $installDirectory -Force
 
-    Start-Process -FilePath "$pwd\FileZilla*.exe" -ArgumentList "/S"
+    Start-Process -FilePath "$PSSCriptRoot\FileZilla*.exe" -ArgumentList "/S"
 } catch {
     throw "$($_.Exception.Message)"
 }
