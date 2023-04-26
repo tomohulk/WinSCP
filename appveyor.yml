@@ -15,7 +15,7 @@ skip_commits:
     README.md
 build: off
 install:
-  - ps: . .\FileZilla_Server_Install.ps1
+  - ps: . .\FileZilla\FileZilla_Server_Install.ps1
   - ps: Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Confirm:$false -Force -ErrorAction Stop | Out-Null
   - ps: Install-Module -Name Configuration, Pester, PSScriptAnalyzer -Confirm:$false -Force -ErrorAction SilentlyContinue | Out-Null
 test_script:

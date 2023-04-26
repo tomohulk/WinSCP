@@ -1,9 +1,0 @@
-<FileZillaServer>
-    <Settings>
-        <Item name="User Sorting" type="numeric">0</Item>
-        <Item name="Last Server Address" type="string">127.0.0.1</Item>
-        <Item name="Last Server Port" type="numeric">14147</Item>
-        <Item name="Last Server Password" type="string">filezilla</Item>
-        <Item name="Always use last server" type="numeric">1</Item>
-    </Settings>
-</FileZillaServer>

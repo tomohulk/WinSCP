@@ -5,6 +5,7 @@ try {
 
     Import-Module -Name ".\${env:APPVEYOR_PROJECT_NAME}" -Force -ErrorAction Stop
 
+    $pesterResults = "${env:APPVEYOR_BUILD_FOLDER}\testResults.xml"
     $pesterContainer = New-PesterContainer -Path ".\Tests"
     $pesterConfiguration = [PesterConfiguration]@{
         Run = @{
@@ -15,15 +16,16 @@ try {
         }
         TestResult = @{
             Enabled = $true
+            OutputPath = $pesterResults
         }
     }
     Invoke-Pester -Configuration $pesterConfiguration
 
     (New-Object -TypeName System.Net.WebClient).UploadFile(
-        "https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path -Path ".\testResults.xml")
+        "https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path -Path $pesterResults)
     )
 
-    [Int]$failures = ([Xml](Get-Content -Path .\testResults))."text-results".failures
+    [Int]$failures = ([Xml](Get-Content -Path $pesterResults))."text-results".failures
 
     if ($failures -gt 0) {
         throw "Build failed."
