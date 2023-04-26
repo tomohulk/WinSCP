@@ -23,11 +23,9 @@ try {
         "https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path -Path ".\testResults.xml")
     )
 
-    [Int]$failures = Import-Clixml -Path ".\testResults.xml" -ErrorAction Stop |
-        Select-Object -ExpandProperty FailedCount |
-            Measure-Object -Sum
+    [Int]$failures = ([Xml](Get-Content -Path .\testResults))."text-results".failures
 
-    if ($failures.Sum -gt 0) {
+    if ($failures -gt 0) {
         throw "Build failed."
     } else {
         Remove-Item -Path .\WinSCP\bin\winscp.ini -Force -Confirm:$false
