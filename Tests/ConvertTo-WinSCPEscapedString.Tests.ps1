@@ -1,11 +1,13 @@
-#requires -Modules Pester, PSScriptAnalyzer, WinSCP
+#requires -Modules Pester, PSScriptAnalyzer
 
-Describe "ConvertTo-WinSCPEscapedString" {
-    BeforeAll {
-        Get-Process -Name WinSCP -ErrorAction SilentlyContinue | 
-            Stop-Process -Force
-    }
-    
+Import-Module "$PSScriptRoot\..\WinSCP" -Force
+
+BeforeAll {
+    Get-Process -Name WinSCP -ErrorAction SilentlyContinue | 
+        Stop-Process -Force
+}
+
+Describe "ConvertTo-WinSCPEscapedString" {    
     Context "ConvertTo-WinSCPEscapedString -FileMask `"FileNameWith*.txt`"" {
         BeforeAll {
             $escapedString = ConvertTo-WinSCPEscapedString -FileMask "FileNameWith*.txt"
@@ -18,9 +20,7 @@ Describe "ConvertTo-WinSCPEscapedString" {
     }
 
     Context "Invoke-ScriptAnalyzer -Path `"$((Get-Module -Name WinSCP).ModuleBase)\Functions\ConvertTo-WinSCPEscapedString.ps1`"" {
-        BeforeAll {
-            $results = Invoke-ScriptAnalyzer -Path "$((Get-Module -Name WinSCP).ModuleBase)\Public\ConvertTo-WinSCPEscapedString.ps1"
-        }
+        $results = Invoke-ScriptAnalyzer -Path "$((Get-Module -Name WinSCP).ModuleBase)\Public\ConvertTo-WinSCPEscapedString.ps1"
 
         It "Invoke-ScriptAnalyzer results of ConvertTo-WinSCPEscapedString count should be 0." {
             $results.Count | 
