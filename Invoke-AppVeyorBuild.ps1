@@ -25,7 +25,7 @@ try {
         "https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path -Path $pesterResults)
     )
 
-    [Int]$failures = ([Xml](Get-Content -Path $pesterResults))."text-results".failures
+    $failures = ([Xml](Get-Content -Path $pesterResults))."text-results".failures
 
     if ($failures -gt 0) {
         throw "Build failed."
