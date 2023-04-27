@@ -31,6 +31,6 @@ jobs:
         # Setup and configure FileZilla FTP server to test aginst.
       - name: Install FTP Server
         shell: pwsh
-        run: . .\FileZilla\FileZilla\Install-FileZilla.ps1
+        run: . .\FileZilla\FileZilla_Server_Install.ps1
 
     #if: contains(github.event.head_commit.message, '[Build]')
