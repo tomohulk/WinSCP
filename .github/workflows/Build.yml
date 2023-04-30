@@ -24,11 +24,6 @@ jobs:
       - name: Check repository.
         uses: actions/checkout@v3
 
-      # Update pre installed modules that will be used to test and publish.
-      - name: Update pre installed modules.
-        shell: pwsh
-        run: Update-Module -Name Pester, PSScritpAnalyzer
-
       # Install Configuration Module, used for publishing.
       - name: Install Configuration Module
         shell: pwsh
