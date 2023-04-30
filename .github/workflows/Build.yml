@@ -39,7 +39,7 @@ jobs:
         shell: pwsh
         run: |
           Set-Location -Path $env:GITHUB_WORKSPACE -ErrorAction Stop
-          Import-Module -Name Configuration, Pester, PSScriptAanlyzer, ".\WinSCP" -Force -ErrorAction Stop
+          Import-Module -Name Configuration, Pester, PSScriptAnalyzer, ".\WinSCP" -Force -ErrorAction Stop
       
           $pesterConfiguration = [PesterConfiguration]@{
               Run = @{
