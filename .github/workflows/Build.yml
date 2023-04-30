@@ -27,32 +27,30 @@ jobs:
       # Install Configuration Module, used for publishing.
       - name: Install Configuration Module
         shell: pwsh
-        run: Install-Module -Name Configuration -Force
+        run: |
+          Set-PSRepository PSGallery -InstallationPolicy Trusted
+          Install-Module -Name Configuration
         
       # Setup and configure FileZilla FTP server to test aginst.
       - name: Install FTP Server
         shell: pwsh
         run: . .\FileZilla\FileZilla_Server_Install.ps1
 
+      # Import requried Modules.
+      - name: Import Modules
+        shell: pwsh
+        run: Import-Module -Name Configuration, Pester, PSScriptAnalyzer, ".\WinSCP"
+
       # Execute Pester Tests.
       - name: Execute Pester Tests
         shell: pwsh
-        run: |
-          Set-Location -Path $env:GITHUB_WORKSPACE -ErrorAction Stop
-          Import-Module -Name Configuration, Pester, PSScriptAnalyzer, ".\WinSCP" -Force -ErrorAction Stop
-      
-          $pesterConfiguration = [PesterConfiguration]@{
-              Run = @{
-                  Container = New-PesterContainer -Path ".\Tests"
-              }
-              Output = @{
-                  Verbosity = "Detailed"
-              }
-              TestResult = @{
-                  Enabled = $true
-                  OutputPath = "$env:GITHUB_WORKSPACE\testResults.xml"
-              }
-          }
-          Invoke-Pester -Configuration $pesterConfiguration
+        run: Invoke-Pester -Path .\Tests\* | Export-Clixml -Path .\Pester.Tests.xml
+
+      # Upload Pester test results.
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: testResults
+          path: .\Pester.Tests.xml
 
     #if: contains(github.event.head_commit.message, '[Build]')
