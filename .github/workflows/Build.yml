@@ -36,15 +36,17 @@ jobs:
         shell: pwsh
         run: . .\FileZilla\FileZilla_Server_Install.ps1
 
-      # Import requried Modules.
+      # Import requried Modules for testing and publishing.
       - name: Import Modules
         shell: pwsh
-        run: Import-Module -Name Configuration, Pester, PSScriptAnalyzer, ".\WinSCP"
+        run: Import-Module -Name Configuration, Pester, PSScriptAnalyzer
 
       # Execute Pester Tests.
       - name: Execute Pester Tests
         shell: pwsh
-        run: Invoke-Pester -Path .\Tests\* | Export-Clixml -Path .\Pester.Tests.xml
+        run: |
+          Import-Module -Name .\WinSCP
+          Invoke-Pester -Path .\Tests\* | Export-Clixml -Path .\Pester.Tests.xml
 
       # Upload Pester test results.
       - name: Upload test results
