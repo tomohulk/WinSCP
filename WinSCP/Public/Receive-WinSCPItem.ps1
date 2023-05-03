@@ -51,16 +51,17 @@
 
         [Parameter()]
         [WinSCP.TransferOptions]
-        $TransferOptions = ( New-Object -TypeName WinSCP.TransferOptions )
+        $TransferOptions = (New-Object -TypeName WinSCP.TransferOptions)
     )
 
     process {
-        foreach ($remotePathValue in ( Format-WinSCPPathString -Path $($RemotePath) )) {
-            $LocalPath = Convert-Path -Path (Resolve-Path -Path $LocalPath)
+        foreach ($remotePathValue in (Format-WinSCPPathString -Path $($RemotePath))) {
             if (Test-Path -Path $LocalPath) {
-                if ((Get-Item -Path $LocalPath).PSIsContainer -and -not $LocalPath.EndsWith( [System.IO.Path]::DirectorySeparatorChar )) {
+                if ((Get-Item -Path $LocalPath).PSIsContainer -and -not $LocalPath.EndsWith([System.IO.Path]::DirectorySeparatorChar)) {
                     $LocalPath += [System.IO.Path]::DirectorySeparatorChar
                 }
+
+                $LocalPath = Convert-Path -Path (Resolve-Path -Path $LocalPath)
             }
 
             try {

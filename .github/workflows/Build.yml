@@ -21,38 +21,38 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job.
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it.
-      - name: Check repository.
+      - name: Check repository
         uses: actions/checkout@v3
 
-      # Install Configuration Module, used for publishing.
-      - name: Install Configuration Module
+      # Install Configuration module, used for publishing.
+      - name: Install Configuration module
         shell: pwsh
         run: |
           Set-PSRepository PSGallery -InstallationPolicy Trusted
           Install-Module -Name Configuration
         
       # Setup and configure FileZilla FTP server to test aginst.
-      - name: Install FTP Server
+      - name: Install FileZilla FTP server
         shell: pwsh
         run: . .\FileZilla\FileZilla_Server_Install.ps1
 
-      # Import requried Modules for testing and publishing.
-      - name: Import Modules
+      # Import requried modules for testing and publishing.
+      - name: Import modules
         shell: pwsh
         run: Import-Module -Name Configuration, Pester, PSScriptAnalyzer
 
-      # Execute Pester Tests.
-      - name: Execute Pester Tests
+      # Execute Pester tests.
+      - name: Execute Pester tests
         shell: pwsh
         run: |
           Import-Module -Name .\WinSCP
           Invoke-Pester -Path .\Tests\* | Export-Clixml -Path .\Pester.Tests.xml
 
       # Upload Pester test results.
-      - name: Upload test results
+      - name: Upload Pester test results
         uses: actions/upload-artifact@v3
         with:
           name: testResults
           path: .\Pester.Tests.xml
 
-    #if: contains(github.event.head_commit.message, '[Build]')
+    #if: contains(github.event.head_commit.message, '[Publish]')

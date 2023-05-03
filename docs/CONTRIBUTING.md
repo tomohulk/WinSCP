@@ -8,7 +8,7 @@ The environment the tests are running against include the follow key points:
 * Ftp Root: `C:\temp\ftproot`.
 * Requried PowerShell Modules: `Pester, PSScriptAnalyzer`
 
-You can easily setup this environment on your dev machine by running the `.\Install_FileZilla_Server.ps1` located in the project root.
+You can easily setup this environment on your dev machine by running the `.\FileZilla\Install_FileZilla_Server.ps1` located in the project root.
 
 Also, please update the Help files with any applicable changes that you may have made.
 All the help is compiled using [platyPS](https://github.com/PowerShell/platyPS).
@@ -18,7 +18,7 @@ New-ExternalHelp -Path .\Help -OutputPath .\WinSCP\en-US -Force
 ```
 And, if your feeling exceptionally helpful, the Wiki is its own repo, so you could also update that as well:
 ```
-git clone https://github.io/dotps1/WinSCP/wiki.git ..\Wiki
+git clone https://github.io/tomohulk/WinSCP/wiki.git ..\Wiki
 New-MarkdownHelp -Path .\Help -OutputPath ..\Wiki -NoMetadata -Force
 ```
 ### BUT PLEASE PLEASE PLEASE DO NOT CLONE THE WIKI INTO THIS REPO AND COMMIT IT BACK.

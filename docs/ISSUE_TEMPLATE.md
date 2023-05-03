@@ -1,30 +1,30 @@
-_Please fill in the following fields, replacing the values inside the brackets `{{ }}`._
+_Please fill in the following fields:_
 
 ### Issue Description
 
-{{ Please provide a description here. }}
+_Please provide a description of the issue you are face, use as much detail as possible._
 
 
 ### Example
 
-{{ Please provide an example of the code being used. }}
+_Please provide an example of the code being used._
 
 
 ### Expected Output
 
-{{ Please provide what expect to happen. }}
+_Please provide what expect to happen._
 
 
 ### Actual Output
 
-{{ Please provide what actually happened. }}
+_Please provide what actually happened._
 
 
 ### WinSCP-PowerShell Version
 
-{{ Paste output of `Get-Module -Name WinSCP | Clip` here }}\
+_Paste output of `Get-Module -Name WinSCP | Clip` here_
 
 
 ### Environment
 
-{{ Please provide OS Information (Version, Arch, etc), PowerShell Version (Output of `$host`) and what FTP flavor the server is. }}
+_Please provide OS Information (Version, Arch, etc), PowerShell Version (Output of `$host`) and what FTP flavor the server is._
