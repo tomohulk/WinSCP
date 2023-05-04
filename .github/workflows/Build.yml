@@ -63,12 +63,12 @@ jobs:
       - name: Update module metadata
         shell: pwsh
         run: |
-          Remove-Item -Path .\WinSCP\bin\winscp.ini -Force -Confirm:$false
+          Remove-Item -Path .\WinSCP\bin\winscp.ini -Force -Confirm:$false -ErrorAction SilentlyContinue
           Update-Metadata -Path .\WinSCP\WinSCP.psd1 -PropertyName ModuleVersion -Value $ModuleVersion
           Update-Metadata -Path .\WinSCP\WinSCP.psd1 -PropertyName ReleaseNotes -Value $ReleaseNotes
 
       # Create and publish a new GitHub release.
-      - name: Publish GitHub Release
+      - name: Publish GitHub release
         shell: pwsh
         run: Compress-Archive -Path .\WinSCP\* -DestinationPath .\WinSCP.zip -CompressionLevel Optimal
         if: contains(github.event.head_commit.message, '[Publish]')
