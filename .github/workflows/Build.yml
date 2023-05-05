@@ -9,7 +9,7 @@ on:
     branches: [ "master" ]
 
 env:
-  ModuleVersion: 5.21.8.9
+  ModuleVersion: 5.21.8.10
   ReleaseNotes: ${{ github.event.head_commit.message }}
 
   # Allows you to run this workflow manually from the Actions tab.
@@ -17,7 +17,7 @@ env:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel.
 jobs:
-  # This workflow contains a single job called "build".
+
   build:
     # The type of runner that the job will run on.
     runs-on: windows-latest
@@ -25,7 +25,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job.
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it.
-      - name: Check repository
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       # Setup and configure FileZilla FTP server to test aginst.
@@ -55,7 +55,22 @@ jobs:
           name: testResults
           path: .\Pester.Tests.xml
 
-      # Update module metadata with relese version info and commit message as the "ReleaseNotes".
+  publish:
+
+    # Publish job only runs if the build job successeds, and if the commit message contains '[Publish]'
+    needs: build
+    if: contains(github.event.head_commit.message, '[Publish]')
+
+    # The type of runner that the job will run on.
+    runs-on: windows-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job.
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it.
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        
+              # Update module metadata with relese version info and commit message as the "ReleaseNotes".
       - name: Update module metadata
         shell: pwsh
         run: |
@@ -80,4 +95,3 @@ jobs:
           automatic_release_tag: WinSCP-PowerShell-v${{ env.ModuleVersion }}
           prerelease: false
           files: WinSCP.zip
-        
