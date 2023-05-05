@@ -9,7 +9,7 @@ on:
     branches: [ "master" ]
 
 env:
-  ModuleVersion: 5.21.8.6
+  ModuleVersion: 5.21.8.9
   ReleaseNotes: github.event.head_commit.message
 
   # Allows you to run this workflow manually from the Actions tab.
