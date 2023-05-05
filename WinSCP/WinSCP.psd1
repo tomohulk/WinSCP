@@ -167,7 +167,7 @@
             ProjectUri = "https://github.com/tomohulk/WinSCP"
     
             # A URL to an icon representing this module.
-            IconUri = "http://winscp.net/eng/images/og_logo_240x240.jpg"
+            IconUri = "https://winscp-static-746341.c.cdn77.org/assets/images/logos/logo.png?v=7014"
     
             # ReleaseNotes of this module
             ReleaseNotes = ""

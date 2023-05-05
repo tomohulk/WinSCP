@@ -10,7 +10,7 @@ on:
 
 env:
   ModuleVersion: 5.21.8.9
-  ReleaseNotes: github.event.head_commit.message
+  ReleaseNotes: ${{ github.event.head_commit.message }}
 
   # Allows you to run this workflow manually from the Actions tab.
   workflow_dispatch:
@@ -40,15 +40,11 @@ jobs:
         shell: pwsh
         run: . .\FileZilla\FileZilla_Server_Install.ps1
 
-      # Import requried modules for testing and publishing.
-      - name: Import modules
-        shell: pwsh
-        run: Import-Module -Name Configuration, Pester, PSScriptAnalyzer
-
       # Execute Pester tests.
       - name: Execute Pester tests
         shell: pwsh
         run: |
+          Import-Module -Name Pester, PSScriptAnalyzer
           Import-Module -Name .\WinSCP
           Invoke-Pester -Path .\Tests\* | Export-Clixml -Path .\Pester.Tests.xml
 
@@ -63,6 +59,7 @@ jobs:
       - name: Update module metadata
         shell: pwsh
         run: |
+          Import-Module -Name Configuration
           Remove-Item -Path .\WinSCP\bin\winscp.ini -Force -Confirm:$false -ErrorAction SilentlyContinue
           Update-Metadata -Path .\WinSCP\WinSCP.psd1 -PropertyName ModuleVersion -Value $env:ModuleVersion
           Update-Metadata -Path .\WinSCP\WinSCP.psd1 -PropertyName ReleaseNotes -Value $env:ReleaseNotes
@@ -80,7 +77,7 @@ jobs:
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "WinSCP-PowerShell-v$env:ModuleVersion"
+          automatic_release_tag: WinSCP-PowerShell-v${{ env.ModuleVersion }}
           prerelease: false
           files: WinSCP.zip
         
