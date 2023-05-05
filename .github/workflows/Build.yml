@@ -64,8 +64,8 @@ jobs:
         shell: pwsh
         run: |
           Remove-Item -Path .\WinSCP\bin\winscp.ini -Force -Confirm:$false -ErrorAction SilentlyContinue
-          Update-Metadata -Path .\WinSCP\WinSCP.psd1 -PropertyName ModuleVersion -Value $ModuleVersion
-          Update-Metadata -Path .\WinSCP\WinSCP.psd1 -PropertyName ReleaseNotes -Value $ReleaseNotes
+          Update-Metadata -Path .\WinSCP\WinSCP.psd1 -PropertyName ModuleVersion -Value $env:ModuleVersion
+          Update-Metadata -Path .\WinSCP\WinSCP.psd1 -PropertyName ReleaseNotes -Value $env:ReleaseNotes
 
       # Create and publish a new GitHub release.
       - name: Publish GitHub release
