@@ -1,4 +1,5 @@
 # WinSCP PowerShell Module Wrapper
+[![CI/CD](https://github.com/tomohulk/WinSCP/actions/workflows/Build.yml/badge.svg)](https://github.com/tomohulk/WinSCP/actions/workflows/Build.yml)
 
 ## Overhaul complete:
 I have been revisiting this module as of late, add making some major changes:
