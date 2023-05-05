@@ -67,15 +67,20 @@ jobs:
           Update-Metadata -Path .\WinSCP\WinSCP.psd1 -PropertyName ModuleVersion -Value $env:ModuleVersion
           Update-Metadata -Path .\WinSCP\WinSCP.psd1 -PropertyName ReleaseNotes -Value $env:ReleaseNotes
 
-      # Create and publish a new GitHub release.
-      - name: Publish GitHub release
-        shell: pwsh
-        run: Compress-Archive -Path .\WinSCP\* -DestinationPath .\WinSCP.zip -CompressionLevel Optimal
+      # Create and publish a new GitHub and PowerShell Gallery Release.
+      - name: Publish release
         if: contains(github.event.head_commit.message, '[Publish]')
+        env:
+          NuGetApiKey : ${{ secrets.NUGET_API_KEY }}
+        shell: pwsh
+        run: |
+          Publish-Module -Path .\WinSCP -NuGetApiKey $env:NuGetApiKey
+          Compress-Archive -Path .\WinSCP\* -DestinationPath .\WinSCP.zip -CompressionLevel Optimal
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "WinSCP-PowerShell-v$ModuleVersion"
+          automatic_release_tag: "WinSCP-PowerShell-v$env:ModuleVersion"
           prerelease: false
           files: WinSCP.zip
+        
