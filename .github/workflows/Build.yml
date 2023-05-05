@@ -28,17 +28,17 @@ jobs:
       - name: Check repository
         uses: actions/checkout@v3
 
+      # Setup and configure FileZilla FTP server to test aginst.
+      - name: Install FileZilla FTP server
+        shell: pwsh
+        run: . .\FileZilla\FileZilla_Server_Install.ps1
+
       # Install Configuration module, used for publishing.
       - name: Install Configuration module
         shell: pwsh
         run: |
           Set-PSRepository PSGallery -InstallationPolicy Trusted
           Install-Module -Name Configuration
-        
-      # Setup and configure FileZilla FTP server to test aginst.
-      - name: Install FileZilla FTP server
-        shell: pwsh
-        run: . .\FileZilla\FileZilla_Server_Install.ps1
 
       # Execute Pester tests.
       - name: Execute Pester tests
