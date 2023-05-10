@@ -10,7 +10,7 @@ I have been revisiting this module as of late, add making some major changes:
     * New-WinSCPSessionOption
     * New-WinSCPTransferResumeSupport
 2. The `New-WinSCPSession` has been split into two functions, most of the configurations for the session have been moved to the `New-WinSCPSessionOption` command.  This will mimic the functionality of `New-CimSessionOption` and `New-CimSession`.
-    * `PS C:\> New-WinSCPSession -SessionOption (New-WinSCPSessionOption -HostName ftp.dotps1.github.io)`
+    * `PS C:\> New-WinSCPSession -SessionOption (New-WinSCPSessionOption -HostName ftp.tomohulk.github.io)`
 3. The session is not longer auto disposed when passed in the pipeline, handling the session state is now your responsibility.
 4. I am completely overhauling the help, and adding more examples using platyPS.
 5. The `New-WinSCPSessionOption` defaults to using Anonymous authentication.
@@ -32,29 +32,29 @@ Install-Module -Name WinSCP
 
 ## WinSCP Cmdlets
 
-* [ConvertTo-WinSCPEscapedString](https://github.com/dotps1/WinSCP/wiki/ConvertTo-WinSCPEscapedString)
-* [Copy-WInSCPItem](https://github.com/dotps1/WinSCP/wiki/Copy-WinSCPItem)
-* [Get-WinSCPChildItem](https://github.com/dotps1/WinSCP/wiki/Get-WinSCPChildItem)
-* [Get-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Get-WinSCPItem)
-* [Get-WinSCPFileChecksum](https://github.com/dotps1/WinSCP/wiki/Get-WinSCPItemChecksum)
-* [Get-WinSCPSession](https://github.com/dotps1/WinSCP/wiki/Get-WinSCPSession)
-* [Get-WinSCPSshHostKeyFingerprint](https://github.com/dotps1/WinSCP/wiki/Get-WinSCPSshHostKeyFingerprint)
-* [Invoke-WinSCPCommand](https://github.com/dotps1/WinSCP/wiki/Invoke-WinSCPCommand)
-* [Move-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Move-WinSCPItem)
-* [New-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/New-WinSCPItem)
-* [New-WinSCPItemPermission](https://github.com/dotps1/WinSCP/wiki/New-WinSCPItemPermission)
-* [New-WinSCPSession](https://github.com/dotps1/WinSCP/wiki/New-WinSCPSession)
-* [New-WinSCPSessionOption](https://github.com/dotps1/WinSCP/wiki/New-WinSCPSessionOption)
-* [New-WinSCPTransferOption](https://github.com/dotps1/WinSCP/wiki/New-WinSCPTransferOption)
-* [New-WinSCPTransferResumeSupport](https://github.com/dotps1/WinSCP/wiki/New-WinSCPTransferResumeSupport)
-* [Receive-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Receive-WinSCPItem)
-* [Remove-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPItem)
-* [Remove-WinSCPSession](https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPSession)
-* [Rename-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Rename-WinSCPItem)
-* [Send-WinSCPItem](https://github.com/dotps1/WinSCP/wiki/Send-WinSCPItem)
-* [Start-WinSCPConsole](https://github.com/dotps1/WinSCP/wiki/Start-WinSCPConsole)
-* [Sync-WinSCPPath](https://github.com/dotps1/WinSCP/wiki/Sync-WinSCPPath)
-* [Test-WinSCPPath](https://github.com/dotps1/WinSCP/wiki/Test-WinSCPPath)
+* [ConvertTo-WinSCPEscapedString](https://github.com/tomohulk/WinSCP/wiki/ConvertTo-WinSCPEscapedString)
+* [Copy-WInSCPItem](https://github.com/tomohulk/WinSCP/wiki/Copy-WinSCPItem)
+* [Get-WinSCPChildItem](https://github.com/tomohulk/WinSCP/wiki/Get-WinSCPChildItem)
+* [Get-WinSCPItem](https://github.com/tomohulk/WinSCP/wiki/Get-WinSCPItem)
+* [Get-WinSCPFileChecksum](https://github.com/tomohulk/WinSCP/wiki/Get-WinSCPItemChecksum)
+* [Get-WinSCPSession](https://github.com/tomohulk/WinSCP/wiki/Get-WinSCPSession)
+* [Get-WinSCPSshHostKeyFingerprint](https://github.com/tomohulk/WinSCP/wiki/Get-WinSCPSshHostKeyFingerprint)
+* [Invoke-WinSCPCommand](https://github.com/tomohulk/WinSCP/wiki/Invoke-WinSCPCommand)
+* [Move-WinSCPItem](https://github.com/tomohulk/WinSCP/wiki/Move-WinSCPItem)
+* [New-WinSCPItem](https://github.com/tomohulk/WinSCP/wiki/New-WinSCPItem)
+* [New-WinSCPItemPermission](https://github.com/tomohulk/WinSCP/wiki/New-WinSCPItemPermission)
+* [New-WinSCPSession](https://github.com/tomohulk/WinSCP/wiki/New-WinSCPSession)
+* [New-WinSCPSessionOption](https://github.com/tomohulk/WinSCP/wiki/New-WinSCPSessionOption)
+* [New-WinSCPTransferOption](https://github.com/tomohulk/WinSCP/wiki/New-WinSCPTransferOption)
+* [New-WinSCPTransferResumeSupport](https://github.com/tomohulk/WinSCP/wiki/New-WinSCPTransferResumeSupport)
+* [Receive-WinSCPItem](https://github.com/tomohulk/WinSCP/wiki/Receive-WinSCPItem)
+* [Remove-WinSCPItem](https://github.com/tomohulk/WinSCP/wiki/Remove-WinSCPItem)
+* [Remove-WinSCPSession](https://github.com/tomohulk/WinSCP/wiki/Remove-WinSCPSession)
+* [Rename-WinSCPItem](https://github.com/tomohulk/WinSCP/wiki/Rename-WinSCPItem)
+* [Send-WinSCPItem](https://github.com/tomohulk/WinSCP/wiki/Send-WinSCPItem)
+* [Start-WinSCPConsole](https://github.com/tomohulk/WinSCP/wiki/Start-WinSCPConsole)
+* [Sync-WinSCPPath](https://github.com/tomohulk/WinSCP/wiki/Sync-WinSCPPath)
+* [Test-WinSCPPath](https://github.com/tomohulk/WinSCP/wiki/Test-WinSCPPath)
 
 
 ## Examples
@@ -64,7 +64,7 @@ Install-Module -Name WinSCP
 $credential = Get-Credential
 
 # Set the options to open the WinSCPSession with
-$sessionOption = New-WinSCPSessionOption -HostName ftp.dotps1.github.io -Protocol Ftp -Credential $credential
+$sessionOption = New-WinSCPSessionOption -HostName ftp.tomohulk.github.io -Protocol Ftp -Credential $credential
 
 # Open the session using the SessionOptions object.
 # New-WinSCPSession sets the PSDefaultParameterValue of the WinSCPSession parameter for all other cmdlets to this WinSCP.Session object.

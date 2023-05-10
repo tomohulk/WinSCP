@@ -1,7 +1,7 @@
 ---
 external help file: WinSCP-help.xml
 Module Name: WinSCP
-online version: https://github.com/dotps1/WinSCP/wiki/ConvertTo-WinSCPEscapedString
+online version: https://github.com/tomohulk/WinSCP/wiki/ConvertTo-WinSCPEscapedString
 schema: 2.0.0
 ---
 
@@ -35,7 +35,7 @@ PS C:\> New-WinSCPSession -SessionOption $sessionOption
 
 Opened       Timeout HostName
 ------       ------- --------
-True        00:01:00 ftp.dotps1.github.io
+True        00:01:00 ftp.tomohulk.github.io
 
 
 PS C:\> $escapedString = ConvertTo-WinSCPEscapedString -FileMask "./WhosFileIsThis?.txt"

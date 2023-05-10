@@ -1,7 +1,7 @@
 ---
 external help file: WinSCP-help.xml
 Module Name: WinSCP
-online version: https://github.com/dotps1/WinSCP/wiki/Get-WinSCPServerPublicKeyFingerprint
+online version: https://github.com/tomohulk/WinSCP/wiki/Get-WinSCPServerPublicKeyFingerprint
 schema: 2.0.0
 ---
 
@@ -23,7 +23,7 @@ Scans a fingerprint of SSH server public key (host key) or FTPS/WebDAVS TLS cert
 
 ### EXAMPLE 1
 ```
-PS C:\> $sessionOption = New-WinSCPSessionOption -HostName ftp.dotps1.github.io
+PS C:\> $sessionOption = New-WinSCPSessionOption -HostName ftp.tomohulk.github.io
 PS C:\> $sshHostKeyFingerprint = Get-WinSCPHostKeyFingerprint -SessionOption $sessionOption -Algorithm SHA-256
 PS C:\> $sessionOption.SshHostKeyFingerprint = $sshHostKeyFingerprint
 PS C:\> New-WinSCPSession -SessionOption $sessionOption
@@ -31,7 +31,7 @@ PS C:\> New-WinSCPSession -SessionOption $sessionOption
 
 Opened       Timeout HostName
 ------       ------- --------
-True        00:01:00 ftp.dotps1.github.io
+True        00:01:00 ftp.tomohulk.github.io
 
 
 PS C:\> Remove-WinSCPSession
@@ -39,7 +39,7 @@ PS C:\> Remove-WinSCPSession
 
 ### EXAMPLE 2
 ```
-PS C:\> $sessionOption = New-WinSCPSessionOption -HostName ftp.dotps1.github.io -FtpSecure Implicit -Port 990 -Protocol Ftp -TlsClientCertificatePath C:\ftp.dotps1.github.io.crt
+PS C:\> $sessionOption = New-WinSCPSessionOption -HostName ftp.tomohulk.github.io -FtpSecure Implicit -Port 990 -Protocol Ftp -TlsClientCertificatePath C:\ftp.tomohulk.github.io.crt
 PS C:\> $tlsHostCertificateFingerprint = Get-WinSCPHostFingerprint -SessionOptions $sessionOption -Algorithm MD5
 PS C:\> $sessionOption.TlsHostCertificateFingerprint = $tlsHostCertificateFingerprint
 PS C:\> New-WinSCPSession -SessionOption $sessionOption
@@ -47,7 +47,7 @@ PS C:\> New-WinSCPSession -SessionOption $sessionOption
 
 Opened       Timeout HostName
 ------       ------- --------
-True        00:01:00 ftp.dotps1.github.io
+True        00:01:00 ftp.tomohulk.github.io
 
 
 PS C:\> Remove-WinSCPSession

@@ -1,7 +1,7 @@
 ---
 external help file: WinSCP-help.xml
 Module Name: WinSCP
-online version: https://github.com/dotps1/WinSCP/wiki/Receive-WinSCPItem
+online version: https://github.com/tomohulk/WinSCP/wiki/Receive-WinSCPItem
 schema: 2.0.0
 ---
 
@@ -46,10 +46,10 @@ Mode                  LastWriteTime     Length Name
 ---------      7/5/2017 10:54:45 AM         12 NewWinSCPItem.txt
 
 
-PS C:\> Receive-WinSCPItem -RemotePath NewWinSCPItem.txt -LocalPath C:\Users\dotps1\Desktop -Remove
+PS C:\> Receive-WinSCPItem -RemotePath NewWinSCPItem.txt -LocalPath C:\Users\tomohulk\Desktop -Remove
 
 
-   Destination: C:\Users\dotps1\Desktop
+   Destination: C:\Users\tomohulk\Desktop
 
 IsSuccess FileName
 --------- --------

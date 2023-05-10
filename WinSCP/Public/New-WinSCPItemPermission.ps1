@@ -2,7 +2,7 @@ function New-WinSCPItemPermission {
 
     [CmdletBinding(
         ConfirmImpact = "Low",
-        HelpUri = "https://github.com/dotps1/WinSCP/wiki/New-WinSCPItemPermission",
+        HelpUri = "https://github.com/tomohulk/WinSCP/wiki/New-WinSCPItemPermission",
         PositionalBinding = $false,
         SupportsShouldProcess = $true
     )]

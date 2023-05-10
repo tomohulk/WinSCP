@@ -85,7 +85,7 @@ PS C:\&gt; New-WinSCPSession -SessionOption $sessionOption
 
 Opened       Timeout HostName
 ------       ------- --------
-True        00:01:00 ftp.dotps1.github.io
+True        00:01:00 ftp.tomohulk.github.io
 
 
 PS C:\&gt; $escapedString = ConvertTo-WinSCPEscapedString -FileMask "./WhosFileIsThis?.txt"
@@ -108,7 +108,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/dotps1/WinSCP/wiki/ConvertTo-WinSCPEscapedString</maml:uri>
+        <maml:uri>https://github.com/tomohulk/WinSCP/wiki/ConvertTo-WinSCPEscapedString</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>WinSCP reference</maml:linkText>
@@ -336,7 +336,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/dotps1/WinSCP/wiki/Copy-WinSCPItem</maml:uri>
+        <maml:uri>https://github.com/tomohulk/WinSCP/wiki/Copy-WinSCPItem</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>WinSCP reference</maml:linkText>
@@ -602,7 +602,7 @@ PS C:\&gt; New-WinSCPSession -SessionOption $sessionOption
 
 Opened       Timeout HostName
 ------       ------- --------
-True        00:01:00 ftp.dotps1.github.io
+True        00:01:00 ftp.tomohulk.github.io
 
 
 PS C:\&gt; Get-WinSCPChildItem -File
@@ -625,7 +625,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/dotps1/WinSCP/wiki/Get-WinSCPChildItem</maml:uri>
+        <maml:uri>https://github.com/tomohulk/WinSCP/wiki/Get-WinSCPChildItem</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>WinSCP reference</maml:linkText>
@@ -732,7 +732,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $sessionOption = New-WinSCPSessionOption -HostName ftp.dotps1.github.io
+        <dev:code>PS C:\&gt; $sessionOption = New-WinSCPSessionOption -HostName ftp.tomohulk.github.io
 PS C:\&gt; $sshHostKeyFingerprint = Get-WinSCPHostKeyFingerprint -SessionOption $sessionOption -Algorithm SHA-256
 PS C:\&gt; $sessionOption.SshHostKeyFingerprint = $sshHostKeyFingerprint
 PS C:\&gt; New-WinSCPSession -SessionOption $sessionOption
@@ -740,7 +740,7 @@ PS C:\&gt; New-WinSCPSession -SessionOption $sessionOption
 
 Opened       Timeout HostName
 ------       ------- --------
-True        00:01:00 ftp.dotps1.github.io
+True        00:01:00 ftp.tomohulk.github.io
 
 
 PS C:\&gt; Remove-WinSCPSession</dev:code>
@@ -750,7 +750,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $sessionOption = New-WinSCPSessionOption -HostName ftp.dotps1.github.io -FtpSecure Implicit -Port 990 -Protocol Ftp -TlsClientCertificatePath C:\ftp.dotps1.github.io.crt
+        <dev:code>PS C:\&gt; $sessionOption = New-WinSCPSessionOption -HostName ftp.tomohulk.github.io -FtpSecure Implicit -Port 990 -Protocol Ftp -TlsClientCertificatePath C:\ftp.tomohulk.github.io.crt
 PS C:\&gt; $tlsHostCertificateFingerprint = Get-WinSCPHostFingerprint -SessionOptions $sessionOption -Algorithm MD5
 PS C:\&gt; $sessionOption.TlsHostCertificateFingerprint = $tlsHostCertificateFingerprint
 PS C:\&gt; New-WinSCPSession -SessionOption $sessionOption
@@ -758,7 +758,7 @@ PS C:\&gt; New-WinSCPSession -SessionOption $sessionOption
 
 Opened       Timeout HostName
 ------       ------- --------
-True        00:01:00 ftp.dotps1.github.io
+True        00:01:00 ftp.tomohulk.github.io
 
 
 PS C:\&gt; Remove-WinSCPSession</dev:code>
@@ -770,7 +770,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/dotps1/WinSCP/wiki/Get-WinSCPServerPublicKeyFingerprint</maml:uri>
+        <maml:uri>https://github.com/tomohulk/WinSCP/wiki/Get-WinSCPServerPublicKeyFingerprint</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>WinSCP reference</maml:linkText>
@@ -917,7 +917,7 @@ PS C:\&gt; New-WinSCPSession -SessionOption $sessionOption
 
 Opened       Timeout HostName
 ------       ------- --------
-True        00:01:00 ftp.dotps1.github.io
+True        00:01:00 ftp.tomohulk.github.io
 
 
 PS C:\&gt; Get-WinSCPItem -Path "ftpDir1"
@@ -939,7 +939,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/dotps1/WinSCP/wiki/Get-WinSCPItem</maml:uri>
+        <maml:uri>https://github.com/tomohulk/WinSCP/wiki/Get-WinSCPItem</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>WinSCP reference</maml:linkText>
@@ -1091,7 +1091,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/dotps1/WinSCP/wiki/Get-WinSCPItemChecksum</maml:uri>
+        <maml:uri>https://github.com/tomohulk/WinSCP/wiki/Get-WinSCPItemChecksum</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>WinSCP reference</maml:linkText>
@@ -1174,7 +1174,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
 
 Opened       Timeout HostName
 ------       ------- --------
-True        00:01:00 ftp.dotps1.github.io</dev:code>
+True        00:01:00 ftp.tomohulk.github.io</dev:code>
         <dev:remarks>
           <maml:para></maml:para>
         </dev:remarks>
@@ -1183,7 +1183,7 @@ True        00:01:00 ftp.dotps1.github.io</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/dotps1/WinSCP/wiki/Get-WinSCPSession</maml:uri>
+        <maml:uri>https://github.com/tomohulk/WinSCP/wiki/Get-WinSCPSession</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -1298,7 +1298,7 @@ IsSuccess   : True</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/dotps1/WinSCP/wiki/Invoke-WinSCPCommand</maml:uri>
+        <maml:uri>https://github.com/tomohulk/WinSCP/wiki/Invoke-WinSCPCommand</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>WinSCP reference</maml:linkText>
@@ -1530,7 +1530,7 @@ PS C:\&gt; New-WinSCPSession -SessionOption $sessionOption
 
 Opened       Timeout HostName
 ------       ------- --------
-True        00:01:00 ftp.dotps1.github.io
+True        00:01:00 ftp.tomohulk.github.io
 
 
 PS C:\&gt; Move-WinSCPItem -Path "ftpDir1/ftpDoc1.txt" -Destination "/" -PassThru
@@ -1552,7 +1552,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/dotps1/WinSCP/wiki/Move-WinSCPItem</maml:uri>
+        <maml:uri>https://github.com/tomohulk/WinSCP/wiki/Move-WinSCPItem</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>WinSCP reference</maml:linkText>
@@ -1840,7 +1840,7 @@ PS C:\&gt; New-WinSCPSession -SessionOption $sessionOption
 
 Opened       Timeout HostName
 ------       ------- --------
-True        00:01:00 ftp.dotps1.github.io
+True        00:01:00 ftp.tomohulk.github.io
 
 
 PS C:\&gt; New-WinSCPItem -Path NewWinSCPItem.txt -Value "Hello World!"
@@ -1862,7 +1862,7 @@ PS C:\&gt; Remove-WinSCPSession</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/dotps1/WinSCP/wiki/New-WinSCPItem</maml:uri>
+        <maml:uri>https://github.com/tomohulk/WinSCP/wiki/New-WinSCPItem</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -2357,7 +2357,7 @@ SetUid       : False</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/dotps1/WinSCP/wiki/New-WinSCPItemPermission</maml:uri>
+        <maml:uri>https://github.com/tomohulk/WinSCP/wiki/New-WinSCPItemPermission</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>WinSCP reference</maml:linkText>
@@ -2626,11 +2626,11 @@ SetUid       : False</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; New-WinSCPSession -SessionOption (New-WinSCPSessionOption -HostName ftp.dotps1.github.io -Protocol Ftp)
+        <dev:code>PS C:\&gt; New-WinSCPSession -SessionOption (New-WinSCPSessionOption -HostName ftp.tomohulk.github.io -Protocol Ftp)
 
 Opened       Timeout HostName
 ------       ------- --------
-True        00:01:00 ftp.dotps1.github.io</dev:code>
+True        00:01:00 ftp.tomohulk.github.io</dev:code>
         <dev:remarks>
           <maml:para></maml:para>
         </dev:remarks>
@@ -2639,12 +2639,12 @@ True        00:01:00 ftp.dotps1.github.io</dev:code>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; $credential = Get-Credential
 PS C:\&gt; $sshHostKeyFingerprint = "ssh-dss 2048 01:aa:23:bb:45:cc:67:dd:89:ee:01:ff:23:aa:45:bb"
-PS C:\&gt; $sessionOption = New-WinSCPSessionOption -HostName ftp.dotps1.github.io -SshHostKeyFingerprint $sshHostKeyFingerprint -Credential $credential
+PS C:\&gt; $sessionOption = New-WinSCPSessionOption -HostName ftp.tomohulk.github.io -SshHostKeyFingerprint $sshHostKeyFingerprint -Credential $credential
 PS C:\&gt; New-WinSCPSession -SessionOption $sessionOption
 
 Opened       Timeout HostName
 ------       ------- --------
-True        00:01:00 ftp.dotps1.github.io</dev:code>
+True        00:01:00 ftp.tomohulk.github.io</dev:code>
         <dev:remarks>
           <maml:para></maml:para>
         </dev:remarks>
@@ -2653,7 +2653,7 @@ True        00:01:00 ftp.dotps1.github.io</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/dotps1/WinSCP/wiki/New-WinSCPSession</maml:uri>
+        <maml:uri>https://github.com/tomohulk/WinSCP/wiki/New-WinSCPSession</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>WinSCP reference</maml:linkText>
@@ -3175,11 +3175,11 @@ True        00:01:00 ftp.dotps1.github.io</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; New-WinSCPSessionOption -HostName ftp.dotps1.github.io
+        <dev:code>PS C:\&gt; New-WinSCPSessionOption -HostName ftp.tomohulk.github.io
 
 
 Protocol                                     : Sftp
-HostName                                     : ftp.dotps1.github.io
+HostName                                     : ftp.tomohulk.github.io
 PortNumber                                   : 0
 UserName                                     : anonymous
 Password                                     :
@@ -3206,13 +3206,13 @@ TlsClientCertificatePath                     :</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; New-WinSCPSessionOption -HostName ftp.dotps1.github.io -Protocol Sftp -SshHostKeyFingerPrint "ssh-dss 2048 01:aa:23:bb:45:cc:67:dd:89:ee:01:ff:23:aa:45:bb" -Credential (Get-Credential)
+        <dev:code>PS C:\&gt; New-WinSCPSessionOption -HostName ftp.tomohulk.github.io -Protocol Sftp -SshHostKeyFingerPrint "ssh-dss 2048 01:aa:23:bb:45:cc:67:dd:89:ee:01:ff:23:aa:45:bb" -Credential (Get-Credential)
 
 
 Protocol                                     : Sftp
-HostName                                     : ftp.dotps1.github.io
+HostName                                     : ftp.tomohulk.github.io
 PortNumber                                   : 0
-UserName                                     : dotps1
+UserName                                     : tomohulk
 Password                                     :
 SecurePassword                               : System.Security.SecureString
 NewPassword                                  :
@@ -3239,7 +3239,7 @@ TlsClientCertificatePath                     :</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/dotps1/WinSCP/wiki/New-WinSCPSessionOption</maml:uri>
+        <maml:uri>https://github.com/tomohulk/WinSCP/wiki/New-WinSCPSessionOption</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>WinSCP reference</maml:linkText>
@@ -3576,7 +3576,7 @@ OverwriteMode     : Overwrite</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/dotps1/WinSCP/wiki/New-WinSCPTransferOption</maml:uri>
+        <maml:uri>https://github.com/tomohulk/WinSCP/wiki/New-WinSCPTransferOption</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>WinSCP reference</maml:linkText>
@@ -3744,7 +3744,7 @@ Default</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/dotps1/WinSCP/wiki/New-WinSCPTransferResumeSupport</maml:uri>
+        <maml:uri>https://github.com/tomohulk/WinSCP/wiki/New-WinSCPTransferResumeSupport</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>WinSCP reference</maml:linkText>
@@ -3942,10 +3942,10 @@ Mode                  LastWriteTime     Length Name
 ---------      7/5/2017 10:54:45 AM         12 NewWinSCPItem.txt
 
 
-PS C:\&gt; Receive-WinSCPItem -RemotePath NewWinSCPItem.txt -LocalPath C:\Users\dotps1\Desktop -Remove
+PS C:\&gt; Receive-WinSCPItem -RemotePath NewWinSCPItem.txt -LocalPath C:\Users\tomohulk\Desktop -Remove
 
 
-   Destination: C:\Users\dotps1\Desktop
+   Destination: C:\Users\tomohulk\Desktop
 
 IsSuccess FileName
 --------- --------
@@ -3958,7 +3958,7 @@ True      NewWinSCPItem.txt</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/dotps1/WinSCP/wiki/Receive-WinSCPItem</maml:uri>
+        <maml:uri>https://github.com/tomohulk/WinSCP/wiki/Receive-WinSCPItem</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>WinSCP reference</maml:linkText>
@@ -4116,7 +4116,7 @@ True      NewWinSCPItem.txt</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPItem</maml:uri>
+        <maml:uri>https://github.com/tomohulk/WinSCP/wiki/Remove-WinSCPItem</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>WinSCP reference</maml:linkText>
@@ -4298,7 +4298,7 @@ True      NewWinSCPItem.txt</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPSession</maml:uri>
+        <maml:uri>https://github.com/tomohulk/WinSCP/wiki/Remove-WinSCPSession</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>WinSCP reference</maml:linkText>
@@ -4481,7 +4481,7 @@ Mode                  LastWriteTime     Length Name
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/dotps1/WinSCP/wiki/Rename-WinSCPItem</maml:uri>
+        <maml:uri>https://github.com/tomohulk/WinSCP/wiki/Rename-WinSCPItem</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>WinSCP reference</maml:linkText>
@@ -4696,7 +4696,7 @@ True      NewItem.txt</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/dotps1/WinSCP/wiki/Send-WinSCPItem</maml:uri>
+        <maml:uri>https://github.com/tomohulk/WinSCP/wiki/Send-WinSCPItem</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>WinSCP reference</maml:linkText>
@@ -4806,7 +4806,7 @@ True      NewItem.txt</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/dotps1/WinSCP/wiki/Start-WinSCPConsole</maml:uri>
+        <maml:uri>https://github.com/tomohulk/WinSCP/wiki/Start-WinSCPConsole</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>WinSCP reference</maml:linkText>
@@ -5092,7 +5092,7 @@ IsSuccess : True</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/dotps1/WinSCP/wiki/Sync-WinSCPPath</maml:uri>
+        <maml:uri>https://github.com/tomohulk/WinSCP/wiki/Sync-WinSCPPath</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>WinSCP reference</maml:linkText>
@@ -5205,7 +5205,7 @@ True</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/dotps1/WinSCP/wiki/Test-WinSCPPath</maml:uri>
+        <maml:uri>https://github.com/tomohulk/WinSCP/wiki/Test-WinSCPPath</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>WinSCP reference</maml:linkText>

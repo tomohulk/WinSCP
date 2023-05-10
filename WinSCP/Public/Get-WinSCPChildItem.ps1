@@ -2,7 +2,7 @@
 
     [CmdletBinding(
         ConfirmImpact = "Low",
-        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Get-WinSCPChildItem",
+        HelpUri = "https://github.com/tomohulk/WinSCP/wiki/Get-WinSCPChildItem",
         PositionalBinding = $false
     )]
     [OutputType(

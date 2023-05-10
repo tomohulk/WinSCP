@@ -2,7 +2,7 @@
 
     [CmdletBinding(
         ConfirmImpact = "Medium",
-        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Move-WinSCPItem",
+        HelpUri = "https://github.com/tomohulk/WinSCP/wiki/Move-WinSCPItem",
         PositionalBinding = $false,
         SupportsShouldProcess = $true
     )]

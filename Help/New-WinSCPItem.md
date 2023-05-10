@@ -1,7 +1,7 @@
 ---
 external help file: WinSCP-help.xml
 Module Name: WinSCP
-online version: https://github.com/dotps1/WinSCP/wiki/New-WinSCPItem
+online version: https://github.com/tomohulk/WinSCP/wiki/New-WinSCPItem
 schema: 2.0.0
 ---
 
@@ -42,7 +42,7 @@ PS C:\> New-WinSCPSession -SessionOption $sessionOption
 
 Opened       Timeout HostName
 ------       ------- --------
-True        00:01:00 ftp.dotps1.github.io
+True        00:01:00 ftp.tomohulk.github.io
 
 
 PS C:\> New-WinSCPItem -Path NewWinSCPItem.txt -Value "Hello World!"

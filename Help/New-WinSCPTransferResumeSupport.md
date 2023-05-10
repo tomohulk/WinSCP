@@ -1,7 +1,7 @@
 ---
 external help file: WinSCP-help.xml
 Module Name: WinSCP
-online version: https://github.com/dotps1/WinSCP/wiki/New-WinSCPTransferResumeSupport
+online version: https://github.com/tomohulk/WinSCP/wiki/New-WinSCPTransferResumeSupport
 schema: 2.0.0
 ---
 

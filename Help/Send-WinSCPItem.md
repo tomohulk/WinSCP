@@ -1,7 +1,7 @@
 ---
 external help file: WinSCP-help.xml
 Module Name: WinSCP
-online version: https://github.com/dotps1/WinSCP/wiki/Send-WinSCPItem
+online version: https://github.com/tomohulk/WinSCP/wiki/Send-WinSCPItem
 schema: 2.0.0
 ---
 

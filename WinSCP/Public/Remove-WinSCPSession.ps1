@@ -3,7 +3,7 @@
     [CmdletBinding(
         ConfirmImpact = "Medium",
         DefaultParameterSetName = "SingleSession",
-        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPSession",
+        HelpUri = "https://github.com/tomohulk/WinSCP/wiki/Remove-WinSCPSession",
         PositionalBinding = $false,
         SupportsShouldProcess = $true
     )]

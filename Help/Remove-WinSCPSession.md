@@ -1,7 +1,7 @@
 ---
 external help file: WinSCP-help.xml
 Module Name: WinSCP
-online version: https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPSession
+online version: https://github.com/tomohulk/WinSCP/wiki/Remove-WinSCPSession
 schema: 2.0.0
 ---
 

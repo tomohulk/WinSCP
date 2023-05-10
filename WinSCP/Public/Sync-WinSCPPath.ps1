@@ -2,7 +2,7 @@
 
     [CmdletBinding(
         ConfirmImpact = "Medium",
-        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Sync-WinSCPPath",
+        HelpUri = "https://github.com/tomohulk/WinSCP/wiki/Sync-WinSCPPath",
         PositionalBinding = $false
     )]
     [OutputType(

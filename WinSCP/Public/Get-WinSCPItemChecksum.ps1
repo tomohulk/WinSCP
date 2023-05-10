@@ -2,7 +2,7 @@
 
     [CmdletBinding(
         ConfirmImpact = "Low",
-        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Get-WinSCPItemChecksum",
+        HelpUri = "https://github.com/tomohulk/WinSCP/wiki/Get-WinSCPItemChecksum",
         PositionalBinding = $false
     )]
     [OutputType(

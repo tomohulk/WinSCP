@@ -12,7 +12,7 @@ NOTE
 	This is a work in progress, command names, parameters, and functionallity may change.
 	
 TROUBLESHOOTING NOTE
-	Please submit all issues and freature requests on the project site: https://github.com/dotps1/WinSCP/issues
+	Please submit all issues and freature requests on the project site: https://github.com/tomohulk/WinSCP/issues
 	
 EXAMPLES
 	Get-Command -Module WinSCP | Sort-Object -Property Name | Select-Object -Property Name
@@ -48,7 +48,7 @@ EXAMPLES
 
 
 	# Create a basic WinSCP.SessionOptions object, this use to open the connection to the host.
-	$sessionOption = New-WinSCPSessionOption -HostName ftp.dotps1.github.io
+	$sessionOption = New-WinSCPSessionOption -HostName ftp.tomohulk.github.io
 	
 	# Get the SshHostKeyFingerprint of the certificate the host is using.
 	$sshHostKeyFingerprint = Get-WinSCPSshHostKeyFingerprint -SessionOption $sessionOption
