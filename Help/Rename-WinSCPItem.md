@@ -1,7 +1,7 @@
 ---
 external help file: WinSCP-help.xml
 Module Name: WinSCP
-online version: https://github.com/dotps1/WinSCP/wiki/Rename-WinSCPItem
+online version: https://github.com/tomohulk/WinSCP/wiki/Rename-WinSCPItem
 schema: 2.0.0
 ---
 

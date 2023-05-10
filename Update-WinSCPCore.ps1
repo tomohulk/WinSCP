@@ -55,7 +55,7 @@ if ($publishedVersion -gt $currentVersion) {
     $yml = Get-Content -Path ${pwd}\appveyor.yml
     $yml = $yml -replace ($yml | Select-String -Pattern "\d.*\d").Matches.Value[0], $publishedVersion
     Set-Content -Path ${pwd}\appveyor.yml -Value $yml
-    Update-AppVeyorProjectBuildNumber -AccountName dotps1 -ProjectName WinSCP -BuildNumber 0
+    Update-AppVeyorProjectBuildNumber -AccountName tomohulk -ProjectName WinSCP -BuildNumber 0
 
     # TODO
     # Ensure PlatyPS is updated to the latest module version.

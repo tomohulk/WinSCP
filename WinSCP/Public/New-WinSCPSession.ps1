@@ -2,7 +2,7 @@
 
     [CmdletBinding(
         ConfirmImpact = "Low",
-        HelpUri = "https://github.com/dotps1/WinSCP/wiki/New-WinSCPSession",
+        HelpUri = "https://github.com/tomohulk/WinSCP/wiki/New-WinSCPSession",
         PositionalBinding = $false,
         SupportsShouldProcess = $true
     )]

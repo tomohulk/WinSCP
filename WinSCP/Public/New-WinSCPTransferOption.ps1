@@ -2,7 +2,7 @@
 
     [CmdletBinding(
         ConfirmImpact = "Low",
-        HelpUri = "https://github.com/dotps1/WinSCP/wiki/New-WinSCPTransferOption",
+        HelpUri = "https://github.com/tomohulk/WinSCP/wiki/New-WinSCPTransferOption",
         SupportsShouldProcess = $true,
         PositionalBinding = $false
     )]

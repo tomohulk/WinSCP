@@ -2,7 +2,7 @@ function New-WinSCPTransferResumeSupport {
 
     [CmdletBinding(
         ConfirmImpact = "Low",
-        HelpUri = "https://github.com/dotps1/WinSCP/wiki/New-WinSCPTransferResumeSupport",
+        HelpUri = "https://github.com/tomohulk/WinSCP/wiki/New-WinSCPTransferResumeSupport",
         PositionalBinding = $false,
         SupportsShouldProcess = $true
     )]

@@ -1,7 +1,7 @@
 ---
 external help file: WinSCP-help.xml
 Module Name: WinSCP
-online version: https://github.com/dotps1/WinSCP/wiki/New-WinSCPSessionOption
+online version: https://github.com/tomohulk/WinSCP/wiki/New-WinSCPSessionOption
 schema: 2.0.0
 ---
 
@@ -29,11 +29,11 @@ Is used with the New-WinSCPSession and Get-WinSCPSshHostKeyFingerprint methods.
 
 ### EXAMPLE 1
 ```
-PS C:\> New-WinSCPSessionOption -HostName ftp.dotps1.github.io
+PS C:\> New-WinSCPSessionOption -HostName ftp.tomohulk.github.io
 
 
 Protocol                                     : Sftp
-HostName                                     : ftp.dotps1.github.io
+HostName                                     : ftp.tomohulk.github.io
 PortNumber                                   : 0
 UserName                                     : anonymous
 Password                                     :
@@ -58,13 +58,13 @@ TlsClientCertificatePath                     :
 
 ### EXAMPLE 2
 ```
-PS C:\> New-WinSCPSessionOption -HostName ftp.dotps1.github.io -Protocol Sftp -SshHostKeyFingerPrint "ssh-dss 2048 01:aa:23:bb:45:cc:67:dd:89:ee:01:ff:23:aa:45:bb" -Credential (Get-Credential)
+PS C:\> New-WinSCPSessionOption -HostName ftp.tomohulk.github.io -Protocol Sftp -SshHostKeyFingerPrint "ssh-dss 2048 01:aa:23:bb:45:cc:67:dd:89:ee:01:ff:23:aa:45:bb" -Credential (Get-Credential)
 
 
 Protocol                                     : Sftp
-HostName                                     : ftp.dotps1.github.io
+HostName                                     : ftp.tomohulk.github.io
 PortNumber                                   : 0
-UserName                                     : dotps1
+UserName                                     : tomohulk
 Password                                     :
 SecurePassword                               : System.Security.SecureString
 NewPassword                                  :

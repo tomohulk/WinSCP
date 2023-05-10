@@ -2,7 +2,7 @@
 
     [CmdletBinding(
         ConfirmImpact = "Medium",
-        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Send-WinSCPItem",
+        HelpUri = "https://github.com/tomohulk/WinSCP/wiki/Send-WinSCPItem",
         PositionalBinding = $false
     )]
     [OutputType(

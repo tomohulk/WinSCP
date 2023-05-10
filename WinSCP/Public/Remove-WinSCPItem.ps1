@@ -2,7 +2,7 @@
 
     [CmdletBinding(
         ConfirmImpact = "High",
-        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Remove-WinSCPItem",
+        HelpUri = "https://github.com/tomohulk/WinSCP/wiki/Remove-WinSCPItem",
         PositionalBinding = $false,
         SupportsShouldProcess = $true
     )]

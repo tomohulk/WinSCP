@@ -2,7 +2,7 @@ function Copy-WinSCPItem {
 
     [CmdletBinding(
         ConfirmImpact = "Medium",
-        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Copy-WinSCPItem",
+        HelpUri = "https://github.com/tomohulk/WinSCP/wiki/Copy-WinSCPItem",
         PositionalBinding = $false,
         SupportsShouldProcess = $true
     )]

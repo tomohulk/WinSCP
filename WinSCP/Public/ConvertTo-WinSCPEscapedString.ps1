@@ -2,7 +2,7 @@
 
     [CmdletBinding(
         ConfirmImpact = "Low",
-        HelpUri = "https://github.com/dotps1/WinSCP/wiki/ConvertTo-WinSCPEscapedString",
+        HelpUri = "https://github.com/tomohulk/WinSCP/wiki/ConvertTo-WinSCPEscapedString",
         PositionalBinding = $false
     )]
     [OutputType(

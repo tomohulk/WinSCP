@@ -1,7 +1,7 @@
 ---
 external help file: WinSCP-help.xml
 Module Name: WinSCP
-online version: https://github.com/dotps1/WinSCP/wiki/New-WinSCPSession
+online version: https://github.com/tomohulk/WinSCP/wiki/New-WinSCPSession
 schema: 2.0.0
 ---
 
@@ -26,23 +26,23 @@ It represents a session and provides methods for manipulating remote files over 
 
 ### EXAMPLE 1
 ```
-PS C:\> New-WinSCPSession -SessionOption (New-WinSCPSessionOption -HostName ftp.dotps1.github.io -Protocol Ftp)
+PS C:\> New-WinSCPSession -SessionOption (New-WinSCPSessionOption -HostName ftp.tomohulk.github.io -Protocol Ftp)
 
 Opened       Timeout HostName
 ------       ------- --------
-True        00:01:00 ftp.dotps1.github.io
+True        00:01:00 ftp.tomohulk.github.io
 ```
 
 ### EXAMPLE 2
 ```
 PS C:\> $credential = Get-Credential
 PS C:\> $sshHostKeyFingerprint = "ssh-dss 2048 01:aa:23:bb:45:cc:67:dd:89:ee:01:ff:23:aa:45:bb"
-PS C:\> $sessionOption = New-WinSCPSessionOption -HostName ftp.dotps1.github.io -SshHostKeyFingerprint $sshHostKeyFingerprint -Credential $credential
+PS C:\> $sessionOption = New-WinSCPSessionOption -HostName ftp.tomohulk.github.io -SshHostKeyFingerprint $sshHostKeyFingerprint -Credential $credential
 PS C:\> New-WinSCPSession -SessionOption $sessionOption
 
 Opened       Timeout HostName
 ------       ------- --------
-True        00:01:00 ftp.dotps1.github.io
+True        00:01:00 ftp.tomohulk.github.io
 ```
 
 ## PARAMETERS

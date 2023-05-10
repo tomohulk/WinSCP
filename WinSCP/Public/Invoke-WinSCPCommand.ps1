@@ -2,7 +2,7 @@
 
     [CmdletBinding(
         ConfirmImpact = "Medium",
-        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Invoke-WinSCPCommand",
+        HelpUri = "https://github.com/tomohulk/WinSCP/wiki/Invoke-WinSCPCommand",
         PositionalBinding = $false
     )]
     [OutputType(

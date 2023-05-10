@@ -2,7 +2,7 @@ function Get-WinSCPHostKeyFingerprint {
 
     [CmdletBinding(
         ConfirmImpact = "Low",
-        HelpUri = "https://github.com/dotps1/WinSCP/wiki/Get-WinSCPHostKeyFingerprint",
+        HelpUri = "https://github.com/tomohulk/WinSCP/wiki/Get-WinSCPHostKeyFingerprint",
         PositionalBinding = $false
     )]
     [OutputType(

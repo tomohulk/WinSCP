@@ -22,7 +22,7 @@
 
     ./path/subpath/file.txt
 .LINK
-    http://dotps1.github.io/WinSCP
+    http://tomohulk.github.io/WinSCP
 #>
 
 function Format-WinSCPPathString {
