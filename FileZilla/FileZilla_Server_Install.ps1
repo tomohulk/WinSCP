@@ -23,7 +23,7 @@ try {
 
     Start-Process -FilePath "$PSSCriptRoot\FileZilla*.exe" -ArgumentList "/S"
 
-    Start-Sleep -Seconds 20
+    Start-Sleep -Seconds 60
 } catch {
     throw "$($_.Exception.Message)"
 }
