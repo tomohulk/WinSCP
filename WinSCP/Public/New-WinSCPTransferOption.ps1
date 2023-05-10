@@ -44,15 +44,22 @@
         $RawSetting
     )
 
-    $transferOptions = New-Object -TypeName WinSCP.TransferOptions
+    $transferOption = New-Object -TypeName WinSCP.TransferOptions
 
     $shouldProcess = $PSCmdlet.ShouldProcess(
-        $transferOptions
+        $transferOption
     )
     if ($shouldProcess) {
         try {
-            foreach ($key in $PSBoundParameters.Keys) {
-                $transferOptions.$key = $PSBoundParameters.$key
+            $transferOptionObjectProperties = $transferOption |
+                Get-Member -MemberType Property |
+                    Select-Object -ExpandProperty Name
+            $keys = ($PSBoundParameters.Keys).Where({
+                $_ -in $transferOptionObjectProperties
+            })
+
+            foreach ($key in $keys) {
+                $transferOption.$key = $PSBoundParameters.$key
             }
         } catch {
             $PSCmdlet.ThrowTerminatingError(
@@ -60,6 +67,12 @@
             )
         }
 
-        Write-Output -InputObject $transferOptions
+        foreach ($key in $RawSetting.Keys) {
+            $transferOption.AddRawSettings(
+                $key, $RawSetting[$key]
+            )
+        }
+
+        Write-Output -InputObject $transferOption
     }
 }
