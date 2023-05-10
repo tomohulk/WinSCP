@@ -176,7 +176,7 @@
     } # End of PrivateData hashtable
     
     # HelpInfo URI of this module
-    HelpInfoURI = "https://raw.githubusercontent.com/tomohulk/WinSCP/master/Help"
+    HelpInfoURI = "https://raw.githubusercontent.com/tomohulk/WinSCP/tree/102-update-help-unable-to-connect-to-help-content/Help/"
     
     # Default prefix for commands exported from this module. Override the default prefix using Import-Module -Prefix.
     # DefaultCommandPrefix = "WinSCP"
