@@ -22,6 +22,8 @@ try {
     Copy-Item -Path "$PSScriptRoot\FileZilla*.xml" -Destination $installDirectory -Force
 
     Start-Process -FilePath "$PSSCriptRoot\FileZilla*.exe" -ArgumentList "/S"
+
+    Start-Sleep -Seconds 20
 } catch {
     throw "$($_.Exception.Message)"
 }
