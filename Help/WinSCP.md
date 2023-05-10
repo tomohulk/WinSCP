@@ -1,7 +1,7 @@
 ---
 Module Name: WinSCP
 Module Guid: 06e0af4e-779b-48f4-939f-c90b8ec950e6
-Download Help Link: https://raw.githubusercontent.com/tomohulk/WinSCP/102-update-help-unable-to-connect-to-help-content/Help/
+Download Help Link: https://raw.githubusercontent.com/tomohulk/WinSCP/master/Help/
 Help Version: 5.21.8
 Locale: en-US
 ---
