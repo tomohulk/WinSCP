@@ -52,10 +52,10 @@ if ($publishedVersion -gt $currentVersion) {
     }
 
     # Update AppVeyor yml build info.
-    $yml = Get-Content -Path ${pwd}\appveyor.yml
+    $buildFile = "${pwd}\.github\workflows\Build.yml"
+    $yml = Get-Content -Path $buildFile
     $yml = $yml -replace ($yml | Select-String -Pattern "\d.*\d").Matches.Value[0], $publishedVersion
-    Set-Content -Path ${pwd}\appveyor.yml -Value $yml
-    Update-AppVeyorProjectBuildNumber -AccountName tomohulk -ProjectName WinSCP -BuildNumber 0
+    Set-Content -Path $buildFile -Value $yml
 
     # TODO
     # Ensure PlatyPS is updated to the latest module version.
@@ -67,7 +67,7 @@ if ($publishedVersion -gt $currentVersion) {
 
     try {
         git add .
-        git commit -a -m "Build - Updating WinSCP Core to $publishedVersion."
+        git commit -a -m "[Publish] - Updating WinSCP Core to $publishedVersion."
         git push
     } catch {
         Write-Error $_

@@ -1,24 +1,6 @@
 # WinSCP PowerShell Module Wrapper
 [![CI/CD](https://github.com/tomohulk/WinSCP/actions/workflows/Build.yml/badge.svg)](https://github.com/tomohulk/WinSCP/actions/workflows/Build.yml)
 
-## Overhaul complete:
-I have been revisiting this module as of late, add making some major changes:
-
-1. New functions:
-    * Get-WinSCPSession
-    * Get-WinSCPHostKeyFingerprint
-    * New-WinSCPSessionOption
-    * New-WinSCPTransferResumeSupport
-2. The `New-WinSCPSession` has been split into two functions, most of the configurations for the session have been moved to the `New-WinSCPSessionOption` command.  This will mimic the functionality of `New-CimSessionOption` and `New-CimSession`.
-    * `PS C:\> New-WinSCPSession -SessionOption (New-WinSCPSessionOption -HostName ftp.tomohulk.github.io)`
-3. The session is not longer auto disposed when passed in the pipeline, handling the session state is now your responsibility.
-4. I am completely overhauling the help, and adding more examples using platyPS.
-5. The `New-WinSCPSessionOption` defaults to using Anonymous authentication.
-6. Updated pester tests.
-7. Re implemented AppVeyor build.
-8. Auto publishing to both PowerShellGallery.com and GitHub Releases.
-9. Lots of bug fixes.
-
 ## Use at your own risk.
 
 This module can be installed from the [PowerShellGet Gallery](https://www.powershellgallery.com/packages/WinSCP/),  You need [WMF 5](https://www.microsoft.com/en-us/download/details.aspx?id=44987) to use this feature.
@@ -57,7 +39,7 @@ Install-Module -Name WinSCP
 * [Test-WinSCPPath](https://github.com/tomohulk/WinSCP/wiki/Test-WinSCPPath)
 
 
-## Examples
+## Example
 
 ```PowerShell
 # Capture credentials.
