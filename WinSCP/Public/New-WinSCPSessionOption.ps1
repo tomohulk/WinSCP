@@ -62,6 +62,13 @@ function New-WinSCPSessionOption {
         $SshHostKeyFingerprint,
 
         [Parameter()]
+        [ValidateSet(
+            "Check", "AcceptNew"
+        )]
+        [String]
+        $SshHostKeyPolicy = "Check",
+
+        [Parameter()]
         [ValidateScript({
             if (Test-Path -Path $_) {
                 if ((Get-Item -Path $_).PSIsContainer) {

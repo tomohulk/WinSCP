@@ -2915,6 +2915,18 @@ True        00:01:00 ftp.tomohulk.github.io</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SshHostKeyPolicy</maml:name>
+          <maml:description>
+            <maml:para>SSH host key policy. Use the default SshHostKeyPolicy.Check to verify the host key against SshHostKeyFingerprint. Use SshHostKeyPolicy.GiveUpSecurityAndAcceptAny to give up a security and accept any SSH host key. To be used in exceptional situations only, when security is not required. When set, log files will include warning about insecure connection. Use SshHostKeyPolicy.AcceptNew to automatically accept host key of new hosts. The known keys are cached in registry.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
@@ -3138,6 +3150,18 @@ True        00:01:00 ftp.tomohulk.github.io</dev:code>
         <maml:name>RootPath</maml:name>
         <maml:description>
           <maml:para>WebDAV root path or S3 bucket path. Set, when the HTTP server root or S3 bucket list is not accessible.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>SshHostKeyPolicy</maml:name>
+        <maml:description>
+          <maml:para>SSH host key policy. Use the default SshHostKeyPolicy.Check to verify the host key against SshHostKeyFingerprint. Use SshHostKeyPolicy.GiveUpSecurityAndAcceptAny to give up a security and accept any SSH host key. To be used in exceptional situations only, when security is not required. When set, log files will include warning about insecure connection. Use SshHostKeyPolicy.AcceptNew to automatically accept host key of new hosts. The known keys are cached in registry.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>

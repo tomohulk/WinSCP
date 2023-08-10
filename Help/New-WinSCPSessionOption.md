@@ -16,9 +16,9 @@ Defines information to allow an automatic connection and authentication of the s
 New-WinSCPSessionOption [-Credential <PSCredential>] [-FtpMode <FtpMode>] [-FtpSecure <FtpSecure>]
  [-GiveUpSecurityAndAcceptAnySshHostKey] [-GiveUpSecurityAndAcceptAnyTlsHostCertificate] -HostName <String>
  [-PortNumber <Int32>] [-Protocol <Protocol>] [-SecurePrivateKeyPassphrase <SecureString>]
- [-SshHostKeyFingerprint <String[]>] [-SshPrivateKeyPath <String>] [-TlsClientCertificatePath <String>]
- [-TlsHostCertificateFingerprint <String>] [-Timeout <TimeSpan>] [-WebdavSecure] [-RootPath <String>]
- [-RawSetting <Hashtable>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-SshHostKeyFingerprint <String[]>] [-SshHostKeyPolicy <String>] [-SshPrivateKeyPath <String>]
+ [-TlsClientCertificatePath <String>] [-TlsHostCertificateFingerprint <String>] [-Timeout <TimeSpan>]
+ [-WebdavSecure] [-RootPath <String>] [-RawSetting <Hashtable>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -375,6 +375,21 @@ Accept wildcard characters: False
 
 ### -RootPath
 WebDAV root path or S3 bucket path. Set, when the HTTP server root or S3 bucket list is not accessible.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SshHostKeyPolicy
+SSH host key policy. Use the default SshHostKeyPolicy.Check to verify the host key against SshHostKeyFingerprint. Use SshHostKeyPolicy.GiveUpSecurityAndAcceptAny to give up a security and accept any SSH host key. To be used in exceptional situations only, when security is not required. When set, log files will include warning about insecure connection. Use SshHostKeyPolicy.AcceptNew to automatically accept host key of new hosts. The known keys are cached in registry.
 
 ```yaml
 Type: String
