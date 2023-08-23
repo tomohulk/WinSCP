@@ -3,7 +3,7 @@
 
 ## Use at your own risk.
 
-This module can be installed from the [PowerShellGet Gallery](https://www.powershellgallery.com/packages/WinSCP/),  You need [WMF 5](https://www.microsoft.com/en-us/download/details.aspx?id=44987) to use this feature.
+This module can be installed from the [PowerShellGet Gallery](https://www.powershellgallery.com/packages/WinSCP/),  You need [WMF 5](https://aka.ms/wmf5download) to use this feature.
 ```PowerShell
 # Inspect
 Save-Module -Name WinSCP -Path <Path>
