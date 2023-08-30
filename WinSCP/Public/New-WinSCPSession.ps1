@@ -58,7 +58,10 @@
             }
         })]
         [String]
-        $SessionLogPath = $null
+        $SessionLogPath = $null,
+
+        [String]
+        $XmlLogPath = $null
     )
 
     begin {
@@ -102,6 +105,10 @@
                     $_
                 )
             }
+        }
+
+        if($XmlLogPath -ne $null){
+            $session.XmlLogPath = $XmlLogPath
         }
 
         try {
