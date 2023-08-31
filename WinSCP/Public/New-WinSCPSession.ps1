@@ -61,7 +61,10 @@
         $SessionLogPath = $null,
 
         [String]
-        $XmlLogPath = $null
+        $XmlLogPath = $null,
+
+        [Boolean]
+        $XmlLogPreserve = $false
     )
 
     begin {
