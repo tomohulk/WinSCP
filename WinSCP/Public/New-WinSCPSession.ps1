@@ -107,10 +107,6 @@
             }
         }
 
-        if($XmlLogPath -ne $null){
-            $session.XmlLogPath = $XmlLogPath
-        }
-
         try {
             # Open the WinSCP.Session object using the WinSCP.SessionOptions object.
             $session.Open(
