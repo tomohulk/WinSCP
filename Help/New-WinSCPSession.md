@@ -15,7 +15,8 @@ This is the main interface class of the WinSCP assembly.
 ```
 New-WinSCPSession -SessionOption <SessionOptions> [-AdditionalExecutableArguments <String>]
  [-DebugLogLevel <Int32>] [-DebugLogPath <String>] [-ExecutableProcessCredential <PSCredential>]
- [-ReconnectTime <TimeSpan>] [-SessionLogPath <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-ReconnectTime <TimeSpan>] [-SessionLogPath <String>] [-XmlLogPath <String>] [-XmlLogPreserve <Boolean>]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -185,6 +186,38 @@ The cmdlet is not run.
 Type: SwitchParameter
 Parameter Sets: (All)
 Aliases: wi
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -XmlLogPath
+Path to store Xml log file to.
+Default null means, no session log file is created.
+See also DebugLogPath.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -XmlLogPreserve
+Setting this to True prevents the Xml log from being deleted after the session is disposed.
+
+```yaml
+Type: Boolean
+Parameter Sets: (All)
+Aliases:
 
 Required: False
 Position: Named

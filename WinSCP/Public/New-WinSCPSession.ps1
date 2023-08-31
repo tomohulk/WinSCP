@@ -71,7 +71,8 @@
         [String]
         $XmlLogPath = $null,
 
-        [Boolean]
+        [Parameter()]
+        [Bool]
         $XmlLogPreserve = $false
     )
 
