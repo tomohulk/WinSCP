@@ -58,7 +58,21 @@
             }
         })]
         [String]
-        $SessionLogPath = $null
+        $SessionLogPath = $null,
+
+        [Parameter()]
+        [ValidateScript({
+            if (Test-Path -Path (Split-Path -Path $_ -Parent)) {
+                return $true
+            } else {
+                throw "Path not found $(Split-Path -Path $_ -Parent)."
+            }
+        })]
+        [String]
+        $XmlLogPath = $null,
+
+        [Boolean]
+        $XmlLogPreserve = $false
     )
 
     begin {
