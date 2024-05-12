@@ -14,7 +14,7 @@ Recursively enumerates remote files.
 
 ```
 Get-WinSCPChildItem -WinSCPSession <Session> [[-Path] <String[]>] [-Filter <String>] [-Recurse]
- [-Depth <Int32>] [-Name] [-Directory] [-File] [<CommonParameters>]
+ [-Depth <Int32>] [-Name] [-Directory] [-File] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -182,6 +182,21 @@ Required: True
 Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

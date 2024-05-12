@@ -13,7 +13,8 @@ Scans a fingerprint of SSH server public key (host key) or FTPS/WebDAVS TLS cert
 ## SYNTAX
 
 ```
-Get-WinSCPHostKeyFingerprint -SessionOption <SessionOptions[]> -Algorithm <String> [<CommonParameters>]
+Get-WinSCPHostKeyFingerprint -SessionOption <SessionOptions[]> -Algorithm <String>
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -91,6 +92,21 @@ Required: True
 Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

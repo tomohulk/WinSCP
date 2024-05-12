@@ -13,7 +13,7 @@ Converts special characters in file path to make it unambiguous file mask/wildca
 ## SYNTAX
 
 ```
-ConvertTo-WinSCPEscapedString -FileMask <String[]> [<CommonParameters>]
+ConvertTo-WinSCPEscapedString -FileMask <String[]> [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -66,6 +66,21 @@ Required: True
 Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

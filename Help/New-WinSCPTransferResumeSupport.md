@@ -13,8 +13,8 @@ Configures automatic resume/transfer to temporary filename.
 ## SYNTAX
 
 ```
-New-WinSCPTransferResumeSupport [-State <TransferResumeSupportState>] [-Threshold <Int32>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+New-WinSCPTransferResumeSupport [-State <TransferResumeSupportState>] [-Threshold <Int32>]
+ [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -92,6 +92,21 @@ Aliases: wi
 Required: False
 Position: Named
 Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

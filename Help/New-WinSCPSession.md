@@ -14,9 +14,10 @@ This is the main interface class of the WinSCP assembly.
 
 ```
 New-WinSCPSession -SessionOption <SessionOptions> [-AdditionalExecutableArguments <String>]
- [-DebugLogLevel <Int32>] [-DebugLogPath <String>] [-ExecutableProcessCredential <PSCredential>]
- [-ReconnectTime <TimeSpan>] [-SessionLogPath <String>] [-XmlLogPath <String>] [-XmlLogPreserve <Boolean>]
- [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-DebugLogLevel <Int32>] [-DebugLogPath <String>] [-DisableVersionCheck <Boolean>] [-ExecutablePath <String>]
+ [-ExecutableProcessCredential <PSCredential>] [-ReconnectTime <TimeSpan>] [-SessionLogPath <String>]
+ [-XmlLogPath <String>] [-XmlLogPreserve <Boolean>] [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -109,6 +110,36 @@ Aliases:
 Required: False
 Position: Named
 Default value: Null
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DisableVersionCheck
+Disables test that WinSCP executables have the same product version as this assembly.
+
+```yaml
+Type: Boolean
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ExecutablePath
+Path to winscp.exe.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -222,6 +253,21 @@ Aliases:
 Required: False
 Position: Named
 Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

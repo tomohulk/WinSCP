@@ -42,6 +42,21 @@
         $DebugLogPath,
 
         [Parameter()]
+        [Bool]
+        $DisableVersionCheck = $false,
+
+        [Parameter()]
+        [ValidateScript({
+            if (Test-Path -Path $_) {
+                return $true
+            } else {
+                throw "Path not found $_."
+            }
+        })]
+        [String]
+        $ExecutablePath = "$PSScriptRoot\..\bin\winscp.exe",
+
+        [Parameter()]
         [PSCredential]
         $ExecutableProcessCredential,
 
@@ -78,9 +93,7 @@
 
     begin {
         # Create WinSCP.Session and WinSCP.SessionOptions Objects, parameter values will be assigned to matching object properties.
-        $session = New-Object -TypeName WinSCP.Session -Property @{
-            ExecutablePath = "$PSScriptRoot\..\bin\winscp.exe"
-        }
+        $session = New-Object -TypeName WinSCP.Session 
     }
 
     process {

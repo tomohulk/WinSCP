@@ -13,7 +13,8 @@ Executes command on the remote server.
 ## SYNTAX
 
 ```
-Invoke-WinSCPCommand -WinSCPSession <Session> -Command <String[]> [<CommonParameters>]
+Invoke-WinSCPCommand -WinSCPSession <Session> -Command <String[]> [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -62,6 +63,21 @@ Required: True
 Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

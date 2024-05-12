@@ -13,7 +13,8 @@ Moves remote file to another remote directory and/or renames remote file.
 ## SYNTAX
 
 ```
-Rename-WinSCPItem -WinSCPSession <Session> [-Path] <String> -NewName <String> [-PassThru] [<CommonParameters>]
+Rename-WinSCPItem -WinSCPSession <Session> [-Path] <String> -NewName <String> [-PassThru]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -107,6 +108,21 @@ Required: True
 Position: Named
 Default value: None
 Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

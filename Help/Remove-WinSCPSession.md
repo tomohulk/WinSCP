@@ -14,12 +14,13 @@ Closes and disposes the WinSCP.Session object.
 
 ### SingleSession (Default)
 ```
-Remove-WinSCPSession -WinSCPSession <Session> [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-WinSCPSession -WinSCPSession <Session> [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ### AllSessions
 ```
-Remove-WinSCPSession [-ForceAll] [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-WinSCPSession [-ForceAll] [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -87,6 +88,21 @@ This can be used to attempt to forcefully terminate all WinSCP.exe processes.
 Type: SwitchParameter
 Parameter Sets: AllSessions
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named

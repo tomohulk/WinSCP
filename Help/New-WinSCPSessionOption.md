@@ -18,7 +18,8 @@ New-WinSCPSessionOption [-Credential <PSCredential>] [-FtpMode <FtpMode>] [-FtpS
  [-PortNumber <Int32>] [-Protocol <Protocol>] [-SecurePrivateKeyPassphrase <SecureString>]
  [-SshHostKeyFingerprint <String[]>] [-SshHostKeyPolicy <String>] [-SshPrivateKeyPath <String>]
  [-TlsClientCertificatePath <String>] [-TlsHostCertificateFingerprint <String>] [-Timeout <TimeSpan>]
- [-WebdavSecure] [-RootPath <String>] [-RawSetting <Hashtable>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-WebdavSecure] [-RootPath <String>] [-RawSetting <Hashtable>] [-ProgressAction <ActionPreference>] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -395,6 +396,21 @@ SSH host key policy. Use the default SshHostKeyPolicy.Check to verify the host k
 Type: String
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named

@@ -15,7 +15,7 @@ Represents *nix-style remote file permissions.
 ```
 New-WinSCPItemPermission [-GroupExecute] [-GroupRead] [-GroupWrite] [-Numeric <Int32>] [-Octal <String>]
  [-OtherExecute] [-OtherRead] [-OtherWrite] [-SetGid] [-SetUid] [-Sticky] [-Text <String>] [-UserExecute]
- [-UserRead] [-UserWrite] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-UserRead] [-UserWrite] [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -323,6 +323,21 @@ Aliases: wi
 Required: False
 Position: Named
 Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

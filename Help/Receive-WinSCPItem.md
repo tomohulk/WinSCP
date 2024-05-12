@@ -14,7 +14,7 @@ Downloads one or more files from remote directory to local directory.
 
 ```
 Receive-WinSCPItem -WinSCPSession <Session> [-RemotePath] <String[]> [[-LocalPath] <String>] [-Remove]
- [-TransferOptions <TransferOptions>] [<CommonParameters>]
+ [-TransferOptions <TransferOptions>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -133,6 +133,21 @@ Required: True
 Position: Named
 Default value: None
 Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{ Fill ProgressAction Description }}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
