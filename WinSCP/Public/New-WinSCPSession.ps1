@@ -62,7 +62,7 @@
 
         [Parameter()]
         [TimeSpan]
-        $ReconnectTime = 120,
+        $ReconnectTime = (New-TimeSpan -Seconds 120),
 
         [Parameter()]
         [ValidateScript({
@@ -115,23 +115,18 @@
 
             try {
                 # Enumerate each parameter.
-                $enum = [System.Management.Automation.CommandMetadata]::new($MyInvocation.MyCommand).Parameters.GetEnumerator()
-                foreach ($parameter in $enum) {
+                foreach ($parameter in ([System.Management.Automation.CommandMetadata]::new($MyInvocation.MyCommand).Parameters.GetEnumerator())) {
                     if ($PSBoundParameters.ContainsKey($parameter.Key)) {
                         continue
+                    } else {
+                        $PSBoundParameters[$parameter.Key] = $PSCmdlet.GetVariableValue($parameter.Key)
                     }
-
-                    if (-not $parameter.Value.ParameterSets.ContainsKey($PSCmdlet.ParameterSetName)) {
-                        continue
-                    }
-
-                    $PSBoundParameters[$parameter.Key] = $PSCmdlet.GetVariableValue($parameter.Key)
                 }
 
-                $sessionObjectProperties = $session | Get-Member -MemberType Property | Select-Object -ExpandProperty Name
                 $keys = ($PSBoundParameters.Keys).Where({
-                    $_ -in $sessionObjectProperties
+                    $_ -in ($session | Get-Member -MemberType Property | Select-Object -ExpandProperty Name)
                 })
+                
                 foreach ($key in $keys) {
                     $session.$key = $PSBoundParameters.$key
                 }
