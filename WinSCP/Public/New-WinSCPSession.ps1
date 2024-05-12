@@ -115,16 +115,7 @@
 
             try {
                 # Enumerate each parameter.
-                $sessionObjectProperties = $session |
-                    Get-Member -MemberType Property |
-                        Select-Object -ExpandProperty Name
-                $keys = ($PSBoundParameters.Keys).Where({
-                    $_ -in $sessionObjectProperties
-                })
-
-                $enum = [System.Management.Automation.CommandMetadata]::new($MyInvocation.MyCommand).
-                Parameters.GetEnumerator()
-        
+                $enum = [System.Management.Automation.CommandMetadata]::new($MyInvocation.MyCommand).Parameters.GetEnumerator()
                 foreach ($parameter in $enum) {
                     if ($PSBoundParameters.ContainsKey($parameter.Key)) {
                         continue
@@ -137,6 +128,10 @@
                     $PSBoundParameters[$parameter.Key] = $PSCmdlet.GetVariableValue($parameter.Key)
                 }
 
+                $sessionObjectProperties = $session | Get-Member -MemberType Property | Select-Object -ExpandProperty Name
+                $keys = ($PSBoundParameters.Keys).Where({
+                    $_ -in $sessionObjectProperties
+                })
                 foreach ($key in $keys) {
                     $session.$key = $PSBoundParameters.$key
                 }
