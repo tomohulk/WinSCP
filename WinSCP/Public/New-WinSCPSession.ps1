@@ -93,7 +93,7 @@
 
     begin {
         # Create WinSCP.Session and WinSCP.SessionOptions Objects, parameter values will be assigned to matching object properties.
-        $session = New-Object -TypeName WinSCP.Session -Property
+        $session = New-Object -TypeName WinSCP.Session
     }
 
     process {
