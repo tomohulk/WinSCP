@@ -54,7 +54,7 @@
             }
         })]
         [String]
-        $ExecutablePath = (Join-Path -Path (Get-Module -Name WinSCP).ModuleBase -ChildPath "\bin\WinSCP.exe"),
+        $ExecutablePath = "$PSScriptRoot\..\bin\winscp.exe",
 
         [Parameter()]
         [PSCredential]
@@ -93,7 +93,7 @@
 
     begin {
         # Create WinSCP.Session and WinSCP.SessionOptions Objects, parameter values will be assigned to matching object properties.
-        $session = New-Object -TypeName WinSCP.Session 
+        $session = New-Object -TypeName WinSCP.Session -Property
     }
 
     process {
@@ -121,6 +121,21 @@
                 $keys = ($PSBoundParameters.Keys).Where({
                     $_ -in $sessionObjectProperties
                 })
+
+                $enum = [System.Management.Automation.CommandMetadata]::new($MyInvocation.MyCommand).
+                Parameters.GetEnumerator()
+        
+                foreach ($parameter in $enum) {
+                    if ($PSBoundParameters.ContainsKey($parameter.Key)) {
+                        continue
+                    }
+
+                    if (-not $parameter.Value.ParameterSets.ContainsKey($PSCmdlet.ParameterSetName)) {
+                        continue
+                    }
+
+                    $PSBoundParameters[$parameter.Key] = $PSCmdlet.GetVariableValue($parameter.Key)
+                }
 
                 foreach ($key in $keys) {
                     $session.$key = $PSBoundParameters.$key
