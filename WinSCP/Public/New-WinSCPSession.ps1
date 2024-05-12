@@ -62,7 +62,7 @@
 
         [Parameter()]
         [TimeSpan]
-        $ReconnectTime = [TimeSpan]1200000000,
+        $ReconnectTime = 120,
 
         [Parameter()]
         [ValidateScript({
