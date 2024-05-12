@@ -54,7 +54,7 @@
             }
         })]
         [String]
-        $ExecutablePath = "$PSScriptRoot\..\bin\winscp.exe",
+        $ExecutablePath = (Join-Path -Path (Get-Module -Name WinSCP).ModuleBase -ChildPath "\bin\WinSCP.exe"),
 
         [Parameter()]
         [PSCredential]
