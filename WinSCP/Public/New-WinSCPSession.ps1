@@ -116,10 +116,8 @@
             try {
                 # Enumerate each parameter.
                 foreach ($parameter in ([System.Management.Automation.CommandMetadata]::new($MyInvocation.MyCommand).Parameters.GetEnumerator())) {
-                    if ($PSBoundParameters.ContainsKey($parameter.Key)) {
-                        continue
-                    } else {
-                        if ($value = $PSCmdlet.GetVariableValue($parameter.Key)) {
+                    if (-not ($PSBoundParameters.ContainsKey($parameter.Key))) {
+                        if ($value = $ExecutionContext.SessionState.PSVariable.GetValue($parameter.Key)) {
                             $PSBoundParameters[$parameter.Key] = $value
                         }
                     }
