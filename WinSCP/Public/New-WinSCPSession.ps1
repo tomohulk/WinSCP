@@ -119,14 +119,16 @@
                     if ($PSBoundParameters.ContainsKey($parameter.Key)) {
                         continue
                     } else {
-                        $PSBoundParameters[$parameter.Key] = $PSCmdlet.GetVariableValue($parameter.Key)
+                        if ($value = $PSCmdlet.GetVariableValue($parameter.Key)) {
+                            $PSBoundParameters[$parameter.Key] = $value
+                        }
                     }
                 }
 
                 $keys = ($PSBoundParameters.Keys).Where({
-                    $_ -in ($session | Get-Member -MemberType Property | Select-Object -ExpandProperty Name)
+                    $_ -in (($session | Get-Member -MemberType Property).Name)
                 })
-                
+
                 foreach ($key in $keys) {
                     $session.$key = $PSBoundParameters.$key
                 }
