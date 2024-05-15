@@ -120,12 +120,12 @@ function New-WinSCPSessionOption {
     )
 
     begin {
-        $sessionOptions = New-Object -TypeName WinSCP.SessionOptions
+        $sessionOption = New-Object -TypeName WinSCP.SessionOptions
     }
 
     process {
         $shouldProcess = $PSCmdlet.ShouldProcess(
-            $sessionOptions
+            $sessionOption
         )
         if ($shouldProcess) {
             # Convert PSCredential Object to match names of the WinSCP.SessionOptions Object.
@@ -154,17 +154,22 @@ function New-WinSCPSessionOption {
                     Select-Object -ExpandProperty ProviderPath
             }
 
-            # Enumerate each parameter.
             try {
-                $sessionOptionObjectProperties = $sessionOptions |
-                    Get-Member -MemberType Property |
-                        Select-Object -ExpandProperty Name
+                # Enumerate each parameter.
+                foreach ($parameter in ([System.Management.Automation.CommandMetadata]::new($MyInvocation.MyCommand).Parameters.GetEnumerator())) {
+                    if (-not ($PSBoundParameters.ContainsKey($parameter.Key))) {
+                        if ($value = $ExecutionContext.SessionState.PSVariable.GetValue($parameter.Key)) {
+                            $PSBoundParameters[$parameter.Key] = $value
+                        }
+                    }
+                }
+
                 $keys = ($PSBoundParameters.Keys).Where({
-                    $_ -in $sessionOptionObjectProperties
+                    $_ -in ($sessionOption | Get-Member -MemberType Property | Select-Object -ExpandProperty Name)
                 })
 
                 foreach ($key in $keys) {
-                    $sessionOptions.$key = $PSBoundParameters.$key
+                    $sessionOption.$key = $PSBoundParameters.$key
                 }
             } catch {
                 $PSCmdlet.ThrowTerminatingError(
@@ -179,7 +184,7 @@ function New-WinSCPSessionOption {
                 )
             }
 
-            Write-Output -InputObject $sessionOptions
+            Write-Output -InputObject $sessionOption
         }
     }
 }

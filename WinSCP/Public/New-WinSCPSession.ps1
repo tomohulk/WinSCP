@@ -124,7 +124,7 @@
                 }
 
                 $keys = ($PSBoundParameters.Keys).Where({
-                    $_ -in (($session | Get-Member -MemberType Property).Name)
+                    $_ -in ($session | Get-Member -MemberType Property | Select-Object -ExpandProperty Name)
                 })
 
                 foreach ($key in $keys) {
