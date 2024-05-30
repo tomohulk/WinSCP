@@ -27,12 +27,8 @@ function New-WinSCPSessionOption {
         $FtpSecure = (New-Object -TypeName WinSCP.FtpSecure),
 
         [Parameter()]
-        [Switch]
-        $GiveUpSecurityAndAcceptAnySshHostKey,
-
-        [Parameter()]
-        [Switch]
-        $GiveUpSecurityAndAcceptAnyTlsHostCertificate,
+        [Bool]
+        $GiveUpSecurityAndAcceptAnyTlsHostCertificate = $false,
 
         [Parameter(
             Mandatory = $true
@@ -49,7 +45,7 @@ function New-WinSCPSessionOption {
 
         [Parameter()]
         [WinSCP.Protocol]
-        $Protocol = ( New-Object -TypeName WinSCP.Protocol ),
+        $Protocol = (New-Object -TypeName WinSCP.Protocol),
 
         [Parameter()]
         [SecureString]
@@ -62,11 +58,8 @@ function New-WinSCPSessionOption {
         $SshHostKeyFingerprint,
 
         [Parameter()]
-        [ValidateSet(
-            "Check", "AcceptNew"
-        )]
-        [String]
-        $SshHostKeyPolicy = "Check",
+        [WinSCP.SshHostKeyPolicy]
+        $SshHostKeyPolicy = (New-Object -TypeName WinSCP.SshHostKeyPolicy),
 
         [Parameter()]
         [ValidateScript({

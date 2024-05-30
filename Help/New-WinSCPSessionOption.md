@@ -14,12 +14,11 @@ Defines information to allow an automatic connection and authentication of the s
 
 ```
 New-WinSCPSessionOption [-Credential <PSCredential>] [-FtpMode <FtpMode>] [-FtpSecure <FtpSecure>]
- [-GiveUpSecurityAndAcceptAnySshHostKey] [-GiveUpSecurityAndAcceptAnyTlsHostCertificate] -HostName <String>
- [-PortNumber <Int32>] [-Protocol <Protocol>] [-SecurePrivateKeyPassphrase <SecureString>]
- [-SshHostKeyFingerprint <String[]>] [-SshHostKeyPolicy <String>] [-SshPrivateKeyPath <String>]
- [-TlsClientCertificatePath <String>] [-TlsHostCertificateFingerprint <String>] [-Timeout <TimeSpan>]
- [-WebdavSecure] [-RootPath <String>] [-RawSetting <Hashtable>] [-ProgressAction <ActionPreference>] [-WhatIf]
- [-Confirm] [<CommonParameters>]
+ [-GiveUpSecurityAndAcceptAnyTlsHostCertificate <Boolean>] -HostName <String> [-PortNumber <Int32>]
+ [-Protocol <Protocol>] [-SecurePrivateKeyPassphrase <SecureString>] [-SshHostKeyFingerprint <String[]>]
+ [-SshHostKeyPolicy <SshHostKeyPolicy>] [-SshPrivateKeyPath <String>] [-TlsClientCertificatePath <String>]
+ [-TlsHostCertificateFingerprint <String>] [-Timeout <TimeSpan>] [-WebdavSecure] [-RootPath <String>]
+ [-RawSetting <Hashtable>] [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -150,24 +149,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -GiveUpSecurityAndAcceptAnySshHostKey
-Give up security and accept any SSH host key.
-To be used in exceptional situations only, when security is not required.
-When set, log files will include warning about insecure connection.
-To maintain security, use SshHostKeyFingerprint.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: False
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -GiveUpSecurityAndAcceptAnyTlsHostCertificate
 Give up security and accept any FTPS/WebDAVS server TLS/SSL certificate.
 To be used in exceptional situations only, when security is not required.
@@ -175,7 +156,7 @@ When set, log files will include warning about insecure connection.
 To maintain security, use TlsHostCertificateFingerprint.
 
 ```yaml
-Type: SwitchParameter
+Type: Boolean
 Parameter Sets: (All)
 Aliases:
 
@@ -393,7 +374,7 @@ Accept wildcard characters: False
 SSH host key policy. Use the default SshHostKeyPolicy.Check to verify the host key against SshHostKeyFingerprint. Use SshHostKeyPolicy.GiveUpSecurityAndAcceptAny to give up a security and accept any SSH host key. To be used in exceptional situations only, when security is not required. When set, log files will include warning about insecure connection. Use SshHostKeyPolicy.AcceptNew to automatically accept host key of new hosts. The known keys are cached in registry.
 
 ```yaml
-Type: String
+Type: SshHostKeyPolicy
 Parameter Sets: (All)
 Aliases:
 

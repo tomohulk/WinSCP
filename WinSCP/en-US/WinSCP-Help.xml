@@ -3117,23 +3117,13 @@ True        00:01:00 ftp.tomohulk.github.io</dev:code>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>GiveUpSecurityAndAcceptAnySshHostKey</maml:name>
-          <maml:description>
-            <maml:para>Give up security and accept any SSH host key. To be used in exceptional situations only, when security is not required. When set, log files will include warning about insecure connection. To maintain security, use SshHostKeyFingerprint.</maml:para>
-          </maml:description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>GiveUpSecurityAndAcceptAnyTlsHostCertificate</maml:name>
           <maml:description>
             <maml:para>Give up security and accept any FTPS/WebDAVS server TLS/SSL certificate. To be used in exceptional situations only, when security is not required. When set, log files will include warning about insecure connection. To maintain security, use TlsHostCertificateFingerprint.</maml:para>
           </maml:description>
+          <command:parameterValue required="true" variableLength="false">Boolean</command:parameterValue>
           <dev:type>
-            <maml:name>SwitchParameter</maml:name>
+            <maml:name>Boolean</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
@@ -3304,9 +3294,9 @@ True        00:01:00 ftp.tomohulk.github.io</dev:code>
           <maml:description>
             <maml:para>SSH host key policy. Use the default SshHostKeyPolicy.Check to verify the host key against SshHostKeyFingerprint. Use SshHostKeyPolicy.GiveUpSecurityAndAcceptAny to give up a security and accept any SSH host key. To be used in exceptional situations only, when security is not required. When set, log files will include warning about insecure connection. Use SshHostKeyPolicy.AcceptNew to automatically accept host key of new hosts. The known keys are cached in registry.</maml:para>
           </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">SshHostKeyPolicy</command:parameterValue>
           <dev:type>
-            <maml:name>String</maml:name>
+            <maml:name>SshHostKeyPolicy</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -3375,25 +3365,13 @@ True        00:01:00 ftp.tomohulk.github.io</dev:code>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>GiveUpSecurityAndAcceptAnySshHostKey</maml:name>
-        <maml:description>
-          <maml:para>Give up security and accept any SSH host key. To be used in exceptional situations only, when security is not required. When set, log files will include warning about insecure connection. To maintain security, use SshHostKeyFingerprint.</maml:para>
-        </maml:description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-        <dev:type>
-          <maml:name>SwitchParameter</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>False</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>GiveUpSecurityAndAcceptAnyTlsHostCertificate</maml:name>
         <maml:description>
           <maml:para>Give up security and accept any FTPS/WebDAVS server TLS/SSL certificate. To be used in exceptional situations only, when security is not required. When set, log files will include warning about insecure connection. To maintain security, use TlsHostCertificateFingerprint.</maml:para>
         </maml:description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <command:parameterValue required="true" variableLength="false">Boolean</command:parameterValue>
         <dev:type>
-          <maml:name>SwitchParameter</maml:name>
+          <maml:name>Boolean</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
@@ -3559,9 +3537,9 @@ True        00:01:00 ftp.tomohulk.github.io</dev:code>
         <maml:description>
           <maml:para>SSH host key policy. Use the default SshHostKeyPolicy.Check to verify the host key against SshHostKeyFingerprint. Use SshHostKeyPolicy.GiveUpSecurityAndAcceptAny to give up a security and accept any SSH host key. To be used in exceptional situations only, when security is not required. When set, log files will include warning about insecure connection. Use SshHostKeyPolicy.AcceptNew to automatically accept host key of new hosts. The known keys are cached in registry.</maml:para>
         </maml:description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <command:parameterValue required="true" variableLength="false">SshHostKeyPolicy</command:parameterValue>
         <dev:type>
-          <maml:name>String</maml:name>
+          <maml:name>SshHostKeyPolicy</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
