@@ -25,7 +25,7 @@
 
         [Parameter()]
         [ValidateRange(
-            0,2
+            -1,2
         )]
         [Int]
         $DebugLogLevel = 0,
@@ -92,7 +92,7 @@
     )
 
     begin {
-        # Create WinSCP.Session and WinSCP.SessionOptions Objects, parameter values will be assigned to matching object properties.
+        # Create WinSCP.Session, parameter values will be assigned to matching object properties.
         $session = New-Object -TypeName WinSCP.Session
     }
 
