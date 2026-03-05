@@ -172,7 +172,7 @@ function New-WinSCPSessionOption {
 
             # Enumerate raw settings and add the options to the WinSCP.SessionOptions object.
             foreach ($key in $RawSetting.Keys) {
-                $sessionOptions.AddRawSettings(
+                $sessionOption.AddRawSettings(
                     $key, $RawSetting[$key]
                 )
             }
